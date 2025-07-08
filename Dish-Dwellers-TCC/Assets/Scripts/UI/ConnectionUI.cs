@@ -1,3 +1,4 @@
+using EpicTransport;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
@@ -14,6 +15,7 @@ public class ConnectionUI : MonoBehaviour {
 
     public Transform canvasDaConexao;
     public EventSystem eventSystem;
+    public GameObject eossdkPrefab;
 
 
     [Header("Configuração de Conexão")]
@@ -57,6 +59,7 @@ public class ConnectionUI : MonoBehaviour {
                 prefab = epicPrefab;
                 conectorDeTransport = GetComponent<ConectarComEpic>();
                 SelecionarBotao(epicButton);
+                BetterEOSLobby.InstantiateSDK(eossdkPrefab);
                 break;
         }
 

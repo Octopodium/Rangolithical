@@ -1,33 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject[] coracoesEsquerda;
     [SerializeField] GameObject[] coracoesDireita;
 
-    public GameObject telaPause;
     private Image img;
 
-    [Header("Event System")]
-    public EventSystem eventSystem;
-    public GameObject primeiroSelecionadoPause;
+    public PauseUI pauseUI;
+
 
     void Awake() {
         Player.OnVidaMudada += HandleDisplayVida;
-        GameManager.OnPause += HandlePausa;
-
-        if (eventSystem == null) {
-            eventSystem = FindFirstObjectByType<EventSystem>();
-        }
+        
         //TiraMouse();
+    }
+
+    void Start() {
+        if (pauseUI != null) {
+            pauseUI.Inicializar();
+        }
     }
 
     private void OnDestroy(){
         Player.OnVidaMudada -= HandleDisplayVida;
-        GameManager.OnPause -= HandlePausa;
     }
 
     /// <summary>
@@ -54,17 +52,6 @@ public class UIManager : MonoBehaviour
     public void TiraMouse(){
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void HandlePausa(bool estado){
-        if (estado) eventSystem.SetSelectedGameObject(primeiroSelecionadoPause);
-        telaPause.SetActive(estado);
-    }
-
-    public void DespauseNoResume(){ 
-        if(GameManager.instance != null){
-            GameManager.instance.Despausar();
-        }
     }
 
     public void VoltarParaMenu() {

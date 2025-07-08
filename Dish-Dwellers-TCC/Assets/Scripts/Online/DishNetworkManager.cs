@@ -13,11 +13,20 @@ public class DishNetworkManager : NetworkManager {
 
     public enum Personagem { Indefinido, Heater, Angler }
 
+    BetterEOSLobby betterEOSLobby;
+
 
     public override void Awake() {
         base.Awake();
 
         NetworkServer.RegisterHandler<RequestPassaDeSalaMessage>(OnRequestedPassaDeSala);
+    }
+
+    public override void Start() {
+        base.Start();
+
+        betterEOSLobby = FindAnyObjectByType<BetterEOSLobby>();
+        betterEOSLobby.transform.SetParent(transform);
     }
 
     // Chamado quando um player se conecta ao servidor
@@ -79,7 +88,14 @@ public class DishNetworkManager : NetworkManager {
             if (players.Length > 1 && players[1] != null) players[1].conectado = false;
         }
 
+        SairDoLobby();
+
         base.OnServerDisconnect(conn);
+    }
+
+    public void SairDoLobby() {
+        if (betterEOSLobby != null)
+            betterEOSLobby.SairDoLobby();
     }
 
     #region No Lobby

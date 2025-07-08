@@ -58,7 +58,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eOSLobby: {fileID: 7312482224059992603}
-  eossdkComponent: {fileID: 4626225369721695544}
+  eossdkComponent: {fileID: 0}
+  eossdkPrefab: {fileID: 1083875178805214459, guid: 1d80842647711c94c9e4e342d68cf525, type: 3}
 --- !u!1 &9117796602290980629
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +71,6 @@ GameObject:
   - component: {fileID: 4825255838948459074}
   - component: {fileID: 9190646578245121365}
   - component: {fileID: 2050117449721351723}
-  - component: {fileID: 4626225369721695544}
   m_Layer: 0
   m_Name: NetworkManagerEpic
   m_TagString: Untagged
@@ -163,29 +163,3 @@ MonoBehaviour:
   maxFragments: 55
   ignoreCachedMessagesAtStartUpInSeconds: 2
   relayControl: 1
---- !u!114 &4626225369721695544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9117796602290980629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c2b9adb023e6547aa45a0e8bf5fcfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apiKeys: {fileID: 11400000, guid: 0efd4c3687a94a24f9fb68867853fae4, type: 2}
-  authInterfaceLogin: 0
-  authInterfaceCredentialType: 6
-  devAuthToolPort: 7878
-  devAuthToolCredentialName: 
-  connectInterfaceCredentialType: 10
-  deviceModel: PC Windows 64bit
-  displayName: User
-  epicLoggerLevel: 200
-  collectPlayerMetrics: 0
-  checkForEpicLauncherAndRestart: 0
-  delayedInitialization: 0
-  platformTickIntervalInSeconds: 0
-  tickBudgetInMilliseconds: 0

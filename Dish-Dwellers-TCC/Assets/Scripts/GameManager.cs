@@ -129,28 +129,29 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Pause() {
-        if (Time.timeScale == 1) {
-            OnPause?.Invoke(true);
-            Time.timeScale = 0;
-        } else {
-            OnPause?.Invoke(false);
-            Time.timeScale = 1;
-        }
+        bool estaPausado = (isOnline && pausado) || Time.timeScale == 0;
+        Pause(!estaPausado);
     }
 
     public void Despausar() {
         Pause(false);
     }
 
+    bool pausado = false;
     public void Pause(bool pausar) {
         if (pausar) {
             OnPause?.Invoke(true);
-            Time.timeScale = 0;
+            pausado = true;
         } else {
             OnPause?.Invoke(false);
-            Time.timeScale = 1;
+            pausado = false;
         }
+
+        if (!isOnline) Time.timeScale = pausar ? 0 : 1;
     }
+
+    public bool isPaused { get { return  Time.timeScale == 0 || (isOnline && pausado); } }
+
 
     #region Input
 
@@ -447,9 +448,10 @@ public class GameManager : MonoBehaviour {
     public void DesligarOOnline() {
         if (!isOnline) return;
 
-        NetworkManager networkManager = NetworkManager.singleton;
+        DishNetworkManager networkManager = NetworkManager.singleton as DishNetworkManager;
         if (networkManager != null) {
             try {
+                networkManager.SairDoLobby();
                 networkManager.StopClient();
                 networkManager.StopServer();
             } catch (Exception e) {

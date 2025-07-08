@@ -164,6 +164,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public void OnInputTriggered(InputAction.CallbackContext ctx, QualPlayer qualPlayer) {
         if (qualPlayer != this.qualPlayer) return;
         if (!ehJogadorAtual) return; // Se não é o jogador atual, não faz nada
+        if (GameManager.instance.isPaused) return; // Se o jogo está pausado, não faz nada
 
         switch (ctx.action.name) {
             case "Interact":
@@ -193,6 +194,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             ultimoInteragivel.MostarIndicador(false);
             ultimoInteragivel = null;
         }
+
+        Resetar();
 
         if (GameManager.instance != null && GameManager.instance.modoDeJogo == ModoDeJogo.SINGLEPLAYER && playerInput != null && playerInput.enabled) {
             GameManager.instance.TrocarControleSingleplayer();
@@ -265,6 +268,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         GameManager.instance.ResetSala();
         Debug.Log("morreu");
     }
+
+    /// <summary>
+    // Reseta o estado do jogador, não altera posição
+    /// </summary>
 
     public void Resetar() {
         playerVidas = 3;
@@ -453,6 +460,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (playerInput == null || !playerInput.enabled) return;
 
         Vector2 input = playerInput.currentActionMap["Move"].ReadValue<Vector2>();
+
+        if (GameManager.instance.isPaused) {
+            input = Vector2.zero;
+        }
+
         float x = input.x;
         float z = input.y;
 

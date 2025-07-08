@@ -50,6 +50,7 @@ public class Sincronizador : NetworkBehaviour {
     [Header("Debug")]
     public bool debugLogMetodos = false;
     public bool debugLogSincronizaveis = false;
+    public bool debugLogChamadas = false;
 
     private void Awake() {
         if (instance == null) {
@@ -290,6 +291,10 @@ public class Sincronizador : NetworkBehaviour {
         object[] valores = new object[v.Length];
         for (int i = 0; i < v.Length; i++) {
             valores[i] = v[i].valor;
+        }
+
+        if (debugLogChamadas) {
+            Debug.Log($"Chamando método [{nomeMetodo}] com os valores: {string.Join(", ", valores)}");
         }
 
         //currentTriggerOnCallback.Add(nomeMetodo);

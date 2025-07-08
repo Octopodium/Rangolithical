@@ -105,24 +105,25 @@ public class BetterEOSLobby : MonoBehaviour {
     public System.Action OnEntrouLobby, OnEntrarLobbyFalhou;
     public System.Action<string> OnLobbyCriado, OnLobbyEncontrado;
     public System.Action OnCriarLobbyFalhou, OnLobbyNaoEncontrado;
+    bool estaNoLobby = false;
 
-
-    void Awake() {
-        networkManager = NetworkManager.singleton;
-
-        if (eOSLobby == null) eOSLobby = GetComponent<EOSLobby>();
-        if (eossdkComponent == null) eossdkComponent = GetComponent<EOSSDKComponent>();
-
-        StartCoroutine(EsperandoDeviceID());
-    }
 
     void Start() {
+        networkManager = NetworkManager.singleton;
+
+        if (eossdkComponent == null) eossdkComponent = FindAnyObjectByType<EOSSDKComponent>();
+        if (eOSLobby == null) eOSLobby = GetComponent<EOSLobby>();
+
+        StartCoroutine(EsperandoDeviceID());
+
+
         // Quando um lobby é criado com sucesso, iniciar o host
         eOSLobby.CreateLobbySucceeded += (lobbyAttrs) => {
             Debug.Log("Lobby criado com sucesso: " + idLobby);
             estado = Estado.Nenhum;
             OnLobbyCriado?.Invoke(idLobby);
             networkManager.StartHost();
+            estaNoLobby = true;
         };
 
         // Na falha ao criar o lobby, exibir mensagem de erro
@@ -158,6 +159,7 @@ public class BetterEOSLobby : MonoBehaviour {
             OnEntrouLobby?.Invoke();
             networkManager.networkAddress = idHost;
             networkManager.StartClient();
+            estaNoLobby = true;
         };
 
         eOSLobby.JoinLobbyFailed += (error) => {
@@ -269,13 +271,51 @@ public class BetterEOSLobby : MonoBehaviour {
     }
 
     public virtual void DesconectarHost() {
-        networkManager.StopHost();
-        networkManager.StopClient();
-        networkManager.StopServer();
+        if (estaNoLobby) {
+            eOSLobby.LeaveLobby();
+            estaNoLobby = false;
+        }
+
+        try {
+            networkManager.StopHost();
+        } catch (System.Exception e) {
+            Debug.LogError("Erro ao parar o host: " + e.Message);
+        }
+
+        try {
+            networkManager.StopServer();
+        } catch (System.Exception e) {
+            Debug.LogError("Erro ao parar o servidor: " + e.Message);
+        }
+
+        try {
+            networkManager.StopClient();
+        } catch (System.Exception e) {
+            Debug.LogError("Erro ao parar o cliente: " + e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Sai do lobby mas não desconecta o cliente.
+    /// </summary>
+    public virtual void SairDoLobby() {
+        if (estaNoLobby) {
+            eOSLobby.LeaveLobby();
+            estaNoLobby = false;
+        }
     }
 
     public virtual void DesconectarCliente() {
-        networkManager.StopClient();
+        if (estaNoLobby) {
+            eOSLobby.LeaveLobby();
+            estaNoLobby = false;
+        }
+
+        try {
+            networkManager.StopClient();
+        } catch (System.Exception e) {
+            Debug.LogError("Erro ao parar o cliente: " + e.Message);
+        }
     }
 
 
@@ -364,4 +404,18 @@ public class BetterEOSLobby : MonoBehaviour {
     }
 
     #endregion
+
+
+    public static EOSSDKComponent InstantiateSDK(GameObject sdkPrefab) {
+        if (sdkPrefab == null) return null;
+
+        EOSSDKComponent eossdkComponent = FindAnyObjectByType<EOSSDKComponent>();
+        if (eossdkComponent == null) {
+            GameObject sdkInstance = Instantiate(sdkPrefab, Vector3.zero, Quaternion.identity);
+            sdkInstance.transform.SetParent(null, false); // Garante que o SDK não fique como filho de outro objeto
+            eossdkComponent = sdkInstance.GetComponent<EOSSDKComponent>();
+        }
+
+        return eossdkComponent;
+    }
 }
