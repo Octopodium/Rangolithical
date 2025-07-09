@@ -66,7 +66,15 @@ public class CameraController : MonoBehaviour {
     [SerializeField] private float displayDuracao = 2.0f;
 
 
-    private void Start() {
+    private void Start(){
+        if(GameManager.instance.carregando == true){
+            GameManager.instance.OnTerminaDeCarregarASala += FazerSetupInicial;
+            return;
+        }
+        FazerSetupInicial();
+    }
+
+    private void FazerSetupInicial() {
         DeterminaModoDeCamera();
         if (introCamera != null)
             FazerIntroducao();
@@ -107,11 +115,12 @@ public class CameraController : MonoBehaviour {
 
                 UsarCameraDividida();
                 break;
-
+                /*
                 UsarSegundaCam();
                 if (!introCamera)
                     cameras[0].rect = new Rect(-0.5f, 0.0f, 1, 1);
                 break;
+                */
 
             case ModoDeJogo.MULTIPLAYER_ONLINE:
                 TrocarCamera1();
@@ -125,6 +134,7 @@ public class CameraController : MonoBehaviour {
         ccameras[0].Follow = splitFollowTarget.transform;
     }
 
+    /*
     private void UsarSegundaCam() {
         cameras[1].gameObject.SetActive(true);
         ccameras[1].OutputChannel = OutputChannels.Channel02;
@@ -135,6 +145,7 @@ public class CameraController : MonoBehaviour {
 
         splitScreen = true;
     }
+    */
 
     private void LateUpdate() {
         if (modoDeJogoConfigurado == ModoDeJogo.MULTIPLAYER_LOCAL) {
