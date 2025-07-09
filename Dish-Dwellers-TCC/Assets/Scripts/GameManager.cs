@@ -323,6 +323,10 @@ public class GameManager : MonoBehaviour {
 
         // Determina a sala informada como a sala atual :
         this.sala = sala;
+
+        // Determina se deve salvar o progresso :
+        SalvarProgresso();
+        
         this.cenaAtualNome = SceneManager.GetActiveScene().name;
 
         if (!isOnline || isServer) AnalyticsManager.instance?.ComecarSala(cenaAtualNome);
@@ -338,6 +342,16 @@ public class GameManager : MonoBehaviour {
         }
         StartCoroutine(PreloadProximaSala(proximaSala));
 
+    }
+
+    private void SalvarProgresso(){
+        Progress progresso = ProgressManager.Instance.CarregarProgresso();
+        if(progresso.ultimoNivelCompletado > sala.nFase) return;
+        if(progresso.ultimoNivelCompletado == sala.nFase && progresso.ultimaSalaCompletada > sala.nSala) return;
+        
+        progresso.ultimoNivelCompletado = sala.nFase;
+        progresso.ultimaSalaCompletada = sala.nSala;
+        ProgressManager.Instance.SalvarProgresso(progresso);
     }
 
     
