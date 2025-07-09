@@ -18,10 +18,7 @@ public class Portal : IResetavel, SincronizaMetodo {
     }
 
     public override void OnReset() {
-        Debug.Log("Resetando portal");
         playersNoPortal.Clear();
-        Debug.Log("Portal resetado");
-        Debug.Log(playersNoPortal.Count);
     }
 
     private void OnTriggerEnter(Collider other){
@@ -47,8 +44,6 @@ public class Portal : IResetavel, SincronizaMetodo {
         
         // Caso os dois players tenham entrado na porta, passa de sala.
         PassarDeSala();
-
-        Debug.Log("Players no portal : " + playersNoPortal.Count);
     }
 
     public void PassarDeSala() {
@@ -74,8 +69,6 @@ public class Portal : IResetavel, SincronizaMetodo {
             player.transform.position = spawnDeSaida.position + Vector3.up * 0.5f;    
             player.gameObject.SetActive(true);
             playersNoPortal.Remove(player);
-
-            Debug.Log("<color=red>Saiu do portal.");
 
             if (player.playerInput != null)
                 player.playerInput.currentActionMap["Cancelar"].performed -= SairDoPortal;

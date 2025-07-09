@@ -345,6 +345,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void SalvarProgresso(){
+        if(ProgressManager.Instance == null){
+            Debug.Log($"<color=yellow> ProgressManager não pôde ser encontrado, portanto, progresso pode não ser salvo.</color>");
+            return;
+        }
         Progress progresso = ProgressManager.Instance.CarregarProgresso();
         if(progresso.ultimoNivelCompletado > sala.nFase) return;
         if(progresso.ultimoNivelCompletado == sala.nFase && progresso.ultimaSalaCompletada > sala.nSala) return;
