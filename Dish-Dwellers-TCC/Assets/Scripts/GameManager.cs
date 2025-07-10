@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour {
 
     void OnDestroy() {
         if (marcadoParaDestruir) return;
+        
+        OnPause = null;
 
         if (input != null) {
             input.UI.Pause.started -= Pause;
