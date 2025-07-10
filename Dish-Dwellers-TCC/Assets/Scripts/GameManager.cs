@@ -325,9 +325,9 @@ public class GameManager : MonoBehaviour {
         this.sala = sala;
 
         // Determina se deve salvar o progresso :
-        SalvarProgresso();
+        //SalvarProgresso();
         
-        this.cenaAtualNome = SceneManager.GetActiveScene().name;
+        cenaAtualNome = SceneManager.GetActiveScene().name;
 
         if (!isOnline || isServer) AnalyticsManager.instance?.ComecarSala(cenaAtualNome);
 
@@ -381,7 +381,7 @@ public class GameManager : MonoBehaviour {
         cenaProx = SceneManager.LoadSceneAsync(salaPCarregar, LoadSceneMode.Additive);
         cenaProx.allowSceneActivation = false;
 
-        yield return new WaitUntil(() => cenaProx.isDone);
+        yield return new WaitUntil(() => cenaProx == null|| cenaProx.isDone);
 
     }
 
