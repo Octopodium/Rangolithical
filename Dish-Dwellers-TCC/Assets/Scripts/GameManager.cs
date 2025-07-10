@@ -350,11 +350,20 @@ public class GameManager : MonoBehaviour {
             return;
         }
         Progress progresso = ProgressManager.Instance.CarregarProgresso();
-        if(progresso.ultimoNivelCompletado > sala.nFase) return;
-        if(progresso.ultimoNivelCompletado == sala.nFase && progresso.ultimaSalaCompletada > sala.nSala) return;
+        if(progresso != null){
+            if(progresso.ultimoNivelAlcancado > sala.nFase) return;
+            if(progresso.ultimoNivelAlcancado == sala.nFase && progresso.ultimaSalaAlcancada > sala.nSala) return;
         
-        progresso.ultimoNivelCompletado = sala.nFase;
-        progresso.ultimaSalaCompletada = sala.nSala;
+        
+            progresso.ultimoNivelAlcancado = sala.nFase;
+            progresso.ultimaSalaAlcancada = sala.nSala;
+        }
+        else{
+            progresso = new Progress{
+                ultimoNivelAlcancado = sala.nFase,
+                ultimaSalaAlcancada = sala.nSala,
+            };
+        }
         ProgressManager.Instance.SalvarProgresso(progresso);
     }
 

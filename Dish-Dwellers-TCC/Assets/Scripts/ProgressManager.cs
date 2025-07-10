@@ -23,6 +23,13 @@ public class ProgressManager : MonoBehaviour {
 
     private void Start(){
         Debug.Log(path);
+        if(!File.Exists(path)){
+            File.Create(path);
+            Progress progress = new Progress{
+                ultimoNivelAlcancado = 1,
+                ultimaSalaAlcancada = 1,
+            };
+        }
     }
 
     public async void SalvarProgresso(Progress progresso) {
@@ -30,7 +37,7 @@ public class ProgressManager : MonoBehaviour {
         string json = JsonUtility.ToJson(progresso);
         await File.WriteAllTextAsync(path, json);
         iconeSalvando.SetActive(false);
-        Debug.Log($"Progresso salvo : \n nivel : {progresso.ultimoNivelCompletado}\n sala : {progresso.ultimaSalaCompletada}");
+        Debug.Log($"Progresso salvo : \n nivel : {progresso.ultimoNivelAlcancado}\n sala : {progresso.ultimaSalaAlcancada}");
     }
 
     public Progress CarregarProgresso() {
@@ -44,7 +51,7 @@ public class ProgressManager : MonoBehaviour {
 [Serializable]
 public class Progress {
 
-    public int ultimoNivelCompletado;
-    public int ultimaSalaCompletada;
+    public int ultimoNivelAlcancado;
+    public int ultimaSalaAlcancada;
 
 }
