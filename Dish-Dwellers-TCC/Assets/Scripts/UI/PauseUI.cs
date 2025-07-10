@@ -25,11 +25,15 @@ public class PauseUI : MonoBehaviour {
 
 
     private void OnDestroy() {
-        if (!inicializado) return;
         GameManager.OnPause -= HandlePausa;
+        inicializado = false;
     }
 
     public void HandlePausa(bool estado){
+        if (gameObject == null || !inicializado) {
+            return;
+        }
+
         if (estado) {
             eventSystem.SetSelectedGameObject(primeiroSelecionadoPause);
 
