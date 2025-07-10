@@ -239,25 +239,17 @@ public class GameManager : MonoBehaviour {
     /// Descarrega a sala atual, finaliza o carregamento da proxima e posiciona o jogador no porximo ponto de spawn.
     /// </summary>
     public void PassaDeSala() {
-        StartCoroutine(PassaDeSalaComTransicao());
-
-        //if (isOnline) RequestPassaDeSalaOnline();
-        //else PassaDeSalaOffline();
+        if (isOnline) RequestPassaDeSalaOnline();
+        else StartCoroutine(PassaDeSalaOffline());
     }
 
-    IEnumerator PassaDeSalaComTransicao(){
+
+    IEnumerator PassaDeSalaOffline() {
+        // Inicio da transição
         carregando = true;
         telaDeLoading.AtivarTelaDeCarregamento(true);
         yield return new WaitForSeconds(telaDeLoading.GetTempoDeTransicao());
         Debug.Log("Acabou a transição");
-
-        if (isOnline) RequestPassaDeSalaOnline();
-        else PassaDeSalaOffline();
-    }
-
-    private void PassaDeSalaOffline() {
-        // Inicio da transição
-        Debug.Log("Passando de sala");
 
         if (!isOnline || isServer) AnalyticsManager.instance?.FinalizarSala();
 
@@ -477,7 +469,7 @@ public class GameManager : MonoBehaviour {
     private void OnRequestedPassaDeSalaOnline(DishNetworkManager.AcaoPassaDeSalaMessage msg) {
         if (isOnline && msg.passarDeSala) {
             DestruirNetworkIdentityPassaCena();
-            PassaDeSalaOffline();
+            StartCoroutine(PassaDeSalaOffline());
         }
     }
 

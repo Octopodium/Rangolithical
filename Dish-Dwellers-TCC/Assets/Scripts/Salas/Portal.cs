@@ -48,7 +48,7 @@ public class Portal : IResetavel, SincronizaMetodo {
 
     public void PassarDeSala() {
         if (playersNoPortal.Count < 2) return;
-        
+        Debug.Log("To passando de sala ein");
         if (finalDaDemo) VaiParaOFim();
         else GameManager.instance.PassaDeSala();
     }
