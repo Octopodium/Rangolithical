@@ -60,7 +60,6 @@ public class sala : MonoBehaviour{
         else{
             nSala = -1;
             nFase = -1;
-            Debug.Log($"Falha ao identificar o numero da fase. \n Nome da cena informado: {SceneManager.GetActiveScene().name} \n Nome da fase informado {nome[1]}");
         }
     }
 

@@ -8,6 +8,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [SerializeField] private GameObject prefab;
     [SerializeField] private GameObject prefabOnline;
     [SerializeField] private Transform respawnPos;
+    [SerializeField] private GameObject triggerSpawnChave;
 
     [Space(15)]
     [Header("Objeto controlado :")]
