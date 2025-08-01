@@ -66,11 +66,11 @@ public class sala : MonoBehaviour{
     // Utiliza o numero da sala/fase atual para descobrir o nome da proxima cena a ser carregada.
     public string NomeProximaSala(){
         string nome = $"{nSala + 1}-{nFase}";
-        if(SceneUtility.GetBuildIndexByScenePath("Scenes/" + nome) < 0){
+        if(SceneUtility.GetBuildIndexByScenePath($"Scenes/{nFase}/{nome}") < 0){
 
             nome = $"1-{nFase + 1}";
 
-            if(SceneUtility.GetBuildIndexByScenePath("Scene/" + nome) < 0){
+            if(SceneUtility.GetBuildIndexByScenePath($"Scene/{nFase}/{nome}") < 0){
                 Debug.Log("<color=yellow>Proxima sala não foi encontrada, não será possivel prosseguir.");
                 return string.Empty;
             }

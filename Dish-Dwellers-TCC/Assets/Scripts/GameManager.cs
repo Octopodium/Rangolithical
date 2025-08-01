@@ -367,7 +367,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator PreloadProximaSala(string salaPCarregar) {
 
-        if (SceneUtility.GetBuildIndexByScenePath($"Scenes/{salaPCarregar}") == 0) {
+        if (SceneUtility.GetBuildIndexByScenePath($"Scenes/Salas/{salaPCarregar}") == 0) {
             Debug.Log("Proxima cena não está contida na build ou, não está com o nome correto.");
             yield break;
         }
