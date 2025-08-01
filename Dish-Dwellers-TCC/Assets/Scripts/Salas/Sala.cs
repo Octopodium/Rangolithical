@@ -12,6 +12,8 @@ public class sala : MonoBehaviour{
     public UnityEvent onResetSala;
     public string nomeDaSala;
     public string nomeDoStage;
+    [SerializeField] bool overrideProximaSala;
+    [SerializeField] string nomeOverrideDaProximaSala;
 
     [HideInInspector] public int nSala, nFase;
 
@@ -65,6 +67,11 @@ public class sala : MonoBehaviour{
 
     // Utiliza o numero da sala/fase atual para descobrir o nome da proxima cena a ser carregada.
     public string NomeProximaSala(){
+
+        if(overrideProximaSala){
+            return nomeOverrideDaProximaSala;
+        }
+
         string nome = $"{nSala + 1}-{nFase}";
         if(SceneUtility.GetBuildIndexByScenePath($"Scenes/{nFase}/{nome}") < 0){
 
