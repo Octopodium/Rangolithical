@@ -4,14 +4,21 @@ using UnityEngine;
 public class Explodivel : IResetavel{
 
     [SerializeField] private int integridade;
-    private int integridadeMaxima;
     [SerializeField] private GameObject mesh;
     private Collider colliderParede;
+    private int integridadeMaxima;
     
 
     private void Awake(){
         colliderParede = GetComponent<Collider>();
         integridadeMaxima = integridade;
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if(other.CompareTag("Explosao")){
+            ReduzirIntegridade();
+            Destroy(other.gameObject);
+        }
     }
 
     public void ReduzirIntegridade(){

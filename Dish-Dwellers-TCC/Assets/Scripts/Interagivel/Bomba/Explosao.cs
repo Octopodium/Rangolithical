@@ -17,13 +17,4 @@ public class Explosao : MonoBehaviour{
         }
     }
 
-    private void OggerEnter(Collider other) {
-        if (other.CompareTag("Destrutivel")) {
-            if (TryGetComponent<Explodivel>( out Explodivel explodivel)) {
-                explodivel.ReduzirIntegridade();
-                Destroy(gameObject);
-            }
-        }
-    }
-
 }
