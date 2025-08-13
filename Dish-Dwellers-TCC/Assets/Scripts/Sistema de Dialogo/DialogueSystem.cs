@@ -21,8 +21,11 @@ public class DialogueSystem : MonoBehaviour
     private Queue<string> currentSentences;
     private bool isTyping = false;
     private string fullText;
+    private int counter = -1;
 
     private Dictionary<string, DialogueNodeData> nodeLookup;
+
+    public SwitchBackgroundSprite switchSprite;
 
     private void Awake(){
         if (instance == null){
@@ -34,6 +37,7 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue(DialogueContainer dialogue){
         currentDialogue = dialogue;
+        switchSprite.PopulateSprites(currentDialogue.BackgroundSprites);
 
         BuildNodeLookup();
         var entryNode = dialogue.NodeLinks.Find(x => x.portName == "Next");
@@ -51,6 +55,13 @@ public class DialogueSystem : MonoBehaviour
     }
 
     private void DisplayNextSentence(){
+        counter++;
+    
+        if(switchSprite.backgroundSprites != null && counter == switchSprite.pace){
+            switchSprite.Switch(counter - 1);
+            counter = -1;
+        }
+
         if(isTyping){
             CompleteSentence();
         }
@@ -65,7 +76,7 @@ public class DialogueSystem : MonoBehaviour
             fullText = translatedText;
         };
 
-        StartCoroutine("TypeSentence", fullText);
+        StartCoroutine(TypeSentence(fullText));
     }
 
     IEnumerator TypeSentence(string sentence){

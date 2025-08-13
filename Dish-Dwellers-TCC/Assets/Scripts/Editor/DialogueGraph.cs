@@ -29,7 +29,11 @@ public class DialogueGraph : EditorWindow
     }
 
     private void GenerateToolbar(){
-        var toolbar = new Toolbar();
+        var toolbar = new Toolbar(){
+            style = {
+                height = 30
+            }
+        };
 
         var fileName = new TextField("File Name: ");
         fileName.SetValueWithoutNotify("New Narrative");
