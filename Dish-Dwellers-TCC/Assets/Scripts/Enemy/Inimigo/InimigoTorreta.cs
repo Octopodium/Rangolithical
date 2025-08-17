@@ -160,28 +160,36 @@ public class InimigoTorreta : Inimigo
     {
         return Vector3.Distance(transform.position, jogador.position) <= zonaDeAtaque;
     }
-
-    /// <summary>
-    /// Chamada do animator da torreta que coloca o inimigo no estado de stun
-    /// assim que ele for atingido por um projetil refletido.
-    /// </summary>
-    public void GetStunned()
-    {
-        isStunned = true;
-        stunTimer = stunDuration;
-        animator.Atordoado(true);
-    }
-
+    
     protected override void TomaDano(int valor)
     {
         base.TomaDano(valor);
     }
 
     /// <summary>
+    /// Chamada do animator da torreta que coloca o inimigo no estado de stun
+    /// assim que ele for atingido por um projetil refletido.
+    /// </summary>
+    public void GetStunned() {
+        isStunned = true;
+        stunTimer = stunDuration;
+        animator.Atordoado(true);
+    }
+
+    public void TorretaAgarrada() {
+        if (isStunned) {
+            animator.Agarrado(true);
+        }
+    }
+
+    public void MorteDaTorreta() {
+        animator.Morre();
+    }
+
+    /// <summary>
     /// Só pra visualização das zonas de percepção e ataque do inimigo na cena.
     /// </summary>
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, campoDeVisao);
         Gizmos.color = Color.red;

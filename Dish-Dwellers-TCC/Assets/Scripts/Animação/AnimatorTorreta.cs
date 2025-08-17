@@ -30,7 +30,7 @@ public class AnimatorTorreta : MonoBehaviour
         animator.SetTrigger(morre);
         animator.SetBool(atordoado, false);
         animator.SetBool(agarrado, false);
-        Destroy(gameObject, 4f);
+        Destroy(gameObject, 3f);
     }
 
     public void Atordoado(bool val){
