@@ -4,7 +4,7 @@ using UnityEngine;
 public class Interagivel : MonoBehaviour {
 
     [Header("Indicador de interação")]
-    public Indicador indicador;
+    [HideInInspector] public Indicador indicador;
     //GameObject indicador;
     public Vector3 offsetIndicador = Vector3.up;
 

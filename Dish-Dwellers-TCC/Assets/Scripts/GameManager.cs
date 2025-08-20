@@ -502,6 +502,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public GameObject Instanciar(GameObject online, GameObject offline, Vector3 pos = default, Quaternion rot = default) {
+        GameObject prefab = isOnline? online : offline;
+        return Instantiate(prefab, pos, rot);
+    }
+
     #endregion
 
 

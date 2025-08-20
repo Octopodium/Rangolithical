@@ -170,7 +170,7 @@ public class Sincronizavel : MonoBehaviour {
     [Tooltip("Caso o objeto possua métodos sincronizados, eles serão cadastrados no Awake. Se desativado, deve ser chamado manualmente pelo LateSetup.")]
     public bool cadastrarNoInicio = true;
     private bool cadastrouUmaVez = false;
-    public bool naoUsarIDAuto = false;
+    [HideInInspector] public bool naoUsarIDAuto = false;
     public bool isSingleton = false;
 
 
