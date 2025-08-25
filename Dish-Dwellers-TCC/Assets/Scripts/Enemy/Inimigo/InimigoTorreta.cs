@@ -61,11 +61,11 @@ public class InimigoTorreta : Inimigo
 
         base.ChecagemDeZonas();
         AtualizarAlvo();
-        Movimento();
+        MovimentoPerseguir();
         Atacar();
     }
 
-    protected override void Movimento()
+    protected override void MovimentoPerseguir()
     {        
         if(_playerNoCampoDeVisao && target != null)
         {

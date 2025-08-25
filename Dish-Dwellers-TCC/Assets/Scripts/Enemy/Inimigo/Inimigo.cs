@@ -53,7 +53,7 @@ public abstract class Inimigo : MonoBehaviour
         }
     }
 
-    protected virtual void Movimento()
+    protected virtual void MovimentoPerseguir()
     {
         if(target != null)
         {
@@ -67,7 +67,7 @@ public abstract class Inimigo : MonoBehaviour
 
     public virtual void Atacar()
     {
-       //a implementar
+       //a implementar nos inimigos herdados
     }
 
     protected void Morte()
