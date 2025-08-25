@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -27,7 +28,7 @@ public class BasicSceneTemplatePipeline : ISceneTemplatePipeline
             return;
         
         path = FileUtil.GetProjectRelativePath(path);
-        EditorSceneManager.SaveScene(scene, path);
+        //EditorSceneManager.SaveScene(scene, path);
 
         AssetDatabase.Refresh();
 
@@ -36,3 +37,4 @@ public class BasicSceneTemplatePipeline : ISceneTemplatePipeline
         EditorBuildSettings.scenes = scenes.ToArray();
     }
 }
+*/
