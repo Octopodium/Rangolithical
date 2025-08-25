@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Perseguidor : Inimigo {
 
@@ -8,8 +9,10 @@ public class Perseguidor : Inimigo {
     private float tempoRestanteDeFoco;
     private bool temAlvoFixo = false;
 
+    private NavMeshAgent navAgent;
+
     private void Awake() {
-        cc = GetComponent<CharacterController>();
+        navAgent = GetComponent<NavMeshAgent>();
     }
 
     private void Start() {
@@ -24,14 +27,13 @@ public class Perseguidor : Inimigo {
     private void FixedUpdate() {
 
         base.ChecagemDeZonas();
-        MovimentoPerseguir();
         AtualizarAlvo();
+        Perseguir();
     }
 
-    protected override void MovimentoPerseguir() {
-
+    public void Perseguir() {
         if (_playerNoCampoDeVisao && target != null) {
-            base.MovimentoPerseguir();
+            navAgent.SetDestination(target.position);
         }
     }
 
@@ -41,7 +43,7 @@ public class Perseguidor : Inimigo {
 
         foreach (var jogador in GameManager.instance.jogadores) {
             float distancia = Vector3.Distance(transform.position, jogador.transform.position);
-            if (distancia <= zonaDeAtaque && distancia < menorDistancia) {
+            if (distancia <= campoDeVisao && distancia < menorDistancia) {
                 menorDistancia = distancia;
                 maisProximo = jogador.pontoCentral.transform;
             }
