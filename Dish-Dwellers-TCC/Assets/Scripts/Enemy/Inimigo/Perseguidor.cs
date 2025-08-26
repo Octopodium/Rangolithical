@@ -9,10 +9,11 @@ public class Perseguidor : Inimigo {
     private float tempoRestanteDeFoco;
     private bool temAlvoFixo = false;
 
-    private NavMeshAgent navAgent;
+    //private NavMeshAgent navAgent;
 
     private void Awake() {
-        navAgent = GetComponent<NavMeshAgent>();
+        //navAgent = GetComponent<NavMeshAgent>();
+        cc = GetComponent<CharacterController>();
     }
 
     private void Start() {
@@ -33,7 +34,8 @@ public class Perseguidor : Inimigo {
 
     public void Perseguir() {
         if (_playerNoCampoDeVisao && target != null) {
-            navAgent.SetDestination(target.position);
+            //navAgent.SetDestination(target.position);
+            base.MovimentoPerseguir();
         }
     }
 
