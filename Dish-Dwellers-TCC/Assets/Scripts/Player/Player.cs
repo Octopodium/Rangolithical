@@ -42,7 +42,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public static event UnityAction<Player, int> OnVidaMudada; //Evento global para dano ou ganhar vida
 
 
-
     [Header("Configuração de Interação")]
     public int maxInteragiveisEmRaio = 8;
     public float raioInteracao = 1f;
@@ -232,6 +231,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         Movimentacao();
 
         DesenharTrajetoria();
+    }
+
+    private void OnTriggerEnter(Collider other){
+        
     }
 
     void OnDestroy() {
@@ -580,12 +583,14 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     /// devido as complicações com a física atualmente 
     /// </summary>
     /// <param name="executaEmpurrar"></param>
-    public void AplicarKnockback(Transform origem, AudioClip soundFx)
+    public void AplicarKnockback(Transform origem, AudioClip soundFx = null)
     {
         if (estaSofrendoKnockback) return;
-        AudioSource audioSource = GetComponentInChildren<AudioSource>();
-        audioSource.clip = soundFx;
-        audioSource.Play();
+        if(soundFx != null){
+            AudioSource audioSource = GetComponentInChildren<AudioSource>();
+            audioSource.clip = soundFx;
+            audioSource.Play();
+        }
         StartCoroutine(ProcessarKnockback(origem));
     }
 

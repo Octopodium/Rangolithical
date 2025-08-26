@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public class Explodivel : IResetavel{
 
     [SerializeField] private int integridade;
@@ -14,10 +15,10 @@ public class Explodivel : IResetavel{
         integridadeMaxima = integridade;
     }
 
-    private void OnTriggerEnter(Collider other){
-        if(other.CompareTag("Explosao")){
-            ReduzirIntegridade();
-            Destroy(other.gameObject);
+    private void OnValidate(){
+        if(gameObject.tag != "Quebravel"){
+            gameObject.tag = "Quebravel";
+            Debug.Log($"<color=green>{gameObject.name} tag foi alterada para 'Quebravel' para que funcione corretamente.<color>");
         }
     }
 

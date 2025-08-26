@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 public class Bomba : MonoBehaviour{
-
     [SerializeField] private GameObject explosaoPrefab;
     [SerializeField] private Renderer bombaRenderer;
     [SerializeField] private Color corPiscante = Color.red;
