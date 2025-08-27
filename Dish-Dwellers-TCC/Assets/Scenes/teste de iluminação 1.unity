@@ -510,6 +510,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef710d55c18ac6d4b868f64214a167a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modoDeJogo: 0
+  inputController: {fileID: 0}
+  controle: {fileID: 0}
+  primeiraFaseSceneName: 1-1
+  menuPrincipalSceneName: MainMenu
+  offlineAnglerPrefab: {fileID: 0}
+  offlineHeaterPrefab: {fileID: 0}
+  jogadores: []
+  cenaAtualNome: 
+  telaDeLoading: {fileID: 0}
+  carregando: 0
+  playerOnlineAtual: 0
 --- !u!4 &498819073
 Transform:
   m_ObjectHideFlags: 0
@@ -1661,9 +1673,15 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
-  players:
-  - {fileID: 0}
-  - {fileID: 0}
+  triggers: []
+  resetaveis: []
+  onResetSala:
+    m_PersistentCalls:
+      m_Calls: []
+  nomeDaSala: 
+  nomeDoStage: 
+  overrideProximaSala: 0
+  nomeOverrideDaProximaSala: 
   nSala: 0
   nFase: 0
 --- !u!1 &1705822045

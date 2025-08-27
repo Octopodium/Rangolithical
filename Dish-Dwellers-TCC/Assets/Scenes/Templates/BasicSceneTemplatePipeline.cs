@@ -1,4 +1,4 @@
-/*
+
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -37,4 +37,3 @@ public class BasicSceneTemplatePipeline : ISceneTemplatePipeline
         EditorBuildSettings.scenes = scenes.ToArray();
     }
 }
-*/
