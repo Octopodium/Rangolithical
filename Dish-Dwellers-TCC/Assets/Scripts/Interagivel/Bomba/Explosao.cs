@@ -4,12 +4,14 @@ using System.Collections.Generic;
 public class Explosao : MonoBehaviour{
 
     [SerializeField] private float lifeTime = 0.5f;
+    [SerializeField] private GameObject explosaoVFX;
     private float timer;
     private List<GameObject> gameObjectsAtingidos = new List<GameObject>();
 
 
     private void Awake(){
         timer = lifeTime;
+        Instantiate(explosaoVFX, transform.position, Quaternion.identity);
     }
 
     private void FixedUpdate(){
