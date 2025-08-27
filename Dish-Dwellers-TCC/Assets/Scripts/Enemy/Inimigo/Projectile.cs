@@ -12,19 +12,14 @@ public class Projectile : MonoBehaviour {
     [SerializeField] private VisualEffect trailFx;
     public GameObject owner;
     private Vector3 direction;
-    private AudioSource audioSource;
+    
     public AudioClip knockBackSom;
-    public AudioClip escudoSom;
     public AudioClip vinhaQueimandoSom;
     private bool isReflected = false;
 
 
     [Header("<color=green> Lima coisas :")]
     [SerializeField] private bool refletirNormal;
-
-    void Awake() {
-        audioSource = GetComponentInChildren<AudioSource>();
-    }
 
     void Start() {
         direction = transform.forward; //Usa a direção inicial do disparo
@@ -50,7 +45,7 @@ public class Projectile : MonoBehaviour {
 
         if (other.gameObject.CompareTag("Escudo") && !isReflected) {
 
-            //Tenta pegar o centro da proteção (protecao) do escudo para refletir
+            //Tenta pegar o centro da proteção (protecao) do escudo para refletir 
 
             Escudo escudo = other.transform.GetComponentInParent<Escudo>();
 
@@ -63,30 +58,10 @@ public class Projectile : MonoBehaviour {
             direction = transform.forward;
 
             //FIM DO CÓDIGO DO PEDRO DE LIMA
-            audioSource.clip = escudoSom;
-            audioSource.Play();
+
+            AudioManager.PlaySounds(TiposDeSons.HITS);
             
             isReflected = true;
-
-            /*
-            Transform centroDoEscudo = other.transform; 
-
-            if (escudo != null && escudo.protecao != null) {
-                centroDoEscudo = escudo.protecao.transform;
-            }
-
-            Vector3 reflectDirection = centroDoEscudo.forward;
-            reflectDirection.y = 0;
-            reflectDirection = reflectDirection.normalized;
-
-            
-            Debug.DrawRay(centroDoEscudo.position, reflectDirection * 3, Color.cyan, 2f);
-
-            direction = reflectDirection;
-            isReflected = true;
-            transform.rotation = Quaternion.LookRotation(reflectDirection);
-            transform.position = centroDoEscudo.position + reflectDirection * 0.5f;
-            */
         }
 
         else if (isReflected && other.gameObject == owner) {

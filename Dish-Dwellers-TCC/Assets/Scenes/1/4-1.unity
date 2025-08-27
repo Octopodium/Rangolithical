@@ -7904,6 +7904,8 @@ MonoBehaviour:
       m_Calls: []
   nomeDaSala: 
   nomeDoStage: 
+  overrideProximaSala: 0
+  nomeOverrideDaProximaSala: 
   nSala: 0
   nFase: 0
 --- !u!4 &1166284913
@@ -9336,6 +9338,18 @@ PrefabInstance:
       propertyPath: nomeDaSalaAtual
       value: Sala 4-1
       objectReference: {fileID: 0}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: listaDeSons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f792a97dd0cbc894d8f746af01453af0, type: 3}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 84d0009503b0f804781f44b8b17d5e6c, type: 3}
     - target: {fileID: 8783033451288024843, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: qualPlayer
       value: 0
