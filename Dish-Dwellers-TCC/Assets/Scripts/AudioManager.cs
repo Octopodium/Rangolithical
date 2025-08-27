@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum TiposDeSons {
-OST, HITS, PUZZLE, EFFECTS, ENEMYS, PLAYERS
+SHIELDHIT, VINESBURNING, PRESSUREPLATE, KNOCKBACK
 }
 
 public class AudioManager : MonoBehaviour
@@ -38,6 +38,13 @@ public class AudioManager : MonoBehaviour
         LoadVolume();
     }
 
+    /// <summary>
+    /// Método global para os SFX.
+    /// Basta chamar onde você necessita de um efeito sonoro e escolher seu tipo, que ele ira usar
+    /// diretamente o clipe daquele mesmo tipo contido na lista de sons.
+    /// </summary>
+    /// <param name="sons"></param>
+    /// <param name="volume"></param>
     public static void PlaySounds(TiposDeSons sons, float volume = 1f) {
         audioManager.audioSource.PlayOneShot(audioManager.listaDeSons[(int)sons], volume);
     }

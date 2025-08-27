@@ -59,7 +59,7 @@ public class Projectile : MonoBehaviour {
 
             //FIM DO CÓDIGO DO PEDRO DE LIMA
 
-            AudioManager.PlaySounds(TiposDeSons.HITS);
+            AudioManager.PlaySounds(TiposDeSons.SHIELDHIT);
             
             isReflected = true;
         }
