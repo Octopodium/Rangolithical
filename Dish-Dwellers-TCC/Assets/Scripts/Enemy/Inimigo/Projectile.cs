@@ -80,7 +80,7 @@ public class Projectile : MonoBehaviour {
         }
 
         else if (other.transform.CompareTag("Queimavel")) {
-            other.transform.GetComponent<ParedeDeVinhas>().ReduzirIntegridade(vinhaQueimandoSom);
+            other.transform.GetComponent<ParedeDeVinhas>().ReduzirIntegridade();
             Destroy(gameObject);
         }
 
@@ -88,7 +88,8 @@ public class Projectile : MonoBehaviour {
             Player player = other.transform.GetComponent<Player>();
             if (player != null) {
                 player.MudarVida(-1, "Projetil");
-                player.AplicarKnockback(transform, knockBackSom);
+                player.AplicarKnockback(transform);
+                AudioManager.PlaySounds(TiposDeSons.KNOCKBACK);
             }
             Destroy(gameObject);
         }
