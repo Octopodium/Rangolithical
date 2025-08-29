@@ -2,8 +2,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Animations;
 
+public enum Peso { Leve=0, Pesado=1 }
+
 [RequireComponent(typeof(Rigidbody))]
 public class Carregavel : MonoBehaviour, InteracaoCondicional {
+    public Peso peso = Peso.Leve;
+
     public UnityEvent onCarregado, onSolto;
     public System.Action<Carregador> OnCarregado, OnSolto; // Chamado quando o carregador carrega ou solta um objeto
 
@@ -43,7 +47,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     /// <param name="carregador">Carregador que interagiu</param>
     /// <returns>Positivo se pode ser interagido</returns>
     public bool PodeInteragir(Carregador carregador) {
-        return !carregador.estaCarregando && !_sendoCarregado;
+        return !carregador.estaCarregando && !_sendoCarregado && carregador.aguentaCarregar >= peso;
     }
 
     /// <summary>
@@ -59,7 +63,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     /// </summary>
     /// <param name="carregador">Carregador que irá carregar o objeto</param>
     public void Carregar(Carregador carregador) {
-        if (carregador.estaCarregando || _sendoCarregado) return;
+        if (!PodeInteragir(carregador)) return;
         if (carregador.carregado != this && !carregador.Carregar(this)) return; // Se não conseguiu carregar, não faz nada
 
         this.carregador = carregador;

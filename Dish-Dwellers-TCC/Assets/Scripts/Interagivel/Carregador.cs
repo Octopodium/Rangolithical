@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Animations;
 
 public class Carregador: MonoBehaviour, SincronizaMetodo {
+    public Peso aguentaCarregar = Peso.Leve;
+    
     public Transform carregarTransform;
     public float forcaArremesso = 5f, alturaArremesso = 1.5f;
     [Range(0, 1)] public float influenciaDaInerciaNoArremesso = 0.33f;
