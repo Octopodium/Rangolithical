@@ -11,4 +11,6 @@ public class DialogueNodeData
 
     public string sceneName;
     public bool _loadScene;
+
+    public Sprite backgroundSprite;
 }

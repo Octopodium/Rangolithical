@@ -1,7 +1,10 @@
-using UnityEditor.Experimental.GraphView;
-using UnityEngine;
-using UnityEngine.Events;
 using System;
+using UnityEngine;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 
 [Serializable]
 public class DialogueNode : Node
@@ -14,4 +17,7 @@ public class DialogueNode : Node
 
     public string sceneName;
     public bool _loadScene = false;
+
+    public Sprite backgroundSprite;
+    public ObjectField backgroundSpriteField;
 }

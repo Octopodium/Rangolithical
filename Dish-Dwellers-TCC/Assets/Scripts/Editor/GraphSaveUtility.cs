@@ -44,7 +44,8 @@ public class GraphSaveUtility
                 dialogueText = node.DialogueText,
                 position = node.GetPosition().position,
                 _loadScene = node._exitPoint ? node._loadScene : false,
-                sceneName = node._exitPoint ? node.sceneName : ""
+                sceneName = node._exitPoint ? node.sceneName : "",
+                backgroundSprite = node.backgroundSprite
             };
 
             dialogueContainer.DialogueNodeData.Add(nodeData);

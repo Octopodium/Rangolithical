@@ -14,6 +14,7 @@ public class DialogueSystem : MonoBehaviour
     [Header("Ui Elements")]
     public GameObject dialoguePanel;
     public TMP_Text dialogueText;
+    public Image background;
     [SerializeField] private float textSpeed = 0.05f;
 
     private DialogueContainer currentDialogue;
@@ -25,8 +26,6 @@ public class DialogueSystem : MonoBehaviour
 
     private Dictionary<string, DialogueNodeData> nodeLookup;
 
-    public SwitchBackgroundSprite switchSprite;
-
     private void Awake(){
         if (instance == null){
             instance = this;
@@ -37,7 +36,6 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue(DialogueContainer dialogue){
         currentDialogue = dialogue;
-        switchSprite.PopulateSprites(currentDialogue.BackgroundSprites);
 
         BuildNodeLookup();
         var entryNode = dialogue.NodeLinks.Find(x => x.portName == "Next");
@@ -55,11 +53,8 @@ public class DialogueSystem : MonoBehaviour
     }
 
     private void DisplayNextSentence(){
-        counter++;
-    
-        if(switchSprite.backgroundSprites != null && counter == switchSprite.pace){
-            switchSprite.Switch(counter - 1);
-            counter = -1;
+        if(currentNode.backgroundSprite != null){
+            background.sprite = currentNode.backgroundSprite;
         }
 
         if(isTyping){

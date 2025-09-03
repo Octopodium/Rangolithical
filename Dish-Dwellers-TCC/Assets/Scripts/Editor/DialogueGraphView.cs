@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 
@@ -72,6 +74,7 @@ public class DialogueGraphView : GraphView
             title = nodeName,
             NodeName = nodeName,
             DialogueText = "Write your conversation here",
+            backgroundSprite = null,
             GUID = Guid.NewGuid().ToString()
         };
 
@@ -82,6 +85,18 @@ public class DialogueGraphView : GraphView
         });
         dialogueConversation.SetValueWithoutNotify(dialogueNode.DialogueText);
         dialogueNode.mainContainer.Add(dialogueConversation);
+
+        dialogueNode.backgroundSpriteField = new ObjectField();
+        dialogueNode.backgroundSpriteField.label = "Background Sprite";
+        dialogueNode.backgroundSpriteField.objectType = typeof(Sprite);
+        dialogueNode.backgroundSpriteField.value = null;
+        dialogueNode.backgroundSpriteField.allowSceneObjects = false;
+
+        dialogueNode.backgroundSpriteField.RegisterValueChangedCallback(evt => {
+            dialogueNode.backgroundSprite = evt.newValue as Sprite;
+        });
+
+        dialogueNode.mainContainer.Add(dialogueNode.backgroundSpriteField);
 
         var inputPort = GeneratePort(dialogueNode, Direction.Input, Port.Capacity.Multi);
         inputPort.portName = "input";
