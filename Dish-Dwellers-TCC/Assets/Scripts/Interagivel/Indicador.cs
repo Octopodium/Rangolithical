@@ -4,7 +4,7 @@ using UnityEngine.Animations;
 public class Indicador : MonoBehaviour {
     public ParentConstraint parentConstraint;
     int sourceId = -1;
-    public Interagivel interagivel { get; private set; }
+    public InteragivelBase interagivel { get; private set; }
     public bool ativo => gameObject.activeSelf;
 
     void Awake() {
@@ -13,7 +13,7 @@ public class Indicador : MonoBehaviour {
         parentConstraint.rotationAxis = Axis.None; // Desabilita rotação ao ser pego
     }
 
-    public void Mostrar(Interagivel interagivel) {
+    public void Mostrar(InteragivelBase interagivel) {
         if (interagivel == null) return;
         if (this.interagivel == interagivel) return;
         if (this.interagivel != null) RemoverUltimo();
@@ -31,7 +31,7 @@ public class Indicador : MonoBehaviour {
         gameObject.SetActive(true);
     }
 
-    public void Esconder(Interagivel interagivel) {
+    public void Esconder(InteragivelBase interagivel) {
         if (this.interagivel == interagivel) Esconder();
     }
 

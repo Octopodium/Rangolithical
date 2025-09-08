@@ -1,55 +1,37 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Sincronizavel))]
-public class Interagivel : MonoBehaviour {
+public class Interagivel : InteragivelBase {
+    [HideInInspector] public HashSet<PontoInteragivel> pontos = new HashSet<PontoInteragivel>();
+    [HideInInspector] public PontoInteragivel ultimoPonto = null;
 
-    [Header("Indicador de interação")]
-    [HideInInspector] public Indicador indicador;
-    //GameObject indicador;
-    public Vector3 offsetIndicador = Vector3.up;
+    // [Tooltip("A não ser que esteja utilizando pelo menos um PontoInteragivel, você sempre irá querer esta opção ligada!")]
+    // public bool incluirProprioColisor = true;
 
-
-    void Start() {
-        GameManager.instance.controle.OnIndicadorChange += OnIndicadorChange;
-        indicador = GameManager.instance.controle.indicadorAtual;
-
-        Sincronizavel sinc = gameObject.GetComponent<Sincronizavel>();
-    }
-
-    void OnDestroy() {
-        if (GameManager.instance == null || GameManager.instance.controle == null) return;
-        GameManager.instance.controle.OnIndicadorChange -= OnIndicadorChange;
-    }
-
-
-    public void MostarIndicador(bool mostrar) {
-        if (indicador) {
-            if (mostrar) indicador.Mostrar(this);
-            else indicador.Esconder(this);
+    Interacao _interacao;
+    public Interacao interacao {
+        get {
+            if (_interacao == null) _interacao = GetComponent<Interacao>();
+            return _interacao;
         }
     }
 
-    public void Interagir(Player jogador) {
-        Interacao interacao = GetComponent<Interacao>();
+    InteracaoCondicional _interacaoCondicional;
+    public InteracaoCondicional interacaoCondicional {
+        get {
+            if (_interacaoCondicional == null) _interacaoCondicional = GetComponent<InteracaoCondicional>();
+            return _interacaoCondicional;
+        }
+    }
+    
+    public override void Interagir(Player jogador) {
         if (interacao != null) interacao.Interagir(jogador);
     }
 
-
-    public void OnIndicadorChange(Indicador novoIndicador) {
-        if (novoIndicador == indicador) return;
-
-        if (indicador != null && indicador.interagivel == this) {
-            indicador.Esconder(this);
-            indicador = novoIndicador;
-            indicador.Mostrar(this);
-        } else {
-            indicador = novoIndicador;
-        }
+    public override bool PodeInteragir(Player jogador) {
+        return interacaoCondicional == null || interacaoCondicional.PodeInteragir(jogador);
     }
 
 
-    void OnDrawGizmosSelected() {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawCube(transform.position + offsetIndicador, Vector3.one * 0.1f);
-    }
 }

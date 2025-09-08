@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Collections;
 using Mirror;
+using System.Linq;
 
 public enum QualPlayer { Player1, Player2, Desativado }
 public enum QualPersonagem { Heater, Angler }
@@ -47,10 +48,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public float raioInteracao = 1f;
     public LayerMask layerInteragivel;
     public float velocidadeCarregandoMult = 0.85f;
-    Interagivel ultimoInteragivel;
+    InteragivelBase ultimoInteragivel;
     Collider[] collidersInteragiveis;
     public List<Collider> collidersIgnoraveis = new List<Collider>(); // Lista de colisores que o jogador não pode interagir
-
+    public float velocidadeEmpurrandoMult = 0.5f;
+    public bool empurrando = false;
 
 
     [Header("Referências")]
@@ -190,7 +192,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     void OnDisable() {
         if (ultimoInteragivel != null) {
-            ultimoInteragivel.MostarIndicador(false);
+            ultimoInteragivel.MostrarIndicador(false);
             ultimoInteragivel = null;
         }
 
@@ -219,7 +221,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         // No modo singleplayer, caso este jogador não seja o atual, não faz nada
         if (GameManager.instance.modoDeJogo == ModoDeJogo.SINGLEPLAYER && (playerInput == null || !playerInput.enabled)) {
             if (ultimoInteragivel != null) {
-                ultimoInteragivel.MostarIndicador(false);
+                ultimoInteragivel.MostrarIndicador(false);
                 ultimoInteragivel = null;
             }
 
@@ -491,6 +493,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (escudoAtivo) v *= velocidadeComEscudoMult;
         else if (carregando) v *= velocidadeCarregandoMult;
         if (ganchado) v *= velocidadeGanchadoMult;
+        if (empurrando) v *= velocidadeEmpurrandoMult;
 
         return v;
     }
@@ -738,19 +741,42 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         return quant;
     }
 
-    [System.Serializable]
-    public class CacheColliderInteragivel {
-        public Interagivel interagivel;
-        public bool checado = false;
 
-        public CacheColliderInteragivel(Interagivel interagivel = null, bool checado = false) {
-            this.interagivel = interagivel;
-            this.checado = checado;
+
+    Dictionary<Collider, InteragivelBase> cache_interagiveisProximos = new Dictionary<Collider, InteragivelBase>();
+    List<Collider> removerDoCacheDeInteragiveis = new List<Collider>(); // Lista de colisores que não estão mais na área de interação (para remover do cache)
+
+    /// <summary>
+    /// Utilizado únicamente dentro da função 'ChecarInteragiveis' para manter cache de Collider/Interagivel, evitando a utilização de GetComponent a cada frame
+    /// </summary>
+    /// <param name="collider"></param>
+    /// <returns>O componente Interagivel guardado em cache</returns>
+    InteragivelBase PegaInteragivelDoCache(Collider collider) {
+        if(!cache_interagiveisProximos.ContainsKey(collider)){
+            // Se não está no cache, coloca no cache
+            InteragivelBase interagivelAtual = collider.GetComponent<InteragivelBase>();
+
+            if (interagivelAtual == null) return null;
+            cache_interagiveisProximos.Add(collider, interagivelAtual);
+        } else {
+            removerDoCacheDeInteragiveis.Remove(collider);
         }
+
+        return cache_interagiveisProximos[collider];
     }
 
-    Dictionary<Collider, CacheColliderInteragivel> cache_interagiveisProximos = new Dictionary<Collider, CacheColliderInteragivel>();
-    List<Collider> removerDoCacheDeInteragiveis = new List<Collider>(); // Lista de colisores que não estão mais na área de interação (para remover do cache)
+    /// <summary>
+    ///  Utilizado únicamente dentro da função 'ChecarInteragiveis', em conjunto com 'PegaInteragivelDoCache' serve para limpar colisores não necessários no cache
+    /// </summary>
+    void AtualizarCacheDeInteragivel() {
+        // Remove os colisores que não estão mais na área de interação do cache
+        foreach (var colisor in removerDoCacheDeInteragiveis) {
+            cache_interagiveisProximos.Remove(colisor);
+        }
+
+        removerDoCacheDeInteragiveis = cache_interagiveisProximos.Keys.ToList();
+    }
+
 
     /// <summary>
     /// Checa por objetos interagíveis no raio de interação e define o interagível mais próximo em "ultimoInteragivel"
@@ -763,39 +789,20 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
         // Na maioria das vezes, não haverá interagíveis
         if (quantFiltrada == 0) {
-            if (ultimoInteragivel != null) ultimoInteragivel.MostarIndicador(false);
+            if (ultimoInteragivel != null) ultimoInteragivel.MostrarIndicador(false);
             ultimoInteragivel = null;
             cache_interagiveisProximos.Clear();
             return false;
         }
 
-        foreach (var cache in cache_interagiveisProximos) {
-            cache.Value.checado = false;
-        }
-
         // Procura o interagível mais próximo (não podemos confiar na ordem padrão dos colliders)
         float menorDistancia = Mathf.Infinity;
-        Interagivel interagivelMaisProximo = null;
+        InteragivelBase interagivelMaisProximo = null;
         for (int i = 0; i < quant; i++) { // Na maioria das vezes, só haverá um interagível, e se houver mais, não será muitos (menos de 8)
             Collider collider = collidersInteragiveis[i];
             if (collider == null) continue; // Ignora objetos removidos
 
-
-            // Salva o colisor em um cache referenciado-o ao seu Interagivel (evitar GetComponent toda vez)
-            CacheColliderInteragivel cache;
-            if(!cache_interagiveisProximos.ContainsKey(collider)){ // Se não está no cache, cria um cache
-                Interagivel interagivel = collider.GetComponent<Interagivel>();
-                if (interagivel == null) continue; // Ignora objetos sem o componente Interagivel
-
-                cache = new CacheColliderInteragivel(interagivel);
-                cache_interagiveisProximos.Add(collider, cache);
-            } else { // Se já está no cache, pega o cache
-                cache = cache_interagiveisProximos[collider];
-            }
-
-            cache.checado = true; // Marca o colisor como checado, ou seja, ela ainda se encontra na area
-            Interagivel interagivelAtual = cache.interagivel; // Pega o interagível do cache
-
+            InteragivelBase interagivelAtual = PegaInteragivelDoCache(collider);
             if (interagivelAtual == null) continue; // Ignora objetos removidos ou sem o componente Interagivel
 
             float distancia = Vector3.Distance(transform.position, collider.transform.position);
@@ -805,23 +812,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             }
         }
 
-        // Remove os colisores que não estão mais na área de interação do cache
-        foreach (var cache in cache_interagiveisProximos) {
-            if (!cache.Value.checado) { // Se o colisor não foi checado, significa que ele não está mais na área de interação
-                removerDoCacheDeInteragiveis.Add(cache.Key);
-            }
-        }
-
-        // Remove os colisores que não estão mais na área de interação do cache
-        foreach (var colisor in removerDoCacheDeInteragiveis) {
-            cache_interagiveisProximos.Remove(colisor);
-        }
-
-        removerDoCacheDeInteragiveis.Clear(); // Limpa a lista de colisores que não estão mais na área de interação
-
+        AtualizarCacheDeInteragivel();
 
         if (interagivelMaisProximo == null) {
-            if (ultimoInteragivel != null) ultimoInteragivel.MostarIndicador(false);
+            if (ultimoInteragivel != null) ultimoInteragivel.MostrarIndicador(false);
             ultimoInteragivel = null;
             return false;
         }
@@ -829,12 +823,12 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         // Trata do ultimo interagivel
         if (ultimoInteragivel != null) {
             if (ultimoInteragivel == interagivelMaisProximo) return true; // Se o interagível mais próximo for o mesmo que o último interagível, não faz nada
-            ultimoInteragivel.MostarIndicador(false);
+            ultimoInteragivel.MostrarIndicador(false);
         }
 
 
         // GAMBIARRA DO LIMA:
-        try { interagivelMaisProximo.MostarIndicador(true); } catch { }
+        try { interagivelMaisProximo.MostrarIndicador(true); } catch { }
 
 
         ultimoInteragivel = interagivelMaisProximo;
@@ -857,7 +851,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     [Sincronizar]
     public void InteragirCom(GameObject interagivelObj) {
-        Interagivel interagivel = interagivelObj.GetComponent<Interagivel>();
+        InteragivelBase interagivel = interagivelObj.GetComponent<InteragivelBase>();
         if (interagivel == null) return;
         gameObject.Sincronizar(interagivelObj);
 
