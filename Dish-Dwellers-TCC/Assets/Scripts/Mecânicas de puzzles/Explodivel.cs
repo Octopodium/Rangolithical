@@ -1,18 +1,24 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class Explodivel : IResetavel{
+public class Explodivel : MonoBehaviour{
 
     [SerializeField] private int integridade;
-    [SerializeField] private GameObject mesh;
-    private Collider colliderParede;
+    private Collider colliderExplodivel;
     private int integridadeMaxima;
+    public UnityEvent OnExplode;
     
 
     private void Awake(){
-        colliderParede = GetComponent<Collider>();
+        colliderExplodivel = GetComponent<Collider>();
         integridadeMaxima = integridade;
+    }
+
+    private void OnEnable(){
+        //Quando for reativado
+        integridade = integridadeMaxima;
     }
 
     private void OnValidate(){
@@ -25,15 +31,9 @@ public class Explodivel : IResetavel{
     public void ReduzirIntegridade(){
         --integridade;
         if(integridade <= 0){
-            mesh.SetActive(false);  
-            colliderParede.enabled = false;      
+            OnExplode?.Invoke();
+            //colliderExplodivel.enabled = false;      
         }
-    }
-
-    public override void OnReset(){
-        mesh.SetActive(true);
-        colliderParede.enabled = true;
-        integridade = integridadeMaxima;
     }
 
 }

@@ -2,20 +2,34 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class MeshDestroy : MonoBehaviour{
-    public int cutCascades = 1;
-    public float explosionForce = 0.0f;
+    [SerializeField] private int cutCascades = 1;
+    [SerializeField] private float explosionForce = 0.0f;
+    [Tooltip("Determines wether the cutting plane plane position will be centered on the original mesh`s bounds, or on a random position inside of it.")]
+    [SerializeField] private bool centeredCut = false;
+    [Tooltip("Determines the scale of the generated mesh parts")]
+    [SerializeField][Range(0, 1)]private float meshPartsScale = 1.0f;
 
     private bool edgeSet = false;
     private Vector3 edgeVertex = Vector3.zero;
     private Vector2 edgeUV = Vector2.zero;
     private Plane edgePlane = new Plane();
+    private GameObject[] generatedMeshParts;
 
 
-    private void Start(){
-        DestroyMesh();
+    private void OnEnable(){
+        if(generatedMeshParts != null){
+            for(int i = 0; i < generatedMeshParts.Length; i++){
+                Destroy(generatedMeshParts[i]);
+                generatedMeshParts[i] = null;
+            }
+        }
     }
 
-    private void DestroyMesh() {
+    private void Start(){
+        generatedMeshParts = new GameObject[(int)Mathf.Pow(2, cutCascades)];
+    }
+
+    public void DestroyMesh() {
         Mesh originalMesh = GetComponent<MeshFilter>().mesh;
         originalMesh.RecalculateBounds();
         List<MeshPart> meshParts = new List<MeshPart>();
@@ -28,11 +42,17 @@ public class MeshDestroy : MonoBehaviour{
             for(int j = 0; j < meshParts.Count; j++) {
                 Bounds bounds = meshParts[j].bounds;
                 bounds.Expand(0.5f);
-                Plane plane = new Plane(Random.onUnitSphere, new Vector3(
-                    Random.Range(bounds.min.x, bounds.max.x),
-                    Random.Range(bounds.min.y, bounds.max.y),
-                    Random.Range(bounds.min.z, bounds.max.z)
-                ));
+                Plane plane;
+                if(!centeredCut){
+                    plane = new Plane(Random.onUnitSphere, new Vector3(
+                        Random.Range(bounds.min.x, bounds.max.x),
+                        Random.Range(bounds.min.y, bounds.max.y),
+                        Random.Range(bounds.min.z, bounds.max.z)
+                    ));
+                }
+                else{
+                    plane = new Plane(Random.onUnitSphere, bounds.center);
+                }
                 subMeshParts.Add(GenerateMeshPart(meshParts[j], plane, true));
                 subMeshParts.Add(GenerateMeshPart(meshParts[j], plane, false));
             }
@@ -40,10 +60,12 @@ public class MeshDestroy : MonoBehaviour{
             subMeshParts.Clear();
         }
         for( int i = 0; i < meshParts.Count; i++) {
-            meshParts[i].MakeGameObject(this);
+            meshParts[i].MakeGameObject(this, meshPartsScale);
             meshParts[i].newObject.GetComponent<Rigidbody>().AddForceAtPosition(meshParts[i].bounds.center * explosionForce, transform.position);
+            generatedMeshParts[i] = meshParts[i].newObject;
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        // Destroy(gameObject);
     }
 
     private MeshPart GenerateMeshPart(MeshPart originalMeshPart, Plane plane, bool left) {
@@ -247,7 +269,7 @@ public class MeshPart {
         }
     }
 
-    public void MakeGameObject(MeshDestroy originalObject) {
+    public void MakeGameObject(MeshDestroy originalObject, float partScale) {
         newObject = new GameObject(originalObject.name);
         originalObject.transform.GetPositionAndRotation(
             out Vector3 originalPosition,
@@ -257,7 +279,7 @@ public class MeshPart {
             originalPosition,
             originalRotation
         );
-        newObject.transform.localScale = originalObject.transform.localScale;
+        newObject.transform.localScale = originalObject.transform.localScale * partScale;
 
         Mesh mesh = new Mesh();
         mesh.name = originalObject.GetComponent<MeshFilter>().mesh.name;
