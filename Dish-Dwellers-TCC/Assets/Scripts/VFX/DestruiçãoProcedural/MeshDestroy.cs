@@ -8,6 +8,7 @@ public class MeshDestroy : MonoBehaviour{
     [SerializeField] private bool centeredCut = false;
     [Tooltip("Determines the scale of the generated mesh parts")]
     [SerializeField][Range(0, 1)]private float meshPartsScale = 1.0f;
+    [SerializeField] private LayerMask meshPartsLayerMask;
 
     private bool edgeSet = false;
     private Vector3 edgeVertex = Vector3.zero;
@@ -60,7 +61,7 @@ public class MeshDestroy : MonoBehaviour{
             subMeshParts.Clear();
         }
         for( int i = 0; i < meshParts.Count; i++) {
-            meshParts[i].MakeGameObject(this, meshPartsScale);
+            meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"));
             meshParts[i].newObject.GetComponent<Rigidbody>().AddForceAtPosition(meshParts[i].bounds.center * explosionForce, transform.position);
             generatedMeshParts[i] = meshParts[i].newObject;
         }
@@ -72,13 +73,10 @@ public class MeshDestroy : MonoBehaviour{
         MeshPart newMeshPart = new MeshPart();
         Ray ray1 = new Ray();
         Ray ray2 = new Ray();
-        Debug.Log($"originalMeshPart number of tris : {originalMeshPart.tris.Length}");
         for(int i = 0; i < originalMeshPart.tris.Length; i++) {
-            Debug.Log("batch" + i);
             int[] tri = originalMeshPart.tris[i];
             edgeSet = false;
             for(int j = 0; j < tri.Length; j += 3) {
-                Debug.Log("tri id " + j);
                 bool sideA = plane.GetSide(originalMeshPart.vertices[tri[j]]) == left;
                 bool sideB = plane.GetSide(originalMeshPart.vertices[tri[j + 1]]) == left;
                 bool sideC = plane.GetSide(originalMeshPart.vertices[tri[j + 2]]) == left;
@@ -269,7 +267,7 @@ public class MeshPart {
         }
     }
 
-    public void MakeGameObject(MeshDestroy originalObject, float partScale) {
+    public void MakeGameObject(MeshDestroy originalObject, float partScale, int layer) {
         newObject = new GameObject(originalObject.name);
         originalObject.transform.GetPositionAndRotation(
             out Vector3 originalPosition,
@@ -296,7 +294,7 @@ public class MeshPart {
         MeshCollider meshCollider = newObject.AddComponent<MeshCollider>();
         meshCollider.convex = true;
         Rigidbody rigidbody = newObject.AddComponent<Rigidbody>();
-        
+        newObject.layer = layer;
     }
 
 }
