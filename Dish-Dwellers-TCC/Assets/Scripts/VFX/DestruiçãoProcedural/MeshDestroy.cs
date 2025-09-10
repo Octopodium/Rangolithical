@@ -2,13 +2,21 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class MeshDestroy : MonoBehaviour{
+    [Header ("Mesh destruction configuration :")]
     [SerializeField] private int cutCascades = 1;
     [SerializeField] private float explosionForce = 0.0f;
     [Tooltip("Determines wether the cutting plane plane position will be centered on the original mesh`s bounds, or on a random position inside of it.")]
     [SerializeField] private bool centeredCut = false;
     [Tooltip("Determines the scale of the generated mesh parts")]
-    [SerializeField][Range(0, 1)]private float meshPartsScale = 1.0f;
     [SerializeField] private LayerMask meshPartsLayerMask;
+
+    [Space(15)]
+    [Header("Mesh Fragments Configuration :")]
+    [Tooltip("Determines wether or not the resulting fragments will have the fade out effect")]
+    [SerializeField][Range(0, 1)]private float meshPartsScale = 1.0f;
+    [SerializeField] private bool fadeOut = false;
+    [SerializeField][Range(0, 20)] private float lifetime = 2.0f;
+    [SerializeField][Range(0, 20)] private float fadeDuration = 2.0f;
 
     private bool edgeSet = false;
     private Vector3 edgeVertex = Vector3.zero;
@@ -61,7 +69,10 @@ public class MeshDestroy : MonoBehaviour{
             subMeshParts.Clear();
         }
         for( int i = 0; i < meshParts.Count; i++) {
-            meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"));
+            if(fadeOut)
+                meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"), lifetime, fadeDuration);
+            else
+                meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"));
             meshParts[i].newObject.GetComponent<Rigidbody>().AddForceAtPosition(meshParts[i].bounds.center * explosionForce, transform.position);
             generatedMeshParts[i] = meshParts[i].newObject;
         }
@@ -267,6 +278,7 @@ public class MeshPart {
         }
     }
 
+    // Doesn't fade out the fragments
     public void MakeGameObject(MeshDestroy originalObject, float partScale, int layer) {
         newObject = new GameObject(originalObject.name);
         originalObject.transform.GetPositionAndRotation(
@@ -294,6 +306,39 @@ public class MeshPart {
         MeshCollider meshCollider = newObject.AddComponent<MeshCollider>();
         meshCollider.convex = true;
         Rigidbody rigidbody = newObject.AddComponent<Rigidbody>();
+        newObject.layer = layer;
+    }
+
+    // Has the fade out effect
+    public void MakeGameObject(MeshDestroy originalObject, float partScale, int layer, float lifetime, float fadeDuration){
+        newObject = new GameObject(originalObject.name);
+        originalObject.transform.GetPositionAndRotation(
+            out Vector3 originalPosition,
+            out Quaternion originalRotation
+        );
+        newObject.transform.SetPositionAndRotation(
+            originalPosition,
+            originalRotation
+        );
+        newObject.transform.localScale = originalObject.transform.localScale * partScale;
+
+        Mesh mesh = new Mesh();
+        mesh.name = originalObject.GetComponent<MeshFilter>().mesh.name;
+        mesh.vertices = vertices;
+        mesh.normals = normals;
+        mesh.uv = UVs;
+        for(int i = 0; i < tris.Length; i++) mesh.SetTriangles(tris[i], i, true);
+        bounds = mesh.bounds;
+
+        MeshRenderer meshRenderer = newObject.AddComponent<MeshRenderer>();
+        meshRenderer.materials = originalObject.GetComponent<MeshRenderer>().materials;
+        MeshFilter meshFilter = newObject.AddComponent<MeshFilter>();
+        meshFilter.mesh = mesh;
+        MeshCollider meshCollider = newObject.AddComponent<MeshCollider>();
+        meshCollider.convex = true;
+        Rigidbody rigidbody = newObject.AddComponent<Rigidbody>();
+        MeshFragmentFade meshFragmentFade = newObject.AddComponent<MeshFragmentFade>();
+        meshFragmentFade.SetLifetimeAndFadeDuration(lifetime, fadeDuration);
         newObject.layer = layer;
     }
 
