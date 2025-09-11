@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Animations;
 
 public class Barco : MonoBehaviour, Interacao
 {
@@ -8,8 +9,9 @@ public class Barco : MonoBehaviour, Interacao
     public Vector3 pontoPuxada;
     public bool sendoPuxado = false;
     public float distanciaMinimaParada = 1f;
-    public float forcaPuxada = 500f;
+    public float forcaPuxada = 5000f;
     private Rigidbody rb;
+    public ParentConstraint parentConstraint;
 
     public void Awake(){
         rb = GetComponent<Rigidbody>();
@@ -19,11 +21,16 @@ public class Barco : MonoBehaviour, Interacao
     }
 
     public void Interagir(Player jogador){
+        parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
+        ConstraintSource posSource;
         if(jogador.personagem == QualPersonagem.Angler){
-            jogador.transform.position = pos1.position;
+            posSource = new ConstraintSource {sourceTransform = pos1, weight = 1f};
         }else{
-            jogador.transform.position = pos2.position;
+            posSource = new ConstraintSource {sourceTransform = pos2, weight = 1f};
         }
+
+        parentConstraint.AddSource(posSource);
+        parentConstraint.constraintActive = true;
 
         jogador.velocidade = 0f;
         jogador.velocidadeRB = 0f;
