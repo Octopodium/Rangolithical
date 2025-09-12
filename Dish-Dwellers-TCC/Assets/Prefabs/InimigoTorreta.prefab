@@ -226,7 +226,10 @@ MonoBehaviour:
   fireRate: 1
   nextFire: 0
   direction: {x: 0, y: 0, z: 0}
+  tempoDeFoco: 3
+  stunDuration: 3
   animator: {fileID: 8902606578992809684}
+  delayDoTiro: 0
 --- !u!1 &7405906233171527344
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15d82756532fda46b6a46cea1a0d702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: 0
+  sprite: 3
 --- !u!4 &6721524566472357516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 482d265de29c92e4b921ef0f4fc34d2a, type: 3}

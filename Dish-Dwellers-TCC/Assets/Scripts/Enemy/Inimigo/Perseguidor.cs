@@ -4,16 +4,18 @@ using UnityEngine.AI;
 
 public class Perseguidor : Inimigo {
 
-   [Header("Foco do alvo")]
+    [Header("Foco do alvo")]
     [SerializeField] private float tempoDeFoco = 3f;
     private float tempoRestanteDeFoco;
     private bool temAlvoFixo = false;
+    private Vector3 direction;
 
     [Header("Reação ao Escudo")]
     [SerializeField] private float tempoCaido = 3f; 
     private float tempoCaidoRestante;
     private bool caido = false;
 
+    [SerializeField] private AnimatorPerseguidor animator;
     private NavMeshAgent navAgent;
     private Rigidbody rb;
     private bool podePerseguir = true;
@@ -21,6 +23,7 @@ public class Perseguidor : Inimigo {
     private void Awake() {
         navAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<AnimatorPerseguidor>();
     }
 
     private void Start() {
@@ -50,10 +53,18 @@ public class Perseguidor : Inimigo {
     }
 
       public void Perseguir() {
-        if (!podePerseguir) return;
+        if (!podePerseguir) {
+           animator.Persegue(false);
+           return; 
+        } 
 
         if (_playerNoCampoDeVisao && target != null && navAgent != null && navAgent.isOnNavMesh) {
             navAgent.SetDestination(target.position);
+            animator.Persegue(true);
+
+            direction = target.position - transform.position;
+            animator.Olhar(direction);
+            direction.y = 0;
         }
     }
 
@@ -77,10 +88,7 @@ public class Perseguidor : Inimigo {
         if (rb != null) {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true; 
         }
-
-        transform.rotation = transform.rotation * Quaternion.Euler(180f, 0f, 0f);
     }
 
     private void Recuperar() {
@@ -93,13 +101,9 @@ public class Perseguidor : Inimigo {
         }
 
         if (rb != null) {
-            rb.isKinematic = false;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
-
-
-        transform.rotation = transform.rotation * Quaternion.Euler(0f, 0f, 180f);
     }
 
     private Transform EncontrarPlayerMaisProximo() {
