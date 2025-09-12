@@ -40,6 +40,15 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     }
 
     /// <summary>
+    /// Motivos pelo qual o jogador não pode interagir, chamado após PodeInteragir retornar true, checa condições que serão informadas para o jogador pelo Indicador.
+    /// </summary>
+    /// <param name="jogador">Jogador que interagiu</param>
+    /// <returns>Se o jogador pode interagir, retorna MotivoNaoInteracao.Nenhum, caso contrário, retorna o motivo pelo qual o jogador não pode interagir com o Interagivel.</returns>
+    public MotivoNaoInteracao NaoPodeInteragirPois(Player jogador) {
+        return NaoPodeInteragirPois(jogador.carregador);
+    }
+
+    /// <summary>
     /// Condições para que o jogador possa interagir com o objeto. 
     /// Se o jogador estiver carregando outro objeto, não poderá interagir com este.
     /// Se o objeto já estiver sendo carregado, não poderá interagir com ele.
@@ -47,7 +56,17 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     /// <param name="carregador">Carregador que interagiu</param>
     /// <returns>Positivo se pode ser interagido</returns>
     public bool PodeInteragir(Carregador carregador) {
-        return !carregador.estaCarregando && !_sendoCarregado && carregador.aguentaCarregar >= peso;
+        return !carregador.estaCarregando && !_sendoCarregado;
+    }
+
+    /// <summary>
+    /// Motivos pelo qual o carregador não pode interagir, chamado após PodeInteragir retornar true, checa condições que serão informadas para o carregador pelo Indicador.
+    /// </summary>
+    /// <param name="carregador">Carregador que interagiu</param>
+    /// <returns>Se o carregador pode interagir, retorna MotivoNaoInteracao.Nenhum, caso contrário, retorna o motivo pelo qual o carregador não pode interagir com o Interagivel.</returns>
+    public MotivoNaoInteracao NaoPodeInteragirPois(Carregador carregador) {
+        if (carregador.aguentaCarregar < peso) return MotivoNaoInteracao.Fraco;
+        return MotivoNaoInteracao.Nenhum;
     }
 
     /// <summary>
@@ -63,7 +82,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     /// </summary>
     /// <param name="carregador">Carregador que irá carregar o objeto</param>
     public void Carregar(Carregador carregador) {
-        if (!PodeInteragir(carregador)) return;
+        if (!PodeInteragir(carregador) || NaoPodeInteragirPois(carregador) != MotivoNaoInteracao.Nenhum) return;
         if (carregador.carregado != this && !carregador.Carregar(this)) return; // Se não conseguiu carregar, não faz nada
 
         this.carregador = carregador;

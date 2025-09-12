@@ -100,6 +100,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     Rigidbody rb; // Rigidbody do jogador (se houver)
     Collider col;
     Grudavel grudavel;
+    GrudaEmChoes grudarNoChao;
     public UnityEvent onTomarDano;
 
 
@@ -121,6 +122,9 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         
         grudavel = gameObject.GetComponent<Grudavel>();
         if (grudavel == null) grudavel = gameObject.AddComponent<Grudavel>();
+
+        grudarNoChao = gameObject.GetComponent<GrudaEmChoes>();
+        if (grudarNoChao == null) grudarNoChao = gameObject.AddComponent<GrudaEmChoes>();
         
         animacaoJogador = GetComponentInChildren<AnimadorPlayer>();
 
@@ -285,6 +289,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (carregando != null) carregador.Soltar(); // Se o jogador está carregando algo, se solta
         if (ferramenta != null) ferramenta.Cancelar(); // Se o jogador está acionando uma ferramenta, cancela a ação
         grudavel.Desgrudar();
+        grudarNoChao.Desgrudar();
     }
 
     string motivoDeDano = "Desconhecido";
@@ -678,12 +683,12 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             return;
         }
 
-        grudavel.Grudar(chao.transform, LimitacaoDoGrude.GrudaY);
+        grudarNoChao.Grudar(chao.transform);
     }
 
     public void DesgrudarDoChao() {
         if (chaoAtual != null && chaoAtual.tag == "Grudavel") {
-            grudavel.Desgrudar(chaoAtual.transform);
+            grudarNoChao.Desgrudar(chaoAtual.transform);
         }
     }
 
@@ -721,6 +726,9 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     #region Interacao
 
+    Dictionary<Collider, InteragivelBase> cache_interagiveisProximos = new Dictionary<Collider, InteragivelBase>();
+    List<Collider> removerDoCacheDeInteragiveis = new List<Collider>(); // Lista de colisores que não estão mais na área de interação (para remover do cache)
+
     /// <summary>
     /// Remove colisores que não podem ser interagidos (ex: o próprio jogador) da lista de colisores interagíveis
     /// No lugar do colisor, coloca null
@@ -740,11 +748,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
         return quant;
     }
-
-
-
-    Dictionary<Collider, InteragivelBase> cache_interagiveisProximos = new Dictionary<Collider, InteragivelBase>();
-    List<Collider> removerDoCacheDeInteragiveis = new List<Collider>(); // Lista de colisores que não estão mais na área de interação (para remover do cache)
 
     /// <summary>
     /// Utilizado únicamente dentro da função 'ChecarInteragiveis' para manter cache de Collider/Interagivel, evitando a utilização de GetComponent a cada frame
@@ -803,7 +806,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             if (collider == null) continue; // Ignora objetos removidos
 
             InteragivelBase interagivelAtual = PegaInteragivelDoCache(collider);
-            if (interagivelAtual == null) continue; // Ignora objetos removidos ou sem o componente Interagivel
+            if (interagivelAtual == null || !interagivelAtual.PodeInteragir(this)) continue; // Ignora objetos removidos ou sem o componente Interagivel
 
             float distancia = Vector3.Distance(transform.position, collider.transform.position);
             if (distancia < menorDistancia) {
@@ -826,9 +829,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             ultimoInteragivel.MostrarIndicador(false);
         }
 
+        MotivoNaoInteracao motivo = interagivelMaisProximo.NaoPodeInteragirPois(this);
+
 
         // GAMBIARRA DO LIMA:
-        try { interagivelMaisProximo.MostrarIndicador(true); } catch { }
+        try { interagivelMaisProximo.MostrarIndicador(true, motivo); } catch { }
 
 
         ultimoInteragivel = interagivelMaisProximo;

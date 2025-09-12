@@ -10,6 +10,7 @@ public abstract class InteragivelBase : MonoBehaviour {
     
     public abstract void Interagir(Player jogador);
     public abstract bool PodeInteragir(Player jogador);
+    public abstract MotivoNaoInteracao NaoPodeInteragirPois(Player jogador);
 
 
     protected virtual void Start() {
@@ -25,9 +26,9 @@ public abstract class InteragivelBase : MonoBehaviour {
 
 
 
-    public virtual void MostrarIndicador(bool mostrar) {
+    public virtual void MostrarIndicador(bool mostrar, MotivoNaoInteracao motivo = MotivoNaoInteracao.Nenhum) {
         if (indicador) {
-            if (mostrar) indicador.Mostrar(this);
+            if (mostrar) indicador.Mostrar(this, motivo);
             else indicador.Esconder(this);
         }
     }

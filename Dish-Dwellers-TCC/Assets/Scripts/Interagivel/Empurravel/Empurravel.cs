@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Interagivel))]
-public class Empurravel : MonoBehaviour, Interacao {
+public class Empurravel : MonoBehaviour, InteracaoCondicional {
     [System.Serializable]
     public class DirecaoEmpurrar {
         public bool cima = true;
@@ -27,6 +27,8 @@ public class Empurravel : MonoBehaviour, Interacao {
     Player jogadorEmpurrando = null;
     Vector3 eixo, ultimaPosicaoPlayer, eixoInvertido;
 
+    Vector3 topoOffset;
+
     bool algoNoCaminho = false;
 
 
@@ -35,6 +37,9 @@ public class Empurravel : MonoBehaviour, Interacao {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         interagivel = GetComponent<Interagivel>();
+
+        topoOffset = col.center;
+        topoOffset.y += col.size.y /2f;
 
         CriarTriggersDeInteracao();
     }
@@ -82,6 +87,15 @@ public class Empurravel : MonoBehaviour, Interacao {
 
 
         return trigger;
+    }
+
+    public bool PodeInteragir(Player jogador) {
+        return !jogador.carregador.estaCarregando && jogador.transform.position.y + paddingTrigger < (transform.position.y + topoOffset.y);
+    }
+
+    public MotivoNaoInteracao NaoPodeInteragirPois(Player jogador) {
+        if (jogador.carregador.aguentaCarregar < Peso.Pesado) return MotivoNaoInteracao.Fraco;
+        return MotivoNaoInteracao.Nenhum;
     }
 
 

@@ -26,11 +26,17 @@ public class Interagivel : InteragivelBase {
     }
     
     public override void Interagir(Player jogador) {
+        if (interacao == null || !PodeInteragir(jogador) || NaoPodeInteragirPois(jogador) != MotivoNaoInteracao.Nenhum) return;
         if (interacao != null) interacao.Interagir(jogador);
     }
 
     public override bool PodeInteragir(Player jogador) {
         return interacaoCondicional == null || interacaoCondicional.PodeInteragir(jogador);
+    }
+
+    public override MotivoNaoInteracao NaoPodeInteragirPois(Player jogador) {
+        if (interacaoCondicional == null) return MotivoNaoInteracao.Nenhum;
+        return interacaoCondicional.NaoPodeInteragirPois(jogador);
     }
 
 

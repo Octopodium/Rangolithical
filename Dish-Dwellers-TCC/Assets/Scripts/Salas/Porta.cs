@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
-public class Porta : IResetavel, Interacao {
+public class Porta : IResetavel, InteracaoCondicional {
     [Tooltip("Colisor que transporta o jogador quando destrancada")]
     [SerializeField] private GameObject portal;
     [SerializeField] private Animator animator;
@@ -36,18 +36,30 @@ public class Porta : IResetavel, Interacao {
         }
     }
 
+    public bool PodeInteragir(Player jogador) {
+        return trancada || jogador.carregando == null || jogador.carregando.CompareTag("Chave");
+    }
+
+    public MotivoNaoInteracao NaoPodeInteragirPois(Player jogador) {
+        if (jogador.carregando == null || !jogador.carregando.CompareTag("Chave")) return MotivoNaoInteracao.Trancado;
+        return MotivoNaoInteracao.Nenhum;
+    }
+
     public void Destrancar() {
         StartCoroutine(AbrirPorta());
 
         OnDestrancaPorta?.Invoke();
 
         // Previne que o jogador possa destrancar a porta duas vezes.
+        destrancada = true;
     }
 
     public void Trancar() {
         StopAllCoroutines();
         portal.SetActive(false);
         animator.SetBool("Aberta", false);
+
+        destrancada = false;
     }
 
     IEnumerator AbrirPorta() {
