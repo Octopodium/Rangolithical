@@ -8,7 +8,7 @@ public class Barco : MonoBehaviour, Interacao
     public Transform pos1, pos2;
     public Vector3 pontoPuxada;
     public bool sendoPuxado = false;
-    public float distanciaMinimaParada = 100f;
+    public float distanciaMinimaParada = 2f;
     public float forcaPuxada = 10000f;
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
