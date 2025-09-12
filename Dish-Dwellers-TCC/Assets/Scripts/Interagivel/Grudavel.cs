@@ -5,8 +5,8 @@ using UnityEngine.Animations;
 public enum LimitacaoDoGrude { GrudaTudo, GrudaX, GrudaY, GrudaZ, GrudaXY, GrudaXZ, GrudaYZ, NaoGruda }
 
 public class Grudavel : MonoBehaviour {
-    ParentConstraint parentConstraint; // Para manter o jogador preso a um objeto quando necessário
-    Transform grudavelTransform; // Transform do objeto grudável, usado para manter a posição relativa
+    protected ParentConstraint parentConstraint; // Para manter o jogador preso a um objeto quando necessário
+    protected Transform grudavelTransform; // Transform do objeto grudável, usado para manter a posição relativa
 
     void Start() {
         parentConstraint = gameObject.GetComponent<ParentConstraint>();
@@ -15,7 +15,7 @@ public class Grudavel : MonoBehaviour {
         parentConstraint.rotationAxis = Axis.None;
     }
     
-    public void Grudar(Transform target, LimitacaoDoGrude limitacao = LimitacaoDoGrude.GrudaTudo, bool manterPosicao = true) {
+    public virtual void Grudar(Transform target, LimitacaoDoGrude limitacao = LimitacaoDoGrude.GrudaTudo, bool manterPosicao = true) {
         if (target == null) return;
 
         Vector3 offset = manterPosicao ? transform.position - target.position : Vector3.zero;
@@ -34,7 +34,7 @@ public class Grudavel : MonoBehaviour {
         
     }
 
-    public void Desgrudar() {
+    public virtual void Desgrudar() {
         if (parentConstraint == null || parentConstraint.sourceCount == 0) return;
         
         grudavelTransform = null; // Limpa a referência ao grudável
