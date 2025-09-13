@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Animations;
 
-public class Barco : MonoBehaviour, Interacao
+public class Barco : IResetavel, Interacao
 {
-    public Transform pos1, pos2;
+    public Transform pos1, pos2, finalPos, inicialPos;
     public Vector3 pontoPuxada;
     public bool sendoPuxado = false;
     public float distanciaMinimaParada = 2f;
     public float forcaPuxada = 10000f;
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
+    private Player jogadorEmbarcado1, jogadorEmbarcado2;
+    private bool jogadorEstaEmbarcado = false;
 
     public void Awake(){
         rb = GetComponent<Rigidbody>();
@@ -20,12 +22,24 @@ public class Barco : MonoBehaviour, Interacao
         rb.angularDamping = 1f;
     }
 
-    public void Interagir(Player jogador){
+    /*void Update(){
+        if (jogadorEstaEmbarcado && jogadorEmbarcado != null && jogadorEmbarcado.ehJogadorAtual){
+            if (jogadorEmbarcado.playerInput != null && 
+                jogadorEmbarcado.playerInput.currentActionMap["Interact"].WasPressedThisFrame()){
+                SairDoBarco();
+            }
+        }
+    }*/
+
+    public void Interagir(Player jogador)
+    {
         parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
         ConstraintSource posSource;
         if(jogador.personagem == QualPersonagem.Angler){
+            jogadorEmbarcado1 = jogador;
             posSource = new ConstraintSource {sourceTransform = pos1, weight = 1f};
         }else{
+            jogadorEmbarcado2 = jogador;
             posSource = new ConstraintSource {sourceTransform = pos2, weight = 1f};
         }
 
@@ -61,6 +75,43 @@ public class Barco : MonoBehaviour, Interacao
             PararPuxada();
         }
         yield return null;
+    }
+
+    public void SairDoBarco(){
+        if(jogadorEmbarcado1 != null){
+            ParentConstraint constraint = jogadorEmbarcado1.GetComponent<ParentConstraint>();
+            if (constraint != null) {
+                constraint.RemoveSource(0);
+                constraint.constraintActive = false;
+            }
+            
+            jogadorEmbarcado1.Teletransportar(finalPos);
+
+            jogadorEmbarcado1.velocidade = 14f;
+            jogadorEmbarcado1.velocidadeRB = 14f;
+        }
+
+        if(jogadorEmbarcado2 != null){
+            ParentConstraint constraint = jogadorEmbarcado2.GetComponent<ParentConstraint>();
+            if (constraint != null) {
+                constraint.RemoveSource(0);
+                constraint.constraintActive = false;
+            }
+            
+            jogadorEmbarcado2.Teletransportar(finalPos);
+
+            jogadorEmbarcado2.velocidade = 14f;
+            jogadorEmbarcado2.velocidadeRB = 14f;
+
+        }
+
+    }
+
+    public override void OnReset(){
+        transform.position = inicialPos.position;
+        jogadorEmbarcado1 = null;
+        jogadorEmbarcado2 = null;
+        sendoPuxado = false;
     }
 
 }

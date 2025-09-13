@@ -37,8 +37,7 @@ public class GanchoPuxador : MonoBehaviour
         Vector3 thisPosition = meshBoia.transform.position;
         float tempo = 0f;
     
-        while (tempo <= 1f)
-        {
+        while (tempo <= 1f){
             tempo += Time.deltaTime * 2f;
             meshBoia.transform.position = Vector3.Lerp(thisPosition, targetPos, tempo);
             yield return null;

@@ -53,6 +53,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public List<Collider> collidersIgnoraveis = new List<Collider>(); // Lista de colisores que o jogador não pode interagir
     public float velocidadeEmpurrandoMult = 0.5f;
     public bool empurrando = false;
+    public bool embarcado = false;
 
 
     [Header("Referências")]
