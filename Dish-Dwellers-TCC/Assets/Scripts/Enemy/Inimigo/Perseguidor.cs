@@ -54,15 +54,15 @@ public class Perseguidor : Inimigo {
 
       public void Perseguir() {
         if (!podePerseguir) {
-           animator.Persegue(false);
-           return; 
-        } 
+            return;
+        }
 
         if (_playerNoCampoDeVisao && target != null && navAgent != null && navAgent.isOnNavMesh) {
             navAgent.SetDestination(target.position);
-            animator.Persegue(true);
+            navAgent.updateRotation = false;
+            animator.Patrulha(false);
 
-            direction = target.position - transform.position;
+            direction = transform.position - target.position;
             animator.Olhar(direction);
             direction.y = 0;
         }
