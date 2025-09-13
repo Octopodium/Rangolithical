@@ -46,7 +46,11 @@ public class AudioManager : MonoBehaviour
     /// <param name="sons"></param>
     /// <param name="volume"></param>
     public static void PlaySounds(TiposDeSons sons, float volume = 1f) {
-        audioManager.audioSource.PlayOneShot(audioManager.listaDeSons[(int)sons], volume);
+        try{
+            audioManager.audioSource.PlayOneShot(audioManager.listaDeSons[(int)sons], volume);
+        }catch{
+            Debug.Log($"<color=red>Deu erro no audio");
+        }
     }
 
     public void MudaVolume(float value) {

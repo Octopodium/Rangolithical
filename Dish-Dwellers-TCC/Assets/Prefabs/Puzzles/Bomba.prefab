@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1465719676123834747}
   - component: {fileID: 296176344481392791}
   - component: {fileID: 4977762735156022205}
+  - component: {fileID: 9023230578053870572}
   - component: {fileID: 6393626897114624740}
   - component: {fileID: 3737375433627677152}
   m_Layer: 7
@@ -54,6 +55,33 @@ MonoBehaviour:
   bombaRenderer: {fileID: 7430641575050155421}
   corPiscante: {r: 1, g: 0, b: 0, a: 1}
   tempoParaExplodir: 4
+  OnExplode:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1861039997703925209}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9023230578053870572}
+        m_TargetAssemblyTypeName: Destrutivel, Assembly-CSharp
+        m_MethodName: Destroi
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1465719676123834747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9430b9881a9fd3942bf5f673fab3060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  peso: 0
   onCarregado:
     m_PersistentCalls:
       m_Calls:
@@ -116,6 +145,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicador: {fileID: 0}
   offsetIndicador: {x: 0, y: 1, z: 0}
+  ultimoPonto: {fileID: 0}
+--- !u!114 &9023230578053870572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861039997703925209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc12de86cbc7a44a9012552b3c44c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDestruido:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7025556820742561354}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &6393626897114624740
 Rigidbody:
   m_ObjectHideFlags: 0

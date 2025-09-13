@@ -836,12 +836,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: decalsLinkados.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: 'decalsLinkados.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 966308385}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: 'decalsLinkados.Array.data[1]'
       value: 
@@ -2854,7 +2854,7 @@ PrefabInstance:
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: 'decalsLinkados.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1861746703}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: OnAtivado.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3479,6 +3479,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b7a10fe66fc99e46ab644579b41e033, type: 3}
+--- !u!23 &966308385 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6940310401343642459, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+  m_PrefabInstance: {fileID: 25460595}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1003049538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3501,7 +3506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: decalsLinkados.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: 'decalsLinkados.Array.data[0]'
@@ -3549,7 +3554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: OnDesativado.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AbaixarPonte
+      value: LevantarPonte
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: OnDesativado.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -6833,6 +6838,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+--- !u!23 &1861746703 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6940310401343642459, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+  m_PrefabInstance: {fileID: 1861746702}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1887266430
 GameObject:
   m_ObjectHideFlags: 0
