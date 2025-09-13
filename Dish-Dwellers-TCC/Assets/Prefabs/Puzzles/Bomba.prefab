@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1465719676123834747}
   - component: {fileID: 296176344481392791}
   - component: {fileID: 4977762735156022205}
+  - component: {fileID: -2383044966080922892}
   - component: {fileID: 9023230578053870572}
   - component: {fileID: 6393626897114624740}
   - component: {fileID: 3737375433627677152}
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosaoPrefab: {fileID: 5893092884870762418, guid: 7d0665e6be10c7a4081c3e1f1c8e2649, type: 3}
+  rb: {fileID: 0}
   bombaRenderer: {fileID: 7430641575050155421}
   corPiscante: {r: 1, g: 0, b: 0, a: 1}
   tempoParaExplodir: 4
@@ -146,6 +148,27 @@ MonoBehaviour:
   indicador: {fileID: 0}
   offsetIndicador: {x: 0, y: 1, z: 0}
   ultimoPonto: {fileID: 0}
+--- !u!114 &-2383044966080922892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861039997703925209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f593ff6c786d248aaf34045c1fab3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGanchado:
+    m_PersistentCalls:
+      m_Calls: []
+  onDesganchado:
+    m_PersistentCalls:
+      m_Calls: []
+  onPuxado:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &9023230578053870572
 MonoBehaviour:
   m_ObjectHideFlags: 0
