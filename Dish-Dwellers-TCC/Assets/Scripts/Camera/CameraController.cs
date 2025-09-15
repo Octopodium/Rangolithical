@@ -73,6 +73,9 @@ public class CameraController : MonoBehaviour {
         }
         FazerSetupInicial();
     }
+    private void OnDestroy() {
+        GameManager.instance.OnTerminaDeCarregarASala -= FazerSetupInicial;
+    }
 
     private void FazerSetupInicial() {
         DeterminaModoDeCamera();
@@ -97,7 +100,8 @@ public class CameraController : MonoBehaviour {
     private void DeterminaModoDeCamera() {
         if (!ativo) return;
 
-        modoDeJogoConfigurado = GameManager.instance.modoDeJogo;
+        // modoDeJogoConfigurado = GameManager.instance.modoDeJogo;
+        modoDeJogoConfigurado = ModoDeJogo.MULTIPLAYER_LOCAL;
 
         switch (modoDeJogoConfigurado) {
             case ModoDeJogo.SINGLEPLAYER:
