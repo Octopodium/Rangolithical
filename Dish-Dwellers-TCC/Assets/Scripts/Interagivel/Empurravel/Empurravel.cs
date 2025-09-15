@@ -12,7 +12,7 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         public bool direita = true;
     }
 
-
+    public GameObject encostouPorUltimoEm;
 
     public float distBordaInteracao = 0.5f;
     public float paddingTrigger = 0.25f;
@@ -45,10 +45,10 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
     }
 
     public void CriarTriggersDeInteracao() {
-        if (direcoes.direita) CriarTriggerDeInteracao(1, 0);
-        if (direcoes.esquerda) CriarTriggerDeInteracao(-1, 0);
-        if (direcoes.cima) CriarTriggerDeInteracao(0, 1);
-        if (direcoes.baixo) CriarTriggerDeInteracao(0, -1);
+        if (direcoes.direita) CriarTriggerDeInteracao(0, 1);
+        if (direcoes.esquerda) CriarTriggerDeInteracao(0, -1);
+        if (direcoes.cima) CriarTriggerDeInteracao(1, 0);
+        if (direcoes.baixo) CriarTriggerDeInteracao(-1, 0);
     }
 
     GameObject CriarTriggerDeInteracao(int xDir, int yDir) {
@@ -98,6 +98,13 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         return MotivoNaoInteracao.Nenhum;
     }
 
+    Vector3 GetDirecaoPlayer(Player jogador) {
+        Vector3 posRelativa = (jogador.transform.position - transform.position).normalized;
+        bool eixoX = Mathf.Abs(posRelativa.x) > Mathf.Abs(posRelativa.z);
+
+        return eixoX ? new Vector3(Mathf.Sign(posRelativa.x), 0, 0) : new Vector3(0, 0, Mathf.Sign(posRelativa.z));
+    }
+
 
     public void Interagir(Player jogador) {
         if (sendoEmpurrado) {
@@ -105,8 +112,7 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
             return;
         }
 
-        Vector3 posRelativa = (jogador.transform.position - transform.position).normalized;
-        Vector3 direcao = Mathf.Abs(posRelativa.x) > Mathf.Abs(posRelativa.z) ? new Vector3(Mathf.Sign(posRelativa.x), 0, 0) : new Vector3(0, 0, Mathf.Sign(posRelativa.z));
+        Vector3 direcao = GetDirecaoPlayer(jogador);
 
         // Posiciona o jogador bem no meio da caixa
         Vector3 novaPosicaoPlayer = transform.right * direcao.x + transform.forward * direcao.z;
@@ -137,9 +143,12 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
     void OnTriggerAoRedor(Collider col, int x, int z) {
         if (!sendoEmpurrado) return;
         if (col.isTrigger) return;
+        if (col.tag == "Subida") return;
 
-        if (eixoInvertido.x == x && eixoInvertido.z == z)
+        if (eixoInvertido.x == x && eixoInvertido.z == z) {
             algoNoCaminho = true;
+            encostouPorUltimoEm = col.gameObject;
+        }
     }
 
     void OnSaiuDoTrigger(Collider col) {
@@ -156,6 +165,7 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
 
 
         if (algoNoCaminho) {
+            encostouPorUltimoEm = null;
             algoNoCaminho = false;
             return;
         }
