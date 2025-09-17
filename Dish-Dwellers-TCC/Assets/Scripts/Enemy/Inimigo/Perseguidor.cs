@@ -9,6 +9,7 @@ public class Perseguidor : Inimigo {
     private float tempoRestanteDeFoco;
     private bool temAlvoFixo = false;
     private Vector3 direction;
+    private Vector3 flipY;
 
     [Header("Reação ao Escudo")]
     [SerializeField] private float tempoCaido = 3f; 
@@ -60,7 +61,7 @@ public class Perseguidor : Inimigo {
         if (_playerNoCampoDeVisao && target != null && navAgent != null && navAgent.isOnNavMesh) {
             navAgent.SetDestination(target.position);
             navAgent.updateRotation = false;
-            animator.Patrulha(false);
+            animator.Persegue(true);
 
             direction = transform.position - target.position;
             animator.Olhar(direction);
@@ -82,7 +83,7 @@ public class Perseguidor : Inimigo {
 
         if (navAgent != null && navAgent.isOnNavMesh) {
             navAgent.isStopped = true;
-            navAgent.updateRotation = false; 
+            navAgent.updateRotation = false;
         }
 
         if (rb != null) {
