@@ -15,6 +15,10 @@ public class Perseguidor : Inimigo {
     private float tempoCaidoRestante;
     private bool caido = false;
 
+    [Header("Confg De Patrulha")]
+    public Transform[] waypoints;
+    private int IndexPosicaoAtual = 0;
+
     [SerializeField] private AnimatorPerseguidor animator;
     private NavMeshAgent navAgent;
     private bool podePerseguir = true;
@@ -22,6 +26,10 @@ public class Perseguidor : Inimigo {
     private void Awake() {
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<AnimatorPerseguidor>();
+
+        if (waypoints.Length > 0) {
+            navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
+        }
     }
 
     private void Start() {
@@ -48,6 +56,7 @@ public class Perseguidor : Inimigo {
         base.ChecagemDeZonas();
         AtualizarAlvo();
         Perseguir();
+        Patrulhar();
     }
 
       public void Perseguir() {
@@ -63,6 +72,14 @@ public class Perseguidor : Inimigo {
             direction = transform.position - target.position;
             animator.Olhar(direction);
             direction.y = 0;
+        }
+    }
+
+    public void Patrulhar() {
+        if (!navAgent.pathPending && navAgent.remainingDistance < 1) {
+            IndexPosicaoAtual = (IndexPosicaoAtual + 1) % waypoints.Length;
+            navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
+            animator.Persegue(false);
         }
     }
 

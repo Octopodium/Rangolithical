@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5254016602894470276}
   - component: {fileID: 7325115763719662212}
-  - component: {fileID: 274505964193542889}
   - component: {fileID: 8158629462487259436}
   - component: {fileID: 8056382125826236401}
   - component: {fileID: 9199354836867732836}
@@ -62,22 +61,8 @@ MonoBehaviour:
   _playerNaZonaDeAtaque: 0
   tempoDeFoco: 3
   tempoCaido: 3
+  waypoints: []
   animator: {fileID: 0}
---- !u!114 &274505964193542889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5631770193978613373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87c7f35ede327504ea86273c7d204596, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!195 &8158629462487259436
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -290,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2175951de0a579e48858c0cb00c89e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshPerseguidor: {fileID: 446955818550833078}
+  meshPerseguidor: {fileID: 8630964470272004635}
 --- !u!114 &562282552600167175
 MonoBehaviour:
   m_ObjectHideFlags: 0
