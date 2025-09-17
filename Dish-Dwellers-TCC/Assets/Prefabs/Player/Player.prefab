@@ -134,8 +134,12 @@ MonoBehaviour:
     m_Bits: 192
   velocidadeCarregandoMult: 0.7
   collidersIgnoraveis: []
+  velocidadeEmpurrandoMult: 0.5
+  empurrando: 0
+  embarcado: 0
   visualizarDirecao: {fileID: 5890127384661449939}
   pontoCentral: {fileID: 7010001802995998695}
+  dropShadow: {fileID: 5676424528351773621}
   escudo: 0
   velocidadeComEscudoMult: 0.45
   velocidadeGanchadoMult: 0.75
@@ -246,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicador: {fileID: 0}
   offsetIndicador: {x: 0, y: 2.65, z: 0}
+  ultimoPonto: {fileID: 0}
 --- !u!114 &7184748271679852735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2781,5 +2786,10 @@ PrefabInstance:
 --- !u!4 &5011774815095789839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3883273768743520338, guid: b38442fb5522a0d44a28400c8e9d7cee, type: 3}
+  m_PrefabInstance: {fileID: 8100091506070933853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5676424528351773621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4517101937606038248, guid: b38442fb5522a0d44a28400c8e9d7cee, type: 3}
   m_PrefabInstance: {fileID: 8100091506070933853}
   m_PrefabAsset: {fileID: 0}

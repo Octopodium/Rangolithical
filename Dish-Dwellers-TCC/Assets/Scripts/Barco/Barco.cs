@@ -5,7 +5,7 @@ using UnityEngine.Animations;
 
 public class Barco : IResetavel, Interacao
 {
-    public Transform pos1, pos2, finalPos, inicialPos;
+    public Transform pos1, pos2, outPos, inicialPos;
     public Vector3 pontoPuxada;
     public bool sendoPuxado = false;
     public float distanciaMinimaParada = 2f;
@@ -33,6 +33,10 @@ public class Barco : IResetavel, Interacao
 
     public void Interagir(Player jogador)
     {
+        if(jogador.embarcado){
+            SairDoBarco();
+            jogador.embarcado = false;
+        }
         parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
         ConstraintSource posSource;
         if(jogador.personagem == QualPersonagem.Angler){
@@ -45,11 +49,7 @@ public class Barco : IResetavel, Interacao
 
         parentConstraint.AddSource(posSource);
         parentConstraint.constraintActive = true;
-
-        jogador.velocidade = 0f;
-        jogador.velocidadeRB = 0f;
-        //desabilita o indicador
-        //desabilita animação
+        jogador.embarcado = true;
     }
 
     public void IniciarPuxada(Vector3 pontoGancho){
@@ -85,7 +85,7 @@ public class Barco : IResetavel, Interacao
                 constraint.constraintActive = false;
             }
             
-            jogadorEmbarcado1.Teletransportar(finalPos);
+            jogadorEmbarcado1.Teletransportar(outPos);
 
             jogadorEmbarcado1.velocidade = 14f;
             jogadorEmbarcado1.velocidadeRB = 14f;
@@ -98,13 +98,11 @@ public class Barco : IResetavel, Interacao
                 constraint.constraintActive = false;
             }
             
-            jogadorEmbarcado2.Teletransportar(finalPos);
+            jogadorEmbarcado2.Teletransportar(outPos.position - new Vector3(2, 0, 0));
 
             jogadorEmbarcado2.velocidade = 14f;
             jogadorEmbarcado2.velocidadeRB = 14f;
-
         }
-
     }
 
     public override void OnReset(){

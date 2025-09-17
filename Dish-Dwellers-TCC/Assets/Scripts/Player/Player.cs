@@ -60,6 +60,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public GameObject visualizarDirecao;
     public Transform pontoCentral; // pros bicho mirar certo e não atirarem no pé.
     bool podeMovimentar = true; // Solução TEMPORARIA enquanto não há estados implementados
+    public GameObject dropShadow;
     
 
 
@@ -238,6 +239,12 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         Movimentacao();
 
         DesenharTrajetoria();
+
+        if(embarcado){
+            dropShadow.SetActive(false);
+        }else{
+            dropShadow.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other){
