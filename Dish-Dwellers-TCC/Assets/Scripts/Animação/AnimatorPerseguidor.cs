@@ -1,7 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimatorPerseguidor : MonoBehaviour {
     private Animator animator;
+    [SerializeField] private Transform meshPerseguidor;
 
     #region Parâmetros do animator
 
@@ -28,9 +30,6 @@ public class AnimatorPerseguidor : MonoBehaviour {
     //     animator.SetBool(patrulha, val);
     // }
 
-    // public void DeCabecaPraBaixo(bool val) {
-    //     animator.SetBool(deCabecaPraBaixo, val);
-    // }
 
     public void Olhar(Vector3 dirAlvo) {
         Vector3 escalaX = transform.localScale;
@@ -42,15 +41,27 @@ public class AnimatorPerseguidor : MonoBehaviour {
 
         transform.localScale = escalaX;
     }
-    
-    public void VirarDeCabecaPraBaixo(Vector3 flip){
-        Vector3 escalaY = transform.localScale;
 
-        if(flip.y != 0){     
-            orientacao = flip.y > 0 ? -1 : 1;
-            escalaY.y = orientacao;
-        }
+    public void VirarDeCabecaPraBaixo() {
+        Debug.Log("Virando inimigo de cabeça pra baixo!");
 
-        transform.localScale = escalaY;
+        Vector3 escalaY = meshPerseguidor.localScale;
+        escalaY.y = -1;
+        meshPerseguidor.localScale = escalaY;
+
+        Vector3 posY = meshPerseguidor.transform.position;
+        posY.y += 1;
+        meshPerseguidor.transform.position = posY;
+    }
+
+    public void Desvirar() {
+        Debug.Log("Desvirou Lindo DEMAISSS!!!");
+        Vector3 escalaY = meshPerseguidor.localScale;
+        escalaY.y = 1;
+        meshPerseguidor.localScale = escalaY;
+
+        Vector3 posY = meshPerseguidor.transform.position;
+        posY.y -= 1;
+        meshPerseguidor.transform.position = posY;
     }
 }

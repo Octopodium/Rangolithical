@@ -9,7 +9,6 @@ public class Perseguidor : Inimigo {
     private float tempoRestanteDeFoco;
     private bool temAlvoFixo = false;
     private Vector3 direction;
-    private Vector3 flipY;
 
     [Header("Reação ao Escudo")]
     [SerializeField] private float tempoCaido = 3f; 
@@ -18,12 +17,10 @@ public class Perseguidor : Inimigo {
 
     [SerializeField] private AnimatorPerseguidor animator;
     private NavMeshAgent navAgent;
-    private Rigidbody rb;
     private bool podePerseguir = true;
 
     private void Awake() {
         navAgent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<AnimatorPerseguidor>();
     }
 
@@ -84,11 +81,8 @@ public class Perseguidor : Inimigo {
         if (navAgent != null && navAgent.isOnNavMesh) {
             navAgent.isStopped = true;
             navAgent.updateRotation = false;
-        }
 
-        if (rb != null) {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            animator.VirarDeCabecaPraBaixo();
         }
     }
 
@@ -99,11 +93,8 @@ public class Perseguidor : Inimigo {
         if (navAgent != null && navAgent.isOnNavMesh) {
             navAgent.isStopped = false;
             navAgent.updateRotation = true;
-        }
 
-        if (rb != null) {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            animator.Desvirar();
         }
     }
 
