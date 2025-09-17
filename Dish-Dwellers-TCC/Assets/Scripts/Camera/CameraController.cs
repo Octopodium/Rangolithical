@@ -104,8 +104,7 @@ public class CameraController : MonoBehaviour {
     private void DeterminaModoDeCamera() {
         if (!ativo) return;
 
-        // modoDeJogoConfigurado = GameManager.instance.modoDeJogo;
-        modoDeJogoConfigurado = ModoDeJogo.MULTIPLAYER_LOCAL;
+        modoDeJogoConfigurado = GameManager.instance.modoDeJogo;
 
         switch (modoDeJogoConfigurado) {
             case ModoDeJogo.SINGLEPLAYER:
