@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using System;
 public class CameraController : MonoBehaviour {
 
     // Informações da câmera : 
@@ -20,6 +21,7 @@ public class CameraController : MonoBehaviour {
     [SerializeField] private CinemachineCamera[] ccameras = new CinemachineCamera[2];
     [SerializeField] private CinemachinePositionComposer[] positionComposers = new CinemachinePositionComposer[2];
     [SerializeField] private Camera[] cameras = new Camera[2];
+    [SerializeField] private Camera[] additionalCameras;
 
     [Space(15)]
 
@@ -55,6 +57,7 @@ public class CameraController : MonoBehaviour {
     [SerializeField] private float tempoDBlendIntro = 2.0f;
     private bool podeTrocarCamera = false;
     private bool splitScreen = false;
+    private bool subscription = false;
 
     [Space(15)]
 
@@ -69,12 +72,13 @@ public class CameraController : MonoBehaviour {
     private void Start(){
         if(GameManager.instance.carregando == true){
             GameManager.instance.OnTerminaDeCarregarASala += FazerSetupInicial;
+            subscription = true;
             return;
         }
         FazerSetupInicial();
     }
     private void OnDestroy() {
-        GameManager.instance.OnTerminaDeCarregarASala -= FazerSetupInicial;
+        if(subscription) GameManager.instance.OnTerminaDeCarregarASala -= FazerSetupInicial;
     }
 
     private void FazerSetupInicial() {
