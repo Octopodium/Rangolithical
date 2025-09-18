@@ -13,6 +13,10 @@ public class Perseguidor : Inimigo {
     [Header("Reação ao Escudo")]
     [SerializeField] private float tempoCaido = 3f; 
     private float tempoCaidoRestante;
+    private float tempoDeAtaque = 3f;
+    private float tempoDeAtaqueRestante;
+    private float velocidadeDeAtaque = 5f;
+    private Vector3 chaseDash;
     private bool caido = false;
 
     [Header("Confg De Patrulha")]
@@ -43,8 +47,10 @@ public class Perseguidor : Inimigo {
     private void FixedUpdate() {
         if (caido) {
             tempoCaidoRestante -= Time.deltaTime;
-            if (tempoCaidoRestante <= 0f) Recuperar();
-            return;
+            if (tempoCaidoRestante <= 0f) {
+                Recuperar();
+                return;
+            }
         }
 
         if (navAgent == null || (navAgent != null && !navAgent.isOnNavMesh)) {
@@ -53,6 +59,8 @@ public class Perseguidor : Inimigo {
             return;
         }
 
+        tempoDeAtaqueRestante -= Time.deltaTime;
+        
         base.ChecagemDeZonas();
         AtualizarAlvo();
         Perseguir();
@@ -80,6 +88,15 @@ public class Perseguidor : Inimigo {
             IndexPosicaoAtual = (IndexPosicaoAtual + 1) % waypoints.Length;
             navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
             animator.Persegue(false);
+        }
+    }
+
+    public override void Atacar() {
+        tempoDeAtaqueRestante = tempoDeAtaque;
+        if (_playerNaZonaDeAtaque && target != null && tempoDeAtaqueRestante <= 0f) {
+            chaseDash = (transform.position - target.position) * velocidadeDeAtaque * Time.deltaTime;
+            animator.Ataca(true);
+            chaseDash.y = 0f;
         }
     }
 
