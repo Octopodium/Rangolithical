@@ -49,7 +49,7 @@ public class AnimatorPerseguidor : MonoBehaviour {
         meshPerseguidor.localScale = escalaY;
 
         Vector3 posY = meshPerseguidor.transform.position;
-        posY.y += 1;
+        posY.y += 2;
         meshPerseguidor.transform.position = posY;
     }
 
@@ -60,7 +60,7 @@ public class AnimatorPerseguidor : MonoBehaviour {
         meshPerseguidor.localScale = escalaY;
 
         Vector3 posY = meshPerseguidor.transform.position;
-        posY.y -= 1;
+        posY.y -= 2;
         meshPerseguidor.transform.position = posY;
     }
 }
