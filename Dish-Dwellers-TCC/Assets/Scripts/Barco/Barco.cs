@@ -14,6 +14,7 @@ public class Barco : IResetavel, Interacao
     public ParentConstraint parentConstraint;
     private Player jogadorEmbarcado1, jogadorEmbarcado2;
     private bool jogadorEstaEmbarcado = false;
+    public bool noPier = false;
 
     public void Awake(){
         rb = GetComponent<Rigidbody>();
@@ -33,25 +34,27 @@ public class Barco : IResetavel, Interacao
 
     public void Interagir(Player jogador)
     {
-        if(jogador.embarcado){
-            SairDoBarco();
-            jogador.embarcado = false;
-        }
-        parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
-        ConstraintSource posSource;
-        if(jogador.personagem == QualPersonagem.Angler){
-            jogadorEmbarcado1 = jogador;
-            posSource = new ConstraintSource {sourceTransform = pos1, weight = 1f};
-        }else{
-            jogadorEmbarcado2 = jogador;
-            posSource = new ConstraintSource {sourceTransform = pos2, weight = 1f};
-        }
+        if(noPier){
+            if(jogador.embarcado){
+                SairDoBarco();
+                jogador.embarcado = false;
+            }
+            parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
+            ConstraintSource posSource;
+            if(jogador.personagem == QualPersonagem.Angler){
+                jogadorEmbarcado1 = jogador;
+                posSource = new ConstraintSource {sourceTransform = pos1, weight = 1f};
+            }else{
+                jogadorEmbarcado2 = jogador;
+                posSource = new ConstraintSource {sourceTransform = pos2, weight = 1f};
+            }
 
-        parentConstraint.AddSource(posSource);
-        parentConstraint.constraintActive = true;
-        jogador.embarcado = true;
-        jogador. velocidade = 0f;
-        jogador.velocidadeRB = 0f;
+            parentConstraint.AddSource(posSource);
+            parentConstraint.constraintActive = true;
+            jogador.embarcado = true;
+            jogador. velocidade = 0f;
+            jogador.velocidadeRB = 0f;
+        }
     }
 
     public void IniciarPuxada(Vector3 pontoGancho){
@@ -105,6 +108,10 @@ public class Barco : IResetavel, Interacao
             jogadorEmbarcado2.velocidade = 14f;
             jogadorEmbarcado2.velocidadeRB = 14f;
         }
+    }
+
+    public void NoPier(bool status){
+        noPier = status;
     }
 
     public override void OnReset(){
