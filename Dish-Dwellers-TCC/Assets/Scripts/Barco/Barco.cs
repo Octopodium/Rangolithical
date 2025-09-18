@@ -50,6 +50,8 @@ public class Barco : IResetavel, Interacao
         parentConstraint.AddSource(posSource);
         parentConstraint.constraintActive = true;
         jogador.embarcado = true;
+        jogador. velocidade = 0f;
+        jogador.velocidadeRB = 0f;
     }
 
     public void IniciarPuxada(Vector3 pontoGancho){
