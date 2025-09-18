@@ -15,12 +15,12 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.24705884, g: 0.5568628, b: 0.61960787, a: 1}
+  m_FogColor: {r: 0.61960787, g: 0.24705882, b: 0.38462532, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.3458689, g: 0.787989, b: 0.8115152, a: 1}
+  m_AmbientSkyColor: {r: 0.8301887, g: 0.31719476, b: 0.5061925, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.6
@@ -1281,6 +1281,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1141632014167910197, guid: 3b7a10fe66fc99e46ab644579b41e033, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: c714d9d5434e95c438f2dc56aff45509, type: 2}
     - target: {fileID: 2489287946113556297, guid: 3b7a10fe66fc99e46ab644579b41e033, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1

@@ -108,6 +108,7 @@ public class CameraController : MonoBehaviour {
 
         switch (modoDeJogoConfigurado) {
             case ModoDeJogo.SINGLEPLAYER:
+                splitFollowTarget.gameObject.SetActive(false);
                 if (introCamera) {
                     onTerminarIntro.AddListener(() => {
                         GameManager.instance.OnTrocarControle += TrocarCamera;
@@ -119,7 +120,7 @@ public class CameraController : MonoBehaviour {
                 break;
 
             case ModoDeJogo.MULTIPLAYER_LOCAL:
-
+                
                 UsarCameraDividida();
                 break;
                 /*

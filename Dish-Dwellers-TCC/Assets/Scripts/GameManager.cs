@@ -237,9 +237,6 @@ public class GameManager : MonoBehaviour {
     public bool carregando;
 
     
-    /// <summary>
-    /// Descarrega a sala atual, finaliza o carregamento da proxima e posiciona o jogador no porximo ponto de spawn.
-    /// </summary>
     public void PassaDeSala() {
         if (isOnline) RequestPassaDeSalaOnline();
         else StartCoroutine(PassaDeSalaOffline());
