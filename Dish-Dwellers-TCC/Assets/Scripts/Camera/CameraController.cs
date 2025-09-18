@@ -174,16 +174,9 @@ public class CameraController : MonoBehaviour {
     }
 
     void OnDisable() {
-        switch (modoDeJogoConfigurado) {
-            case ModoDeJogo.SINGLEPLAYER:
-                GameManager.instance.OnTrocarControle -= TrocarCamera;
-                break;
-
-            case ModoDeJogo.MULTIPLAYER_LOCAL:
-                break;
-
-            case ModoDeJogo.MULTIPLAYER_ONLINE:
-                break;
+        if(modoDeJogoConfigurado == ModoDeJogo.SINGLEPLAYER) {
+            if(GameManager.instance == null) return;
+            GameManager.instance.OnTrocarControle -= TrocarCamera;
         }
     }
 
