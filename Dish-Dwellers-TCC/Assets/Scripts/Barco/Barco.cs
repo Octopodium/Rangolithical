@@ -23,15 +23,6 @@ public class Barco : IResetavel, Interacao
         rb.angularDamping = 1f;
     }
 
-    /*void Update(){
-        if (jogadorEstaEmbarcado && jogadorEmbarcado != null && jogadorEmbarcado.ehJogadorAtual){
-            if (jogadorEmbarcado.playerInput != null && 
-                jogadorEmbarcado.playerInput.currentActionMap["Interact"].WasPressedThisFrame()){
-                SairDoBarco();
-            }
-        }
-    }*/
-
     public void Interagir(Player jogador)
     {
         if(noPier){
@@ -112,6 +103,10 @@ public class Barco : IResetavel, Interacao
 
     public void NoPier(bool status){
         noPier = status;
+    }
+
+    public void SwitchOutPos(Transform outPosition){
+        outPos = outPosition;
     }
 
     public override void OnReset(){
