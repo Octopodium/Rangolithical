@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 53379862}
   - component: {fileID: 53379864}
   - component: {fileID: 53379863}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: BarcoMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1082,9 +1082,9 @@ GameObject:
   - component: {fileID: 244263606}
   - component: {fileID: 244263605}
   - component: {fileID: 244263604}
-  - component: {fileID: 244263608}
-  - component: {fileID: 244263607}
   - component: {fileID: 244263609}
+  - component: {fileID: 244263611}
+  - component: {fileID: 244263610}
   m_Layer: 7
   m_Name: Barco
   m_TagString: Barco
@@ -1138,8 +1138,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5616765, y: 0.5, z: 1.2}
-  m_Center: {x: 0.28083777, y: 0, z: 0.000000012342104}
+  m_Size: {x: 2.8351269, y: 0.5, z: 2.2694361}
+  m_Center: {x: -0.16327477, y: 0, z: 0.017807126}
 --- !u!4 &244263606
 Transform:
   m_ObjectHideFlags: 0
@@ -1158,38 +1158,6 @@ Transform:
   - {fileID: 1564319077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &244263607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244263603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicador: {fileID: 0}
-  offsetIndicador: {x: 0, y: 1, z: 0}
-  ultimoPonto: {fileID: 0}
---- !u!114 &244263608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244263603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe0644f5332e474ca26b8e5a890d138, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugLogMetodosCadastrados: 0
-  cadastrarNoInicio: 1
-  naoUsarIDAuto: 0
-  isSingleton: 0
-  identificador: $6ce72cd94da046239a95c82bb4b6647a
 --- !u!114 &244263609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,6 +1180,38 @@ MonoBehaviour:
   forcaPuxada: 15000
   parentConstraint: {fileID: 0}
   noPier: 0
+--- !u!114 &244263610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244263603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicador: {fileID: 0}
+  offsetIndicador: {x: 0, y: 1, z: 0}
+  ultimoPonto: {fileID: 0}
+--- !u!114 &244263611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244263603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe0644f5332e474ca26b8e5a890d138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugLogMetodosCadastrados: 0
+  cadastrarNoInicio: 1
+  naoUsarIDAuto: 0
+  isSingleton: 0
+  identificador: $a9abd90ce2714529aa5b4655cc5e9cd8
 --- !u!1 &245780513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,120 +1858,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 766384047}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &368714872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 368714876}
-  - component: {fileID: 368714875}
-  - component: {fileID: 368714874}
-  - component: {fileID: 368714873}
-  m_Layer: 0
-  m_Name: Linha Final
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
---- !u!114 &368714873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368714872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f5236eb846629143933fcdf373ea772, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barco: {fileID: 244263609}
---- !u!114 &368714874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368714872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be1b46d259aff5428fb781b781344f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 368714873}
-        m_TargetAssemblyTypeName: LinhaFinal, Assembly-CSharp
-        m_MethodName: TirarPlayers
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 368714873}
-        m_TargetAssemblyTypeName: LinhaFinal, Assembly-CSharp
-        m_MethodName: Destruir
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTriggerExit:
-    m_PersistentCalls:
-      m_Calls: []
-  onTriggerStay:
-    m_PersistentCalls:
-      m_Calls: []
-  tagFilter: Barco
---- !u!65 &368714875
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368714872}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 65536
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5.8396482, y: 8, z: 20}
-  m_Center: {x: -0.41982412, y: 0, z: 0}
---- !u!4 &368714876
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368714872}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.89, y: 1.39, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &388236781
 GameObject:
@@ -3057,7 +2943,7 @@ PrefabInstance:
     - target: {fileID: 3217120750178702384, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 368714872}
+      objectReference: {fileID: 0}
     - target: {fileID: 3217120750178702384, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -4572,7 +4458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1564319077}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Position2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5338,7 +5224,7 @@ PrefabInstance:
     - target: {fileID: 3217120750178702384, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 368714872}
+      objectReference: {fileID: 0}
     - target: {fileID: 3217120750178702384, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -5549,7 +5435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2070950722}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Position1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5933,7 +5819,6 @@ SceneRoots:
   - {fileID: 1955560987}
   - {fileID: 967156915}
   - {fileID: 278994781}
-  - {fileID: 368714876}
   - {fileID: 1725347798}
   - {fileID: 1145591605}
   - {fileID: 274050181}

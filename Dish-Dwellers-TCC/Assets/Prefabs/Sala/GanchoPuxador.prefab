@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 4043998425567272174}
   - component: {fileID: 2931971534357381048}
   - component: {fileID: 5002058870631451685}
-  - component: {fileID: 6497491844120891114}
   - component: {fileID: 7494056500875168737}
   m_Layer: 7
   m_Name: GanchoPuxador
@@ -192,21 +191,6 @@ MonoBehaviour:
   naoUsarIDAuto: 0
   isSingleton: 0
   identificador: 
---- !u!114 &6497491844120891114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5967641154591388452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicador: {fileID: 0}
-  offsetIndicador: {x: 0, y: 2, z: 0}
-  ultimoPonto: {fileID: 0}
 --- !u!136 &7494056500875168737
 CapsuleCollider:
   m_ObjectHideFlags: 0

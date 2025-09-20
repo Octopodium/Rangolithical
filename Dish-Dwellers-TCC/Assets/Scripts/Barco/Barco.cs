@@ -12,7 +12,6 @@ public class Barco : IResetavel, Interacao
     public float forcaPuxada = 10000f;
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
-    private Player jogadorEmbarcado1, jogadorEmbarcado2;
     private bool jogadorEstaEmbarcado = false;
     public bool noPier = false;
 
@@ -27,16 +26,15 @@ public class Barco : IResetavel, Interacao
     {
         if(noPier){
             if(jogador.embarcado){
-                SairDoBarco();
+                SairDoBarco(jogador);
                 jogador.embarcado = false;
+                return;
             }
             parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
             ConstraintSource posSource;
             if(jogador.personagem == QualPersonagem.Angler){
-                jogadorEmbarcado1 = jogador;
                 posSource = new ConstraintSource {sourceTransform = pos1, weight = 1f};
             }else{
-                jogadorEmbarcado2 = jogador;
                 posSource = new ConstraintSource {sourceTransform = pos2, weight = 1f};
             }
 
@@ -73,31 +71,18 @@ public class Barco : IResetavel, Interacao
         yield return null;
     }
 
-    public void SairDoBarco(){
-        if(jogadorEmbarcado1 != null){
-            ParentConstraint constraint = jogadorEmbarcado1.GetComponent<ParentConstraint>();
+    public void SairDoBarco(Player jogador){
+        if(jogador != null){
+            ParentConstraint constraint = jogador.GetComponent<ParentConstraint>();
             if (constraint != null) {
                 constraint.RemoveSource(0);
                 constraint.constraintActive = false;
             }
             
-            jogadorEmbarcado1.Teletransportar(outPos);
+            jogador.Teletransportar(outPos.position + new Vector3((Random.Range(1f,3f)), 0, 0));
 
-            jogadorEmbarcado1.velocidade = 14f;
-            jogadorEmbarcado1.velocidadeRB = 14f;
-        }
-
-        if(jogadorEmbarcado2 != null){
-            ParentConstraint constraint = jogadorEmbarcado2.GetComponent<ParentConstraint>();
-            if (constraint != null) {
-                constraint.RemoveSource(0);
-                constraint.constraintActive = false;
-            }
-            
-            jogadorEmbarcado2.Teletransportar(outPos.position - new Vector3(2, 0, 0));
-
-            jogadorEmbarcado2.velocidade = 14f;
-            jogadorEmbarcado2.velocidadeRB = 14f;
+            jogador.velocidade = 14f;
+            jogador.velocidadeRB = 14f;
         }
     }
 
@@ -111,8 +96,6 @@ public class Barco : IResetavel, Interacao
 
     public override void OnReset(){
         transform.position = inicialPos.position;
-        jogadorEmbarcado1 = null;
-        jogadorEmbarcado2 = null;
         sendoPuxado = false;
     }
 
