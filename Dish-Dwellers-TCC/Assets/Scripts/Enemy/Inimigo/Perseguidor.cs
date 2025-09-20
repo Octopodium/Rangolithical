@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 public class Perseguidor : Inimigo {
 
@@ -24,12 +25,17 @@ public class Perseguidor : Inimigo {
     private int IndexPosicaoAtual = 0;
 
     [SerializeField] private AnimatorPerseguidor animator;
+    private Interagivel interagivel;
+    private Carregavel carregavel;
     private NavMeshAgent navAgent;
     private bool podePerseguir = true;
 
     private void Awake() {
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<AnimatorPerseguidor>();
+        interagivel = GetComponentInChildren<Interagivel>();
+        carregavel = GetComponentInChildren<Carregavel>();
+        interagivel.enabled = false;
 
         if (waypoints.Length > 0) {
             navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
@@ -107,10 +113,13 @@ public class Perseguidor : Inimigo {
         }
     }
 
-    private void CaidoPorEscudo() {
+    public void CaidoPorEscudo() {
+        interagivel.enabled = true;
+
         caido = true;
         tempoCaidoRestante = tempoCaido;
         podePerseguir = false;
+
 
         if (navAgent != null && navAgent.isOnNavMesh) {
             navAgent.isStopped = true;
@@ -120,15 +129,20 @@ public class Perseguidor : Inimigo {
         }
     }
 
-    private void Recuperar() {
+    public void Recuperar() {
         caido = false;
         podePerseguir = true;
 
-        if (navAgent != null && navAgent.isOnNavMesh) {
-            navAgent.isStopped = false;
-            navAgent.updateRotation = true;
+        if (!carregavel.sendoCarregado) {
+            
+            if (navAgent != null && navAgent.isOnNavMesh) {
+                navAgent.isStopped = false;
+                navAgent.updateRotation = true;
 
-            animator.Desvirar();
+                animator.Desvirar();
+            }
+
+            interagivel.enabled = false;
         }
     }
 

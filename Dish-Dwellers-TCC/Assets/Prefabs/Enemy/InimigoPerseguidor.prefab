@@ -10,10 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5254016602894470276}
   - component: {fileID: 7325115763719662212}
+  - component: {fileID: 5480759516511127318}
+  - component: {fileID: 4597197003833439561}
+  - component: {fileID: 4392599104411128367}
   - component: {fileID: 8158629462487259436}
   - component: {fileID: 8056382125826236401}
   - component: {fileID: 9199354836867732836}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InimigoPerseguidor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 24.91, y: 2.02, z: -12.57}
-  m_LocalScale: {x: 1.18, y: 1.18, z: 1.18}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8630964470272004635}
@@ -61,8 +64,86 @@ MonoBehaviour:
   _playerNaZonaDeAtaque: 0
   tempoDeFoco: 3
   tempoCaido: 3
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   animator: {fileID: 0}
+--- !u!114 &5480759516511127318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631770193978613373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9430b9881a9fd3942bf5f673fab3060a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  peso: 0
+  onCarregado:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7325115763719662212}
+        m_TargetAssemblyTypeName: Perseguidor, Assembly-CSharp
+        m_MethodName: CaidoPorEscudo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSolto:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7325115763719662212}
+        m_TargetAssemblyTypeName: Perseguidor, Assembly-CSharp
+        m_MethodName: Recuperar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  grudavel: {fileID: 0}
+--- !u!114 &4597197003833439561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631770193978613373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicador: {fileID: 0}
+  offsetIndicador: {x: 0, y: 1, z: 0}
+  ultimoPonto: {fileID: 0}
+--- !u!114 &4392599104411128367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631770193978613373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe0644f5332e474ca26b8e5a890d138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugLogMetodosCadastrados: 0
+  cadastrarNoInicio: 1
+  naoUsarIDAuto: 0
+  isSingleton: 0
+  identificador: 
 --- !u!195 &8158629462487259436
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -142,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8630964470272004635}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "Pivot_De_Rota\xE7\xE3o"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,9 +294,113 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8141244127721525340, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -5805966086467667081, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -5063561220638002623, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4644403537044808286, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4534906325430334651, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4481905639327094635, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4382025897262666716, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4087941578556513030, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3973199886574297261, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3172765357682952252, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2607511921454598689, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2531743567421524784, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2198189735089948171, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2003641398585048980, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -139346107928065977, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 781756047600369290, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_Name
       value: pepperbell charger
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360429794837341694, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1410303600693553397, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278770307759962603, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800769499817948658, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993794155631387169, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431954420248782322, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6148154667975251078, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154973579414142815, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196027006709615718, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
