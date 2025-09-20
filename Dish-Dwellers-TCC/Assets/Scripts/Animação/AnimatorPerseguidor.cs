@@ -47,7 +47,10 @@ public class AnimatorPerseguidor : MonoBehaviour {
         transform.localScale = escalaX;
     }
 
+    bool taVirado = false;
+
     public void VirarDeCabecaPraBaixo() {
+        if (taVirado) return;
         Debug.Log("Virando inimigo de cabeça pra baixo!");
 
         Vector3 escalaY = meshPerseguidor.localScale;
@@ -57,9 +60,13 @@ public class AnimatorPerseguidor : MonoBehaviour {
         Vector3 posY = meshPerseguidor.transform.position;
         posY.y += 2;
         meshPerseguidor.transform.position = posY;
+
+        taVirado = true;
     }
 
     public void Desvirar() {
+        if (!taVirado) return;
+
         Debug.Log("Desvirou Lindo DEMAISSS!!!");
         Vector3 escalaY = meshPerseguidor.localScale;
         escalaY.y = 1;
@@ -68,5 +75,7 @@ public class AnimatorPerseguidor : MonoBehaviour {
         Vector3 posY = meshPerseguidor.transform.position;
         posY.y -= 2;
         meshPerseguidor.transform.position = posY;
+
+        taVirado = false;
     }
 }

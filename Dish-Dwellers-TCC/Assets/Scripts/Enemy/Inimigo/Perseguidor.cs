@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Pool;
 
 public class Perseguidor : Inimigo {
 
@@ -51,7 +50,7 @@ public class Perseguidor : Inimigo {
     }
 
     private void FixedUpdate() {
-        if (caido) {
+        if (caido && !carregavel.sendoCarregado) {
             tempoCaidoRestante -= Time.deltaTime;
             if (tempoCaidoRestante <= 0f) {
                 Recuperar();
@@ -130,10 +129,9 @@ public class Perseguidor : Inimigo {
     }
 
     public void Recuperar() {
-        caido = false;
-        podePerseguir = true;
-
         if (!carregavel.sendoCarregado) {
+            caido = false;
+            podePerseguir = true;
             
             if (navAgent != null && navAgent.isOnNavMesh) {
                 navAgent.isStopped = false;

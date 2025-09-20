@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class Carregador: MonoBehaviour, SincronizaMetodo {
     public Peso aguentaCarregar = Peso.Leve;
@@ -56,6 +55,7 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
             if (distancia < menorDistancia) {
                 Carregavel carregavel = collider.GetComponent<Carregavel>();
                 if (carregavel != null && carregavel.PodeInteragir(this) && carregavel != ultimoCarregado) {
+                    if (!carregavel.EstaAcimaDe(transform.position)) continue;
                     menorDistancia = distancia;
                     carregavelProximo = carregavel;
                 }

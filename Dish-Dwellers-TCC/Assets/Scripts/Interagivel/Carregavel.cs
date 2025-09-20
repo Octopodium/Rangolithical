@@ -12,6 +12,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     public System.Action<Carregador> OnCarregado, OnSolto; // Chamado quando o carregador carrega ou solta um objeto
 
     Rigidbody rb;
+    Collider col;
     bool _sendoCarregado = false;
     public bool sendoCarregado => _sendoCarregado;
     public Carregador carregador { get; private set; } // O carregador que está carregando o objeto, se houver
@@ -19,6 +20,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
 
         grudavel = gameObject.GetComponent<Grudavel>();
         if (grudavel == null) grudavel = gameObject.AddComponent<Grudavel>();
@@ -76,7 +78,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     public void Interagir(Player jogador) {
         Carregar(jogador.carregador);
     }
-    
+
     /// <summary>
     /// Carrega o objeto com o carregador passado como parâmetro. Se o objeto já estiver sendo carregado, não faz nada.
     /// </summary>
@@ -103,7 +105,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
-        
+
         rb.isKinematic = true;
         tinhaGravidade = rb.useGravity;
         rb.useGravity = false; // Desabilita a gravidade enquanto o objeto estiver sendo carregado
@@ -120,5 +122,9 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
         rb.isKinematic = false;
         rb.useGravity = tinhaGravidade; // Restaura a gravidade
         this.carregador = null;
+    }
+
+    public bool EstaAcimaDe(Vector3 outro) {
+        return (col.bounds.center.y - col.bounds.size.y / 2f) > outro.y;
     }
 }

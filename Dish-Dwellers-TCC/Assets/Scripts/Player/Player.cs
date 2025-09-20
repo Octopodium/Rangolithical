@@ -814,7 +814,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             if (collider == null) continue; // Ignora objetos removidos
 
             InteragivelBase interagivelAtual = PegaInteragivelDoCache(collider);
-            if (interagivelAtual == null || !interagivelAtual.PodeInteragir(this)) continue; // Ignora objetos removidos ou sem o componente Interagivel
+            if (interagivelAtual == null || !interagivelAtual.PodeInteragir(this) || !interagivelAtual.enabled) continue; // Ignora objetos removidos ou sem o componente Interagivel
 
             float distancia = Vector3.Distance(transform.position, collider.transform.position);
             if (distancia < menorDistancia) {
