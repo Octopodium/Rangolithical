@@ -76,10 +76,11 @@ public class Indicador : MonoBehaviour {
             parentConstraint.SetTranslationOffset(sourceId, interagivel.offsetIndicador);
             return;
         }
-        
+
+        Vector3 dir = interagivel.transform.InverseTransformDirection(Vector3.right);
         Indicador outro = interagivel.ProximoIndicador(this);
         Vector3 offset = interagivel.offsetIndicador;
-        Vector3 offsetExtra = transform.right * GetOffsetBaseOnPlayers(jogador, outro.jogador);
+        Vector3 offsetExtra = dir * GetOffsetBaseOnPlayers(jogador, outro.jogador);
         parentConstraint.SetTranslationOffset(sourceId, offset + offsetExtra);
     }
 
