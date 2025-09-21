@@ -8,26 +8,25 @@ public class VaporEmpurravel : MonoBehaviour
     private RaycastHit hitInfo;
 
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate(){
         CastColisao();   
     }
 
     private void CastColisao(){
         ray = new Ray(transform.position, -transform.forward);
 
-        if (Physics.Raycast(transform.position, -transform.forward, out hitInfo, 10f, layers)){
+        if (Physics.Raycast(transform.position, -transform.forward, out hitInfo, maxComprimento, layers)){
             
             if(hitInfo.transform.CompareTag("Barco")){
+                Debug.Log("barcohitado");
                 hitInfo.transform.GetComponent<Barco>().AplicarForcaVapor(-transform.forward);
             }
         }
     }
 
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos(){
         Gizmos.color = Color.magenta;
-        Gizmos.DrawRay(transform.position, -transform.forward.normalized * 10f);
+        Gizmos.DrawRay(transform.position, -transform.forward.normalized * maxComprimento);
     }
 
 }

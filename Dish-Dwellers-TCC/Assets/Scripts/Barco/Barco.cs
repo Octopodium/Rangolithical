@@ -12,7 +12,6 @@ public class Barco : IResetavel, Interacao
     public float forcaPuxada = 10000f;
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
-    private bool jogadorEstaEmbarcado = false;
     public bool noPier = false;
     public Player angler, heater;
 
@@ -99,8 +98,11 @@ public class Barco : IResetavel, Interacao
 
     public void AplicarForcaVapor(Vector3 direcaoEmpurrada){
         if(heater.ferramenta.acionada){
-            Debug.Log("ferramenta tentando forca");
-            rb.AddForce(direcaoEmpurrada * 50000 * Time.deltaTime, ForceMode.Force);
+            //  if (Vector3.Dot(transform.forward, direcaoEmpurrada) > 0.3f)
+            //{
+            Debug.Log("tentando forca escudo");
+                rb.AddForce(direcaoEmpurrada * 50000 * Time.deltaTime, ForceMode.Force);
+            //}
         }
     }
 
