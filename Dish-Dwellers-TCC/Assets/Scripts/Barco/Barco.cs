@@ -14,6 +14,7 @@ public class Barco : IResetavel, Interacao
     public ParentConstraint parentConstraint;
     private bool jogadorEstaEmbarcado = false;
     public bool noPier = false;
+    public Player angler, heater;
 
     public void Awake(){
         rb = GetComponent<Rigidbody>();
@@ -34,8 +35,10 @@ public class Barco : IResetavel, Interacao
             ConstraintSource posSource;
             if(jogador.personagem == QualPersonagem.Angler){
                 posSource = new ConstraintSource {sourceTransform = pos1, weight = 1f};
+                angler = jogador;
             }else{
                 posSource = new ConstraintSource {sourceTransform = pos2, weight = 1f};
+                heater = jogador;
             }
 
             parentConstraint.AddSource(posSource);
@@ -92,6 +95,13 @@ public class Barco : IResetavel, Interacao
 
     public void SwitchOutPos(Transform outPosition){
         outPos = outPosition;
+    }
+
+    public void AplicarForcaVapor(Vector3 direcaoEmpurrada){
+        if(heater.ferramenta.acionada){
+            Debug.Log("ferramenta tentando forca");
+            rb.AddForce(direcaoEmpurrada * 50000 * Time.deltaTime, ForceMode.Force);
+        }
     }
 
     public override void OnReset(){
