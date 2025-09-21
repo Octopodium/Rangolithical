@@ -72,6 +72,8 @@ public class ProjetilDoGancho : MonoBehaviour {
             movendo = false;
             gancho.SetarGanchado(ganchavel);
             rb.isKinematic = true;
+        } else if (collider.tag == "Subida") {
+            return;
         } else {
             gancho.DestruirGancho();
         }

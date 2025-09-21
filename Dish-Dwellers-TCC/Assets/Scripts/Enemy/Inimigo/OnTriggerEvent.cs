@@ -13,6 +13,9 @@ public class OnTriggerEvent : MonoBehaviour
         if(!sala.triggers.Contains(this)){
             sala.triggers.Add(this);
         }
+
+        if (gameObject.layer == 0)
+            gameObject.layer = LayerMask.NameToLayer("Trigger");
     }
 
     private void OnTriggerEnter(Collider other)

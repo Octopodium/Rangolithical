@@ -574,6 +574,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         rb.AddForce(movimentacao.normalized * GetVelocidade(true) , ForceMode.Force);
     }
 
+    public float aimSpeed = 3f;
     /// <summary>
     /// Código para fazer o player mirar a direção do escudo e gancho de forma separada da movimentação 
     /// </summary>
@@ -581,7 +582,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     {
         if (playerInput == null || !playerInput.enabled) return;
 
-        inputMira = playerInput.currentActionMap["Aim"].ReadValue<Vector2>();
+        Vector2 input = playerInput.currentActionMap["Aim"].ReadValue<Vector2>();
+        inputMira = Vector2.Lerp(inputMira, input, Time.deltaTime * aimSpeed);
         
         bool estavaMirando = estaMirando;
         estaMirando = inputMira.magnitude > deadzoneMira;
