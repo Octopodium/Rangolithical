@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Animations;
+using Unity.VisualScripting;
 
 public class Barco : IResetavel, Interacao
 {
@@ -97,10 +98,12 @@ public class Barco : IResetavel, Interacao
     }
 
     public void AplicarForcaVapor(Vector3 direcaoEmpurrada){
-        if(heater.ferramenta.acionada){
-            if (Vector3.Dot(heater.visualizarDirecao.transform.forward, direcaoEmpurrada) < -0.3f){
-                Debug.Log("tentando forca escudo");
-                rb.AddForce(direcaoEmpurrada * 100 * Time.deltaTime, ForceMode.Force);
+        if (heater != null) {
+            if (heater.ferramenta.acionada) {
+                if (Vector3.Dot(heater.visualizarDirecao.transform.forward, direcaoEmpurrada) < -0.3f) {
+                    //Debug.Log("tentando forca escudo");
+                    rb.AddForce(direcaoEmpurrada * 100 * Time.deltaTime, ForceMode.Force);
+                }
             }
         }
     }
