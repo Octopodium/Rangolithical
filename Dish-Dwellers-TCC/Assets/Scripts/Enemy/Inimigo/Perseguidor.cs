@@ -123,8 +123,8 @@ public class Perseguidor : Inimigo
             animator.Persegue(true);
 
             Vector3 dirOlhar = transform.position - target.position;
-            dirOlhar.y = 0;
             animator.Olhar(dirOlhar);
+            dirOlhar.y = 0;
         }
     }
 

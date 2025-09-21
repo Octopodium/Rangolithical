@@ -628,6 +628,70 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 446955818550833078, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446955818550833078, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446955818550833078, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 446955818550833078, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446955818550833078, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154746625401603207, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154746625401603207, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154746625401603207, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154746625401603207, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154746625401603207, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154746625401603207, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356019683105184347, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356019683105184347, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356019683105184347, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356019683105184347, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356019683105184347, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4392599104411128367, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: identificador
       value: $df5d18c0e3dd465aa919f5f3372ae103
@@ -675,6 +739,10 @@ PrefabInstance:
     - target: {fileID: 5631770193978613373, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: m_Name
       value: InimigoPerseguidor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631770193978613373, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: campoDeVisao
@@ -1690,7 +1758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa46fb8ff84e434fa2a7283589507d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempoAntesDeCair: 0.5
+  tempoAntesDeCair: 1
   distanciaPlayer: 2
   playerLayer:
     serializedVersion: 2

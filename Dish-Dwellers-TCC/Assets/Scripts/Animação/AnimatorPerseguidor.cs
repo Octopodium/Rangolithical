@@ -40,7 +40,7 @@ public class AnimatorPerseguidor : MonoBehaviour {
         Vector3 escalaX = transform.localScale;
 
         if (dirAlvo.x != 0) {
-            orientacao = dirAlvo.x > 0 ? -1 : 1;
+            orientacao = dirAlvo.x > 0 ? 1 : -1 ;
             escalaX.x = orientacao;
         }
 
