@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 5887351921248026637}
   - component: {fileID: 7895352726125104892}
   - component: {fileID: 1234451657381535121}
+  - component: {fileID: 848007526538224766}
   m_Layer: 0
   m_Name: WoodenPlate_Fall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4661797474982914805
 Transform:
@@ -72,9 +73,39 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  distanciaDoChao: 0
+  distanciaDoChao: -0.15
   extensaoDoCubo: {x: 4.1, y: 0.5, z: 0.8}
   rotacaoDoCubo: {x: 0, y: 0, z: 0}
+  OnAntesDestruir:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 848007526538224766}
+        m_TargetAssemblyTypeName: ObjectShaker, Assembly-CSharp
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnPosDestrucao:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 848007526538224766}
+        m_TargetAssemblyTypeName: ObjectShaker, Assembly-CSharp
+        m_MethodName: StopShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1234451657381535121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +120,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onReset:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7895352726125104892}
+        m_TargetAssemblyTypeName: ChaoQueDestroi, Assembly-CSharp
+        m_MethodName: Reconstruir
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &848007526538224766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976839099022893688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8d30e0947ddcf40befd0b99e09248e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeMagnitude: 0.05
+  shakeOnStart: 0
+  endShakeOnTime: 0
 --- !u!1 &7514108256279031560
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +165,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3012812761541540949
 Transform:
