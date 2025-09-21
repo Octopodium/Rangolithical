@@ -25,6 +25,8 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
     public string cenaLobby = "Lobby";
     public string cenaPrimeiraFase = "1-1";
     public GameObject menuOpcoes, lobbyOpcoes, seletorFase;
+    public UINavigationManager selectionManager;
+    public GameObject primeiroSelectFase, primeiroDeselectFase;
     
 
 
@@ -82,5 +84,11 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
 
     public void SelecaoDeFase(){
         seletorFase.SetActive(true);
+        selectionManager.TrocaFirstSelected(primeiroSelectFase);
+    }
+
+    public void DesselecaoDeFase(){
+        seletorFase.SetActive(false);
+        selectionManager.TrocaFirstSelected(primeiroDeselectFase);
     }
 }
