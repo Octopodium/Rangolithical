@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class VaporEmpurravel : MonoBehaviour
 {
-    [SerializeField] private float maxComprimento = 10.0f;
+    [SerializeField] private float maxComprimento = 5.0f;
     [SerializeField] private LayerMask layers;
     private Ray ray;
     private RaycastHit hitInfo;
@@ -16,9 +16,9 @@ public class VaporEmpurravel : MonoBehaviour
         ray = new Ray(transform.position, -transform.forward);
 
         if (Physics.Raycast(transform.position, -transform.forward, out hitInfo, maxComprimento, layers)){
-            
+            Debug.Log(hitInfo.collider.name, hitInfo.collider);
             if(hitInfo.transform.CompareTag("Barco")){
-                Debug.Log("barcohitado");
+                Debug.Log("barco hitado");
                 hitInfo.transform.GetComponent<Barco>().AplicarForcaVapor(-transform.forward);
             }
         }

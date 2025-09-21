@@ -4,7 +4,7 @@ public class Escudo : MonoBehaviour, Ferramenta
 {
     public GameObject protecao;
 
-    Vector3 direcaoProtecao = Vector3.zero;
+    public Vector3 direcaoProtecao = Vector3.zero;
     public bool acionada { get; protected set; } = false;
     
     Player jogador;

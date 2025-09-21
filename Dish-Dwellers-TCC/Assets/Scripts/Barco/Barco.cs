@@ -98,11 +98,10 @@ public class Barco : IResetavel, Interacao
 
     public void AplicarForcaVapor(Vector3 direcaoEmpurrada){
         if(heater.ferramenta.acionada){
-            //  if (Vector3.Dot(transform.forward, direcaoEmpurrada) > 0.3f)
-            //{
-            Debug.Log("tentando forca escudo");
-                rb.AddForce(direcaoEmpurrada * 50000 * Time.deltaTime, ForceMode.Force);
-            //}
+            if (Vector3.Dot(heater.visualizarDirecao.transform.forward, direcaoEmpurrada) < -0.3f){
+                Debug.Log("tentando forca escudo");
+                rb.AddForce(direcaoEmpurrada * 100 * Time.deltaTime, ForceMode.Force);
+            }
         }
     }
 
