@@ -105,6 +105,9 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     GrudaEmChoes grudarNoChao;
     public UnityEvent onTomarDano;
 
+    public Indicador indicador;
+    public System.Action<InputDevice> OnDeviceChange;
+    public InputDevice controleAtual { get; private set; }
 
     // Awake: trata de referências/configurações internas
     void Awake() {
@@ -173,6 +176,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (!ehJogadorAtual) return; // Se não é o jogador atual, não faz nada
         if (GameManager.instance.isPaused) return; // Se o jogo está pausado, não faz nada
 
+        if (ctx.control.device != controleAtual) {
+            controleAtual = ctx.control.device;
+            OnDeviceChange?.Invoke(controleAtual);
+        }
+
         switch (ctx.action.name) {
             case "Interact":
                 if (ctx.performed) Interagir(ctx);
@@ -198,7 +206,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     void OnDisable() {
         if (ultimoInteragivel != null) {
-            ultimoInteragivel.MostrarIndicador(false);
+            ultimoInteragivel.MostrarIndicador(false, indicador);
             ultimoInteragivel = null;
         }
 
@@ -227,7 +235,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         // No modo singleplayer, caso este jogador não seja o atual, não faz nada
         if (GameManager.instance.modoDeJogo == ModoDeJogo.SINGLEPLAYER && (playerInput == null || !playerInput.enabled)) {
             if (ultimoInteragivel != null) {
-                ultimoInteragivel.MostrarIndicador(false);
+                ultimoInteragivel.MostrarIndicador(false, indicador);
                 ultimoInteragivel = null;
             }
 
@@ -800,7 +808,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
         // Na maioria das vezes, não haverá interagíveis
         if (quantFiltrada == 0) {
-            if (ultimoInteragivel != null) ultimoInteragivel.MostrarIndicador(false);
+            if (ultimoInteragivel != null) ultimoInteragivel.MostrarIndicador(false, indicador);
             ultimoInteragivel = null;
             cache_interagiveisProximos.Clear();
             return false;
@@ -826,7 +834,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         AtualizarCacheDeInteragivel();
 
         if (interagivelMaisProximo == null) {
-            if (ultimoInteragivel != null) ultimoInteragivel.MostrarIndicador(false);
+            if (ultimoInteragivel != null) ultimoInteragivel.MostrarIndicador(false, indicador);
             ultimoInteragivel = null;
             return false;
         }
@@ -834,14 +842,14 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         // Trata do ultimo interagivel
         if (ultimoInteragivel != null) {
             if (ultimoInteragivel == interagivelMaisProximo) return true; // Se o interagível mais próximo for o mesmo que o último interagível, não faz nada
-            ultimoInteragivel.MostrarIndicador(false);
+            ultimoInteragivel.MostrarIndicador(false, indicador);
         }
 
         MotivoNaoInteracao motivo = interagivelMaisProximo.NaoPodeInteragirPois(this);
 
 
         // GAMBIARRA DO LIMA:
-        try { interagivelMaisProximo.MostrarIndicador(true, motivo); } catch { }
+        try { interagivelMaisProximo.MostrarIndicador(true, indicador, motivo); } catch { }
 
 
         ultimoInteragivel = interagivelMaisProximo;

@@ -109,7 +109,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627973046296617989}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -226,10 +226,12 @@ MonoBehaviour:
   parentConstraint: {fileID: 1421252813168890779}
   imagemIndicador: {fileID: 2354719868228705522}
   imagens:
-    padrao: {fileID: 21300000, guid: be09142c2aaeaf5448294bd6e0d9b7d6, type: 3}
+    padraoTeclado: {fileID: 21300000, guid: be09142c2aaeaf5448294bd6e0d9b7d6, type: 3}
+    padraoControle: {fileID: 21300000, guid: fb5b7d3edffedc54481a476b1120a3d4, type: 3}
     trancado: {fileID: 21300000, guid: 809ea0a247fb51b4aacd3308e2ed9bd2, type: 3}
     forca: {fileID: 21300000, guid: 809c395343cec284090a8704ac99d219, type: 3}
-  imagemAtual: 0
+  jogador: {fileID: 0}
+  offsetQuandoDois: 0.3
 --- !u!1773428102 &1421252813168890779
 ParentConstraint:
   m_ObjectHideFlags: 0

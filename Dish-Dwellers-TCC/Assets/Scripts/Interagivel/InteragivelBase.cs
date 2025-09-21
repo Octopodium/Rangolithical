@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class InteragivelBase : MonoBehaviour {
     [Header("Indicador de interação")]
-    [HideInInspector] public Indicador indicador;
+    [HideInInspector] public HashSet<Indicador> indicadores = new HashSet<Indicador>();
     //GameObject indicador;
     public Vector3 offsetIndicador = Vector3.up;
 
@@ -13,37 +14,46 @@ public abstract class InteragivelBase : MonoBehaviour {
     public abstract MotivoNaoInteracao NaoPodeInteragirPois(Player jogador);
 
 
-    protected virtual void Start() {
-        GameManager.instance.controle.OnIndicadorChange += OnIndicadorChange;
-        indicador = GameManager.instance.controle.indicadorAtual;
+    protected virtual void Start() { }
 
-    }
-
-    protected virtual void OnDestroy() {
-        if (GameManager.instance == null || GameManager.instance.controle == null) return;
-        GameManager.instance.controle.OnIndicadorChange -= OnIndicadorChange;
-    }
+    protected virtual void OnDestroy() { }
 
 
 
-    public virtual void MostrarIndicador(bool mostrar, MotivoNaoInteracao motivo = MotivoNaoInteracao.Nenhum) {
+    public virtual void MostrarIndicador(bool mostrar, Indicador indicador, MotivoNaoInteracao motivo = MotivoNaoInteracao.Nenhum) {
         if (indicador) {
-            if (mostrar) indicador.Mostrar(this, motivo);
-            else indicador.Esconder(this);
+            if (mostrar) {
+                indicadores.Add(indicador);
+                indicador.Mostrar(this, motivo);
+            } else {
+                indicador.Esconder(this);
+                indicadores.Remove(indicador);
+            }
         }
     }
 
-    public virtual void OnIndicadorChange(Indicador novoIndicador) {
-        if (novoIndicador == indicador) return;
-
-        if (indicador != null && indicador.interagivel == this) {
-            indicador.Esconder(this);
-            indicador = novoIndicador;
-            indicador.Mostrar(this);
-        } else {
-            indicador = novoIndicador;
+    public Indicador ProximoIndicador(Indicador exceto = null) {
+        foreach (Indicador i in indicadores) {
+            if (i != exceto) return i;
         }
+
+        return null;
     }
+
+/*
+            public virtual void OnIndicadorChange(Indicador novoIndicador) {
+                if (novoIndicador == indicador) return;
+
+                if (indicador != null && indicador.interagivel == this) {
+                    indicador.Esconder(this);
+                    indicador = novoIndicador;
+                    indicador.Mostrar(this);
+                }
+                else {
+                    indicador = novoIndicador;
+                }
+            }
+            */
 
     protected virtual void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;

@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Animations;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class Indicador : MonoBehaviour {
     [System.Serializable]
     public class ImagensDeIndicador {
-        public Sprite padrao;
+        public Sprite padraoTeclado;
+        public Sprite padraoControle;
         public Sprite trancado;
         public Sprite forca;
     }
@@ -17,38 +20,39 @@ public class Indicador : MonoBehaviour {
 
     public Image imagemIndicador;
     public ImagensDeIndicador imagens;
-    public MotivoNaoInteracao imagemAtual = MotivoNaoInteracao.Nenhum;
+
+    public Player jogador;
+    MotivoNaoInteracao motivo;
+
+    public float offsetQuandoDois = 0.1f;
 
     void Awake() {
         /*parentConstraint = GetComponent<ParentConstraint>();
         if (parentConstraint == null) parentConstraint = gameObject.AddComponent<ParentConstraint>();*/
         parentConstraint.rotationAxis = Axis.None; // Desabilita rotação ao ser pego
 
-        imagemIndicador.sprite = GetSprite(imagemAtual);
+        jogador.OnDeviceChange += HandleDeviceChange;
     }
 
-    public Sprite GetSprite(MotivoNaoInteracao motivo) {
+    public Sprite GetSprite() {
         switch (motivo) {
             case MotivoNaoInteracao.Nenhum:
-                return imagens.padrao;
+                return jogador.controleAtual is Gamepad ? imagens.padraoControle : imagens.padraoTeclado;
             case MotivoNaoInteracao.Fraco:
                 return imagens.forca;
             case MotivoNaoInteracao.Trancado:
-                return imagens.trancado;   
+                return imagens.trancado;
         }
 
-        return imagens.padrao;
+        return imagens.padraoTeclado;
     }
 
     public void Mostrar(InteragivelBase interagivel, MotivoNaoInteracao motivo = MotivoNaoInteracao.Nenhum) {
         if (interagivel == null) return;
-        if (this.interagivel == interagivel) return;
-        if (this.interagivel != null) RemoverUltimo();
-
-        imagemAtual = motivo;
-        imagemIndicador.sprite = GetSprite(imagemAtual);
+        if (this.interagivel != null || this.interagivel != interagivel) RemoverUltimo();
 
         this.interagivel = interagivel;
+        this.motivo = motivo;
 
         sourceId = parentConstraint.AddSource(new ConstraintSource() {
             sourceTransform = interagivel.transform,
@@ -59,6 +63,32 @@ public class Indicador : MonoBehaviour {
         parentConstraint.constraintActive = true;
 
         gameObject.SetActive(true);
+
+        RefreshDisplay();
+    }
+
+    void HandleDeviceChange(InputDevice d) {
+        RefreshDisplay();
+    }
+
+    void FixedUpdate() {
+        if (interagivel.indicadores.Count <= 1) {
+            parentConstraint.SetTranslationOffset(sourceId, interagivel.offsetIndicador);
+            return;
+        }
+        
+        Indicador outro = interagivel.ProximoIndicador(this);
+        Vector3 offset = interagivel.offsetIndicador;
+        Vector3 offsetExtra = transform.right * GetOffsetBaseOnPlayers(jogador, outro.jogador);
+        parentConstraint.SetTranslationOffset(sourceId, offset + offsetExtra);
+    }
+
+    public void RefreshDisplay() {
+        imagemIndicador.sprite = GetSprite();
+    }
+
+    float GetOffsetBaseOnPlayers(Player meu, Player seu) {
+        return meu.transform.position.x < seu.transform.position.x ? -offsetQuandoDois : offsetQuandoDois;
     }
 
     public void Esconder(InteragivelBase interagivel) {
@@ -78,5 +108,9 @@ public class Indicador : MonoBehaviour {
             parentConstraint.constraintActive = false;
             sourceId = -1;
         }
+    }
+
+    void OnDestroy() {
+        jogador.OnDeviceChange -= HandleDeviceChange;
     }
 }

@@ -35,9 +35,9 @@ public class PontoInteragivel : InteragivelBase {
         return interagivelParaRedirecionar.NaoPodeInteragirPois(jogador);
     }
     
-    public override void MostrarIndicador(bool mostrar, MotivoNaoInteracao motivo = MotivoNaoInteracao.Nenhum) {
-        if (utilizarIndicadorProprio) base.MostrarIndicador(mostrar, motivo);
-        else interagivelParaRedirecionar.MostrarIndicador(mostrar, motivo);
+    public override void MostrarIndicador(bool mostrar, Indicador indicador, MotivoNaoInteracao motivo = MotivoNaoInteracao.Nenhum) {
+        if (utilizarIndicadorProprio) base.MostrarIndicador(mostrar, indicador, motivo);
+        else interagivelParaRedirecionar.MostrarIndicador(mostrar, indicador, motivo);
     }
 
     protected override void OnDrawGizmosSelected() {

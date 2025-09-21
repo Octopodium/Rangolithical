@@ -19,13 +19,13 @@ public class GameManager : MonoBehaviour {
     public Actions input => inputController.actions; // Acesso ao InputActions do jogo
 
 
-    public LeitorDeControle controle;
-
     // Eventos
     public Action<QualPlayer> OnTrocarControle; // Chamado no singleplayer, quando o jogador troca de controle, e no online para definir o jogador que está jogando
     public Action<Player,Player> OnPlayersInstanciados; // Chamado quando os jogadores são instanciados na cena
     public Action OnMudaDeSala;
     public static event UnityAction<bool> OnPause;
+
+    public Indicador indicadorAtual;
 
 
 
@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour {
         set {
             if (value) {
                 modoDeJogo = ModoDeJogo.MULTIPLAYER_ONLINE;
-            } else {
+            }
+            else {
                 modoDeJogo = ModoDeJogo.SINGLEPLAYER;
             }
         }
@@ -79,9 +80,6 @@ public class GameManager : MonoBehaviour {
 
         input.UI.Pause.started += Pause;
         input.Geral.TrocarPersonagens.performed += ctx => TrocarControleSingleplayer();
-
-        // Referencia interna
-        controle = GetComponent<LeitorDeControle>();
 
 
         if (!isOnline) {
