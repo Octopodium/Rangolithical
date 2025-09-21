@@ -24,7 +24,7 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
 
     public string cenaLobby = "Lobby";
     public string cenaPrimeiraFase = "1-1";
-    public GameObject menuOpcoes, lobbyOpcoes;
+    public GameObject menuOpcoes, lobbyOpcoes, seletorFase;
     
 
 
@@ -41,7 +41,9 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
         PartidaInfo.instance = new PartidaInfo();
         PartidaInfo.instance.modo = PartidaInfo.Modo.Singleplayer;
 
-        SceneManager.LoadScene(cenaPrimeiraFase, LoadSceneMode.Single);
+        SelecaoDeFase();
+
+        //SceneManager.LoadScene(cenaPrimeiraFase, LoadSceneMode.Single);
     }
 
     public void JogarLocal() {
@@ -51,7 +53,9 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
         PartidaInfo.instance = new PartidaInfo();
         PartidaInfo.instance.modo = PartidaInfo.Modo.Local;
 
-        SceneManager.LoadScene(cenaPrimeiraFase, LoadSceneMode.Single);
+        SelecaoDeFase();
+
+        //SceneManager.LoadScene(cenaPrimeiraFase, LoadSceneMode.Single);
     }
 
     public void Hostear() {
@@ -74,5 +78,9 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
     public void Voltar() {
         menuOpcoes.SetActive(true);
         lobbyOpcoes.SetActive(false);
+    }
+
+    public void SelecaoDeFase(){
+        seletorFase.SetActive(true);
     }
 }
