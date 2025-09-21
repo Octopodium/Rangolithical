@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ChaoQueDestroi : MonoBehaviour {
     [Header("Configs do Chão Quebrável")]
@@ -16,6 +17,8 @@ public class ChaoQueDestroi : MonoBehaviour {
     private bool _playerNoChao;
     private bool estaDestruido = false;
 
+    public UnityEvent OnAntesDestruir, OnPosDestrucao;
+
     private void FixedUpdate() {
         Vector3 boxCenter = transform.position - (Vector3.up * distanciaDoChao);
         Quaternion boxRotation = Quaternion.Euler(rotacaoDoCubo);
@@ -27,10 +30,18 @@ public class ChaoQueDestroi : MonoBehaviour {
     }
 
     private IEnumerator DestruirChao() {
+        OnAntesDestruir?.Invoke();
         yield return new WaitForSeconds(tempoAntesDeCair);
 
         gameObject.SetActive(false);
         estaDestruido = true;
+        OnPosDestrucao?.Invoke();
+    }
+
+    public void Reconstruir() {
+        gameObject.SetActive(true);
+        estaDestruido = false;
+        OnPosDestrucao?.Invoke();
     }
 
     private void OnDrawGizmos() {
