@@ -31,8 +31,12 @@ public class AudioManager : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = defaultMasterVolume;
-        masterVolumeSlider.sliderObject.onValueChanged.AddListener(MudaVolume); 
         LoadVolume();
+    }
+
+    void Start(){
+        masterVolumeSlider = (SliderController)FindObjectOfType(typeof(SliderController), true);
+        masterVolumeSlider.sliderObject.onValueChanged.AddListener(MudaVolume); 
     }
 
     /// <summary>
