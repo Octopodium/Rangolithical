@@ -11,6 +11,8 @@ public class Gancho : MonoBehaviour, Ferramenta {
     public float raioMiraAuto = 0.25f;
     protected Ganchavel alvoAuto;
     public LayerMask layerGancho;
+    public LayerMask layerGanchoVariavel;
+    public LayerMask layerGanchoEmbarcado;
     public LayerMask layerCortante;
     public float distanciaMaxima = 10f;
     public float velocidadeGancho = 20f;
@@ -205,6 +207,9 @@ public class Gancho : MonoBehaviour, Ferramenta {
 
     public void PreverGancho() {
         if (gancho != null) return;
+        if (jogador != null) {
+            layerGanchoVariavel = jogador.embarcado ? layerGanchoEmbarcado : layerGancho;
+        }
 
         Vector3 posicaoInicial = ganchoSpawn.position;
         Vector3 direcao = jogador.direcao.normalized;
@@ -218,7 +223,7 @@ public class Gancho : MonoBehaviour, Ferramenta {
         
         RaycastHit hit;
         Collider hitted = null;
-        if (Physics.Raycast(posicaoInicial, direcao, out hit, distanciaMaxima, layerGancho)) {
+        if (Physics.Raycast(posicaoInicial, direcao, out hit, distanciaMaxima, layerGanchoVariavel)) {
             posicaoFinal = hit.point;
             hitted = hit.collider;
         } else {
@@ -239,6 +244,7 @@ public class Gancho : MonoBehaviour, Ferramenta {
         if (hitted != null) {
             Ganchavel alvoRecebido = hitted.GetComponent<Ganchavel>();
             if (alvoRecebido != null) {
+                Debug.Log(hitted);
                 encontrou = true;
                 alvoAuto = alvoRecebido;
                 return alvoRecebido.meio;
@@ -248,7 +254,7 @@ public class Gancho : MonoBehaviour, Ferramenta {
         Vector3 direcao = jogador.direcao.normalized;
         float distanciaMaxima = Vector3.Distance(ganchoSpawn.position, fimPos);
 
-        int hitCount = Physics.SphereCastNonAlloc(fimPos, radius, -direcao, hits, distanciaMaxima, layerGancho);
+        int hitCount = Physics.SphereCastNonAlloc(fimPos, radius, -direcao, hits, distanciaMaxima, layerGanchoVariavel);
         Debug.DrawLine(fimPos, fimPos - direcao * distanciaMaxima, Color.green, 0.1f);
 
         if (hitCount > 0) {

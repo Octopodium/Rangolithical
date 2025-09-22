@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Animations;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public class Barco : IResetavel, Interacao
 {
@@ -29,8 +30,10 @@ public class Barco : IResetavel, Interacao
             if(jogador.embarcado){
                 SairDoBarco(jogador);
                 jogador.embarcado = false;
+                jogador.HandleEmbarcado(); 
                 return;
             }
+
             parentConstraint = jogador.gameObject.GetComponent<ParentConstraint>();
             ConstraintSource posSource;
             if(jogador.personagem == QualPersonagem.Angler){
@@ -46,8 +49,10 @@ public class Barco : IResetavel, Interacao
             jogador.embarcado = true;
             jogador. velocidade = 0f;
             jogador.velocidadeRB = 0f;
+            jogador.HandleEmbarcado(); 
         }
     }
+
 
     public void IniciarPuxada(Vector3 pontoGancho){
         sendoPuxado = true;

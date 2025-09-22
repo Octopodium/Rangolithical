@@ -247,12 +247,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         Movimentacao();
 
         DesenharTrajetoria();
-
-        if(embarcado){
-            dropShadow.SetActive(false);
-        }else{
-            dropShadow.SetActive(true);
-        }
     }
 
     private void OnTriggerEnter(Collider other){
@@ -311,6 +305,25 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     string motivoDeDano = "Desconhecido";
     public void SetCausaDoDano(string causa) {
         motivoDeDano = causa;
+    }
+
+    public void HandleEmbarcado(){
+        if(embarcado){
+            col.excludeLayers |= (1 << LayerMask.NameToLayer("Gancho"));
+            characterController.excludeLayers |= (1 << LayerMask.NameToLayer("Gancho"));
+            if(ganchavel != null) ganchavel.enabled = false;
+            
+            velocidade = 0f;
+            velocidadeRB = 0f;
+        }
+        else{
+            col.excludeLayers &= ~(1 << LayerMask.NameToLayer("Gancho"));
+            characterController.excludeLayers &= ~(1 << LayerMask.NameToLayer("Gancho"));
+            if(ganchavel != null) ganchavel.enabled = true;
+            
+            velocidade = 14f;
+            velocidadeRB = 14f;
+        }
     }
 
     
