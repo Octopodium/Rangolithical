@@ -28,10 +28,7 @@ public class AudioManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-    }
 
-    void Start()
-    {
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = defaultMasterVolume;
         masterVolumeSlider.sliderObject.onValueChanged.AddListener(MudaVolume); 
