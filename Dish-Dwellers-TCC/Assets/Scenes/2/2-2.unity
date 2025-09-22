@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 3581bb168fdaa1b4aada146b4348c153, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: f943f4f9b4b3f9041b5ab1b714abd724, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -1931,6 +1931,7 @@ Transform:
   - {fileID: 853965600}
   - {fileID: 1375008967}
   - {fileID: 1477386186}
+  - {fileID: 1647781437}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &806751291
@@ -3903,7 +3904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedBakingSet: {fileID: 0}
+  serializedBakingSet: {fileID: 11400000, guid: e8c4deb89fef690469fbbc00c6725024, type: 2}
   sceneGUID: 99ad6af25e1536346a685c65eff223bf
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
@@ -4172,6 +4173,68 @@ PrefabInstance:
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5247716141449528938, guid: 3be12674abbb57e44b0826a4ad5067df, type: 3}
   m_PrefabInstance: {fileID: 1570991357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1647781436
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 759330387}
+    m_Modifications:
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.600002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.9704065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059400085625751074, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+      propertyPath: m_Name
+      value: Adaptive Probe Volume
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+--- !u!4 &1647781437 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
+  m_PrefabInstance: {fileID: 1647781436}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1663564955
 GameObject:
@@ -6549,7 +6612,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3177551093353301208
 Transform:
