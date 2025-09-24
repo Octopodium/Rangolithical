@@ -595,10 +595,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     {
         if (playerInput == null || !playerInput.enabled) return;
 
-        Vector2 input = playerInput.currentActionMap["Aim"].ReadValue<Vector2>();
-
-        if (controleAtual is Gamepad) inputMira = Vector2.Lerp(inputMira, input, Time.deltaTime * aimSpeed);
-        else inputMira = input;
+        inputMira = playerInput.currentActionMap["Aim"].ReadValue<Vector2>();
         
         bool estavaMirando = estaMirando;
         estaMirando = inputMira.magnitude > deadzoneMira;

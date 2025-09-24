@@ -71,7 +71,7 @@ public class Barco : IResetavel, Interacao
         float distancia = Vector3.Distance(transform.position, pontoPuxada);
 
         if(distancia > distanciaMinimaParada){
-            rb.AddForce(direcaoPuxada * forcaPuxada * Time.deltaTime, ForceMode.Force);
+            rb.AddForce(direcaoPuxada * forcaPuxada, ForceMode.Force);
         }else{
             rb.linearVelocity = Vector3.zero;
             PararPuxada();
