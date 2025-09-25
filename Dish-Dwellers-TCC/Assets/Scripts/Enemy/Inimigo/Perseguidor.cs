@@ -83,24 +83,20 @@ public class Perseguidor : Inimigo
         AtualizarAlvo();
 
         //Mudando esse cara pra state machine
-        switch (currentState)
-        {
+        switch (currentState) {
             case State.Patrol:
                 Patrulhar();
-                if (_playerNoCampoDeVisao && target != null && podePerseguir)
-                {
+                if (_playerNoCampoDeVisao && target != null && podePerseguir) {
                     currentState = State.Chase;
                 }
                 break;
 
             case State.Chase:
                 Perseguir();
-                if (_playerNaZonaDeAtaque && tempoDeAtaqueRestante <= 0f && target != null)
-                {
+                if (_playerNaZonaDeAtaque && tempoDeAtaqueRestante <= 0f && target != null) {
                     StartCoroutine(DashAttack());
                 }
-                if (!_playerNoCampoDeVisao && target == null)
-                {
+                if (!_playerNoCampoDeVisao && target == null) {
                     currentState = State.Patrol;
                 }
                 break;

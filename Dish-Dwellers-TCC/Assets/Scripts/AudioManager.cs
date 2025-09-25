@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TiposDeSons {
-SHIELDHIT, VINESBURNING, PRESSUREPLATE, KNOCKBACK, ENEMYHITSHIELD
-}
+public enum TiposDeSons {SHIELDHIT, VINESBURNING, PRESSUREPLATE, KNOCKBACK, ENEMYHITSHIELD}
 
 public class AudioManager : MonoBehaviour
 {
