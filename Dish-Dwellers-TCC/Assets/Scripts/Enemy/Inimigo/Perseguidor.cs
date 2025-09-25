@@ -7,17 +7,21 @@ public class Perseguidor : Inimigo
     private enum State { Patrol, Chase, Attack, Stunned }
     private State currentState = State.Patrol;
 
-    [Header("Foco do alvo")]
+    [Header("Foco do alvo")] [Space(10)]
     [SerializeField] private float tempoDeFoco = 3f;
     private float tempoRestanteDeFoco;
     private bool temAlvoFixo = false;
 
     [Header("Reação ao Escudo")]
     [SerializeField] private float tempoCaido = 3f;
-     private float tempoCaidoRestante;
+    private float tempoCaidoRestante;
     private bool caido = false;
 
-    [Header("Ataque (Dash)")]
+    [Header("Knockback")] [Space(10)]
+    [SerializeField] private float knockbackForce = 5f;
+    [SerializeField] private float knockbackDuration = 0.3f;
+
+    [Header("Ataque (Dash)")] [Space(10)]
     [SerializeField] private float tempoDeAtaque = 3f; 
     private float tempoDeAtaqueRestante;
     [SerializeField] private float velocidadeDeDash = 10f;
@@ -26,7 +30,7 @@ public class Perseguidor : Inimigo
 
     private Vector3 dashDirection;
 
-    [Header("Config De Patrulha")]
+    [Header("Config De Patrulha")] [Space(10)]
     public Transform[] waypoints;
     private int IndexPosicaoAtual = 0;
 
@@ -170,8 +174,7 @@ public class Perseguidor : Inimigo
                 float dist = Vector3.Distance(transform.position, target.position);
                 if (dist <= distanciaParaDano)
                 {
-                    
-                    //target.GetComponent<PlayerVida>()?.TakeDamage(dano);
+                    target.GetComponent<Player>()?.MudarVida(-1);
                     deuDano = true;
                 }
             }
@@ -203,11 +206,13 @@ public class Perseguidor : Inimigo
     {
         if (collision.gameObject.CompareTag("Escudo") && !caido)
         {
-            CaidoPorEscudo();
+            AudioManager.PlaySounds(TiposDeSons.ENEMYHITSHIELD);
+            Vector3 direcaoImpacto = collision.contacts[0].normal; 
+            CaidoPorEscudo(direcaoImpacto);
         }
     }
 
-    public void CaidoPorEscudo()
+    public void CaidoPorEscudo(Vector3 direcaoImpacto)
     {
         interagivel.enabled = true;
 
@@ -223,6 +228,8 @@ public class Perseguidor : Inimigo
         }
 
         animator.VirarDeCabecaPraBaixo();
+
+        StartCoroutine(AplicarKnockback(direcaoImpacto));
     }
 
     public void Recuperar()
@@ -244,19 +251,31 @@ public class Perseguidor : Inimigo
             currentState = (target != null) ? State.Chase : State.Patrol;
         }
     }
+    
+    private IEnumerator AplicarKnockback(Vector3 direcao)
+    {
+        direcao.y = 0f; 
+        direcao.Normalize();
+
+        float t = 0f;
+
+        while (t < knockbackDuration)
+        {
+            transform.position += direcao * knockbackForce * Time.deltaTime;
+            t += Time.deltaTime;
+            yield return null;
+        }
+    } 
     #endregion
 
     #region Localização de Target
-    private Transform EncontrarPlayerMaisProximo()
-    {
+    private Transform EncontrarPlayerMaisProximo() {
         Transform maisProximo = null;
         float menorDistancia = Mathf.Infinity;
 
-        foreach (var jogador in GameManager.instance.jogadores)
-        {
+        foreach (var jogador in GameManager.instance.jogadores) {
             float distancia = Vector3.Distance(transform.position, jogador.transform.position);
-            if (distancia <= campoDeVisao && distancia < menorDistancia)
-            {
+            if (distancia <= campoDeVisao && distancia < menorDistancia) {
                 menorDistancia = distancia;
                 maisProximo = jogador.pontoCentral.transform;
             }
