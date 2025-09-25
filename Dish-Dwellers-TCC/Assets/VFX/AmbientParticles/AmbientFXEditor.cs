@@ -30,6 +30,17 @@ public class AmbientFXEditor : Editor {
         
         Handles.DrawWireCube(targetTransform.position, targetTransform.localScale);
         foreach(Vector3 handlePosition in handlePositions) {
+            EditorGUI.BeginChangeCheck();
+            Vector3 newPosition = Handles.PositionHandle(handlePosition, Quaternion.identity);
+            if(EditorGUI.EndChangeCheck()) {
+                Undo.RecordObject(targetTransform, "AmbientFx Bounds have been changed.");
+                Vector3 distance = targetTransform.position - handlePosition;
+                Vector3 newDistance = targetTransform.position - newPosition;
+                Vector3 discrepancy = new Vector3(Mathf.Abs(distance.x - newDistance.x),Mathf.Abs(distance.y - newDistance.y), Mathf.Abs(distance.z - newDistance.z));
+                targetTransform.localScale += distance.magnitude < newDistance.magnitude ? discrepancy : -discrepancy;
+                targetTransform.position += (distance - newDistance) / 2;
+                EditorUtility.SetDirty(targetTransform);
+            }
             Handles.CubeHandleCap(
                 0,
                 handlePosition,
