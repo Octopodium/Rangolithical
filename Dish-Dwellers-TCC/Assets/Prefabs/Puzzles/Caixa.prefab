@@ -102,6 +102,8 @@ GameObject:
   - component: {fileID: 9153322628279209278}
   - component: {fileID: 9183729478211421181}
   - component: {fileID: 5206473476999819585}
+  - component: {fileID: 1777377999450982783}
+  - component: {fileID: 7953720730915164505}
   m_Layer: 0
   m_Name: Caixa
   m_TagString: Grudavel
@@ -187,7 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicador: {fileID: 0}
   offsetIndicador: {x: 0, y: 1.5, z: 0}
   ultimoPonto: {fileID: 0}
 --- !u!114 &9153322628279209278
@@ -252,3 +253,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 1
+--- !u!114 &1777377999450982783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664859948468323864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7bf9a82d7f73c4eaaf024880de57ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modoDeCheck: 0
+  tipoDeCheck: 1
+  noChao: 0
+  distanciaCheckChao: 0.2
+  chaoAtual: {fileID: 0}
+  boxRect: {x: 0, y: 0, z: 0}
+--- !u!114 &7953720730915164505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664859948468323864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4c485e58889da479660b50b5a37635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 
     public Indicador indicadorAtual;
 
+    public LayerMask layerChao;
 
 
     public bool isOnline {

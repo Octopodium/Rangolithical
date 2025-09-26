@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
 public class GrudaEmChoes : MonoBehaviour {
     Player jogador;
 
@@ -16,10 +14,11 @@ public class GrudaEmChoes : MonoBehaviour {
         if (chao == null) return;
 
         Vector3 offset = chao.position - posicao;
-        posicao =  chao.position;
+        posicao = chao.position;
 
         if (offset.magnitude > 0) {
-            jogador.Teletransportar(transform.position + offset);
+            if (jogador != null) jogador.Teletransportar(transform.position + offset);
+            else transform.position += offset;
         }
     }
 

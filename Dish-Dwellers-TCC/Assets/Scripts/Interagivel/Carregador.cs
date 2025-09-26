@@ -20,9 +20,18 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
     float tempoLimpaUltimoCarregado = 0.25f; // Impede jogador de soltar e pegar um carregavel no mesmo momento
     float timerLimparUltimoCarregado = 0;
 
+    Rigidbody rb;
+    float pesoInicial = 1;
+
     public bool estaCarregando => carregado != null;
 
     public System.Action<Carregavel> OnCarregar, OnSoltar; // Chamado quando o carregador carrega ou solta um objeto
+
+    void Awake() {
+        rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            pesoInicial = rb.mass;
+    }
 
     void FixedUpdate() {
         if (timerLimparUltimoCarregado > 0) {
@@ -103,8 +112,10 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
         if (cargaRigidbody != null) {
             carregadoRigidbody = cargaRigidbody;
             carregavel.HandleSendoCarregado();
+            rb.mass = pesoInicial + carregadoRigidbody.mass;
         } else {
             carregadoRigidbody = null;
+            rb.mass = pesoInicial;
         }
 
         OnCarregar?.Invoke(carregado);
@@ -135,7 +146,9 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
 
             Vector3 arremeco = direcao;
             arremeco.y = alturaArremesso;
-            cargaRigidbody.AddForce(arremeco * forcaArremesso, ForceMode.Impulse);
+            cargaRigidbody.AddForce(arremeco * forcaArremesso * cargaRigidbody.mass, ForceMode.Impulse);
+
+            rb.mass = pesoInicial;
         }
 
         carregado = null;

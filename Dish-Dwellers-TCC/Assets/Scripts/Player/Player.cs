@@ -20,8 +20,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     [Header("Atributos do Player")]
     public float velocidade = 14f;
     public float velocidadeRB = 14f; // Velocidade do Rigidbody
-    public LayerMask layerChao;
-    public float distanciaCheckChao = 0.5f;
     bool sendoPuxado = false; // Se o jogador está sendo puxado por um gancho (definido no GanchavelAntesPuxar)
 
     [HideInInspector] public Vector3 direcao; // Direção que o jogador está olhando e movimentação atual (enquanto anda direcao = movimentacao)
@@ -102,7 +100,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     Rigidbody rb; // Rigidbody do jogador (se houver)
     Collider col;
     Grudavel grudavel;
-    GrudaEmChoes grudarNoChao;
+    AndadorSobChao andador;
     public UnityEvent onTomarDano;
 
     public Indicador indicador;
@@ -114,7 +112,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         collidersInteragiveis = new Collider[maxInteragiveisEmRaio];
 
         direcao = new Vector3(0, 0, -1);
-        offsetCheckChao = new Vector3(0, distanciaCheckChao, 0); // Offset para o raycast de verificação do chão
 
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
@@ -127,9 +124,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         
         grudavel = gameObject.GetComponent<Grudavel>();
         if (grudavel == null) grudavel = gameObject.AddComponent<Grudavel>();
+        if (gameObject.GetComponent<GrudaEmChoes>() == null) gameObject.AddComponent<GrudaEmChoes>();
 
-        grudarNoChao = gameObject.GetComponent<GrudaEmChoes>();
-        if (grudarNoChao == null) grudarNoChao = gameObject.AddComponent<GrudaEmChoes>();
+        andador = GetComponent<AndadorSobChao>();
+        andador.modoDeCheck = AndadorSobChao.CheckDeChao.Script;
         
         animacaoJogador = GetComponentInChildren<AnimadorPlayer>();
 
@@ -299,7 +297,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (carregando != null) carregador.Soltar(); // Se o jogador está carregando algo, se solta
         if (ferramenta != null) ferramenta.Cancelar(); // Se o jogador está acionando uma ferramenta, cancela a ação
         grudavel.Desgrudar();
-        grudarNoChao.Desgrudar();
+        andador.DesgrudarDoChao();
     }
 
     string motivoDeDano = "Desconhecido";
@@ -686,40 +684,9 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         usandoRb = false;
     }
 
-    public Collider chaoAtual;
-
-    Vector3 offsetCheckChao; // Definido no Awake, mas em suma, é o mesmo valor de distanciaCheckChao, mas com Y positivo (assim a checagem não começa no pé do jogador)
     public bool CheckEstaNoChao() {
         if (sendoPuxado) return false; // Se o jogador está sendo puxado, não está no chão
-        bool isChao =  Physics.Raycast(transform.position + offsetCheckChao,  Vector3.down, out RaycastHit hit, 2 * distanciaCheckChao, layerChao);
-
-        if (isChao) {
-            if (hit.collider != chaoAtual) {
-                if (hit.collider?.tag == "Grudavel") GrudarNoChao(hit.collider.transform);
-                else DesgrudarDoChao();
-                chaoAtual = hit.collider;
-            }
-        } else {
-            DesgrudarDoChao();
-            chaoAtual = null;
-        }
-
-        return isChao;
-    }
-
-    public void GrudarNoChao(Transform chao) {
-        if (chao == null) {
-            DesgrudarDoChao();
-            return;
-        }
-
-        grudarNoChao.Grudar(chao.transform);
-    }
-
-    public void DesgrudarDoChao() {
-        if (chaoAtual != null && chaoAtual.tag == "Grudavel") {
-            grudarNoChao.Desgrudar(chaoAtual.transform);
-        }
+        return andador.ChecarChao();
     }
 
     public void Teletransportar(Vector3 posicao) {
@@ -975,9 +942,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         // Direção
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, direcao.normalized * 3);
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(transform.position + offsetCheckChao, transform.position + offsetCheckChao + Vector3.down * distanciaCheckChao * 2);
     }
 
 }

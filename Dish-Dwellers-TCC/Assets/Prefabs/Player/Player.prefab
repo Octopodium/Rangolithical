@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   protecao: {fileID: 5321486294785382682}
+  direcaoProtecao: {x: 0, y: 0, z: 0}
   _pontoDeReflexao: {fileID: 0}
 --- !u!1 &2828260846703549952
 GameObject:
@@ -66,6 +67,8 @@ GameObject:
   - component: {fileID: -1283205929378889320}
   - component: {fileID: 1671230026197402833}
   - component: {fileID: -6773236473951336124}
+  - component: {fileID: 1290607209154408467}
+  - component: {fileID: 6805898390628848832}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -121,10 +124,6 @@ MonoBehaviour:
   qualPlayer: 0
   velocidade: 12
   velocidadeRB: 6.5
-  layerChao:
-    serializedVersion: 2
-    m_Bits: 1463
-  distanciaCheckChao: 0.2
   direcao: {x: 0, y: 0, z: 0}
   mira: {x: 0, y: 0, z: 0}
   movimentacao: {x: 0, y: 0, z: 0}
@@ -183,7 +182,7 @@ MonoBehaviour:
   coyote: 0.1
   tempoAteMovBase: 0.2
   noChaoTempoMin: 0.3
-  chaoAtual: {fileID: 0}
+  aimSpeed: 3
   matCAtrito: {fileID: 13400000, guid: f838f97e1c1cd3644a85b3e215779eb4, type: 2}
   matSAtrito: {fileID: 13400000, guid: f838f97e1c1cd3644a85b3e215779eb4, type: 2}
   linhaTrajetoria: {fileID: 3508073268175436980}
@@ -250,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicador: {fileID: 0}
   offsetIndicador: {x: 0, y: 2.65, z: 0}
   ultimoPonto: {fileID: 0}
 --- !u!114 &7184748271679852735
@@ -396,6 +394,37 @@ MonoBehaviour:
   naoUsarIDAuto: 0
   isSingleton: 0
   identificador: 
+--- !u!114 &1290607209154408467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828260846703549952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7bf9a82d7f73c4eaaf024880de57ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modoDeCheck: 2
+  noChao: 0
+  layerChao:
+    serializedVersion: 2
+    m_Bits: 1425
+  distanciaCheckChao: 0.2
+  chaoAtual: {fileID: 0}
+--- !u!114 &6805898390628848832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828260846703549952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4c485e58889da479660b50b5a37635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3965158462078731169
 GameObject:
   m_ObjectHideFlags: 0

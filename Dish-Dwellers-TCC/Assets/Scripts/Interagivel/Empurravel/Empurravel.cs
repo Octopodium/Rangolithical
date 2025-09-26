@@ -38,6 +38,13 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         col = GetComponent<BoxCollider>();
         interagivel = GetComponent<Interagivel>();
 
+        AndadorSobChao andador = GetComponent<AndadorSobChao>();
+        if (andador != null) {
+            andador.SetOffsetBase(new Vector3(0, -(andador.distanciaCheckChao + col.center.y + col.size.y / 2f), 0));
+            andador.tipoDeCheck = AndadorSobChao.TipoDeCheck.Box;
+            andador.SetBoxRect(new Vector3(col.size.x / 2f, 0, col.size.z / 2f));
+        }
+
         topoOffset = col.center;
         topoOffset.y += col.size.y /2f;
 
