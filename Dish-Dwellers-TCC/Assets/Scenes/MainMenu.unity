@@ -4484,8 +4484,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Novo Jogo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1fc2c5a2ea40bd344be2fa2fe81c9105, type: 2}
-  m_sharedMaterial: {fileID: 7563892950133214601, guid: 1fc2c5a2ea40bd344be2fa2fe81c9105, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4515,7 +4515,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6342,6 +6342,7 @@ GameObject:
   - component: {fileID: 518945791}
   - component: {fileID: 518945794}
   - component: {fileID: 518945795}
+  - component: {fileID: 518945796}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -6559,6 +6560,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &518945796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518945789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032740a10592ac44d9b7a15a71db77df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &527716056
 GameObject:
   m_ObjectHideFlags: 0
@@ -7804,7 +7817,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -12942,6 +12955,7 @@ GameObject:
   - component: {fileID: 1078756808}
   - component: {fileID: 1078756811}
   - component: {fileID: 1078756812}
+  - component: {fileID: 1078756813}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -13159,6 +13173,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1078756813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078756806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032740a10592ac44d9b7a15a71db77df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1097169438
 GameObject:
   m_ObjectHideFlags: 0
@@ -13248,6 +13274,7 @@ GameObject:
   - component: {fileID: 1101773084}
   - component: {fileID: 1101773087}
   - component: {fileID: 1101773088}
+  - component: {fileID: 1101773089}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -13441,6 +13468,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1101773089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101773082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032740a10592ac44d9b7a15a71db77df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1106892679
 GameObject:
   m_ObjectHideFlags: 0
@@ -15281,7 +15320,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -21175,7 +21214,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -21448,6 +21487,7 @@ GameObject:
   - component: {fileID: 1630946664}
   - component: {fileID: 1630946667}
   - component: {fileID: 1630946668}
+  - component: {fileID: 1630946669}
   m_Layer: 5
   m_Name: Controls
   m_TagString: Untagged
@@ -21665,6 +21705,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1630946669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630946662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032740a10592ac44d9b7a15a71db77df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1656721380
 GameObject:
   m_ObjectHideFlags: 0
@@ -22997,8 +23049,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.591, y: -0.000030517578}
-  m_SizeDelta: {x: 11.182, y: 0}
+  m_AnchoredPosition: {x: -30.336, y: -0.000030517578}
+  m_SizeDelta: {x: 60.672, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1752775601
 MonoBehaviour:
@@ -23053,7 +23105,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -24216,7 +24268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -448.55, y: -194}
+  m_AnchoredPosition: {x: -427, y: -193.44}
   m_SizeDelta: {x: 556.16, y: 587.441}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1876869516
@@ -27559,6 +27611,7 @@ GameObject:
   - component: {fileID: 2140870155}
   - component: {fileID: 2140870158}
   - component: {fileID: 2140870159}
+  - component: {fileID: 2140870160}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -27740,6 +27793,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2140870160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140870153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032740a10592ac44d9b7a15a71db77df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &107004121832566897
 MonoBehaviour:
   m_ObjectHideFlags: 0
