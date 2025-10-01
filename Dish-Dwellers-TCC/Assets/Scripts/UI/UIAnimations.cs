@@ -6,8 +6,10 @@ using TMPro;
 
 public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler{
     Button buttonText;
-    Vector3 scaleFactor = new Vector3(1.1f, 1.1f, 1.1f);
-    Vector3 defaultFactor = new Vector3(1f, 1f, 1f);
+    public Image underline;
+    public Vector3 scaleFactor = new Vector3(1.1f, 1.1f, 1.1f); //o quanto queremos escalar
+    public Vector3 defaultFactor = new Vector3(1f, 1f, 1f); //escala default
+    Vector3 initialFactor = new Vector3(1f, 1f, 1f); //guarda o ultimo valor da escala
 
     void Awake(){
         buttonText = GetComponent<Button>();
@@ -15,34 +17,55 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnSelect(BaseEventData eventData){
         HandleAnimation(0.1f, scaleFactor);
+        HandleFillUnderline(true);
     }
 
     public void OnDeselect(BaseEventData eventData){
         HandleAnimation(0.1f, defaultFactor);
+        HandleFillUnderline(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData){
         HandleAnimation(0.1f, scaleFactor);
+        HandleFillUnderline(true);
     }
 
     public void OnPointerExit(PointerEventData eventData){
         HandleAnimation(0.1f, defaultFactor);
+        HandleFillUnderline(false);
     }
      
     IEnumerator ScaleText(float duration, Vector3 endScale){
         float tempo = 0f;
         while (tempo < duration){
-            float t = tempo / duration;
-            buttonText.gameObject.transform.localScale = Vector3.Lerp(defaultFactor, endScale, t);
+            float animDurantion = tempo / duration;
+            buttonText.gameObject.transform.localScale = Vector3.Lerp(initialFactor, endScale, animDurantion);
             tempo += Time.deltaTime;
             yield return null;
         }
         buttonText.gameObject.transform.localScale = endScale;
+        initialFactor = endScale;
     }
 
-    public void HandleAnimation(float duration, Vector3 endScale){ //momentaneo, vi um video pra nao ter quer fazer isso
+    IEnumerator FillUnderline(float duration, float amount){
+        while (underline.fillAmount != 1){
+            underline.fillAmount += amount;
+            yield return null;
+        }
+    }
+
+    public void HandleAnimation(float duration, Vector3 endScale){
         if (buttonText != null){
             StartCoroutine(ScaleText(duration, endScale));
+        }
+    }
+
+    public void HandleFillUnderline(bool fill){
+        if(fill){
+            StartCoroutine(FillUnderline(0.5f, 0.01f));
+        }else{
+            StartCoroutine(FillUnderline(0.5f, -0.01f));
+            underline.fillAmount = 0;
         }
     }
 }
