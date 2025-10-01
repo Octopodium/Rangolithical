@@ -6,6 +6,8 @@ public class CheckpointEditor : Editor {
     #region SerializedProperties
 
     SerializedProperty spawnPoints;
+    SerializedProperty layerMask;
+    SerializedProperty playerColliders;
 
     #endregion
 
@@ -17,6 +19,8 @@ public class CheckpointEditor : Editor {
         checkpoint = target as Checkpoint;
 
         spawnPoints = serializedObject.FindProperty("spawnPoints");
+        layerMask = serializedObject.FindProperty(nameof(layerMask));
+        playerColliders = serializedObject.FindProperty(nameof(playerColliders));
     }
 
     public override void OnInspectorGUI() {
@@ -38,6 +42,8 @@ public class CheckpointEditor : Editor {
         EditorGUILayout.Space(15);
 
         EditorGUILayout.PropertyField(spawnPoints);
+        EditorGUILayout.PropertyField(layerMask);
+        EditorGUILayout.PropertyField(playerColliders);
 
         serializedObject.ApplyModifiedProperties();
     }
