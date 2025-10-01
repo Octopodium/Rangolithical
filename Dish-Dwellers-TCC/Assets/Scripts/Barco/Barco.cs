@@ -15,6 +15,7 @@ public class Barco : IResetavel, Interacao
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
     public bool noPier = false;
+    public int playerNoBarco = 0;
     public Player angler, heater;
 
     public void Awake(){
@@ -46,6 +47,7 @@ public class Barco : IResetavel, Interacao
 
             parentConstraint.AddSource(posSource);
             parentConstraint.constraintActive = true;
+            playerNoBarco++;
             jogador.embarcado = true;
             jogador. velocidade = 0f;
             jogador.velocidadeRB = 0f;
@@ -55,6 +57,7 @@ public class Barco : IResetavel, Interacao
 
 
     public void IniciarPuxada(Vector3 pontoGancho){
+        if(angler == null) return;
         sendoPuxado = true;
         pontoPuxada = pontoGancho;
 
@@ -89,8 +92,15 @@ public class Barco : IResetavel, Interacao
             
             jogador.Teletransportar(outPos.position + new Vector3((Random.Range(1f,3f)), 0, 0));
 
+            if(jogador.personagem == QualPersonagem.Angler){
+                angler = null;
+            }else{
+                heater = null;
+            }
+
             jogador.velocidade = 14f;
             jogador.velocidadeRB = 14f;
+            playerNoBarco--;
         }
     }
 
@@ -115,7 +125,11 @@ public class Barco : IResetavel, Interacao
 
     public override void OnReset(){
         transform.position = inicialPos.position;
+        transform.rotation = Quaternion.identity;
         sendoPuxado = false;
+        playerNoBarco = 0;
+        angler = null;
+        heater = null;
     }
 
 }
