@@ -61,11 +61,13 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     public void HandleFillUnderline(bool fill){
-        if(fill){
-            StartCoroutine(FillUnderline(0.5f, 0.01f));
-        }else{
-            StartCoroutine(FillUnderline(0.5f, -0.01f));
-            underline.fillAmount = 0;
+        if (underline != null){
+            if(fill){
+                StartCoroutine(FillUnderline(0.5f, 0.01f));
+            }else{
+                StartCoroutine(FillUnderline(0.5f, -0.01f));
+                underline.fillAmount = 0;
+            }
         }
     }
 }
