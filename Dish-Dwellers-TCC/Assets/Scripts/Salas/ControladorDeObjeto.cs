@@ -55,6 +55,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
         GameObject prefabToUse = GameManager.instance.isOnline ? prefabOnline : prefab;
         if (!GameManager.instance.isOnline) objeto = Instantiate(prefabToUse, respawnPos.position, transform.rotation);
         else {
+            if (prefabOnline == null) prefabToUse = prefab;
             Sincronizador.instance.InstanciarNetworkObject(AposSpawn, prefabToUse, respawnPos.position, transform.rotation, null, true);
             return;
         }

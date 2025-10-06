@@ -1,7 +1,5 @@
 using UnityEngine;
 
-
-
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Interagivel))]
 public class Empurravel : MonoBehaviour, InteracaoCondicional {
     [System.Serializable]
