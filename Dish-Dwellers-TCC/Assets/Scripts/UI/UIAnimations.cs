@@ -47,10 +47,17 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         initialFactor = endScale;
     }
 
-    IEnumerator FillUnderline(float duration, float amount){
-        while (underline.fillAmount != 1){
-            underline.fillAmount += amount;
-            yield return null;
+    IEnumerator FillUnderline(float amount, bool fill){
+        if(fill){
+            while(underline.fillAmount != 1.0f){
+                underline.fillAmount += amount;
+                yield return null;
+            }
+        }else{
+            while(underline.fillAmount != 0.0f){
+                underline.fillAmount -= amount;
+                yield return null;
+            }
         }
     }
 
@@ -62,12 +69,7 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void HandleFillUnderline(bool fill){
         if (underline != null){
-            if(fill){
-                StartCoroutine(FillUnderline(0.5f, 0.01f));
-            }else{
-                StartCoroutine(FillUnderline(0.5f, -0.01f));
-                underline.fillAmount = 0;
-            }
+            StartCoroutine(FillUnderline(0.02f, fill));
         }
     }
 }
