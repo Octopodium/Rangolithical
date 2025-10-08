@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(AmbientFX))]
 public class AmbientFXEditor : Editor {
 
@@ -52,3 +52,4 @@ public class AmbientFXEditor : Editor {
     }
 
 }
+#endif
