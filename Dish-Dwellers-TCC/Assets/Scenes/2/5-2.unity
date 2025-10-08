@@ -1388,7 +1388,7 @@ PrefabInstance:
     - target: {fileID: 5626417669170722668, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: dropdown
       value: 
-      objectReference: {fileID: 237395887}
+      objectReference: {fileID: 0}
     - target: {fileID: 6250080442013003980, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1428,7 +1428,7 @@ PrefabInstance:
     - target: {fileID: 7361727113653866240, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: 'telasInternasPause.Array.data[2]'
       value: 
-      objectReference: {fileID: 237395889}
+      objectReference: {fileID: 0}
     - target: {fileID: 7852735405102723607, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1483,17 +1483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ab9b41c36d96d40a239f9d94771511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &237395887 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 517637579339879481, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
-  m_PrefabInstance: {fileID: 237395885}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &237395888 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5626417669170722668, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
@@ -1505,11 +1494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b560f3e440d671c4d8b64d49f34daa53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &237395889 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 46169858787809794, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
-  m_PrefabInstance: {fileID: 237395885}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &244263603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1619,6 +1603,7 @@ MonoBehaviour:
   forcaPuxada: 220
   parentConstraint: {fileID: 0}
   noPier: 0
+  playerNoBarco: 0
   angler: {fileID: 0}
   heater: {fileID: 0}
 --- !u!114 &244263610
@@ -9809,14 +9794,6 @@ PrefabInstance:
     - target: {fileID: 4389467204783691399, guid: dffcd2cb30d8e584c981cc909f99febc, type: 3}
       propertyPath: m_Name
       value: CanoDeFumaca
-      objectReference: {fileID: 0}
-    - target: {fileID: 7487178049758363938, guid: dffcd2cb30d8e584c981cc909f99febc, type: 3}
-      propertyPath: layers.m_Bits
-      value: 4194432
-      objectReference: {fileID: 0}
-    - target: {fileID: 7487178049758363938, guid: dffcd2cb30d8e584c981cc909f99febc, type: 3}
-      propertyPath: maxComprimento
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8849637691152942033, guid: dffcd2cb30d8e584c981cc909f99febc, type: 3}
       propertyPath: m_LocalPosition.x
