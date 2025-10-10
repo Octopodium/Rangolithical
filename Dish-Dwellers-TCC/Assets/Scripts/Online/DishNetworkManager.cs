@@ -26,7 +26,8 @@ public class DishNetworkManager : NetworkManager {
         base.Start();
 
         betterEOSLobby = FindAnyObjectByType<BetterEOSLobby>();
-        betterEOSLobby.transform.SetParent(transform);
+        if (betterEOSLobby != null)
+            betterEOSLobby.transform.SetParent(transform);
     }
 
     // Chamado quando um player se conecta ao servidor

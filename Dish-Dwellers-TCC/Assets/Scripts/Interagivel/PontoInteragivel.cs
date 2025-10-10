@@ -3,23 +3,32 @@ using UnityEngine;
 /// <summary>
 /// Um PontoInteragivel serve apenas como um colisor para outro Interagivel. Quando o jogador se aproxima/interage com o ponto, a interação é redirecionada para o Interagivel referenciado.
 /// </summary>
+[RequireComponent(typeof(SubSincronizavel))]
 public class PontoInteragivel : InteragivelBase {
+    SubSincronizavel _subSincronizavel;
+    [HideInInspector] public SubSincronizavel subSincronizavel {
+        get {
+            if (_subSincronizavel == null) _subSincronizavel = GetComponent<SubSincronizavel>();
+            return _subSincronizavel;
+        }
+    }
+
     public Interagivel interagivelParaRedirecionar { get; protected set; }
     public bool utilizarIndicadorProprio = true;
 
     void Awake() {
         if (interagivelParaRedirecionar != null) {
-            interagivelParaRedirecionar.pontos.Add(this);
+            interagivelParaRedirecionar.AddPonto(this);
         }
     }
 
     public void SetInteragivelParaRedirecionar(Interagivel interagivel) {
         if (interagivelParaRedirecionar != null) {
-            interagivelParaRedirecionar.pontos.Remove(this);
+            interagivelParaRedirecionar.RemovePonto(this);
         }
 
         interagivelParaRedirecionar = interagivel;
-        interagivelParaRedirecionar.pontos.Add(this);
+        interagivelParaRedirecionar.AddPonto(this);
     }
 
     public override void Interagir(Player jogador) {

@@ -125,8 +125,8 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         novaPosicaoPlayer += transform.position;
         novaPosicaoPlayer.y = jogador.transform.position.y;
 
-        ultimaPosicaoPlayer = novaPosicaoPlayer;
         jogador.Teletransportar(novaPosicaoPlayer);
+        ultimaPosicaoPlayer = jogador.transform.position;
 
         jogadorEmpurrando = jogador;
         sendoEmpurrado = true;

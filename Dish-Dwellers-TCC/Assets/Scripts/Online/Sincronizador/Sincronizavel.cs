@@ -79,12 +79,12 @@ public static class SincronizavelExtensions {
 
         SincronizaMetodo sincronizaMetodo = obj.GetComponent<SincronizaMetodo>();
         if (sincronizaMetodo == null) {
-            Debug.LogWarning("Alerta no objeto [" + obj.name + "]. Para utilizar o atributo [Sincronizar], é necessário implementar a interface SincronizaMetodo (vazia por padrão) no script que a utilize, caso o contrário, não será sincronizado.");
+            Debug.LogWarning("Alerta no objeto [" + obj.name + "]. Para utilizar o atributo [Sincronizar], é necessário implementar a interface SincronizaMetodo (vazia por padrão) no script que a utilize, caso o contrário, não será sincronizado.", obj);
         }
 
         Sincronizavel sincronizavel = obj.GetComponent<Sincronizavel>();
         if (sincronizavel == null) {
-            Debug.LogError("Erro no objeto [" + obj.name + "]. Para utilizar a extensão [gameObject.Sincronizar], é necessário que o gameObject possua o componente Sincronizavel.");
+            Debug.LogError("Erro no objeto [" + obj.name + "]. Para utilizar a extensão [gameObject.Sincronizar], é necessário que o gameObject possua o componente Sincronizavel.", obj);
             return new InformacoesMetodo();
         }
 
@@ -101,7 +101,7 @@ public static class SincronizavelExtensions {
 
         if (infos.IsValid) return Sincronizador.instance.ChamarMetodo(infos, parametros, id);
 
-        Debug.LogWarning("Método invalido: " + triggerName);
+        Debug.LogWarning("Método invalido: " + triggerName, obj);
         return false;
     }
 
@@ -161,6 +161,7 @@ public class SincronizarAttribute : System.Attribute {
 /// Qualquer objeto que utilize a interface SincronizaMetodo e o atributo SincronizarAttribute, precisa ter esse componente.
 /// </summary>
 public class Sincronizavel : MonoBehaviour {
+    protected List<SubSincronizavel> subs = new List<SubSincronizavel>();
     protected Dictionary<string, InformacoesMetodo> metodosSincronizados = new Dictionary<string, InformacoesMetodo>();
 
     public bool debugLogMetodosCadastrados = false;
@@ -173,12 +174,17 @@ public class Sincronizavel : MonoBehaviour {
     [HideInInspector] public bool naoUsarIDAuto = false;
     public bool isSingleton = false;
 
+    [HideInInspector] public Vector3 posInicial;
+    [HideInInspector] public Quaternion rotInicial;
 
 
     private List<(Component, MethodInfo)> metodos = new List<(Component, MethodInfo)>();
-    NetworkIdentity networkIdentity = null;
+    [HideInInspector] public NetworkIdentity networkIdentity = null;
 
     void Awake() {
+        posInicial = transform.position;
+        rotInicial = transform.rotation;
+
         networkIdentity = GetComponent<NetworkIdentity>();
         if (networkIdentity != null) {
             StartCoroutine(EsperandoNetID());
@@ -192,7 +198,7 @@ public class Sincronizavel : MonoBehaviour {
     IEnumerator EsperandoNetID() {
         yield return new WaitUntil(() => networkIdentity != null && networkIdentity.netId != 0);
         
-        Sincronizador.instance.CheckSeAguardandoSpawn(networkIdentity);
+        Sincronizador.instance.CheckSeAguardandoSpawn(this);
 
         identificador = networkIdentity.netId + "";
         naoUsarIDAuto = true;
@@ -227,10 +233,6 @@ public class Sincronizavel : MonoBehaviour {
 
         DescadastrarSincronizavel();
         DescadastrarMetodos();
-
-        if (networkIdentity != null) {
-            Sincronizador.instance.LiberarAguardoSpawn(networkIdentity);
-        }
     }
 
 
@@ -238,7 +240,7 @@ public class Sincronizavel : MonoBehaviour {
 #if UNITY_EDITOR
 
     public bool IsPrefab() {
-        return EditorSceneManager.IsPreviewScene(gameObject.scene) || EditorUtility.IsPersistent(gameObject);
+        return EditorSceneManager.IsPreviewScene(gameObject.scene);
     }
 
     void OnValidate() {
@@ -327,6 +329,30 @@ public class Sincronizavel : MonoBehaviour {
         return "";
     }
 
+
+    int subCounter = 0;
+    public void AddSub(SubSincronizavel sub) {
+        if (subs.Contains(sub)) return;
+
+        subs.Add(sub);
+        sub.id = subCounter++;
+        sub.dono = this;
+    }
+
+    public void RemoveSub(SubSincronizavel sub) {
+        if (!subs.Contains(sub)) return;
+
+        subs.Remove(sub);
+        sub.dono = null;
+    }
+
+    public SubSincronizavel GetSub(int id) {
+        foreach (SubSincronizavel sub in subs) {
+            if (sub.id == id) return sub;
+        }
+        return null;
+    }
+
     #endregion
 
 
@@ -343,7 +369,7 @@ public class Sincronizavel : MonoBehaviour {
                 if (atributos.Length > 0) {
                     var atributo = (SincronizarAttribute)atributos[0];
                     if (atributo != null) {
-                        if (debugLogMetodosCadastrados) Debug.Log("Cadastrando método [" + metodo.Name + "] no objeto [" + gameObject.name + "] de ID [" + identificador + "]");
+                        if (debugLogMetodosCadastrados) Debug.Log("Cadastrando método [" + metodo.Name + "] no objeto [" + gameObject.name + "] de ID [" + identificador + "]", gameObject);
                         CadastrarMetodo(metodo, (Component)componente, atributo.GerarOpcoes());
                     }
                 }

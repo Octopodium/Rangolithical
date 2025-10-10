@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &182971628960203798
+--- !u!1 &8028197392071329369
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,99 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8786769108700900696}
-  - component: {fileID: 7312482224059992603}
-  - component: {fileID: 1154081770003952884}
+  - component: {fileID: 1291235837354560885}
+  - component: {fileID: 2341686841753338938}
+  - component: {fileID: 7006224155533301802}
   m_Layer: 0
-  m_Name: Lobby
+  m_Name: NetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8786769108700900696
+--- !u!4 &1291235837354560885
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182971628960203798}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4825255838948459074}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7312482224059992603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182971628960203798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe875c761de36584ebe057dfddc7f360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1154081770003952884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182971628960203798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b782653e18a474d87cd18873932f9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eOSLobby: {fileID: 7312482224059992603}
-  eossdkComponent: {fileID: 0}
-  eossdkPrefab: {fileID: 1083875178805214459, guid: 1d80842647711c94c9e4e342d68cf525, type: 3}
---- !u!1 &9117796602290980629
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4825255838948459074}
-  - component: {fileID: 9190646578245121365}
-  - component: {fileID: 2050117449721351723}
-  m_Layer: 0
-  m_Name: NetworkManagerEpic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4825255838948459074
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9117796602290980629}
+  m_GameObject: {fileID: 8028197392071329369}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 897.53864, y: 578.2148, z: 766.1375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8786769108700900696}
+  - {fileID: 3214396402528300095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9190646578245121365
+--- !u!114 &2341686841753338938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9117796602290980629}
+  m_GameObject: {fileID: 8028197392071329369}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d181e6779a6535e4594df4edee3c583d, type: 3}
@@ -114,7 +54,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: 
   offlineSceneLoadDelay: 0
-  transport: {fileID: 2050117449721351723}
+  transport: {fileID: 0}
   networkAddress: localhost
   maxConnections: 2
   disconnectInactiveConnections: 0
@@ -127,6 +67,8 @@ MonoBehaviour:
   - {fileID: 7728834421771641443, guid: 6f570145d6f6fd44db7158e33f70a8ce, type: 3}
   - {fileID: 597836957717888915, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
   - {fileID: 1742485915137094490, guid: a51b9169f1f3bbf4cb8a63d7da4086e0, type: 3}
+  - {fileID: 7980699649815010782, guid: 4eb6a2cabce723346a091afa7603d076, type: 3}
+  - {fileID: 4088332650357128873, guid: 313875b13dc8e0343a35d23820bdaa2f, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -146,13 +88,13 @@ MonoBehaviour:
   anglerPrefab: {fileID: 7728834421771641443, guid: 6f570145d6f6fd44db7158e33f70a8ce, type: 3}
   lobbyPlayers: []
   players: []
---- !u!114 &2050117449721351723
+--- !u!114 &7006224155533301802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9117796602290980629}
+  m_GameObject: {fileID: 8028197392071329369}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5f2d307354f3ea49b3ea12e6763a9fe, type: 3}
@@ -163,3 +105,62 @@ MonoBehaviour:
   maxFragments: 55
   ignoreCachedMessagesAtStartUpInSeconds: 2
   relayControl: 1
+--- !u!1 &8207417191321642721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3214396402528300095}
+  - component: {fileID: 2201715071338226479}
+  - component: {fileID: 4717293059807797966}
+  m_Layer: 0
+  m_Name: Lobby
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3214396402528300095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207417191321642721}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1291235837354560885}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2201715071338226479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207417191321642721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe875c761de36584ebe057dfddc7f360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4717293059807797966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207417191321642721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b782653e18a474d87cd18873932f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eOSLobby: {fileID: 2201715071338226479}
+  eossdkComponent: {fileID: 0}

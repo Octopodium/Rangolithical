@@ -68,7 +68,7 @@ public class ObjetoDeJogoEditor : Editor {
 
                 houveMudanca = true;
             }
-            ShowMessageInBox("Observações", "Como a versão offline será uma variante, apenas faça alterações na versão online que elas já irão para a offline. O jogo possui alguns mecanismos para instanciar a versão correta do prefab, como o componente ControladoDeObjeto ou o método GameManager.Instanciar.", false);
+            ShowMessageInBox("Observações", "Como a versão offline será uma variante, apenas faça alterações na versão online que elas já irão para a offline. O jogo possui alguns mecanismos para instanciar a versão correta do prefab, como o componente ControladoDeObjeto ou o método GameManager.Instanciar. Além disso, vá no prefab NetworkManager (Prefabs/Online/NetworkManager.prefab) e adicione o prefab na lista de SpawnablePrefabs, caso o contrário não será possível spawnar os objetos", false);
         }
 
         if (EditorGUI.EndChangeCheck() || houveMudanca) {

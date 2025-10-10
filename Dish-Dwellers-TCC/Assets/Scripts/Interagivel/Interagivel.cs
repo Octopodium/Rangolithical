@@ -6,6 +6,14 @@ public class Interagivel : InteragivelBase {
     [HideInInspector] public HashSet<PontoInteragivel> pontos = new HashSet<PontoInteragivel>();
     [HideInInspector] public PontoInteragivel ultimoPonto = null;
 
+    Sincronizavel _sincronizavel;
+    [HideInInspector] public Sincronizavel sincronizavel {
+        get {
+            if (_sincronizavel == null) _sincronizavel = GetComponent<Sincronizavel>();
+            return _sincronizavel;
+        }
+    }
+
     // [Tooltip("A não ser que esteja utilizando pelo menos um PontoInteragivel, você sempre irá querer esta opção ligada!")]
     // public bool incluirProprioColisor = true;
 
@@ -39,5 +47,14 @@ public class Interagivel : InteragivelBase {
         return interacaoCondicional.NaoPodeInteragirPois(jogador);
     }
 
+    public void AddPonto(PontoInteragivel ponto) {
+        pontos.Add(ponto);
+        sincronizavel.AddSub(ponto.subSincronizavel);
+    }
 
+    public void RemovePonto(PontoInteragivel ponto) {
+        if (!pontos.Contains(ponto)) return;
+        pontos.Remove(ponto);
+        sincronizavel.RemoveSub(ponto.subSincronizavel);
+    }
 }

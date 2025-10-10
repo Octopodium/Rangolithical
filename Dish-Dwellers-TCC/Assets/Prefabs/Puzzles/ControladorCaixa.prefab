@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9107629576324931878}
   - component: {fileID: 3567976217175299968}
+  - component: {fileID: -757659606178639513}
   m_Layer: 0
   m_Name: ControladorCaixa
   m_TagString: Untagged
@@ -51,6 +52,23 @@ MonoBehaviour:
   respawnPos: {fileID: 3858548499536979177}
   triggerSpawnChave: {fileID: 0}
   spawnNoInicio: 1
+--- !u!114 &-757659606178639513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7185242502783608306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe0644f5332e474ca26b8e5a890d138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugLogMetodosCadastrados: 0
+  cadastrarNoInicio: 1
+  naoUsarIDAuto: 0
+  isSingleton: 0
+  identificador: 
 --- !u!1 &8303141526173118653
 GameObject:
   m_ObjectHideFlags: 0

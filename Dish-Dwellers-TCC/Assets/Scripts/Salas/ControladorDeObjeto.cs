@@ -2,6 +2,7 @@ using System.Collections;
 using Mirror;
 using UnityEngine;
 
+[RequireComponent(typeof(Sincronizavel))]
 public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Header("<color=green>Componentes : </color>")]
     [Space(10)]
@@ -13,18 +14,34 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Space(15)]
     [Header("Objeto controlado :")]
     [Space(10)]
-    private GameObject objeto;
+    public GameObject objeto;
 
     [Space(15)]
     [Header("Configurações")]
     [Space(10)]
     [SerializeField] private bool spawnNoInicio = false;
 
+    Sincronizavel sinc;
+
 
     private void Start() {
+        sinc = GetComponent<Sincronizavel>();
+        SetupSpawner();
 
         if (spawnNoInicio)
             Spawn();
+    }
+
+    bool spawnerSetted = false;
+    void SetupSpawner() {
+        if (!GameManager.instance.isOnline) return;
+        if (spawnerSetted) return;
+
+        GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
+        if (sinc == null) sinc = GetComponent<Sincronizavel>();
+
+        Sincronizador.instance.RegistrarSpawner(prefabToUse, respawnPos.position, transform.rotation, sinc, AposSpawn);
+        spawnerSetted = true;
     }
 
     void OnDestroy() {
@@ -52,11 +69,11 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
         gameObject.Sincronizar();
         
-        GameObject prefabToUse = GameManager.instance.isOnline ? prefabOnline : prefab;
-        if (!GameManager.instance.isOnline) objeto = Instantiate(prefabToUse, respawnPos.position, transform.rotation);
+        if (!GameManager.instance.isOnline) objeto = Instantiate(prefab, respawnPos.position, transform.rotation);
         else {
-            if (prefabOnline == null) prefabToUse = prefab;
-            Sincronizador.instance.InstanciarNetworkObject(AposSpawn, prefabToUse, respawnPos.position, transform.rotation, null, true);
+            SetupSpawner();
+            GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
+            Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc);
             return;
         }
 
@@ -64,7 +81,9 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     }
 
     void AposSpawn(GameObject objeto) {
-        if (objeto != null) {
+        if (objeto != null && objeto != this.objeto) {
+            if (this.objeto != null) Destroy(this.objeto);
+
             Destrutivel destrutivel = objeto.GetComponent<Destrutivel>();
             destrutivel.OnDestruido.AddListener(Respawn);
             this.objeto = objeto;
@@ -101,7 +120,6 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
             Destroy(objeto);
             objeto = null;
         }
-        
 
         if (spawnNoInicio)
             Spawn();

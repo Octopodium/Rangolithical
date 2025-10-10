@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeaterOffline Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 939933573213825239, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+      propertyPath: identificador
+      value: $5d7b6500f9974ddfa2e88eff2f5856eb
+      objectReference: {fileID: 0}
+    - target: {fileID: 2016504525890579858, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2414328040528346660, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -56,7 +64,14 @@ PrefabInstance:
       propertyPath: _assetId
       value: 1949742203
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5530046192368660780, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5530046192368660780, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+    - {fileID: 2016504525890579858, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+    - {fileID: 5619018130808216195, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

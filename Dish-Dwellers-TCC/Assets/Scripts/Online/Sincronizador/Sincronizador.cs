@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.Collections;
+using System;
 
 /*
     EI, VOCÊ AÍ!
@@ -119,12 +120,12 @@ public class Sincronizador : NetworkBehaviour {
         string id = idOriginal;
 
         if (sincronizaveis.ContainsKey(id)) {
-            Debug.LogWarning("Sincronizavel de ID [" + id + "] não foi cadastrado pois já havia um com o mesmo ID! Ele é: " + sincronizaveis[id]?.name);
+            Debug.LogWarning("Sincronizavel de ID [" + id + "] não foi cadastrado pois já havia um com o mesmo ID! Ele é: " + sincronizaveis[id]?.name, obj.gameObject);
             return false;
         }
 
         if (debugLogSincronizaveis) {
-            Debug.Log("Cadastrando sincronizável de " + obj.name + " ID[" + id + "]");
+            Debug.Log("Cadastrando sincronizável de " + obj.name + " ID[" + id + "]", obj.gameObject);
         }
 
         sincronizaveis[id] = obj;
@@ -140,7 +141,7 @@ public class Sincronizador : NetworkBehaviour {
             sincronizaveis.Remove(id);
 
         if (debugLogSincronizaveis) {
-            Debug.Log("Descadastrando sincronizável de " + obj.name + " ID[" + id + "]. Encontrou e removeu: " + existe);
+            Debug.Log("Descadastrando sincronizável de " + obj.name + " ID[" + id + "]. Encontrou e removeu: " + existe, obj.gameObject);
         }
     }
 
@@ -150,6 +151,18 @@ public class Sincronizador : NetworkBehaviour {
         } else {
             return null;
         }
+    }
+
+    public SubSincronizavel GetSubSincronizavel(string identificador) {
+        string[] partes = identificador.Split("***SUB_", 2, StringSplitOptions.RemoveEmptyEntries);
+        if (partes.Length < 2) return null;
+
+        string sinc_id = partes[0];
+        int sub = int.Parse(partes[1]);
+
+        Sincronizavel sincronizavel = GetSincronizavel(sinc_id);
+        if (sincronizavel == null) return null;
+        return sincronizavel.GetSub(sub);
     }
 
     #endregion
@@ -178,8 +191,10 @@ public class Sincronizador : NetworkBehaviour {
             metodos[nome] = lista;
         }
 
+        GameObject pai = info.componenteDoMetodo?.gameObject;
+
         if (debugLogMetodos) {
-            Debug.Log("Cadastrando método [" + info.GetNome(id) + "]");
+            Debug.Log("Cadastrando método [" + info.GetNome(id) + "]", pai);
         }
 
         return info;
@@ -237,6 +252,7 @@ public class Sincronizador : NetworkBehaviour {
         if (sincronizacaoTravada) return false;
 
         string nome = info.GetNome(id);
+        GameObject pai = info.componenteDoMetodo?.gameObject;
 
         if (info.opcoes != null) {
             if (info.opcoes.unico) {
@@ -245,7 +261,7 @@ public class Sincronizador : NetworkBehaviour {
 
             if (info.opcoes.cooldown > 0) {
                 if (metodosOnCooldown.Contains(nome)) {
-                    Debug.LogWarning("Método [" + nome + "] está em cooldown!");
+                    Debug.LogWarning("Método [" + nome + "] está em cooldown!", pai);
                     return false;
                 } else {
                     SetMetodoOnCooldown(nome, info.opcoes.cooldown);
@@ -253,7 +269,7 @@ public class Sincronizador : NetworkBehaviour {
             }
 
             if (!info.opcoes.repeteParametro && ParametrosRepetidos(nome, parametros)) {
-                Debug.LogWarning("Método [" + nome + "] não será chamado com os mesmos parâmetros!");
+                Debug.LogWarning("Método [" + nome + "] não será chamado com os mesmos parâmetros!", pai);
                 return false;
             }
         }
@@ -305,18 +321,20 @@ public class Sincronizador : NetworkBehaviour {
                 continue;
             }
 
+            GameObject pai = info.componenteDoMetodo.gameObject;
+
             if (info.metodo == null) {
-                Debug.LogError("O método [" + info.GetNome() + "] não existe mais!");
+                Debug.LogError("O método [" + info.GetNome() + "] não existe mais!", pai);
                 continue;
             }
 
             try {
-                if (info.opcoes != null && info.opcoes.debug) Debug.Log("Chamando método [" + info.GetNome() + "] com os valores: " + string.Join(", ", valores));
+                if (info.opcoes != null && info.opcoes.debug) Debug.Log("Chamando método [" + info.GetNome() + "] com os valores: " + string.Join(", ", valores), pai);
                 info.metodo.Invoke(info.componenteDoMetodo, valores);
-                if (info.opcoes != null && info.opcoes.debug) Debug.Log("Método [" + info.GetNome() + "] chamado com sucesso!");
+                if (info.opcoes != null && info.opcoes.debug) Debug.Log("Método [" + info.GetNome() + "] chamado com sucesso!", pai);
             } catch (System.Exception e) {
                 string valoresString = string.Join(',', valores);
-                Debug.LogError("Erro ao chamar o método [" + info.GetNome() + "] com os valores [" + valoresString + "]: " + e.Message);
+                Debug.LogError("Erro ao chamar o método [" + info.GetNome() + "] com os valores [" + valoresString + "]: " + e.Message, pai);
             }
         }
         isOnCallbackCall = false;
@@ -347,9 +365,33 @@ public class Sincronizador : NetworkBehaviour {
 
     #endregion
 
-    Dictionary<uint, System.Action<GameObject>> spawnHandlers = new Dictionary<uint, System.Action<GameObject>>();
-    public void InstanciarNetworkObject(System.Action<GameObject> callback, GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null, bool unico = false) {
-        if (!GameManager.instance.isOnline) return;
+    struct SpawnInfo {
+        public string id;
+        public Vector3 position;
+        public Quaternion rotation;
+        public System.Action<GameObject> callback;
+
+        public SpawnInfo(string id, Vector3 position, Quaternion rotation, System.Action<GameObject> callback) {
+            this.id = id;
+            this.position = position;
+            this.rotation = rotation;
+            this.callback = callback;
+        }
+    }
+
+    Dictionary<uint, List<SpawnInfo>> spawnHandlers = new Dictionary<uint, List<SpawnInfo>>();
+    SpawnInfo? GetSpawnInfo(uint id, Sincronizavel sinc) {
+        foreach (SpawnInfo info in spawnHandlers[id]) {
+            if (info.id == sinc.identificador) {
+                return info;
+            }
+        }
+
+        return null;
+    }
+
+    public void RegistrarSpawner(GameObject prefab, Vector3 position, Quaternion rotation, Sincronizavel sincronizavel, System.Action<GameObject> callback) {
+        SpawnInfo info = new SpawnInfo(sincronizavel.identificador, position, rotation, callback);
 
         NetworkIdentity netId = prefab.GetComponent<NetworkIdentity>();
         if (netId == null) {
@@ -358,23 +400,41 @@ public class Sincronizador : NetworkBehaviour {
         }
 
         uint id = netId.assetId;
-
-        if (unico && GetSpawnedObject(id) != null) {
-            Debug.LogWarning($"[Sincronizador] Já existe um objeto com AssetId: {id}. Não será instanciado novamente.");
-            return;
-        }
-
+        
         bool isSpawning = spawnHandlers.ContainsKey(id);
 
         if (isSpawning) {
-            spawnHandlers[id] = callback;
-        } else {
-            spawnHandlers.Add(id, callback);
+            if (GetSpawnInfo(id, sincronizavel) == null) {
+                spawnHandlers[id].Add(info);
+            }
+        } 
+        else {
+            spawnHandlers.Add(id, new List<SpawnInfo> { info });
+        }
+    }
+
+    public void InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel) {
+        if (!GameManager.instance.isOnline) return;
+        
+
+        NetworkIdentity netId = prefab.GetComponent<NetworkIdentity>();
+        if (netId == null) {
+            Debug.LogError("O prefab [" + prefab.name + "] não possui um NetworkIdentity. Não é possível instanciar objetos de rede sem este componente.");
+            return;
         }
 
-        if (NetworkClient.localPlayer.isServer && (!unico || !isSpawning)) {
-            Debug.Log($"[Sincronizador] Instanciando objeto de rede com AssetId: {id}.");
-            GameObject objeto = Instantiate(prefab, position, rotation, parent);
+        uint id = netId.assetId;
+        SpawnInfo? info = GetSpawnInfo(id, sincronizavel);
+        if (info == null) {
+            Debug.LogError("Tentativa de instanciar o prefab [" + prefab.name + "] utilizando o sincronizavel [" + sincronizavel.identificador + "] sem registrar. Por favor utilize RegistrarSpawner antes de tentar spawnar com este método.");
+            return;
+        }
+
+
+        if (NetworkClient.localPlayer.isServer) {
+            SpawnInfo s_info = (SpawnInfo) info;
+
+            GameObject objeto = Instantiate(prefab, s_info.position, s_info.rotation);
             NetworkServer.Spawn(objeto);
         }
 
@@ -385,26 +445,48 @@ public class Sincronizador : NetworkBehaviour {
     /// Se sim, chama o callback associado ao assetId do NetworkIdentity.
     /// </summary>
     /// <param name="netId"></param>
-    public void CheckSeAguardandoSpawn(NetworkIdentity netId) {
+    public void CheckSeAguardandoSpawn(Sincronizavel sinc) {
+        NetworkIdentity netId = sinc.networkIdentity;
         uint id = netId.assetId;
-        if (spawnHandlers.ContainsKey(id)) {
-            Debug.Log($"[Sincronizador] Encontrou o objeto spawnado com NetId: {netId.netId} e AssetId: {id}.");
+        if (spawnHandlers.ContainsKey(id) && spawnHandlers[id].Count > 0) {
+            SpawnInfo info = GetSpawnerMaisProvavel(sinc, spawnHandlers[id]);
             GameObject objeto = netId.gameObject;
-            System.Action<GameObject> handler = spawnHandlers[id];
-            spawnHandlers.Remove(id);
+            System.Action<GameObject> handler = info.callback;
             handler?.Invoke(objeto);
         }
     }
 
-    /// <summary>
-    /// Se está no aguardo de spawn do objeto porém este foi destruído, libera o aguardo.
-    /// </summary>
-    /// <param name="netId"></param>
-    public void LiberarAguardoSpawn(NetworkIdentity netId) {
-        uint id = netId.assetId;
-        if (spawnHandlers.ContainsKey(id)) {
-            spawnHandlers.Remove(id);
+    SpawnInfo GetSpawnerMaisProvavel(Sincronizavel sinc, List<SpawnInfo> list) {
+        if (list.Count == 1) return list[0];
+
+        float minDist = float.MaxValue;
+        float minAngle = float.MaxValue;
+        List<SpawnInfo> possiveis_pos = new List<SpawnInfo>();
+        List<SpawnInfo> possiveis_ang = new List<SpawnInfo>();
+
+        foreach (SpawnInfo s_info in list) {
+            float dist = Vector3.Distance(s_info.position, sinc.posInicial);
+            float angle = Quaternion.Angle(s_info.rotation, sinc.rotInicial);
+
+            if (dist <= minDist) {
+                if (dist < minDist) {
+                    minDist = dist;
+                    possiveis_pos.Clear();
+                }
+                possiveis_pos.Add(s_info);
+            }
+
+            if (angle <= minAngle) {
+                if (angle < minAngle) {
+                    minAngle = angle;
+                    possiveis_ang.Clear();
+                }
+                possiveis_ang.Add(s_info);
+            }
         }
+
+        if (possiveis_pos.Count == 1) return possiveis_pos[0];
+        return possiveis_ang[0];
     }
 
     public bool IsSpawning(uint assetId) {
@@ -419,22 +501,6 @@ public class Sincronizador : NetworkBehaviour {
         NetworkIdentity netId = obj.GetComponent<NetworkIdentity>();
         if (netId == null) return false;
         return IsSpawning(netId);
-    }
-
-    public GameObject GetSpawnedObject(uint assetId) {
-        NetworkIdentity[] allObjects = FindObjectsByType<NetworkIdentity>(FindObjectsSortMode.None);
-        foreach (NetworkIdentity netId in allObjects) {
-            if (netId.assetId == assetId) {
-                Sincronizavel sincronizavel = netId.GetComponent<Sincronizavel>();
-                
-                if (sincronizavel != null) {
-                    return sincronizavel.isDestroying ? null : netId.gameObject;
-                }
-
-                return netId.gameObject;
-            }
-        }
-        return null;
     }
 
 }
