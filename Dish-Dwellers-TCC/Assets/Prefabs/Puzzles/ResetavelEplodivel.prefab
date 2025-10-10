@@ -87,6 +87,7 @@ MonoBehaviour:
   fadeOut: 1
   lifetime: 2
   fadeDuration: 2
+  fragmentMaterial: {fileID: 2100000, guid: b47861ab2316be84a9d6ce37251bf698, type: 2}
 --- !u!65 &777946604208405922
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,8 +107,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.0087934, y: 1.9992008, z: 3.5728128}
+  m_Center: {x: 0.024571178, y: 0.996654, z: 0.25707102}
 --- !u!54 &1516783981357003438
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,7 +143,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3878567775411244389}
-  m_Mesh: {fileID: -5495902117074765545, guid: 2828179b3e86ec846b2817ea74020062, type: 3}
+  m_Mesh: {fileID: 8115677669176148661, guid: 203599269622e404caab9c0ae2ca7c05, type: 3}
 --- !u!23 &1929061657959148207
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73f71492d24c57446a1ad99f1c1c0598, type: 2}
+  - {fileID: 2100000, guid: b47861ab2316be84a9d6ce37251bf698, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

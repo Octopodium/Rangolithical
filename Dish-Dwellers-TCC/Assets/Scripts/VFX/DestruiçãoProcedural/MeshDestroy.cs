@@ -17,6 +17,7 @@ public class MeshDestroy : MonoBehaviour{
     [SerializeField] private bool fadeOut = false;
     [SerializeField][Range(0, 20)] private float lifetime = 2.0f;
     [SerializeField][Range(0, 20)] private float fadeDuration = 2.0f;
+    [SerializeField] private Material fragmentMaterial;
 
     private bool edgeSet = false;
     private Vector3 edgeVertex = Vector3.zero;
@@ -72,7 +73,7 @@ public class MeshDestroy : MonoBehaviour{
             if(fadeOut)
                 meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"), lifetime, fadeDuration);
             else
-                meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"));
+                meshParts[i].MakeGameObject(this, meshPartsScale, LayerMask.NameToLayer("Particulas"), fragmentMaterial);
             meshParts[i].newObject.GetComponent<Rigidbody>().AddForceAtPosition(meshParts[i].bounds.center * explosionForce, transform.position);
             generatedMeshParts[i] = meshParts[i].newObject;
         }
@@ -279,7 +280,7 @@ public class MeshPart {
     }
 
     // Doesn't fade out the fragments
-    public void MakeGameObject(MeshDestroy originalObject, float partScale, int layer) {
+    public void MakeGameObject(MeshDestroy originalObject, float partScale, int layer, Material material) {
         newObject = new GameObject(originalObject.name);
         originalObject.transform.GetPositionAndRotation(
             out Vector3 originalPosition,
@@ -306,6 +307,7 @@ public class MeshPart {
         MeshCollider meshCollider = newObject.AddComponent<MeshCollider>();
         meshCollider.convex = true;
         Rigidbody rigidbody = newObject.AddComponent<Rigidbody>();
+        rigidbody.mass = 4;
         newObject.layer = layer;
     }
 
