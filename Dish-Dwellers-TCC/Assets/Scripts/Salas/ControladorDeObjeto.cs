@@ -1,6 +1,9 @@
-using System.Collections;
-using Mirror;
 using UnityEngine;
+
+public interface IRecebeTemplate {
+    void RecebeTemplate(GameObject template);
+}
+
 
 [RequireComponent(typeof(Sincronizavel))]
 public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
@@ -20,11 +23,15 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Header("Configurações")]
     [Space(10)]
     [SerializeField] private bool spawnNoInicio = false;
+    [Tooltip("Caso o objeto prefab seja 'IRecebeTemplate', ele recebera o objeto 'template' como parâmetro de 'RecebeTemplate'. Util para replicar valores base nos objetos recém instanciados.")]
+    public GameObject template;
 
     Sincronizavel sinc;
 
 
     private void Start() {
+        if (template != null) template.SetActive(false);
+
         sinc = GetComponent<Sincronizavel>();
         SetupSpawner();
 
@@ -69,24 +76,29 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
         gameObject.Sincronizar();
         
-        if (!GameManager.instance.isOnline) objeto = Instantiate(prefab, respawnPos.position, transform.rotation);
+        if (!GameManager.instance.isOnline) AposSpawn(Instantiate(prefab, respawnPos.position, transform.rotation));
         else {
             SetupSpawner();
             GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
             Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc);
-            return;
         }
-
-        AposSpawn(objeto);
     }
 
     void AposSpawn(GameObject objeto) {
+
         if (objeto != null && objeto != this.objeto) {
             if (this.objeto != null) Destroy(this.objeto);
 
             Destrutivel destrutivel = objeto.GetComponent<Destrutivel>();
-            destrutivel.OnDestruido.AddListener(Respawn);
+            destrutivel?.OnDestruido.AddListener(Respawn);
             this.objeto = objeto;
+
+            if (template != null) {
+                IRecebeTemplate recebeTemplate = objeto.GetComponent<IRecebeTemplate>();
+                if (recebeTemplate != null) {
+                    recebeTemplate.RecebeTemplate(template);
+                }
+            }
         }
     }
 
@@ -112,6 +124,8 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
         if (objeto != null) {
             // Essa parte é exclusiva pra esse código, instanciar e desinstanciar 
+            objeto.SetActive(false);
+
             Sincronizavel sincronizavel = objeto.GetComponent<Sincronizavel>();
             if (sincronizavel != null) {
                 sincronizavel.PreDestroy();

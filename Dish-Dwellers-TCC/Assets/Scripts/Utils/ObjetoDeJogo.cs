@@ -20,7 +20,7 @@ public class ObjetoDeJogo : MonoBehaviour {
 
     [Tooltip("Por conta do multiplayer, se um objeto tem a habilidade de mover e essa habilidade não é um mecanismo (elevadores são mecanismos, projeteis não), você precisa especificar para ser tratado igualmente entre clientes. Por sincronizar posição, este objeto deve ser instanciado dinamicamente.")]
     public bool sincronizarPosicao;
-    [HideInInspector] public NetworkTransformUnreliable netTransformComponent;
+    [HideInInspector] public NetworkTransformReliable netTransformComponent;
     
     protected Sincronizavel sincronizavel;
 
@@ -37,7 +37,7 @@ public class ObjetoDeJogo : MonoBehaviour {
         TratarComponente<Sincronizavel>(precisaDeSincronizavel, out sincronizavel);
 
         TratarComponente<NetworkIdentity>(instanciadoDinamicamente, out identityComponent);
-        TratarComponente<NetworkTransformUnreliable>(sincronizarPosicao, out netTransformComponent);
+        TratarComponente<NetworkTransformReliable>(sincronizarPosicao, out netTransformComponent);
 
         if (interagivel) {
             int layer = LayerMask.NameToLayer("Interagivel");

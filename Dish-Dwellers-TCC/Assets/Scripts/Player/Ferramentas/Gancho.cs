@@ -244,7 +244,6 @@ public class Gancho : MonoBehaviour, Ferramenta {
         if (hitted != null) {
             Ganchavel alvoRecebido = hitted.GetComponent<Ganchavel>();
             if (alvoRecebido != null) {
-                Debug.Log(hitted);
                 encontrou = true;
                 alvoAuto = alvoRecebido;
                 return alvoRecebido.meio;

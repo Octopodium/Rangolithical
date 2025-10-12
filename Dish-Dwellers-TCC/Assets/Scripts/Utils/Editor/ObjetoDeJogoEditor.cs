@@ -63,7 +63,7 @@ public class ObjetoDeJogoEditor : Editor {
                 NetworkIdentity nid = objeto.GetComponent<NetworkIdentity>();
                 if (nid != null) DestroyImmediate(nid, true);
 
-                NetworkTransformUnreliable ntu = objeto.GetComponent<NetworkTransformUnreliable>();
+                NetworkTransformReliable ntu = objeto.GetComponent<NetworkTransformReliable>();
                 if (ntu != null) DestroyImmediate(ntu, true);
 
                 houveMudanca = true;

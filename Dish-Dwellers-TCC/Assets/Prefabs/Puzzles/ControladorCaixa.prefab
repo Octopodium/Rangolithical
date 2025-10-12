@@ -51,7 +51,9 @@ MonoBehaviour:
   prefabOnline: {fileID: 4088332650357128873, guid: 313875b13dc8e0343a35d23820bdaa2f, type: 3}
   respawnPos: {fileID: 3858548499536979177}
   triggerSpawnChave: {fileID: 0}
+  objeto: {fileID: 0}
   spawnNoInicio: 1
+  template: {fileID: 5557372159434791126}
 --- !u!114 &-757659606178639513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +70,10 @@ MonoBehaviour:
   cadastrarNoInicio: 1
   naoUsarIDAuto: 0
   isSingleton: 0
-  identificador: 
+  posInicial: {x: 0, y: 0, z: 0}
+  rotInicial: {x: 0, y: 0, z: 0, w: 0}
+  networkIdentity: {fileID: 0}
+  identificador: $a598fabad45a4db2be99d67319a76516
 --- !u!1 &8303141526173118653
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8861443900669117780, guid: 57ed5439385729d49afacc336e1f54e2, type: 3}
       propertyPath: identificador
-      value: 
+      value: $b256fba1d7fd4a069708c172071227cd
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -172,5 +177,10 @@ PrefabInstance:
 --- !u!4 &582238696181303539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1834391411973215805, guid: 57ed5439385729d49afacc336e1f54e2, type: 3}
+  m_PrefabInstance: {fileID: 1252447404380085966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5557372159434791126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6664859948468323864, guid: 57ed5439385729d49afacc336e1f54e2, type: 3}
   m_PrefabInstance: {fileID: 1252447404380085966}
   m_PrefabAsset: {fileID: 0}

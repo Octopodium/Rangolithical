@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3434034029807469283}
   - component: {fileID: 4958262181105189351}
   - component: {fileID: 6241066168995804448}
-  - component: {fileID: 4608363736401670827}
+  - component: {fileID: -519226490338719670}
   m_Layer: 7
   m_Name: BombaOnline
   m_TagString: Untagged
@@ -220,7 +220,10 @@ MonoBehaviour:
   cadastrarNoInicio: 1
   naoUsarIDAuto: 0
   isSingleton: 0
-  identificador: 
+  posInicial: {x: 0, y: 0, z: 0}
+  rotInicial: {x: 0, y: 0, z: 0, w: 0}
+  networkIdentity: {fileID: 0}
+  identificador: $92de5931ccef491281fc811dc8fa6279
 --- !u!114 &3604580497478892474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetIndicador: {x: 0, y: 1, z: 0}
   ultimoPonto: {fileID: 0}
+  podeInteragirDiretamente: 1
 --- !u!114 &3026176174173178611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +352,7 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &4608363736401670827
+--- !u!114 &-519226490338719670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -357,13 +361,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7980699649815010782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 1026695413502777413}
+  target: {fileID: 0}
   syncPosition: 1
   syncRotation: 1
   syncScale: 0
@@ -377,8 +381,8 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  bufferResetMultiplier: 3
+  onlySyncOnChangeCorrectionMultiplier: 2
   useFixedUpdate: 0
-  positionSensitivity: 0.01
   rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01

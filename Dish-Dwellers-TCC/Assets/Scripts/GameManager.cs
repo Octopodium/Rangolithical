@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour {
 
     public QualPersonagem GetQualPersonagem(QualPlayer player) {
         foreach (Player jogador in jogadores) {
-            if (jogador.qualPlayer == player) {
+            if (jogador?.qualPlayer == player) {
                 return jogador.personagem;
             }
         }

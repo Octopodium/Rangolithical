@@ -50,8 +50,9 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     Collider[] collidersInteragiveis;
     public List<Collider> collidersIgnoraveis = new List<Collider>(); // Lista de colisores que o jogador não pode interagir
     public float velocidadeEmpurrandoMult = 0.5f;
-    public bool empurrando = false;
-    public bool embarcado = false;
+    [HideInInspector] public bool empurrando = false;
+    [HideInInspector] public Barco barcoEmbarcado;
+    public bool embarcado { get { return barcoEmbarcado != null; }}
 
 
     [Header("Referências")]
@@ -167,6 +168,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             UsarRB(true); // Se o jogador não está no chão, desabilita o CharacterController (habilita o Rigidbody)
             UsarAtrito(false);
         }
+
+        ultimaPosicao = transform.position;
     }
 
     public void OnInputTriggered(InputAction.CallbackContext ctx, QualPlayer qualPlayer) {
@@ -465,6 +468,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public float coyote = 0.5f;
     float coyoteTimer = 0f;
 
+    Vector3 ultimaPosicao;
+    
+
+    public System.Action<Vector3> OnPositionChange;
+
 
     /// <summary>
     /// Trata da movimentação do jogador
@@ -491,6 +499,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
         if (!GameManager.instance.isOnline || isLocalPlayer)
             animacaoJogador.Mover(movimentacao);
+        
+        Vector3 variacao = transform.position - ultimaPosicao;
+        ultimaPosicao = transform.position;
+
+        if (variacao.magnitude != 0f) OnPositionChange?.Invoke(variacao);
     }
 
     void CalcularDirecao() {
@@ -537,6 +550,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public float noChaoTempoMin = 0.25f;
     float noChaoTimer = 0f;
     bool naoCairCC = false;
+    
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoChao() {
         UsarCC();

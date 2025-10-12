@@ -5,7 +5,7 @@ using UnityEngine.Animations;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 
-public class Barco : IResetavel, Interacao
+public class Barco : IResetavel, Interacao, IRecebeTemplate
 {
     public Transform pos1, pos2, outPos, inicialPos;
     public Vector3 pontoPuxada;
@@ -25,12 +25,21 @@ public class Barco : IResetavel, Interacao
         rb.angularDamping = 1f;
     }
 
+    public void RecebeTemplate(GameObject template) {
+        if (template == null) return;
+        Barco barcoTemplate = template.GetComponent<Barco>();
+        if (barcoTemplate == null) return;
+
+        outPos = barcoTemplate.outPos;
+        inicialPos = barcoTemplate.inicialPos;
+    }
+
     public void Interagir(Player jogador)
     {
         if(noPier){
             if(jogador.embarcado){
                 SairDoBarco(jogador);
-                jogador.embarcado = false;
+                jogador.barcoEmbarcado = null;
                 jogador.HandleEmbarcado(); 
                 return;
             }
@@ -48,8 +57,9 @@ public class Barco : IResetavel, Interacao
             parentConstraint.AddSource(posSource);
             parentConstraint.constraintActive = true;
             playerNoBarco++;
-            jogador.embarcado = true;
-            jogador. velocidade = 0f;
+
+            jogador.barcoEmbarcado = this;
+            jogador.velocidade = 0f;
             jogador.velocidadeRB = 0f;
             jogador.HandleEmbarcado(); 
         }

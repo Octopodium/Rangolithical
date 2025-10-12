@@ -1,7 +1,8 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Interagivel))]
-public class Empurravel : MonoBehaviour, InteracaoCondicional {
+public class Empurravel : MonoBehaviour, InteracaoCondicional, IRecebeTemplate {
     [System.Serializable]
     public class DirecaoEmpurrar {
         public bool cima = true;
@@ -10,6 +11,7 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         public bool direita = true;
     }
 
+    public Transform triggerHolder;
     public GameObject encostouPorUltimoEm;
 
     public float distBordaInteracao = 0.5f;
@@ -17,13 +19,13 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
     public DirecaoEmpurrar direcoes;
 
     Rigidbody rb;
-    BoxCollider col;
+    [HideInInspector] public BoxCollider col;
     Interagivel interagivel;
 
 
     bool sendoEmpurrado = false;
     Player jogadorEmpurrando = null;
-    Vector3 eixo, ultimaPosicaoPlayer, eixoInvertido;
+    Vector3 eixo, eixoInvertido;
 
     Vector3 topoOffset;
 
@@ -36,6 +38,25 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         col = GetComponent<BoxCollider>();
         interagivel = GetComponent<Interagivel>();
 
+        Setup();
+    }
+
+    public void RecebeTemplate(GameObject template) {
+        if (template == null) return;
+        Empurravel empurravelTemplate = template.GetComponent<Empurravel>();
+        if (empurravelTemplate == null) return;
+
+        col.size = empurravelTemplate.col.size;
+        col.center = empurravelTemplate.col.center;
+
+        distBordaInteracao = empurravelTemplate.distBordaInteracao;
+        paddingTrigger = empurravelTemplate.paddingTrigger;
+        direcoes = empurravelTemplate.direcoes;
+
+        Setup();
+    }
+
+    public void Setup() {
         AndadorSobChao andador = GetComponent<AndadorSobChao>();
         if (andador != null) {
             andador.SetOffsetBase(new Vector3(0, -(andador.distanciaCheckChao + col.center.y + col.size.y / 2f), 0));
@@ -50,6 +71,10 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
     }
 
     public void CriarTriggersDeInteracao() {
+        foreach (Transform child in triggerHolder) {
+            Destroy(child.gameObject);
+        }
+
         if (direcoes.direita) CriarTriggerDeInteracao(0, 1);
         if (direcoes.esquerda) CriarTriggerDeInteracao(0, -1);
         if (direcoes.cima) CriarTriggerDeInteracao(1, 0);
@@ -60,7 +85,7 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         GameObject trigger = new GameObject("TriggerDeInteracao_" + gameObject.name);
         trigger.layer = LayerMask.NameToLayer("Interagivel");
 
-        trigger.transform.SetParent(transform, false);
+        trigger.transform.SetParent(triggerHolder, false);
 
 
         Vector3 direcao = transform.forward * xDir + transform.right * yDir;
@@ -110,6 +135,14 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         return eixoX ? new Vector3(Mathf.Sign(posRelativa.x), 0, 0) : new Vector3(0, 0, Mathf.Sign(posRelativa.z));
     }
 
+    bool IsDirecaoPermitida(Vector3 direcao) {
+        if (direcao == Vector3.left) return direcoes.esquerda;
+        if (direcao == Vector3.right) return direcoes.direita;
+        if (direcao == Vector3.forward) return direcoes.baixo;
+        if (direcao == -Vector3.forward) return direcoes.cima;
+        return false;
+    }
+
 
     public void Interagir(Player jogador) {
         if (sendoEmpurrado) {
@@ -118,6 +151,7 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         }
 
         Vector3 direcao = GetDirecaoPlayer(jogador);
+        if (!IsDirecaoPermitida(direcao)) return;
 
         // Posiciona o jogador bem no meio da caixa
         Vector3 novaPosicaoPlayer = transform.right * direcao.x + transform.forward * direcao.z;
@@ -126,7 +160,6 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         novaPosicaoPlayer.y = jogador.transform.position.y;
 
         jogador.Teletransportar(novaPosicaoPlayer);
-        ultimaPosicaoPlayer = jogador.transform.position;
 
         jogadorEmpurrando = jogador;
         sendoEmpurrado = true;
@@ -134,11 +167,27 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         eixoInvertido = eixo * -1;
 
         jogadorEmpurrando.empurrando = true;
+        StartCoroutine(EsperaAntesDeSetar());
+    }
+
+    IEnumerator EsperaAntesDeSetar() {
+        // Skipa 4 frames pq assim funciona....
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+
+        if (jogadorEmpurrando != null)
+            jogadorEmpurrando.OnPositionChange += OnMovimento;
     }
 
     void SoltarEmpurro() {
-        jogadorEmpurrando.empurrando = false;
-        jogadorEmpurrando = null;
+        if (jogadorEmpurrando != null) {
+            jogadorEmpurrando.empurrando = false;
+            jogadorEmpurrando.OnPositionChange -= OnMovimento;
+            jogadorEmpurrando = null;
+        }
+        
         sendoEmpurrado = false;
         eixo = Vector3.zero;
         eixoInvertido = Vector3.zero;
@@ -162,12 +211,9 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
             SoltarEmpurro();
     }
 
-    void FixedUpdate() {
+
+    void OnMovimento(Vector3 variacaoPos) {
         if (!sendoEmpurrado) return;
-
-        Vector3 variacaoPos = jogadorEmpurrando.transform.position - ultimaPosicaoPlayer;
-        ultimaPosicaoPlayer = jogadorEmpurrando.transform.position;
-
 
         if (algoNoCaminho) {
             encostouPorUltimoEm = null;
@@ -175,10 +221,12 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
             return;
         }
 
-        if (Vector3.Dot(eixoInvertido, variacaoPos.normalized) < 0f) {
+        if (Vector3.Dot(eixoInvertido, jogadorEmpurrando.direcao.normalized) < 0f) {
             SoltarEmpurro();
             return;
         }
+
+        if (Vector3.Dot(variacaoPos, jogadorEmpurrando.direcao.normalized) < 0f) return;
 
         
         Vector3 movimento = transform.position;
@@ -196,7 +244,17 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional {
         size.x += distBordaInteracao * 2;
         size.z += distBordaInteracao * 2;
 
+        Vector3 centro = transform.position + col.center;
+
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position + col.center, size);
+        Gizmos.DrawWireCube(centro, size);
+
+        Gizmos.color = Color.magenta;
+
+        float raio = 0.25f;
+        if (direcoes.esquerda) Gizmos.DrawSphere(centro + Vector3.left * col.size.x, raio);
+        if (direcoes.direita) Gizmos.DrawSphere(centro + Vector3.right * col.size.x, raio);
+        if (direcoes.baixo) Gizmos.DrawSphere(centro + Vector3.forward * col.size.z, raio);
+        if (direcoes.cima) Gizmos.DrawSphere(centro - Vector3.forward * col.size.z, raio);
     }
 }

@@ -16,9 +16,7 @@ public class VaporEmpurravel : MonoBehaviour
         ray = new Ray(transform.position, -transform.forward);
 
         if (Physics.Raycast(transform.position, -transform.forward, out hitInfo, maxComprimento, layers)){
-            Debug.Log(hitInfo.collider.name, hitInfo.collider);
             if(hitInfo.transform.CompareTag("Barco")){
-                //Debug.Log("barco hitado");
                 hitInfo.transform.GetComponent<Barco>().AplicarForcaVapor(-transform.forward);
             }
         }

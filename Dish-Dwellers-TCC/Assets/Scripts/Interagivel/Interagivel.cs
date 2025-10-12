@@ -6,6 +6,8 @@ public class Interagivel : InteragivelBase {
     [HideInInspector] public HashSet<PontoInteragivel> pontos = new HashSet<PontoInteragivel>();
     [HideInInspector] public PontoInteragivel ultimoPonto = null;
 
+    public bool podeInteragirDiretamente = true;
+
     Sincronizavel _sincronizavel;
     [HideInInspector] public Sincronizavel sincronizavel {
         get {
@@ -31,6 +33,12 @@ public class Interagivel : InteragivelBase {
             if (_interacaoCondicional == null) _interacaoCondicional = GetComponent<InteracaoCondicional>();
             return _interacaoCondicional;
         }
+    }
+
+    protected override void Start() {
+        base.Start();
+
+        if (!podeInteragirDiretamente) enabled = false;
     }
     
     public override void Interagir(Player jogador) {
