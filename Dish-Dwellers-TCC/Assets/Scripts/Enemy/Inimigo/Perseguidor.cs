@@ -228,15 +228,18 @@ public class Perseguidor : Inimigo
         StartCoroutine(AplicarKnockback(direcaoImpacto));
     }
 
-    public void Recuperar()
-    {
-        if (!carregavel.sendoCarregado)
-        {
+    public void SendoAgarrado() {
+            navAgent.enabled = false;
+            Perseguidor perseguidor = GetComponent<Perseguidor>();
+            perseguidor.enabled = false;
+    }
+
+    public void Recuperar() {
+        if (!carregavel.sendoCarregado) {
             caido = false;
             podePerseguir = true;
 
-            if (navAgent != null && navAgent.isOnNavMesh)
-            {
+            if (navAgent != null && navAgent.isOnNavMesh) {
                 navAgent.isStopped = false;
                 navAgent.updateRotation = true;
             }
