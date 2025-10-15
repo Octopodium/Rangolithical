@@ -12,6 +12,15 @@ public class ProjetilDoGancho : MonoBehaviour {
     public Transform ganchoHolder, conexaoGancho;
     public Rigidbody rb;
 
+    [Header("Lima Coisas")]
+    private MaterialPropertyBlock materialPropertyBlock;
+    private static int emissionColorID = Shader.PropertyToID("_EmissionColor");
+
+    
+    private void Awake() {
+        materialPropertyBlock = new MaterialPropertyBlock();
+    }
+
     public void Inicializar(Gancho gancho, Vector3 direcao, float velocidade) {
         this.gancho = gancho;
         this.direcao = direcao;
@@ -46,8 +55,10 @@ public class ProjetilDoGancho : MonoBehaviour {
         float porcentagem = (distancia >= 0) ? distancia / gancho.distanciaMaxima : 0;
         Color cor = gancho.gradienteCorda.Evaluate(porcentagem);
 
-        lineRenderer.startColor = cor;
-        lineRenderer.endColor = cor;
+        materialPropertyBlock.SetColor(emissionColorID, cor);
+        lineRenderer.SetPropertyBlock(materialPropertyBlock);
+        // lineRenderer.startColor = cor;
+        // lineRenderer.endColor = cor;
     }
 
     /// <summary>

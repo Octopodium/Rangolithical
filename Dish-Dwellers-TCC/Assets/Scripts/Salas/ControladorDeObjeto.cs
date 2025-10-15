@@ -7,11 +7,11 @@ public interface IRecebeTemplate {
 
 [RequireComponent(typeof(Sincronizavel))]
 public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
-    [Header("<color=green>Componentes : </color>")]
+    [Header("</color=green>Componentes : </color>")]
     [Space(10)]
     [SerializeField] private GameObject prefab;
     [SerializeField] private GameObject prefabOnline;
-    [SerializeField] private Transform respawnPos;
+    public Vector3 respawnPos = new Vector3(0, 6, 0);
     [SerializeField] private GameObject triggerSpawnChave;
 
     [Space(15)]
@@ -47,7 +47,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
         GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
         if (sinc == null) sinc = GetComponent<Sincronizavel>();
 
-        Sincronizador.instance.RegistrarSpawner(prefabToUse, respawnPos.position, transform.rotation, sinc, AposSpawn);
+        Sincronizador.instance.RegistrarSpawner(prefabToUse, respawnPos, transform.rotation, sinc, AposSpawn);
         spawnerSetted = true;
     }
 
@@ -76,7 +76,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
         gameObject.Sincronizar();
         
-        if (!GameManager.instance.isOnline) AposSpawn(Instantiate(prefab, respawnPos.position, transform.rotation));
+        if (!GameManager.instance.isOnline) AposSpawn(Instantiate(prefab, transform.TransformPoint(respawnPos), transform.rotation));
         else {
             SetupSpawner();
             GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
@@ -109,7 +109,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Sincronizar]
     public void Respawn(){
         gameObject.Sincronizar();
-        objeto.transform.position = respawnPos.position;
+        objeto.transform.position = transform.TransformPoint(respawnPos);
 
         if(!objeto.activeInHierarchy)
             objeto.SetActive(true);

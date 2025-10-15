@@ -17,7 +17,7 @@ public class Gancho : MonoBehaviour, Ferramenta {
     public float distanciaMaxima = 10f;
     public float velocidadeGancho = 20f;
 
-    public Gradient gradienteCorda;
+    [GradientUsage(true)] public Gradient gradienteCorda;
 
     [Header("Configurações de Puxada")]
     public float forcaDePuxada = 1f;

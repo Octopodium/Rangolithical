@@ -1861,6 +1861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetIndicador: {x: 0, y: 2, z: 0}
   ultimoPonto: {fileID: 0}
+  podeInteragirDiretamente: 1
 --- !u!114 &226067393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1890,6 +1891,9 @@ MonoBehaviour:
   cadastrarNoInicio: 1
   naoUsarIDAuto: 0
   isSingleton: 0
+  posInicial: {x: 0, y: 0, z: 0}
+  rotInicial: {x: 0, y: 0, z: 0, w: 0}
+  networkIdentity: {fileID: 0}
   identificador: $f26d069b0253480eb31035bbe1da18dc
 --- !u!1 &236933270
 GameObject:
@@ -7171,15 +7175,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6698215070288709935, guid: b6dadb8b38dbe2c4d8fb5a39325c24a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.999388
+      value: 13.3
       objectReference: {fileID: 0}
     - target: {fileID: 6698215070288709935, guid: b6dadb8b38dbe2c4d8fb5a39325c24a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.233239
+      value: 19.04
       objectReference: {fileID: 0}
     - target: {fileID: 6698215070288709935, guid: b6dadb8b38dbe2c4d8fb5a39325c24a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.75002
+      value: 17.75
       objectReference: {fileID: 0}
     - target: {fileID: 6698215070288709935, guid: b6dadb8b38dbe2c4d8fb5a39325c24a8, type: 3}
       propertyPath: m_LocalRotation.w
