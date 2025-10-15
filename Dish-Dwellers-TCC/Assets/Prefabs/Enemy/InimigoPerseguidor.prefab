@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5254016602894470276}
   - component: {fileID: 7325115763719662212}
+  - component: {fileID: 7512595077924571537}
+  - component: {fileID: 2741958774313156531}
   - component: {fileID: 5480759516511127318}
   - component: {fileID: 4597197003833439561}
   - component: {fileID: 4392599104411128367}
@@ -54,8 +56,8 @@ MonoBehaviour:
   vidas: 1
   velocidade: 5
   dano: 2
-  campoDeVisao: 7
-  zonaDeAtaque: 3
+  campoDeVisao: 7.5
+  zonaDeAtaque: 4.5
   target: {fileID: 0}
   playerLayer:
     serializedVersion: 2
@@ -64,10 +66,75 @@ MonoBehaviour:
   _playerNaZonaDeAtaque: 0
   tempoDeFoco: 3
   tempoCaido: 3
+  knockbackForce: 8
+  knockbackDuration: 0.5
+  tempoDeAtaque: 3
+  velocidadeDeDash: 4.5
+  duracaoDoDash: 0.35
+  distanciaParaDano: 1.2
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   animator: {fileID: 0}
+--- !u!114 &7512595077924571537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631770193978613373}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d61d1cfde9d91478b203dbf711c650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosaoPrefab: {fileID: 5893092884870762418, guid: 7d0665e6be10c7a4081c3e1f1c8e2649, type: 3}
+  rb: {fileID: 0}
+  bombaRenderer: {fileID: 3664483380418688707}
+  corPiscante: {r: 1, g: 0, b: 0, a: 1}
+  tempoParaExplodir: 4
+  OnExplode:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5631770193978613373}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2741958774313156531}
+        m_TargetAssemblyTypeName: Destrutivel, Assembly-CSharp
+        m_MethodName: Destroi
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2741958774313156531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631770193978613373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc12de86cbc7a44a9012552b3c44c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDestruido:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5480759516511127318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +153,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7325115763719662212}
         m_TargetAssemblyTypeName: Perseguidor, Assembly-CSharp
-        m_MethodName: CaidoPorEscudo
+        m_MethodName: SendoAgarrado
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -95,6 +162,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7512595077924571537}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   onSolto:
     m_PersistentCalls:
@@ -124,9 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460b25a6d8ae3ef499faf7410e41ca4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicador: {fileID: 0}
   offsetIndicador: {x: 0, y: 1, z: 0}
   ultimoPonto: {fileID: 0}
+  podeInteragirDiretamente: 1
 --- !u!114 &4392599104411128367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +222,10 @@ MonoBehaviour:
   cadastrarNoInicio: 1
   naoUsarIDAuto: 0
   isSingleton: 0
-  identificador: 
+  posInicial: {x: 0, y: 0, z: 0}
+  rotInicial: {x: 0, y: 0, z: 0, w: 0}
+  networkIdentity: {fileID: 0}
+  identificador: $df5d18c0e3dd465aa919f5f3372ae103
 --- !u!195 &8158629462487259436
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -191,7 +273,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &9199354836867732836
 BoxCollider:
@@ -268,19 +350,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -288,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -297,6 +379,22 @@ PrefabInstance:
     - target: {fileID: -8141244127721525340, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7944589987698340646, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: -7944589987698340646, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: -7944589987698340646, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7944589987698340646, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
       objectReference: {fileID: 0}
     - target: {fileID: -5805966086467667081, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_Layer
@@ -373,6 +471,18 @@ PrefabInstance:
     - target: {fileID: 1410303600693553397, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381029696623694342, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381029696623694342, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381029696623694342, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4278770307759962603, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
       propertyPath: m_Layer
@@ -474,3 +584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: 0
+--- !u!137 &3664483380418688707 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3702947043444326046, guid: fbaf0cab13785074a9052d65d2f4a331, type: 3}
+  m_PrefabInstance: {fileID: 124234435514681437}
+  m_PrefabAsset: {fileID: 0}
