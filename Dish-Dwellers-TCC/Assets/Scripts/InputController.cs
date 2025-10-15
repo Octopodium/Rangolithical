@@ -3,6 +3,7 @@ using System;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.DualShock;
+using System.Collections.Generic;
 public class InputController : MonoBehaviour {
     public PlayerInputManager playerInputManager; // Gerencia os inputs dos jogadores locais
     public Actions actions;
@@ -37,21 +38,47 @@ public class InputController : MonoBehaviour {
 
     #region Input e Devices
 
+    public void RedefinirInputs() {
+        if (player1Input.gameObject.activeSelf) player1Input.onActionTriggered -= HandleOnInputTriggeredP1;
+        if (player2Input.gameObject.activeSelf) player2Input.onActionTriggered -= HandleOnInputTriggeredP2;
+
+        player1Input.gameObject.SetActive(false);
+        player2Input.gameObject.SetActive(false);
+
+        ConfigurarInputs();
+    }
+
+    public void SetPlayerDevice(QualPlayer qualPlayer, InputDevice device) {
+        PlayerInput playerInput = qualPlayer == QualPlayer.Player1 ? player1Input : player2Input;
+        playerInput.user.UnpairDevices();
+        InputUser.PerformPairingWithDevice(device, playerInput.user);
+
+        // O Input System não reconhece automaticamente o esquema de controle, então é necessário definir manualmente... (??????)
+        string controlScheme = GetControlSchemeName(device);
+        playerInput.SwitchCurrentControlScheme(controlScheme, device);
+        playerInput.ActivateInput();
+    }
+
     public void ConfigurarInputs() {
         player1Input.gameObject.SetActive(true);
-        player1Input.onActionTriggered += ctx => HandleOnInputTriggered(ctx, QualPlayer.Player1);
-        player1Input.onDeviceLost += ctx => OnDeviceLost(player1Input, QualPlayer.Player1);
+        player1Input.onActionTriggered += HandleOnInputTriggeredP1;
 
         if (GameManager.instance.modoDeJogo == ModoDeJogo.MULTIPLAYER_LOCAL) {
             player2Input.gameObject.SetActive(true);
-            player2Input.onActionTriggered += ctx => HandleOnInputTriggered(ctx, QualPlayer.Player2);
-            player2Input.onDeviceLost += ctx => OnDeviceLost(player2Input, QualPlayer.Player2);
+            player2Input.onActionTriggered += HandleOnInputTriggeredP2;
 
-            CadastrarDevices();
+            if (player1Input.user.valid) player1Input.user.UnpairDevices();
+            if (player2Input.user.valid) player2Input.user.UnpairDevices();
+
+            player1Input.DeactivateInput();
+            player2Input.DeactivateInput();
+
+            GameManager.instance.selecaoDePersonagem.ComecarSelecaoLocal();
         } else {
-            Destroy(player2Input.gameObject);
-            player2Input = null;
-
+            player2Input.gameObject.SetActive(false);
+            if (player2Input.user.valid) player2Input.user.UnpairDevices();
+            player2Input.DeactivateInput();
+            
             AtualizarCorzinhaControle(QualPlayer.Player1);
         }
     }
@@ -76,23 +103,6 @@ public class InputController : MonoBehaviour {
         AtualizarCorzinhaControle(player);
     }
 
-    
-    protected void OnDeviceLost(PlayerInput playerInput, QualPlayer qualPlayer) {
-        Debug.Log($"Dispositivo perdido para {qualPlayer}: {playerInput.currentControlScheme}");
-
-        if (qualPlayer == QualPlayer.Player1) {
-            player1Device = null;
-            player1Input.user.UnpairDevices();
-            player1Input.DeactivateInput();
-        } else if (qualPlayer == QualPlayer.Player2) {
-            player2Device = null;
-            player2Input.user.UnpairDevices();
-            player2Input.DeactivateInput();
-        }
-
-        UIConexaoInGame.instancia.SetConectando(qualPlayer);
-        actions.Player.Get().actionTriggered += OuveAcoesParaCadastrarDevices;
-    }
 
     protected QualPlayer GetQualPlayerTratado(QualPlayer qualPlayer) {
         if (GameManager.instance.modoDeJogo == ModoDeJogo.SINGLEPLAYER) {
@@ -102,6 +112,14 @@ public class InputController : MonoBehaviour {
         }
         return qualPlayer;
 
+    }
+
+    protected void HandleOnInputTriggeredP1(InputAction.CallbackContext ctx) {
+        HandleOnInputTriggered(ctx, QualPlayer.Player1);
+    }
+
+    protected void HandleOnInputTriggeredP2(InputAction.CallbackContext ctx) {
+        HandleOnInputTriggered(ctx, QualPlayer.Player2);
     }
 
     protected void HandleOnInputTriggered(InputAction.CallbackContext ctx, QualPlayer qualPlayer) {
@@ -122,75 +140,6 @@ public class InputController : MonoBehaviour {
         } else {
             return (qualPlayer == GameManager.instance.playerAtual) ? player1Input : null;
         }
-    }
-
-    protected void CadastrarDevices() {
-        if (GameManager.instance.modoDeJogo != ModoDeJogo.MULTIPLAYER_LOCAL) return;
-
-        player1Device = null;
-        player2Device = null;
-
-        if (player1Input.user.valid) player1Input.user.UnpairDevices();
-        if (player2Input.user.valid) player2Input.user.UnpairDevices();
-
-        player1Input.DeactivateInput();
-        player2Input.DeactivateInput();
-
-        UIConexaoInGame.instancia.SetConectando(QualPlayer.Player1);
-        UIConexaoInGame.instancia.SetConectando(QualPlayer.Player2);
-
-        actions.Player.Get().actionTriggered += OuveAcoesParaCadastrarDevices;
-    }
-
-    protected void OuveAcoesParaCadastrarDevices(InputAction.CallbackContext ctx) {
-        InputDevice device = ctx.control.device;
-        if (device == null) return;
-
-        if (player1Device != null && player2Device != null) {
-            actions.Player.Get().actionTriggered -= OuveAcoesParaCadastrarDevices;
-            return;
-        }
-
-        if (player1Device == null) {
-            CadastrarDevice(QualPlayer.Player1, device);
-        } else if (player2Device == null && player1Device != device) {
-            CadastrarDevice(QualPlayer.Player2, device);
-        }
-    }
-
-    protected void CadastrarDevice(QualPlayer player, InputDevice device) {
-        if (device == null) return;
-
-        bool isPlayer1 = player == QualPlayer.Player1;
-
-        if (isPlayer1) {
-            if (player2Device != null && player2Device == device) {
-                // Se o dispositivo já estiver registrado para o Player2, não faz nada
-                return;
-            }
-
-            player1Device = device;
-        } else {
-            if (player1Device != null && player1Device == device) {
-                // Se o dispositivo já estiver registrado para o Player1, não faz nada
-                return;
-            }
-
-            player2Device = device;
-        }
-
-        PlayerInput playerInput = isPlayer1 ? player1Input : player2Input;
-        playerInput.user.UnpairDevices();
-        InputUser.PerformPairingWithDevice(device, playerInput.user);
-
-        // O Input System não reconhece automaticamente o esquema de controle, então é necessário definir manualmente... (??????)
-        string controlScheme = GetControlSchemeName(device);
-        playerInput.SwitchCurrentControlScheme(controlScheme, device);
-        playerInput.ActivateInput();
-
-        UIConexaoInGame.instancia.SetConectado(player);
-
-        Debug.Log($"Dispositivo {device.displayName} cadastrado para o {player}. Device: {device}. Control Scheme: {controlScheme}");
     }
 
     string GetControlSchemeName(InputDevice device) {

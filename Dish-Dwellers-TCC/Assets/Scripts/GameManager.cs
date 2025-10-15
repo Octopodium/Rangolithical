@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
     public InputController inputController; // Controlador de inputs do jogo, que gerencia os inputs dos jogadores
+    public SelacaoDePersonagem selecaoDePersonagem;
     public Actions input => inputController.actions; // Acesso ao InputActions do jogo
 
 
@@ -219,6 +220,27 @@ public class GameManager : MonoBehaviour {
         }
 
         return null; // Retorna null se não encontrar o jogador
+    }
+
+
+
+    public void SetModoDeJogo(ModoDeJogo modoDeJogo) {
+        if (modoDeJogo == ModoDeJogo.MULTIPLAYER_ONLINE || modoDeJogo == ModoDeJogo.INDEFINIDO) return;
+        
+        this.modoDeJogo = modoDeJogo;
+        inputController.RedefinirInputs();
+    }
+
+    public void SetModoSingleplayer() {
+        SetModoDeJogo(ModoDeJogo.SINGLEPLAYER);
+    }
+
+    public void SetModoMultiplayerLocal() {
+        SetModoDeJogo(ModoDeJogo.MULTIPLAYER_LOCAL);
+    }
+
+    public void RedefinirControlesMultiplayerLocal() {
+        SetModoMultiplayerLocal();
     }
 
     #endregion

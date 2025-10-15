@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class PauseUI : MonoBehaviour {
@@ -10,6 +11,11 @@ public class PauseUI : MonoBehaviour {
     public GameObject primeiroSelecionadoPause;
 
     bool inicializado = false;
+
+    [Header("Opcoes - Controles Locais")]
+    public Selectable campoEmCimaDoPainelDeControles;
+    public GameObject controlesLocaisPanel;
+    public Button singleplayerButton, multiplayerButton, ajustarMultiplayerButton;
 
 
     // Chamado no UIManager
@@ -44,6 +50,28 @@ public class PauseUI : MonoBehaviour {
                     tela.SetActive(false);
                 }
             }
+
+
+            // Tela de Opções possui campos que só aparecem em determinados modos de jogo
+            if (GameManager.instance != null) {
+                bool multLocal = GameManager.instance.modoDeJogo == ModoDeJogo.MULTIPLAYER_LOCAL;
+                bool single = GameManager.instance.modoDeJogo == ModoDeJogo.SINGLEPLAYER;
+
+                Navigation navigation = campoEmCimaDoPainelDeControles.navigation;
+
+                if (multLocal || single) {
+                    controlesLocaisPanel.SetActive(true);
+                    singleplayerButton.gameObject.SetActive(multLocal);
+                    ajustarMultiplayerButton.gameObject.SetActive(multLocal);
+                    multiplayerButton.gameObject.SetActive(single);
+                    navigation.selectOnDown = multLocal ? singleplayerButton : multiplayerButton;
+                } else {
+                    navigation.selectOnDown = null;
+                    controlesLocaisPanel.SetActive(false);
+                }
+
+                campoEmCimaDoPainelDeControles.navigation = navigation;
+            }
         }
 
         gameObject.SetActive(estado);
@@ -59,5 +87,29 @@ public class PauseUI : MonoBehaviour {
         if(GameManager.instance != null){
             GameManager.instance.VoltarParaMenu();
         }
+    }
+
+
+    public void SetModoSingleplayer() {
+        if (GameManager.instance == null) return;
+
+        GameManager.instance.Despausar();
+        GameManager.instance.SetModoSingleplayer();
+    }
+
+    public void SetModoMultiplayerLocal() {
+        if (GameManager.instance == null) return;
+
+        GameManager.instance.Despausar();
+        eventSystem.SetSelectedGameObject(null);
+        GameManager.instance.SetModoMultiplayerLocal();
+    }
+
+    public void RedefinirControlesMultiplayerLocal() {
+        if (GameManager.instance == null) return;
+
+        GameManager.instance.Despausar();
+        eventSystem.SetSelectedGameObject(null);
+        GameManager.instance.RedefinirControlesMultiplayerLocal();
     }
 }
