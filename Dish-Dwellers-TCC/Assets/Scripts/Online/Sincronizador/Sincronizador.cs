@@ -381,12 +381,21 @@ public class Sincronizador : NetworkBehaviour {
         public Vector3 position;
         public Quaternion rotation;
         public System.Action<GameObject> callback;
+        public List<string> ids;
 
         public SpawnInfo(string id, Vector3 position, Quaternion rotation, System.Action<GameObject> callback) {
             this.id = id;
             this.position = position;
             this.rotation = rotation;
             this.callback = callback;
+            this.ids = new List<string>();
+        }
+
+        public bool FreeId() {
+            if (ids.Count == 0) return false;
+
+            ids.RemoveAt(0);
+            return true;
         }
     }
 
@@ -424,7 +433,7 @@ public class Sincronizador : NetworkBehaviour {
         }
     }
 
-    public void InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel) {
+    public void InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel, string spawn_id = "0") {
         if (!GameManager.instance.isOnline) return;
         
 
@@ -441,10 +450,14 @@ public class Sincronizador : NetworkBehaviour {
             return;
         }
 
+        SpawnInfo s_info = (SpawnInfo) info;
+
+        if (!s_info.ids.Contains(spawn_id)) {
+            s_info.ids.Add(spawn_id);
+        }
+
 
         if (NetworkClient.localPlayer.isServer) {
-            SpawnInfo s_info = (SpawnInfo) info;
-
             GameObject objeto = Instantiate(prefab, s_info.position, s_info.rotation);
             NetworkServer.Spawn(objeto);
         }
@@ -462,6 +475,12 @@ public class Sincronizador : NetworkBehaviour {
         if (spawnHandlers.ContainsKey(id) && spawnHandlers[id].Count > 0) {
             SpawnInfo info = GetSpawnerMaisProvavel(sinc, spawnHandlers[id]);
             GameObject objeto = netId.gameObject;
+
+            if (!info.FreeId()) {
+                Destroy(objeto);
+                return;
+            }
+
             System.Action<GameObject> handler = info.callback;
             handler?.Invoke(objeto);
         }
