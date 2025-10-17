@@ -348,6 +348,16 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         GameManager.instance?.VoltarParaMenu();
     }
 
+    public void OnTrocouAutoridade() {
+        if (GameManager.instance.isOnline) {
+            if (isLocalPlayer){
+                GameManager.instance.SetarPlayerAtualOnline(qualPlayer);
+            }
+
+            qualPlayer = isLocalPlayer ? QualPlayer.Player1 : QualPlayer.Desativado;
+        }
+    }
+
 
     [Command]
     void AtualizarDirecaoCmd(Vector3 valor, bool isMira, bool estaMirando) {

@@ -72,6 +72,17 @@ public class Sincronizador : NetworkBehaviour {
 
     #region Utils
 
+    public Player GetPlayerOfConnection(NetworkConnectionToClient connection) {
+        if (GameManager.instance.jogadores == null) return null;
+
+        foreach (Player player in GameManager.instance.jogadores) {
+            if (player.GetComponent<NetworkIdentity>()?.connectionToClient == connection)
+                return player;
+        }
+
+        return null;
+    }
+
     public void ForeachConnection(System.Action<NetworkConnectionToClient> action, NetworkConnectionToClient except = null) {
         foreach (var conn in NetworkServer.connections) {
             NetworkConnectionToClient conexao = conn.Value;
@@ -501,6 +512,42 @@ public class Sincronizador : NetworkBehaviour {
         NetworkIdentity netId = obj.GetComponent<NetworkIdentity>();
         if (netId == null) return false;
         return IsSpawning(netId);
+    }
+
+
+    // Aqui já é gambiarra
+    public void TrocarPersonagens() {
+        if (isServer)
+            TrocarPersonagensCmd();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void TrocarPersonagensCmd() {
+        Player anglerPlayer = GameManager.instance.GetPlayer(QualPersonagem.Angler);
+        Player heaterPlayer = GameManager.instance.GetPlayer(QualPersonagem.Heater);
+
+        NetworkConnectionToClient anglerConn = anglerPlayer.connectionToClient;
+        NetworkConnectionToClient heaterConn = heaterPlayer.connectionToClient;
+
+        NetworkServer.RemovePlayerForConnection(anglerConn, RemovePlayerOptions.KeepActive);
+        NetworkServer.RemovePlayerForConnection(heaterConn, RemovePlayerOptions.KeepActive);
+
+        anglerPlayer.netIdentity.AssignClientAuthority(heaterConn);
+        heaterPlayer.netIdentity.AssignClientAuthority(anglerConn);
+
+        NetworkServer.AddPlayerForConnection(anglerConn, heaterPlayer.gameObject);
+        NetworkServer.AddPlayerForConnection(heaterConn, anglerPlayer.gameObject);
+
+        ForeachConnection((conexao) => {
+            RpcAtualizarPlayerPosTroca(conexao);
+        });
+    }
+
+    [TargetRpc]
+    public void RpcAtualizarPlayerPosTroca(NetworkConnectionToClient _conn) {
+        foreach (Player p in GameManager.instance.jogadores) {
+            p.OnTrocouAutoridade();
+        }
     }
 
 }

@@ -3,8 +3,21 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 
-public class SelacaoDePersonagem : MonoBehaviour {
+[RequireComponent(typeof(Sincronizavel))]
+public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
+    Sincronizavel _sincronizavel;
+    [HideInInspector] public Sincronizavel sincronizavel {
+        get {
+            if (_sincronizavel == null) _sincronizavel = GetComponent<Sincronizavel>();
+            return _sincronizavel;
+        }
+    }
+
+
+    public GameObject painelPrincipal;
+
     public GameObject prefabIndicadorSeletor;
     public Text descricaoSuperior;
 
@@ -45,6 +58,10 @@ public class SelacaoDePersonagem : MonoBehaviour {
         indicador.onCima += () => ParaCima(indicador);
         indicador.onBaixo += () => ParaBaixo(indicador);
 
+
+        sincronizavel.AddSub(indicador.subSincronizavel);
+
+
         if (coresDisponiveis.Count == 0) coresDisponiveis = new List<Color>(cores); // Repete cores se todas forem utilizadas
 
         Color cor = coresDisponiveis.First();
@@ -55,9 +72,11 @@ public class SelacaoDePersonagem : MonoBehaviour {
         deviceIdCounter++;
 
         indicadores.Add(indicador);
-        
-        indicador.Selecionar(personagem);
 
+        Sincronizador.instance.TravarSincronizacao(() => {
+            indicador.Selecionar(personagem);
+        });
+        
         return indicador;
     }
 
@@ -65,27 +84,47 @@ public class SelacaoDePersonagem : MonoBehaviour {
         return personagem == QualPersonagem.Angler ? seletorAngler : seletorHeater;
     }
 
+    [Sincronizar]
     public void Selecionar(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
+        indicador.HandleSelecionar();
+
         SeletorPersonagem seletor = GetSeletor(indicador.personagemSelecionado);
         seletor.Selecionar(indicador);
     }
 
+    [Sincronizar]
     public void Desconfirmar(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+        
+        indicador.HandleDesconfirmar();
+
         SeletorPersonagem seletor = GetSeletor(indicador.personagemSelecionado);
         if (seletor.indicadorAtual == indicador) seletor.Confirmar(null);
     }
 
+    [Sincronizar]
     public void Confirmar(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
         if (indicador.selecionandoNada) {
             OnCancelar?.Invoke();
             return;
         }
 
+        indicador.HandleConfirmar();
+
         SeletorPersonagem seletor = GetSeletor(indicador.personagemSelecionado);
         seletor.Confirmar(indicador);
     }
 
+    [Sincronizar]
     public void Pronto(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
+        indicador.HandleDarPronto();
+        
         SeletorPersonagem seletor = GetSeletor(indicador.personagemSelecionado);
         if (seletor.indicadorAtual != indicador) indicador.Confirmar();
         else seletor.Pronto(indicador);
@@ -93,7 +132,10 @@ public class SelacaoDePersonagem : MonoBehaviour {
         if (estaoProntos) OnAmbosPronto?.Invoke(seletorAngler.indicadorAtual, seletorHeater.indicadorAtual);
     }
 
+    [Sincronizar]
     public void Sumir(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
         SeletorPersonagem seletor = GetSeletor(indicador.personagemSelecionado);
         if (seletor.indicadorAtual == indicador) seletor.Confirmar(null);
 
@@ -104,15 +146,24 @@ public class SelacaoDePersonagem : MonoBehaviour {
     }
 
 
+    [Sincronizar]
     public void ParaEsquerda(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
         indicador.Selecionar(QualPersonagem.Angler);
     }
 
+    [Sincronizar]
     public void ParaDireita(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
         indicador.Selecionar(QualPersonagem.Heater);
     }
 
+    [Sincronizar]
     public void ParaBaixo(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
         if (selecaoLocal && !indicador.estaConfirmado) {
             indicador.SelecionandoNada();
             indicador.transform.SetParent(seletorCancelar);
@@ -122,7 +173,10 @@ public class SelacaoDePersonagem : MonoBehaviour {
         if (indicador.estaConfirmado) indicador.Desconfirmar();
     }
 
+    [Sincronizar]
     public void ParaCima(IndicadorSeletor indicador) {
+        gameObject.Sincronizar(indicador);
+
         if (selecaoLocal && indicador.selecionandoNada) {
             indicador.Selecionar(QualPersonagem.Angler);
             return;
@@ -151,9 +205,8 @@ public class SelacaoDePersonagem : MonoBehaviour {
     Dictionary<InputDevice, IndicadorSeletor> seletores = new Dictionary<InputDevice, IndicadorSeletor>();
     Actions actions;
 
-
     public void ComecarSelecaoLocal() {
-        gameObject.SetActive(true);
+        painelPrincipal.SetActive(true);
 
         textoCancelar.gameObject.SetActive(true);
         foreach (Transform child in seletorCancelar) {
@@ -236,7 +289,7 @@ public class SelacaoDePersonagem : MonoBehaviour {
         GameManager.instance.inputController.SetPlayerDevice(playerHeater, deviceHeater);
 
         seletores.Clear();
-        gameObject.SetActive(false);
+        painelPrincipal.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
@@ -250,10 +303,95 @@ public class SelacaoDePersonagem : MonoBehaviour {
         GameManager.instance.SetModoSingleplayer();
 
         seletores.Clear();
-        gameObject.SetActive(false);
+        painelPrincipal.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
 
     #endregion
+
+    #region Selecao Multiplayer
+
+
+    Dictionary<bool, IndicadorSeletor> seletorMultiplayer = new Dictionary<bool, IndicadorSeletor>();
+
+    [Sincronizar]
+    public void ComecarSelecaoOnline() {
+        gameObject.Sincronizar();
+        painelPrincipal.SetActive(true);
+
+        textoCancelar.gameObject.SetActive(false);
+        seletorCancelar.gameObject.SetActive(false);
+
+        seletorAngler.Reset();
+        seletorHeater.Reset();
+
+        deviceIdCounter = 1;
+
+        coresDisponiveis = new List<Color>(cores);
+
+        seletorMultiplayer.Clear();
+
+        foreach (Player p in GameManager.instance.jogadores) {
+            bool ehMeu = p.isLocalPlayer;
+            IndicadorSeletor seletor = AdicionarSeletor(p.personagem);
+            seletorMultiplayer.Add(ehMeu, seletor);
+        }
+
+        actions.Enable();
+        actions.Player.Get().actionTriggered += OuveAcoesParaSetarSeletoresOnline;
+        OnAmbosPronto += HandleTerminouSelecaoOnline;
+        selecaoLocal = false;
+        Time.timeScale = 0;
+    }
+
+
+    protected void OuveAcoesParaSetarSeletoresOnline(InputAction.CallbackContext ctx) {
+        IndicadorSeletor seletor = seletorMultiplayer[true];
+            
+        if(ctx.action.name == "Move" || ctx.action.name == "Aim") {
+            Vector2 input = ctx.ReadValue<Vector2>();
+            if (Mathf.Abs(input.x) > 0.5f && !seletor.estaPronto) {
+                if (input.x > 0) seletor.SelecionarDireita();
+                else seletor.SelecionarEsquerda();
+            } else if (Mathf.Abs(input.y) > 0.5f  && !seletor.estaPronto) {
+                if (input.y < 0) seletor.SelecionarBaixo();
+                else seletor.SelecionarCima();
+            }
+
+        } else if (ctx.action.name == "Interact" || ctx.action.name == "Attack") {
+            if (seletor.estaConfirmado && !seletor.estaPronto) seletor.DarPronto();
+            else seletor.Confirmar();
+        }
+    }
+
+    protected void HandleTerminouSelecaoOnline(IndicadorSeletor angler, IndicadorSeletor heater) {
+        OnAmbosPronto -= HandleTerminouSelecaoOnline;
+        actions.Player.Get().actionTriggered -= OuveAcoesParaSetarSeletoresOnline;
+        actions.Disable();
+    
+
+        bool conexaoAngler = false, conexaoHeater = false;
+
+        foreach (bool meu in seletorMultiplayer.Keys) {
+            IndicadorSeletor indicador = seletorMultiplayer[meu];
+            if (indicador == angler) conexaoAngler = meu;
+            else if (indicador == heater) conexaoHeater = meu;
+        }
+
+        Player anglerPlayer = GameManager.instance.GetPlayer(QualPersonagem.Angler);
+        Player heaterPlayer = GameManager.instance.GetPlayer(QualPersonagem.Heater);
+
+        if (anglerPlayer.isLocalPlayer != conexaoAngler) {
+            Sincronizador.instance.TrocarPersonagens();
+        }
+
+
+        seletorMultiplayer.Clear();
+        painelPrincipal.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
+
+    #endregion
+
 }

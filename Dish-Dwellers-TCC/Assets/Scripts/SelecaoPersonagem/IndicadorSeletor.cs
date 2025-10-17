@@ -1,7 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(SubSincronizavel))]
 public class IndicadorSeletor : MonoBehaviour {
+
+    SubSincronizavel _subSincronizavel;
+    [HideInInspector] public SubSincronizavel subSincronizavel {
+        get {
+            if (_subSincronizavel == null) _subSincronizavel = GetComponent<SubSincronizavel>();
+            return _subSincronizavel;
+        }
+    }
+
     public Image fundo;
     public Text texto;
 
@@ -45,12 +55,15 @@ public class IndicadorSeletor : MonoBehaviour {
         if (estaPronto || estaConfirmado) {
             onDesconfirmou?.Invoke();
         }
+        
+        personagemSelecionado = personagem;
+        onSelecionou?.Invoke();
+    }
 
+    public void HandleSelecionar() {
         estaPronto = false;
         estaConfirmado = false;
         selecionandoNada = false;
-        personagemSelecionado = personagem;
-        onSelecionou?.Invoke();
     }
 
     public void SelecionandoNada() {
@@ -66,17 +79,24 @@ public class IndicadorSeletor : MonoBehaviour {
     public void Confirmar() {
         if (estaConfirmado && !estaPronto) DarPronto();
         else {
-            estaConfirmado = true;
-            estaPronto = false;
             onConfirmou?.Invoke();
         }
+    }
+
+    public void HandleConfirmar() {
+        estaConfirmado = true;
+        estaPronto = false;
     }
 
     public void Desconfirmar() {
         if (estaPronto || estaConfirmado) {
             onDesconfirmou?.Invoke();
+        } else {
+            HandleDesconfirmar();
         }
+    }
 
+    public void HandleDesconfirmar() {
         estaPronto = false;
         estaConfirmado = false;
     }
@@ -87,9 +107,12 @@ public class IndicadorSeletor : MonoBehaviour {
     public void DarPronto() {
         if (!estaConfirmado) Confirmar();
         else {
-            estaPronto = true;
             onPronto?.Invoke();
         }
+    }
+
+    public void HandleDarPronto() {
+        estaPronto = true;
     }
 
     public void Sumir() {

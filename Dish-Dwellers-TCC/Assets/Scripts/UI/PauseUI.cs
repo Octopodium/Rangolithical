@@ -60,14 +60,23 @@ public class PauseUI : MonoBehaviour {
                 Navigation navigation = campoEmCimaDoPainelDeControles.navigation;
 
                 if (multLocal || single) {
-                    controlesLocaisPanel.SetActive(true);
                     singleplayerButton.gameObject.SetActive(multLocal);
                     ajustarMultiplayerButton.gameObject.SetActive(multLocal);
                     multiplayerButton.gameObject.SetActive(single);
                     navigation.selectOnDown = multLocal ? singleplayerButton : multiplayerButton;
+
+                    Navigation multNav = ajustarMultiplayerButton.navigation;
+                    multNav.selectOnLeft = singleplayerButton;
+                    ajustarMultiplayerButton.navigation = multNav;
                 } else {
-                    navigation.selectOnDown = null;
-                    controlesLocaisPanel.SetActive(false);
+                    singleplayerButton.gameObject.SetActive(false);
+                    multiplayerButton.gameObject.SetActive(false);
+                    ajustarMultiplayerButton.gameObject.SetActive(true);
+                    navigation.selectOnDown = ajustarMultiplayerButton;
+
+                    Navigation multNav = ajustarMultiplayerButton.navigation;
+                    multNav.selectOnLeft = null;
+                    ajustarMultiplayerButton.navigation = multNav;
                 }
 
                 campoEmCimaDoPainelDeControles.navigation = navigation;
@@ -105,11 +114,13 @@ public class PauseUI : MonoBehaviour {
         GameManager.instance.SetModoMultiplayerLocal();
     }
 
-    public void RedefinirControlesMultiplayerLocal() {
+    public void RedefinirControlesMultiplayer() {
         if (GameManager.instance == null) return;
 
         GameManager.instance.Despausar();
         eventSystem.SetSelectedGameObject(null);
-        GameManager.instance.RedefinirControlesMultiplayerLocal();
+
+        if (GameManager.instance.modoDeJogo == ModoDeJogo.MULTIPLAYER_ONLINE) GameManager.instance.RedefinirControlesMultiplayerOnline();
+        else GameManager.instance.RedefinirControlesMultiplayerLocal();
     }
 }

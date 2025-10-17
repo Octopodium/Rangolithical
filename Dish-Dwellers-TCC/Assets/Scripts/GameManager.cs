@@ -243,6 +243,10 @@ public class GameManager : MonoBehaviour {
         SetModoMultiplayerLocal();
     }
 
+    public void RedefinirControlesMultiplayerOnline() {
+        selecaoDePersonagem.ComecarSelecaoOnline();
+    }
+
     #endregion
 
 
