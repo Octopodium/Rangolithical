@@ -40,7 +40,7 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         while (tempo < duration){
             float animDurantion = tempo / duration;
             buttonText.gameObject.transform.localScale = Vector3.Lerp(initialFactor, endScale, animDurantion);
-            tempo += Time.deltaTime;
+            tempo += Time.unscaledDeltaTime;
             yield return null;
         }
         buttonText.gameObject.transform.localScale = endScale;
