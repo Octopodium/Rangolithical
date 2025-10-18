@@ -1,31 +1,39 @@
 using UnityEngine;
 
-public class CollisionActivator : MonoBehaviour
+public class ToggleObjectOnHit : MonoBehaviour
 {
-    public GameObject objectToActivate;
-    public string triggerObjectTag = "Player";
+    [Header("Objeto a ser alternado")]
+    [SerializeField] private GameObject targetObject;
 
-    void Start()
-    {
-        if (objectToActivate != null)
-        {
-            objectToActivate.SetActive(false);
-        }
-    }
+    [Header("Configurações")]
+    [SerializeField] private bool useTrigger = false; 
+    [SerializeField] private string activatorTag = ""; 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag(triggerObjectTag))
+        if (useTrigger) return; 
+        TryToggle(collision.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!useTrigger) return; 
+        TryToggle(other.gameObject);
+    }
+
+    private void TryToggle(GameObject hitter)
+    {
+        if (!string.IsNullOrEmpty(activatorTag) && !hitter.CompareTag(activatorTag))
+            return;
+
+        if (targetObject != null)
         {
-            if (objectToActivate != null)
-            {
-                objectToActivate.SetActive(true);
-                Debug.Log(objectToActivate.name + " foi ativado pela colisão com " + collision.gameObject.name);
-            }
-            else
-            {
-                Debug.LogWarning("A variável 'objectToActivate' não foi definida no Inspector.", this.gameObject);
-            }
+            bool newState = !targetObject.activeSelf;
+            targetObject.SetActive(newState);
+        }
+        else
+        {
+            Debug.LogWarning($"{name} não tem um objeto alvo atribuído!");
         }
     }
 }
