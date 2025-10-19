@@ -539,8 +539,8 @@ Transform:
   m_GameObject: {fileID: 173505097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.1881, z: -20}
-  m_LocalScale: {x: 19.499691, y: 21.376305, z: 1}
+  m_LocalPosition: {x: 0.000000029802322, y: 8.1881, z: -20.25}
+  m_LocalScale: {x: 19.499691, y: 21.376305, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 462313742}
@@ -1121,6 +1121,10 @@ PrefabInstance:
     - target: {fileID: 5631770193978613373, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: m_Name
       value: InimigoPerseguidor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631770193978613373, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
@@ -2546,7 +2550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1342764845
 Transform:
   m_ObjectHideFlags: 0
@@ -3196,7 +3200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1642309573
 Transform:
   m_ObjectHideFlags: 0
@@ -3228,7 +3232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1643355732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,7 +4344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 64.84646, y: 24.376305, z: 23.306095}
+  size: {x: 65.34646, y: 24.376305, z: 23.306095}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -4380,7 +4384,7 @@ Transform:
   m_GameObject: {fileID: 1824120763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.423225, y: 8.1881, z: 0.40276623}
+  m_LocalPosition: {x: 10.173225, y: 8.1881, z: 0.40276623}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
