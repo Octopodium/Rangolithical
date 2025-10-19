@@ -43,12 +43,12 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     void SetupSpawner() {
         if (!GameManager.instance.isOnline) return;
         if (spawnerSetted) return;
+        spawnerSetted = true;
 
         GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
         if (sinc == null) sinc = GetComponent<Sincronizavel>();
 
-        Sincronizador.instance.RegistrarSpawner(prefabToUse, respawnPos, transform.rotation, sinc, AposSpawn);
-        spawnerSetted = true;
+        Sincronizador.instance.RegistrarSpawner(prefabToUse, transform.TransformPoint(respawnPos), transform.rotation, sinc, AposSpawn);
     }
 
     void OnDestroy() {
@@ -61,6 +61,11 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
             Destroy(objeto);
             objeto = null;
         }
+
+
+        GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
+        if (sinc == null) sinc = GetComponent<Sincronizavel>();
+        Sincronizador.instance.DesregistrarSpawner(prefabToUse, sinc);
     }
 
     public override void OnReset() {
@@ -87,7 +92,9 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     void AposSpawn(GameObject objeto) {
 
         if (objeto != null && objeto != this.objeto) {
-            if (this.objeto != null) Destroy(this.objeto);
+            if (this.objeto != null) {
+                Destroy(this.objeto);
+            }
 
             Destrutivel destrutivel = objeto.GetComponent<Destrutivel>();
             destrutivel?.OnDestruido.AddListener(Respawn);

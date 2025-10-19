@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.Collections;
 using System;
+using System.Linq;
 
 /*
     EI, VOCÊ AÍ!
@@ -339,14 +340,14 @@ public class Sincronizador : NetworkBehaviour {
                 continue;
             }
 
-            try {
-                if (info.opcoes != null && info.opcoes.debug) Debug.Log("Chamando método [" + info.GetNome() + "] com os valores: " + string.Join(", ", valores), pai);
-                info.metodo.Invoke(info.componenteDoMetodo, valores);
-                if (info.opcoes != null && info.opcoes.debug) Debug.Log("Método [" + info.GetNome() + "] chamado com sucesso!", pai);
-            } catch (System.Exception e) {
+            /*try {*/
+            if (info.opcoes != null && info.opcoes.debug) Debug.Log("Chamando método [" + info.GetNome() + "] com os valores: " + string.Join(", ", valores), pai);
+            info.metodo.Invoke(info.componenteDoMetodo, valores);
+            if (info.opcoes != null && info.opcoes.debug) Debug.Log("Método [" + info.GetNome() + "] chamado com sucesso!", pai);
+            /*} catch (System.Exception e) {
                 string valoresString = string.Join(',', valores);
                 Debug.LogError("Erro ao chamar o método [" + info.GetNome() + "] com os valores [" + valoresString + "]: " + e.Message, pai);
-            }
+            }*/
         }
         isOnCallbackCall = false;
         //currentTriggerOnCallback.Remove(nomeMetodo);
@@ -376,11 +377,13 @@ public class Sincronizador : NetworkBehaviour {
 
     #endregion
 
-    struct SpawnInfo {
+    #region Spawn
+    [Serializable]
+    public class SpawnInfo {
         public string id;
         public Vector3 position;
         public Quaternion rotation;
-        public System.Action<GameObject> callback;
+        public Action<GameObject> callback;
         public List<string> ids;
 
         public SpawnInfo(string id, Vector3 position, Quaternion rotation, System.Action<GameObject> callback) {
@@ -391,16 +394,26 @@ public class Sincronizador : NetworkBehaviour {
             this.ids = new List<string>();
         }
 
+        public bool AddId(string id) {
+            if (ids.Contains(id)) return false;
+            ids.Add(id);
+            return true;
+        }
+
         public bool FreeId() {
             if (ids.Count == 0) return false;
 
             ids.RemoveAt(0);
             return true;
         }
+
+        public bool TemId() {
+            return ids.Count > 0;
+        }
     }
 
     Dictionary<uint, List<SpawnInfo>> spawnHandlers = new Dictionary<uint, List<SpawnInfo>>();
-    SpawnInfo? GetSpawnInfo(uint id, Sincronizavel sinc) {
+    SpawnInfo GetSpawnInfo(uint id, Sincronizavel sinc) {
         foreach (SpawnInfo info in spawnHandlers[id]) {
             if (info.id == sinc.identificador) {
                 return info;
@@ -429,7 +442,28 @@ public class Sincronizador : NetworkBehaviour {
             }
         } 
         else {
-            spawnHandlers.Add(id, new List<SpawnInfo> { info });
+            List<SpawnInfo> lista = new List<SpawnInfo> { info };
+            spawnHandlers.Add(id, lista);
+        }
+    }
+
+    public void DesregistrarSpawner(GameObject prefab, Sincronizavel sincronizavel) {
+        NetworkIdentity netId = prefab.GetComponent<NetworkIdentity>();
+        if (netId == null) {
+            Debug.LogError("O prefab [" + prefab.name + "] não possui um NetworkIdentity. Não é possível instanciar objetos de rede sem este componente.");
+            return;
+        }
+
+        uint id = netId.assetId;
+        if (spawnHandlers.ContainsKey(id) && spawnHandlers[id] != null && spawnHandlers[id].Count > 0) {
+            List<SpawnInfo> spawners = spawnHandlers[id];
+            for (int i = spawners.Count - 1; i >= 0; i--) {
+                SpawnInfo info = spawners[i];
+                if (info.id == sincronizavel.identificador)
+                    spawners.RemoveAt(i);
+            }
+
+            if (spawners.Count == 0) spawnHandlers.Remove(id);
         }
     }
 
@@ -444,25 +478,21 @@ public class Sincronizador : NetworkBehaviour {
         }
 
         uint id = netId.assetId;
-        SpawnInfo? info = GetSpawnInfo(id, sincronizavel);
+        SpawnInfo info = GetSpawnInfo(id, sincronizavel);
         if (info == null) {
             Debug.LogError("Tentativa de instanciar o prefab [" + prefab.name + "] utilizando o sincronizavel [" + sincronizavel.identificador + "] sem registrar. Por favor utilize RegistrarSpawner antes de tentar spawnar com este método.");
             return;
         }
 
-        SpawnInfo s_info = (SpawnInfo) info;
-
-        if (!s_info.ids.Contains(spawn_id)) {
-            s_info.ids.Add(spawn_id);
-        }
-
+        info.AddId(spawn_id);
 
         if (NetworkClient.localPlayer.isServer) {
-            GameObject objeto = Instantiate(prefab, s_info.position, s_info.rotation);
+            GameObject objeto = Instantiate(prefab, info.position, info.rotation);
             NetworkServer.Spawn(objeto);
         }
 
     }
+
 
     /// <summary>
     /// Quando um Sincronizavel é instanciado possuindo um NetworkIdentity, chama este método para verificar se a instanciação foi através do InstanciarNetworkObject.
@@ -476,12 +506,17 @@ public class Sincronizador : NetworkBehaviour {
             SpawnInfo info = GetSpawnerMaisProvavel(sinc, spawnHandlers[id]);
             GameObject objeto = netId.gameObject;
 
-            if (!info.FreeId()) {
+/*
+            if (!info.TemId()) {
+                Debug.Log("Destruindo o objeto " + objeto.name);
                 Destroy(objeto);
                 return;
             }
+*/
+            if (info.TemId())
+                info.FreeId();
 
-            System.Action<GameObject> handler = info.callback;
+            Action<GameObject> handler = info.callback;
             handler?.Invoke(objeto);
         }
     }
@@ -490,13 +525,10 @@ public class Sincronizador : NetworkBehaviour {
         if (list.Count == 1) return list[0];
 
         float minDist = float.MaxValue;
-        float minAngle = float.MaxValue;
         List<SpawnInfo> possiveis_pos = new List<SpawnInfo>();
-        List<SpawnInfo> possiveis_ang = new List<SpawnInfo>();
 
         foreach (SpawnInfo s_info in list) {
             float dist = Vector3.Distance(s_info.position, sinc.posInicial);
-            float angle = Quaternion.Angle(s_info.rotation, sinc.rotInicial);
 
             if (dist <= minDist) {
                 if (dist < minDist) {
@@ -505,6 +537,17 @@ public class Sincronizador : NetworkBehaviour {
                 }
                 possiveis_pos.Add(s_info);
             }
+        }
+
+        if (possiveis_pos.Count == 1) return possiveis_pos[0];
+
+        // Se mais de um possivel, decide por angulo
+
+        List<SpawnInfo> possiveis_ang = new List<SpawnInfo>();
+        float minAngle = float.MaxValue;
+
+        foreach (SpawnInfo s_info in possiveis_pos) {
+            float angle = Quaternion.Angle(s_info.rotation, sinc.rotInicial);
 
             if (angle <= minAngle) {
                 if (angle < minAngle) {
@@ -515,7 +558,9 @@ public class Sincronizador : NetworkBehaviour {
             }
         }
 
-        if (possiveis_pos.Count == 1) return possiveis_pos[0];
+        if (possiveis_ang.Count == 1) return possiveis_ang[0];
+
+        // Se ainda sim, for o mesmo angulo, ainda não há criterio de desempate. Pega o primeiro :/
         return possiveis_ang[0];
     }
 
@@ -533,7 +578,9 @@ public class Sincronizador : NetworkBehaviour {
         return IsSpawning(netId);
     }
 
+    #endregion
 
+    #region Trocar personagem
     // Aqui já é gambiarra
     public void TrocarPersonagens() {
         if (isServer)
@@ -568,5 +615,7 @@ public class Sincronizador : NetworkBehaviour {
             p.OnTrocouAutoridade();
         }
     }
+
+    #endregion
 
 }
