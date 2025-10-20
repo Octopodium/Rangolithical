@@ -2944,6 +2944,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370682718}
   m_CullTransparentMesh: 1
+--- !u!1 &404922367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404922368}
+  m_Layer: 5
+  m_Name: Caderno Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &404922368
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404922367}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1598812048}
+  - {fileID: 478773399}
+  - {fileID: 1199777701}
+  - {fileID: 898946730}
+  - {fileID: 1956686371}
+  m_Father: {fileID: 1495085835}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.77700806, y: -5.163254}
+  m_SizeDelta: {x: 1521.4956, y: 970.32654}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &407654609
 GameObject:
   m_ObjectHideFlags: 0
@@ -3975,7 +4015,7 @@ GameObject:
   - component: {fileID: 478773401}
   - component: {fileID: 478773400}
   m_Layer: 5
-  m_Name: Background (3)
+  m_Name: Caderno Preto R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3988,16 +4028,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478773398}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0168216, y: 1.0168216, z: 1.0168216}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1495085835}
+  m_Father: {fileID: 404922368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 376.493, y: -1.954}
+  m_AnchoredPosition: {x: 377.27008, y: 3.2092252}
   m_SizeDelta: {x: 716.72, y: 922.388}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &478773400
@@ -4762,7 +4802,7 @@ GameObject:
   - component: {fileID: 534350034}
   - component: {fileID: 534350033}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: Folha Back R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7468,7 +7508,7 @@ GameObject:
   - component: {fileID: 807613820}
   - component: {fileID: 807613819}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Folha L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8028,7 +8068,7 @@ GameObject:
   - component: {fileID: 898946732}
   - component: {fileID: 898946731}
   m_Layer: 5
-  m_Name: Background (1)
+  m_Name: Caderno L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8046,11 +8086,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1495085835}
+  m_Father: {fileID: 404922368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -372, y: 0}
+  m_AnchoredPosition: {x: -371.223, y: 5.1632752}
   m_SizeDelta: {x: 749.52, y: 960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &898946731
@@ -8968,7 +9008,7 @@ GameObject:
   - component: {fileID: 988612629}
   - component: {fileID: 988612628}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: Folha Back L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9744,7 +9784,7 @@ GameObject:
   - component: {fileID: 1097169441}
   - component: {fileID: 1097169440}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Folha R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10562,7 +10602,7 @@ GameObject:
   - component: {fileID: 1148627006}
   - component: {fileID: 1148627005}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Linha baixo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11620,7 +11660,7 @@ GameObject:
   - component: {fileID: 1199777703}
   - component: {fileID: 1199777702}
   m_Layer: 5
-  m_Name: Background (4)
+  m_Name: Caderno Sombra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11638,11 +11678,11 @@ RectTransform:
   m_LocalScale: {x: 1.0168216, y: 1.0168216, z: 1.0168216}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1495085835}
+  m_Father: {fileID: 404922368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.777, y: -15.542}
+  m_AnchoredPosition: {x: 0.00006467104, y: -10.378725}
   m_SizeDelta: {x: 1496.325, y: 933.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1199777702
@@ -11968,7 +12008,7 @@ GameObject:
   - component: {fileID: 1233169065}
   - component: {fileID: 1233169064}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Linha topo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15384,11 +15424,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1995084259}
-  - {fileID: 1598812048}
-  - {fileID: 478773399}
-  - {fileID: 1199777701}
-  - {fileID: 898946730}
-  - {fileID: 1956686371}
+  - {fileID: 404922368}
   - {fileID: 2084207682}
   - {fileID: 1184288744}
   - {fileID: 1459672841}
@@ -16206,7 +16242,7 @@ GameObject:
   - component: {fileID: 1598812050}
   - component: {fileID: 1598812049}
   m_Layer: 5
-  m_Name: Background (2)
+  m_Name: Caderno Preto L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16224,11 +16260,11 @@ RectTransform:
   m_LocalScale: {x: 1.0168216, y: 1.0168216, z: 1.0168216}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1495085835}
+  m_Father: {fileID: 404922368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -376.156, y: -1.954}
+  m_AnchoredPosition: {x: -375.37903, y: 3.2092252}
   m_SizeDelta: {x: 721.651, y: 922.388}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1598812049
@@ -19184,7 +19220,7 @@ GameObject:
   - component: {fileID: 1956686373}
   - component: {fileID: 1956686372}
   m_Layer: 5
-  m_Name: Background (5)
+  m_Name: Caderno R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19197,16 +19233,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956686370}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1495085835}
+  m_Father: {fileID: 404922368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 372, y: 0}
+  m_AnchoredPosition: {x: 372.77698, y: 5.1632752}
   m_SizeDelta: {x: 749.52, y: 960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1956686372

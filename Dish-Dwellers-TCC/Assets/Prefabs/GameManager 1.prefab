@@ -1724,8 +1724,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 61591d3e6e52f3c47aca62275b618518, type: 2}
-  m_sharedMaterial: {fileID: 467271622550827189, guid: 61591d3e6e52f3c47aca62275b618518, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2577,8 +2577,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 61591d3e6e52f3c47aca62275b618518, type: 2}
-  m_sharedMaterial: {fileID: 467271622550827189, guid: 61591d3e6e52f3c47aca62275b618518, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3435,6 +3435,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5660304018260763152, guid: fec47390a0d910b4283194fd41000452, type: 3}
+      propertyPath: masterVolumeSlider
+      value: 
+      objectReference: {fileID: 3625818310424185038}
     - target: {fileID: 5660304018260763152, guid: fec47390a0d910b4283194fd41000452, type: 3}
       propertyPath: currentMasterVolume
       value: 0.5
@@ -4313,6 +4317,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7487070323539201517, guid: 0ca4867eb96f3d94a99fd89a28c0aea4, type: 3}
   m_PrefabInstance: {fileID: 9204640282570968539}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3625818310424185038 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5614877246835918101, guid: 0ca4867eb96f3d94a99fd89a28c0aea4, type: 3}
+  m_PrefabInstance: {fileID: 9204640282570968539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55072dd67794c384e986e7f0c409346d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3961635243722151442 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5280468167043242953, guid: 0ca4867eb96f3d94a99fd89a28c0aea4, type: 3}

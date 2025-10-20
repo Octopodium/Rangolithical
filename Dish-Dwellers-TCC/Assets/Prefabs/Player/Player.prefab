@@ -136,7 +136,7 @@ MonoBehaviour:
   collidersIgnoraveis: []
   velocidadeEmpurrandoMult: 0.5
   empurrando: 0
-  embarcado: 0
+  barcoEmbarcado: {fileID: 0}
   visualizarDirecao: {fileID: 5890127384661449939}
   pontoCentral: {fileID: 7010001802995998695}
   dropShadow: {fileID: 5676424528351773621}
@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetIndicador: {x: 0, y: 2.65, z: 0}
   ultimoPonto: {fileID: 0}
+  podeInteragirDiretamente: 1
 --- !u!114 &7184748271679852735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,7 +394,10 @@ MonoBehaviour:
   cadastrarNoInicio: 1
   naoUsarIDAuto: 0
   isSingleton: 0
-  identificador: 
+  posInicial: {x: 0, y: 0, z: 0}
+  rotInicial: {x: 0, y: 0, z: 0, w: 0}
+  networkIdentity: {fileID: 0}
+  identificador: $a06b2fd8cefe4efda669c13836e298a1
 --- !u!114 &1290607209154408467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,12 +411,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modoDeCheck: 2
+  tipoDeCheck: 0
   noChao: 0
-  layerChao:
-    serializedVersion: 2
-    m_Bits: 1425
   distanciaCheckChao: 0.2
   chaoAtual: {fileID: 0}
+  boxRect: {x: 0, y: 0, z: 0}
 --- !u!114 &6805898390628848832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2671,6 +2674,14 @@ PrefabInstance:
       propertyPath: jogador
       value: 
       objectReference: {fileID: 8982251984172959260}
+    - target: {fileID: 8942401961451137109, guid: c0bbace7bfeeef84883f72b9b3761e13, type: 3}
+      propertyPath: imagens.padraoTeclado
+      value: 
+      objectReference: {fileID: 21300000, guid: bce9740cbfbb36d4faa080f48963fbfa, type: 3}
+    - target: {fileID: 8942401961451137109, guid: c0bbace7bfeeef84883f72b9b3761e13, type: 3}
+      propertyPath: imagens.padraoControle
+      value: 
+      objectReference: {fileID: 21300000, guid: 3838519f87ab0744786f11a1125d8239, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
