@@ -17,6 +17,13 @@ public class Porta : IResetavel, InteracaoCondicional {
         portal.SetActive(false);
     }
 
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.CompareTag("Chave")) {
+            Destrancar();
+            other.gameObject.SetActive(false);
+        }
+    }
+
     public override void OnReset() {
         Trancar();
         portal.GetComponent<Portal>().OnReset();

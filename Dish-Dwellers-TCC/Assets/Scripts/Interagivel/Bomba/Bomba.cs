@@ -8,7 +8,7 @@ public class Bomba : MonoBehaviour{
     [SerializeField] private Color corPiscante = Color.red;
     private Color corNormal = Color.white;
     private MaterialPropertyBlock mpb;
-    private static int baseColorID = Shader.PropertyToID("_Color");
+    private static int baseColorID = Shader.PropertyToID("_BaseColor");
     [SerializeField] private float tempoParaExplodir = 5.0f;
     private int numeroDePiscadas = 2;
     private float timer;
@@ -27,6 +27,7 @@ public class Bomba : MonoBehaviour{
     }
 
     private void OnDisable(){
+        StopAllCoroutines();
         mpb.SetColor(baseColorID, corNormal);
         bombaRenderer.SetPropertyBlock(mpb);
         rb.linearVelocity = Vector3.zero;
