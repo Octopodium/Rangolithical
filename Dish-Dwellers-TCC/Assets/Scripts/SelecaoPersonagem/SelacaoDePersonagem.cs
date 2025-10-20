@@ -40,10 +40,6 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
 
     #region Base
 
-    void Awake() {
-        actions = new Actions();
-    }
-
     public IndicadorSeletor AdicionarSeletor(QualPersonagem personagem = QualPersonagem.Angler) {
         GameObject obj = Instantiate(prefabIndicadorSeletor);
         IndicadorSeletor indicador = obj.GetComponent<IndicadorSeletor>();
@@ -203,7 +199,7 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
 
     public List<InputDevice> devices = new List<InputDevice>();
     Dictionary<InputDevice, IndicadorSeletor> seletores = new Dictionary<InputDevice, IndicadorSeletor>();
-    Actions actions;
+    Actions actions => GameManager.instance.input;
 
     public void ComecarSelecaoLocal() {
         painelPrincipal.SetActive(true);
@@ -273,7 +269,6 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         OnCancelar -= OnCancelarLocal;
         InputSystem.onDeviceChange -= RemoveDevicesDesconectadosDaSelecao;
         actions.Player.Get().actionTriggered -= OuveAcoesParaSetarSeletores;
-        actions.Disable();
         
         InputDevice deviceAngler = null, deviceHeater = null;
         foreach (InputDevice device in seletores.Keys) {
@@ -298,7 +293,6 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         OnCancelar -= OnCancelarLocal;
         InputSystem.onDeviceChange -= RemoveDevicesDesconectadosDaSelecao;
         actions.Player.Get().actionTriggered -= OuveAcoesParaSetarSeletores;
-        actions.Disable();
 
         GameManager.instance.SetModoSingleplayer();
 
@@ -338,7 +332,6 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
             seletorMultiplayer.Add(ehMeu, seletor);
         }
 
-        actions.Enable();
         actions.Player.Get().actionTriggered += OuveAcoesParaSetarSeletoresOnline;
         OnAmbosPronto += HandleTerminouSelecaoOnline;
         selecaoLocal = false;
@@ -368,7 +361,6 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
     protected void HandleTerminouSelecaoOnline(IndicadorSeletor angler, IndicadorSeletor heater) {
         OnAmbosPronto -= HandleTerminouSelecaoOnline;
         actions.Player.Get().actionTriggered -= OuveAcoesParaSetarSeletoresOnline;
-        actions.Disable();
     
 
         bool conexaoAngler = false, conexaoHeater = false;
