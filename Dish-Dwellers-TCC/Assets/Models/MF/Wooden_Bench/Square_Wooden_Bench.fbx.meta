@@ -3,7 +3,12 @@ guid: d6f3d72dfd02451448459cfc25ec14dc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TCC_Textures
+    second: {fileID: 2100000, guid: 395bbb3c775d20b4fb81de5fc839c362, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,7 +51,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
