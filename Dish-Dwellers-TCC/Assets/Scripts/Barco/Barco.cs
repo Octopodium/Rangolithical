@@ -10,7 +10,7 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
     public Transform pos1, pos2, outPos, inicialPos;
     public Vector3 pontoPuxada;
     public bool sendoPuxado = false;
-    public float distanciaMinimaParada = 2f;
+    public float distanciaMinimaParada = 3f;
     public float forcaPuxada = 10000f;
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
@@ -59,8 +59,6 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
             playerNoBarco++;
 
             jogador.barcoEmbarcado = this;
-            jogador.velocidade = 0f;
-            jogador.velocidadeRB = 0f;
             jogador.HandleEmbarcado(); 
         }
     }
@@ -108,8 +106,6 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
                 heater = null;
             }
 
-            jogador.velocidade = 14f;
-            jogador.velocidadeRB = 14f;
             playerNoBarco--;
         }
     }

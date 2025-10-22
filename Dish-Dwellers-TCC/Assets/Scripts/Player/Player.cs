@@ -301,6 +301,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (ferramenta != null) ferramenta.Cancelar(); // Se o jogador está acionando uma ferramenta, cancela a ação
         grudavel.Desgrudar();
         andador.DesgrudarDoChao();
+        barcoEmbarcado = null;
+        HandleEmbarcado();
     }
 
     string motivoDeDano = "Desconhecido";
@@ -322,8 +324,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             characterController.excludeLayers &= ~(1 << LayerMask.NameToLayer("Gancho"));
             if(ganchavel != null) ganchavel.enabled = true;
             
-            velocidade = 14f;
-            velocidadeRB = 14f;
+            velocidade = 12f;
+            velocidadeRB = 6.5f;
         }
     }
 

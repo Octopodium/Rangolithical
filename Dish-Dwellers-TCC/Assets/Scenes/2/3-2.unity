@@ -9019,7 +9019,7 @@ MonoBehaviour:
   resetaveis:
   - {fileID: 856145722}
   - {fileID: 38049388}
-  - {fileID: 244263609}
+  - {fileID: 5720224907555876093}
   onResetSala:
     m_PersistentCalls:
       m_Calls: []
@@ -9186,7 +9186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8849637691152942033, guid: dffcd2cb30d8e584c981cc909f99febc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.22
+      value: -3.05
       objectReference: {fileID: 0}
     - target: {fileID: 8849637691152942033, guid: dffcd2cb30d8e584c981cc909f99febc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9381,6 +9381,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5369540257950688777, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369540257950688777, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369540257950688777, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8475983427659454151, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
       propertyPath: m_Name
       value: Barco
@@ -9388,6 +9400,10 @@ PrefabInstance:
     - target: {fileID: 8475983427659454151, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475983427659454151, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8983991732371193819, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
       propertyPath: identificador
@@ -9883,7 +9899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8475983427659454151, guid: 32c486e121c311a41af4ba3d633c8897, type: 3}
   prefabOnline: {fileID: 5234460133308916124, guid: a456c4af166c6c0449ffe0da03a3f572, type: 3}
-  respawnPos: {x: 0, y: 6, z: 0}
+  respawnPos: {x: 0, y: 0, z: 0}
   triggerSpawnChave: {fileID: 0}
   objeto: {fileID: 0}
   spawnNoInicio: 1
@@ -9986,7 +10002,6 @@ GameObject:
   - component: {fileID: 6311916286650501008}
   - component: {fileID: 2538509796071591769}
   - component: {fileID: 4368841126005358908}
-  - component: {fileID: 6930731166864924655}
   m_Layer: 0
   m_Name: Sopa
   m_TagString: Untagged
@@ -9994,27 +10009,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &6930731166864924655
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6930731166864924654}
-  m_Material: {fileID: 13400000, guid: d3e68c8a9c1a95147ae8997483708db4, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 65536
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &7993587506952342555
 Transform:
   m_ObjectHideFlags: 0
