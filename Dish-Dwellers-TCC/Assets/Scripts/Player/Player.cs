@@ -283,10 +283,17 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     /// Chamado quando o jogador morre
     /// </summary>
     [Sincronizar]
-    public void Morrer() {
+    public void Morrer(AnimadorPlayer.fonteDeDano fonte) {
         gameObject.Sincronizar();
-        GameManager.instance.ResetSala();
+        StartCoroutine(TocarAnimacaoDeMorte(fonte));
+        // GameManager.instance.ResetSala();
         Debug.Log("morreu");
+    }
+
+    IEnumerator TocarAnimacaoDeMorte(AnimadorPlayer.fonteDeDano fonte) {
+        float duracao = animacaoJogador.Morte(fonte);
+        yield return new WaitForSecondsRealtime(duracao);
+        GameManager.instance.ResetSala();
     }
 
     /// <summary>

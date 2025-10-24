@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Animator))]
 public class AnimadorPlayer : MonoBehaviour
@@ -10,10 +11,20 @@ public class AnimadorPlayer : MonoBehaviour
     public static readonly int Caindo = Animator.StringToHash(nameof(Caindo));
     public static readonly int Carrega = Animator.StringToHash(nameof(Carrega));
     public static readonly int Arremesso = Animator.StringToHash(nameof(Arremesso));
-    public static readonly int Morre = Animator.StringToHash(nameof(Morre));
+    // public static readonly int Morre = Animator.StringToHash(nameof(Morre));
     public static readonly int Dano = Animator.StringToHash(nameof(Dano));
     private Quaternion deFrente = Quaternion.Euler(-15, 180, 0), deCostas = Quaternion.Euler(15, 0, 0);
     private float orientacao = 1;
+
+    #region Tags de Morte
+
+    public enum fonteDeDano {FOGO, AFOGADO};
+    public static readonly int MorreFogo = Animator.StringToHash(nameof(MorreFogo));
+    public static readonly int MorreAfoga = Animator.StringToHash(nameof(MorreAfoga));
+    
+    #endregion
+    
+
 
     #endregion
 
@@ -83,8 +94,17 @@ public class AnimadorPlayer : MonoBehaviour
     /// <summary>
     /// Toca a animação de morte do personagem.
     /// </summary>
-    public void Morte(){
-        animator.SetTrigger(Morre);
+    public float Morte(fonteDeDano fonte){
+        switch(fonte) {
+            case fonteDeDano.FOGO:
+                animator.SetTrigger(MorreFogo);
+            break;
+            case fonteDeDano.AFOGADO:
+            animator.SetTrigger(MorreAfoga);
+            break;
+        }
+        // animator.SetTrigger(Morre);
+        return animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     /// <summary>
