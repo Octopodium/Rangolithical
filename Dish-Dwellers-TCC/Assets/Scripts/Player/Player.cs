@@ -33,9 +33,9 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             _playerVidas = Mathf.Clamp(value, 0, 3);
             OnVidaMudada?.Invoke(this, _playerVidas);
 
-            if (_playerVidas == 0){
-                Morrer();
-            }
+            // if (_playerVidas == 0){
+            //     Morrer();
+            // }
         }
     }
     public static event UnityAction<Player, int> OnVidaMudada; //Evento global para dano ou ganhar vida
@@ -265,13 +265,14 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     /// Aumenta ou diminui a vida do jogador
     /// </summary>
     /// <param name="valor">Valor a ser adicionado ou subtraído da vida do jogador</param>
-    public void MudarVida(int valor, string motivo = "Desconhecido") {
+    public void MudarVida(int valor, AnimadorPlayer.fonteDeDano motivo) {
         if (valor < 0) {
-            motivoDeDano = motivo;
+            motivoDeDano = nameof(motivo);
             if (playerVidas + valor <= 0) {
                 if (!GameManager.instance.isOnline || isServer) {
                     AnalyticsManager.instance?.RegistrarMorte(motivoDeDano, transform.position);
                 }
+                Morrer(motivo);
             }
             onTomarDano?.Invoke();
         }

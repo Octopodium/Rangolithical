@@ -30,7 +30,7 @@ public class Explosao : MonoBehaviour{
         else if(other.CompareTag("Player")){
             Player player = other.GetComponent<Player>();
             Debug.Log($"<color=green>Player acertado</color>");
-            player.MudarVida(-1);
+            player.MudarVida(-1, AnimadorPlayer.fonteDeDano.FOGO);
             player.AplicarKnockback(transform);
             gameObjectsAtingidos.Add(other.gameObject);
         }

@@ -18,9 +18,10 @@ public class AnimadorPlayer : MonoBehaviour
 
     #region Tags de Morte
 
-    public enum fonteDeDano {FOGO, AFOGADO};
+    public enum fonteDeDano {FOGO, AFOGADO, PORRADA};
     public static readonly int MorreFogo = Animator.StringToHash(nameof(MorreFogo));
     public static readonly int MorreAfoga = Animator.StringToHash(nameof(MorreAfoga));
+    public static readonly int MorrePorrada = Animator.StringToHash(nameof(MorrePorrada));
     
     #endregion
     

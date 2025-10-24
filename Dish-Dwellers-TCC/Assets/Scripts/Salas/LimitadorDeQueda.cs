@@ -4,6 +4,7 @@ using System.Collections;
 public class LimitadorDeQueda : MonoBehaviour
 {
     public bool checarGlobalmente = false;
+    [SerializeField] AnimadorPlayer.fonteDeDano fonteDeDano = AnimadorPlayer.fonteDeDano.AFOGADO; 
 
     void Awake() {
         if (checarGlobalmente) {
@@ -21,10 +22,9 @@ public class LimitadorDeQueda : MonoBehaviour
         while (gameObject.activeSelf) {
             foreach (Player player in GameManager.instance.jogadores) {
                 if (player.transform.position.y < transform.position.y) {
-                    player.MudarVida(-99, "Queda");
+                    player.MudarVida(-99, fonteDeDano);
                 }
             }
-
             yield return new WaitForFixedUpdate();
         }
     }
@@ -32,7 +32,7 @@ public class LimitadorDeQueda : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Player")) {
             Player player = other.GetComponent<Player>();
-            if (player != null) player.MudarVida(-99, "Queda");
+            if (player != null) player.MudarVida(-99, fonteDeDano);
         }
 
         Destrutivel destrutivel = other.GetComponent<Destrutivel>();

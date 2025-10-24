@@ -87,7 +87,7 @@ public class Projectile : MonoBehaviour {
         else if (other.gameObject.CompareTag("Player") && !isReflected) {
             Player player = other.transform.GetComponent<Player>();
             if (player != null) {
-                player.MudarVida(-1, "Projetil");
+                player.MudarVida(-1, AnimadorPlayer.fonteDeDano.FOGO);
                 player.AplicarKnockback(transform);
                 AudioManager.PlaySounds(TiposDeSons.KNOCKBACK);
             }

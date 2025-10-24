@@ -170,7 +170,7 @@ public class Perseguidor : Inimigo
                 float dist = Vector3.Distance(transform.position, target.position);
                 if (dist <= distanciaParaDano)
                 {
-                    target.GetComponent<Player>()?.MudarVida(-1);
+                    target.GetComponent<Player>()?.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
                     deuDano = true;
                 }
             }
