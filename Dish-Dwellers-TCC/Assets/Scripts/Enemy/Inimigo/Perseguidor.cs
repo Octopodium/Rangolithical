@@ -198,12 +198,12 @@ public class Perseguidor : Inimigo
     #endregion
 
     #region Escudo & Stun
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Escudo") && !caido)
+        if (other.CompareTag("Escudo") && !caido)
         {
             AudioManager.PlaySounds(TiposDeSons.ENEMYHITSHIELD);
-            Vector3 direcaoImpacto = collision.contacts[0].normal; 
+            Vector3 direcaoImpacto = (transform.position - other.transform.position).normalized;
             CaidoPorEscudo(direcaoImpacto);
         }
     }
