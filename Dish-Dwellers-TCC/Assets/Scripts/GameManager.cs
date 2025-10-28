@@ -260,6 +260,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private TelaDeLoading telaDeLoading;
     public Action OnTerminaDeCarregarASala;
     public bool carregando;
+    [SerializeField] private GameObject telaDeTransicao;
 
     
     public void PassaDeSala() {
@@ -289,6 +290,8 @@ public class GameManager : MonoBehaviour {
     /// Reinicia a sala para as condições iniciais.
     /// </summary>
     public void ResetSala(){
+        Debug.Log("Toca transição");
+        telaDeTransicao.SetActive(true);
         sala.ResetSala();
     }
 
