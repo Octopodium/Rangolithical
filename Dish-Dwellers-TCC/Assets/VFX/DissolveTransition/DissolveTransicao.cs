@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class DissolveTransicao : MonoBehaviour {
+public class DissolveTransicao :  ITransicao {
     
     [SerializeField] private float dellay = 0.0f;
     [SerializeField] private float duracaoDaTransicao = 2.0f;
@@ -18,6 +18,8 @@ public class DissolveTransicao : MonoBehaviour {
     private void OnEnable() {
         StartCoroutine(PlayTransicao());
     }
+
+    public override float GetDuracao() => dellay + duracaoDaTransicao;
 
     private Texture2D CaptureCameraTexture() {
         Camera cameraAlvo = Camera.main;
@@ -37,7 +39,7 @@ public class DissolveTransicao : MonoBehaviour {
         return printCamera;
     }
 
-    IEnumerator PlayTransicao() {
+    public override IEnumerator PlayTransicao() {
         float timer = 0.0f;
         image.materialForRendering.SetFloat(edgeID, 0);
         image.materialForRendering.SetTexture(mainTextureID, CaptureCameraTexture());

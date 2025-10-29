@@ -107,6 +107,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public Indicador indicador;
     public System.Action<InputDevice> OnDeviceChange;
     public InputDevice controleAtual { get; private set; }
+    private bool morto = false;
 
     // Awake: trata de referências/configurações internas
     void Awake() {
@@ -176,6 +177,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (qualPlayer != this.qualPlayer) return;
         if (!ehJogadorAtual) return; // Se não é o jogador atual, não faz nada
         if (GameManager.instance.isPaused) return; // Se o jogo está pausado, não faz nada
+        if(GameManager.instance.jogadorMorto) return; // Se algum dos jogadores morreu, n faz mais nada.
+        
 
         if (ctx.control.device != controleAtual) {
             controleAtual = ctx.control.device;
@@ -233,6 +236,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     }
 
     void FixedUpdate() {
+        if (GameManager.instance.jogadorMorto) return;
         // No modo singleplayer, caso este jogador não seja o atual, não faz nada
         if (GameManager.instance.modoDeJogo == ModoDeJogo.SINGLEPLAYER && (playerInput == null || !playerInput.enabled)) {
             if (ultimoInteragivel != null) {
@@ -287,7 +291,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public void Morrer(AnimadorPlayer.fonteDeDano fonte) {
         gameObject.Sincronizar();
         StartCoroutine(TocarAnimacaoDeMorte(fonte));
-        // GameManager.instance.ResetSala();
+        GameManager.instance.jogadorMorto = true;
         Debug.Log("morreu");
     }
 

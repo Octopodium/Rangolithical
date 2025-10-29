@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     public Indicador indicadorAtual;
 
     public LayerMask layerChao;
+    public bool jogadorMorto;
 
 
     public bool isOnline {
@@ -260,7 +261,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private TelaDeLoading telaDeLoading;
     public Action OnTerminaDeCarregarASala;
     public bool carregando;
-    [SerializeField] private GameObject telaDeTransicao;
+    [SerializeField] private ITransicao telaDeTransicao;
 
     
     public void PassaDeSala() {
@@ -291,8 +292,14 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void ResetSala(){
         Debug.Log("Toca transição");
-        telaDeTransicao.SetActive(true);
+        StartCoroutine(TocarTransicao());
         sala.ResetSala();
+    }
+
+    IEnumerator TocarTransicao() {
+        telaDeTransicao.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(telaDeTransicao.GetDuracao());
+        jogadorMorto = false;
     }
 
     // Metodo lento para encontrar os jogadores
