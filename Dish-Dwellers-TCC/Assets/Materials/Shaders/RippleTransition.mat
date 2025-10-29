@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DissolveTransition
-  m_Shader: {fileID: -6465566751694194690, guid: 7974cddf3c832c64a8f210c5e954e39a, type: 3}
+  m_Name: RippleTransition
+  m_Shader: {fileID: -6465566751694194690, guid: bc47414cb6e798a42a97dd14af20c80f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -45,20 +45,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0.5
+    - _Alpha: 1.1
     - _ColorMask: 15
-    - _Edge: 1.0133326
-    - _EdgeThickness: 0.15
-    - _Scale: 50
+    - _EdgeThickness: 0.1
+    - _Float: 0
+    - _RippleAmount: 40
+    - _Speed: 1
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _Strength: 0.1
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
+    - _edgeThickness: 0.1
+    - _speed: 1
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
-    - _EdgeColor: {r: 2.267114, g: 0.5099394, b: 0, a: 1}
+    - _RippleCenter: {r: 0.8, g: 0.23, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

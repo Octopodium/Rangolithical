@@ -21,23 +21,23 @@ public class DissolveTransicao :  ITransicao {
 
     public override float GetDuracao() => dellay + duracaoDaTransicao;
 
-    private Texture2D CaptureCameraTexture() {
-        Camera cameraAlvo = Camera.main;
-        RenderTexture texturaTemporaria = new RenderTexture(cameraAlvo.pixelWidth, cameraAlvo.pixelHeight, 24);
-        cameraAlvo.targetTexture = texturaTemporaria;
-        cameraAlvo.Render();
-        RenderTexture.active = texturaTemporaria;
-        Texture2D printCamera = new Texture2D(cameraAlvo.pixelWidth, cameraAlvo.pixelHeight, TextureFormat.RGBA32, false);
-        Graphics.CopyTexture(texturaTemporaria, printCamera);
+    // private Texture2D CaptureCameraTexture() {
+    //     Camera cameraAlvo = Camera.main;
+    //     RenderTexture texturaTemporaria = new RenderTexture(cameraAlvo.pixelWidth, cameraAlvo.pixelHeight, 24);
+    //     cameraAlvo.targetTexture = texturaTemporaria;
+    //     cameraAlvo.Render();
+    //     RenderTexture.active = texturaTemporaria;
+    //     Texture2D printCamera = new Texture2D(cameraAlvo.pixelWidth, cameraAlvo.pixelHeight, TextureFormat.RGBA32, false);
+    //     Graphics.CopyTexture(texturaTemporaria, printCamera);
 
-        // CleanUp:
-        cameraAlvo.targetTexture = null;
-        RenderTexture.active = null;
-        texturaTemporaria.Release();
-        Destroy(texturaTemporaria);
+    //     // CleanUp:
+    //     cameraAlvo.targetTexture = null;
+    //     RenderTexture.active = null;
+    //     texturaTemporaria.Release();
+    //     Destroy(texturaTemporaria);
 
-        return printCamera;
-    }
+    //     return printCamera;
+    // }
 
     public override IEnumerator PlayTransicao() {
         float timer = 0.0f;
@@ -45,8 +45,7 @@ public class DissolveTransicao :  ITransicao {
         image.materialForRendering.SetTexture(mainTextureID, CaptureCameraTexture());
         yield return new WaitForSecondsRealtime(dellay);
         while(timer < duracaoDaTransicao) {
-            timer += Time.unscaledDeltaTime;
-            // materialPropertyBlock.SetFloat(edgeID, timer / duracaoDaTransicao);
+            timer += Time.fixedUnscaledDeltaTime;
             image.materialForRendering.SetFloat(edgeID, timer / duracaoDaTransicao);
             yield return null;
         }

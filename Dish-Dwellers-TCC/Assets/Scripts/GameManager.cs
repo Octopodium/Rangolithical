@@ -261,7 +261,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private TelaDeLoading telaDeLoading;
     public Action OnTerminaDeCarregarASala;
     public bool carregando;
-    [SerializeField] private ITransicao telaDeTransicao;
+    [SerializeField] private ITransicao telaDeTransicaoFogo, telaDeTransicaoAgua;
+
 
     
     public void PassaDeSala() {
@@ -290,15 +291,24 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Reinicia a sala para as condições iniciais.
     /// </summary>
-    public void ResetSala(){
+    public void ResetSala(AnimadorPlayer.fonteDeDano motivo = AnimadorPlayer.fonteDeDano.FOGO){
         Debug.Log("Toca transição");
-        StartCoroutine(TocarTransicao());
+        ITransicao transicao = null;
+        switch(motivo) {
+            case AnimadorPlayer.fonteDeDano.FOGO:
+                transicao = telaDeTransicaoFogo;
+            break;
+            case AnimadorPlayer.fonteDeDano.AFOGADO:
+                transicao = telaDeTransicaoAgua;
+            break;
+        }
+        StartCoroutine(TocarTransicao(transicao));
         sala.ResetSala();
     }
 
-    IEnumerator TocarTransicao() {
-        telaDeTransicao.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(telaDeTransicao.GetDuracao());
+    IEnumerator TocarTransicao(ITransicao transicao) {
+        transicao.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(transicao.GetDuracao());
         jogadorMorto = false;
     }
 
