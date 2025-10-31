@@ -152,6 +152,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     void Start() {
         if (GameManager.instance.isOnline) {
             if (isLocalPlayer){
+                transform.SetParent(GameManager.instance.transform, true);
                 GameManager.instance.SetarPlayerAtualOnline(qualPlayer);
             }
 

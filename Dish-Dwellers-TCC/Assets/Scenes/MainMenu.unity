@@ -2629,10 +2629,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1654865306}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: FecharEntrarLobby
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2646,7 +2646,7 @@ MonoBehaviour:
         m_MethodName: TrocaFirstSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1101773082}
+          m_ObjectArgument: {fileID: 4435482735378218736}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -10528,25 +10528,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2696687327396257515}
-        m_TargetAssemblyTypeName: EscolherEntrarLobbyUI, Assembly-CSharp
-        m_MethodName: MostrarOpcoes
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: ComecarHostear
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 1-1
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1605213722}
-        m_TargetAssemblyTypeName: UINavigationManager, Assembly-CSharp
-        m_MethodName: TrocaFirstSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 148950874971790460}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10590,6 +10578,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891024441}
   m_CullTransparentMesh: 1
+--- !u!1 &891332192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 891332194}
+  - component: {fileID: 891332193}
+  - component: {fileID: 891332196}
+  - component: {fileID: 891332195}
+  m_Layer: 0
+  m_Name: ConnectionUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &891332193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891332192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fd721817aa25747a0ffd27487ed1f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuInicialScene: MenuInicial
+  networkManager: {fileID: 0}
+  canvasDaConexao: {fileID: 0}
+  eventSystem: {fileID: 1605213720}
+  eossdkPrefab: {fileID: 1083875178805214459, guid: 1d80842647711c94c9e4e342d68cf525, type: 3}
+  tipoDeTransport: 0
+  ipPrefab: {fileID: 4755543426943370121, guid: 8b0e2859af65f794ba3b26e52fcd1316, type: 3}
+  epicPrefab: {fileID: 8028197392071329369, guid: 78e27d6f2c633444580f40edaeebbb3e, type: 3}
+  ipPanel: {fileID: 346782723}
+  epicPanel: {fileID: 781181365}
+  ipButton: {fileID: 1262781542}
+  epicButton: {fileID: 1262781542}
+  cancelarConexaoButton: {fileID: 1599896697}
+  ipField: {fileID: 1116750766}
+  epicField: {fileID: 1453435071}
+  p1: {fileID: 0}
+  p2: {fileID: 0}
+  telaEntrar: {fileID: 1654865306}
+  telaCriar: {fileID: 1308293214}
+  telaCarregamento: {fileID: 903304559}
+  telaCarregamentoTexto: {fileID: 1832555714}
+  voltarButton: {fileID: 0}
+--- !u!4 &891332194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891332192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &891332195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891332192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5303ff30c3b9c804d87f378d34d145f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipInputField: {fileID: 1116750766}
+  portInputField: {fileID: 1119655250}
+--- !u!114 &891332196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891332192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b703ab474b622a04980dda030e361a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mostrarID: {fileID: 0}
+  idInput: {fileID: 1453435071}
 --- !u!1 &898946729
 GameObject:
   m_ObjectHideFlags: 0
@@ -16738,25 +16822,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2696687327396257515}
-        m_TargetAssemblyTypeName: EscolherEntrarLobbyUI, Assembly-CSharp
-        m_MethodName: MostrarOpcoes
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: EntrarNoLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 1-1
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1605213722}
-        m_TargetAssemblyTypeName: UINavigationManager, Assembly-CSharp
-        m_MethodName: TrocaFirstSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 148950874971790460}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -23718,10 +23790,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1308293214}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: FecharCriarLobby
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -23735,7 +23807,7 @@ MonoBehaviour:
         m_MethodName: TrocaFirstSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1101773082}
+          m_ObjectArgument: {fileID: 2866191981035920348}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -28562,9 +28634,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2696687327396257515}
-        m_TargetAssemblyTypeName: EscolherEntrarLobbyUI, Assembly-CSharp
-        m_MethodName: Hostear
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: AbrirCriarLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28779,7 +28851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1383e0c3420db94498c481101c68ffb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cenaLobby: SelecaoDePersonagem
+  cenaLobby: lobby-1
   cenaPrimeiraFase: Dialogos
   menuOpcoes: {fileID: 1876869513}
   lobbyOpcoes: {fileID: 3502461574436465625}
@@ -28831,9 +28903,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2696687327396257515}
-        m_TargetAssemblyTypeName: EscolherEntrarLobbyUI, Assembly-CSharp
-        m_MethodName: Entrar
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: PrepararPraEntrarLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30126,3 +30198,4 @@ SceneRoots:
   - {fileID: 1611752368}
   - {fileID: 3951965621655340774}
   - {fileID: 1919868992}
+  - {fileID: 891332194}

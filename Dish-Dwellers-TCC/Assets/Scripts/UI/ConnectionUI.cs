@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Mirror;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public enum TipoDeTransport { IP, Epic }
 
@@ -30,18 +31,15 @@ public class ConnectionUI : MonoBehaviour {
 
 
     [Header("UI")]
-    public GameObject esperandoJogador;
+    public GameObject telaEntrar;
+    public GameObject telaCriar;
     public GameObject telaCarregamento;
-    public Text telaCarregamentoTexto;
-    public InputField anglerInput, heaterInput;
-    public Text pingAngler, pingHeater;
-    public GameObject anglerReady, heaterReady;
-    public Transform logsHolder;
-    public Button trocarPersonagensButton, voltarButton;
+    public TMP_Text telaCarregamentoTexto;
+    public Button voltarButton;
     
     ConectorDeTransport conectorDeTransport;
 
-    void Awake() {
+    void Start() {
         instance = this;
 
         GameObject prefab = null;
@@ -53,6 +51,7 @@ public class ConnectionUI : MonoBehaviour {
                 conectorDeTransport = GetComponent<ConectorOnlineIP>();
                 SelecionarBotao(ipButton);
                 break;
+
             case TipoDeTransport.Epic:
                 ipPanel.SetActive(false);
                 epicPanel.SetActive(true);
@@ -65,20 +64,24 @@ public class ConnectionUI : MonoBehaviour {
 
         GameObject managerInstancia = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         networkManager = managerInstancia.GetComponent<DishNetworkManager>();
-    }
 
-    void Start() {
         conectorDeTransport.Setup();
-
-        UpdateNominhos();
-
-
-        if (PartidaInfo.instance != null && PartidaInfo.instance.modo == PartidaInfo.Modo.Entrar) {
-            PrepararPraEntrarLobby();
-        } else {
-            ComecarHostear();
-        }
     }
+
+
+    public void FecharEntrarLobby() {
+        telaEntrar.SetActive(false);
+    }
+
+
+    public void AbrirCriarLobby() {
+        telaCriar.SetActive(true);
+    }
+
+    public void FecharCriarLobby() {
+        telaCriar.SetActive(false);
+    }
+
 
     public void SelecionarBotao(Button botao) {
         eventSystem.SetSelectedGameObject(botao.gameObject);
@@ -86,6 +89,8 @@ public class ConnectionUI : MonoBehaviour {
     }
 
     public void SetarNavigation () {
+        return;
+
         Navigation navigation = voltarButton.navigation;
         navigation.mode = Navigation.Mode.Explicit;
 
@@ -103,9 +108,6 @@ public class ConnectionUI : MonoBehaviour {
         } else if (tipoDeTransport == TipoDeTransport.IP && epicPanel.activeSelf) {
             navigation.selectOnRight = epicField;
             navigation.selectOnDown = epicField;
-        } else {
-            navigation.selectOnRight = trocarPersonagensButton;
-            navigation.selectOnDown = trocarPersonagensButton;
         }
 
         voltarButton.navigation = navigation;
@@ -113,127 +115,6 @@ public class ConnectionUI : MonoBehaviour {
 
 
     #region Lobby 
-
-    // Pede pro servidor trocar os personagens (ao apertar o botão de trocar personagens)
-    public void TrocarPersonagens() {
-        UpdateP1ProntoUI(false);
-        UpdateP2ProntoUI(false);
-
-        if (p1.isLocalPlayer) p1.TrocarPersonagens();
-        else p2.TrocarPersonagens();
-    }
-
-
-    // Atualiza a informação de nome do jogador (quando o jogador muda o nome no input)
-    public void UpdateNominhos(LobbyPlayer lobbyPlayer) {
-        UpdateNominhos();
-    }
-
-    // Quando o servidor trocou os personagens
-    public void UpdateNominhos() {
-        if (networkManager.lobbyPlayers == null) return;
-
-        InputField inputP1 = null;
-        InputField inputP2 = null;
-
-        if ((p1 != null && p1.personagem == DishNetworkManager.Personagem.Angler) || (p2 != null && p2.personagem == DishNetworkManager.Personagem.Heater)) {
-            inputP1 = anglerInput;
-            inputP2 = heaterInput;
-        } else {
-            inputP1 = heaterInput;
-            inputP2 = anglerInput;
-        }
-
-        inputP1.text = (p1 != null) ? p1.nome : "???";
-        inputP2.text = (p2 != null) ? p2.nome : "???";
-
-        if (p1 != null) UpdatePingUI(p1.ping, p1.personagem == DishNetworkManager.Personagem.Angler);
-        if (p2 != null) UpdatePingUI(p2.ping, p2.personagem == DishNetworkManager.Personagem.Angler);
-
-        if (p1 != null && p1.isLocalPlayer) {
-            inputP1.interactable = true;
-            inputP2.interactable = false;
-        } else if (p2 != null && p2.isLocalPlayer) {
-            inputP1.interactable = false;
-            inputP2.interactable = true;
-        } else {
-            inputP1.interactable = false;
-            inputP2.interactable = false;
-        }
-    }
-
-
-    // Chamado quando o nome no input do jogador atual é alterado
-    public void OnNomeChange() {
-        // A função não recebe o input como parâmetro para garantir que só altere o nome do jogador atual
-        LobbyPlayer jogadorAtual = (p1 != null && p1.isLocalPlayer) ? p1 : ((p2 != null && p2.isLocalPlayer) ? p2 : null);
-        if (jogadorAtual == null) return;
-
-
-        InputField input = jogadorAtual.personagem == DishNetworkManager.Personagem.Angler ? anglerInput : heaterInput;
-        string nome = input.text;
-        jogadorAtual.TrocarNome(nome);
-    }
-
-
-    // Chamado quando o cliente clica no botão de começar
-    public void SetPronto() {
-        SetComecar();
-
-        LobbyPlayer lobbyPlayer = NetworkClient.localPlayer.GetComponent<LobbyPlayer>();
-        lobbyPlayer.SetPronto(!lobbyPlayer.pronto);
-    }
-
-    public void UpdateProntoUI() {
-        if (p1 != null) UpdateP1ProntoUI(p1.pronto);
-        if (p2 != null) UpdateP2ProntoUI(p2.pronto);
-    }
-
-
-    // Atualiza a UI a partir do valor do LobbyPlayer 1
-    public void UpdateP1ProntoUI(bool val) {
-        if (p1 == null) return;
-
-        if (p1.personagem == DishNetworkManager.Personagem.Heater) heaterReady.SetActive(val);
-        else anglerReady.SetActive(val);
-
-        if (p1.isLocalPlayer) {
-            //prontoButton.GetComponentInChildren<Text>().text = (val) ? "Cancelar" : "Pronto";
-        }
-    }
-
-
-    // Atualiza a UI a partir do valor do LobbyPlayer 2
-    public void UpdateP2ProntoUI(bool val) {
-        if (p2 == null) return;
-
-        if (p2.personagem == DishNetworkManager.Personagem.Angler) anglerReady.SetActive(val);
-        else heaterReady.SetActive(val);
-
-        if (p2.isLocalPlayer) {
-            //prontoButton.GetComponentInChildren<Text>().text = (val) ? "Cancelar" : "Pronto";
-        }
-    }
-
-    public void UpdatePingUI(int ping, bool isAngler) {
-        if (isAngler) pingAngler.text = ping.ToString() + "ms";
-        else pingHeater.text = ping.ToString() + "ms";
-    }
-
-
-    // Atualiza informações de espera de jogador
-    public void UpdateAguardandoJogadorUI() {
-        esperandoJogador.SetActive(p1 == null || p2 == null);
-    }
-
-
-    // Chamado quando um jogador tenta começar o jogo
-    public void SetComecar() {
-        if (p1 == null || p2 == null) return;
-
-        if (p1.isLocalPlayer) p1.TentarComecar();
-        else p2.TentarComecar();
-    }
 
     void OnDestroy() {
         if (canvasDaConexao != null && canvasDaConexao.gameObject != null)
@@ -244,14 +125,10 @@ public class ConnectionUI : MonoBehaviour {
 
 
     #region Entrar em Lobby
-
-    [Header("Entrar em Lobby")]
-    public GameObject entrarLobbyPanel;
-    
     
     // Chamado quando o cliente tenta criar um lobby
     public void ComecarHostear() {
-        entrarLobbyPanel.SetActive(false);
+        telaCriar.SetActive(false);
 
         MostrarCarregamento("Criando lobby...", SairDoLobby);
         conectorDeTransport.Hostear(status => EsconderCarregamento());
@@ -259,14 +136,14 @@ public class ConnectionUI : MonoBehaviour {
 
     // Mostra modal para entrar em um lobby já criado
     public void PrepararPraEntrarLobby() {
-        entrarLobbyPanel.SetActive(true);
+        telaEntrar.SetActive(true);
         
         conectorDeTransport.Setup();
     }
 
     // Chamado quando um cliente tenta entrar em um lobby já criado
     public void EntrarNoLobby() {
-        entrarLobbyPanel.SetActive(false);
+        telaEntrar.SetActive(false);
 
         MostrarCarregamento("Tentando conectar...", CancelarEntrada);
         conectorDeTransport.ConectarCliente();
@@ -275,13 +152,13 @@ public class ConnectionUI : MonoBehaviour {
     // Chamado quando um cliente entra no lobby com sucesso (pelo LobbyPlayer)
     public void EntrouNoLobby() {
         EsconderCarregamento();
-        UpdateProntoUI();
-        SelecionarBotao(trocarPersonagensButton);
+
+        EscolherEntrarLobbyUI.instance.Entrar();
     }
 
     public void CancelarEntrada() {
         EsconderCarregamento();
-        entrarLobbyPanel.SetActive(true);
+        telaEntrar.SetActive(true);
         conectorDeTransport.EncerrarCliente();
     }
 
@@ -309,7 +186,6 @@ public class ConnectionUI : MonoBehaviour {
 
     public void EsconderCarregamento() {
         telaCarregamento.SetActive(false);
-        SelecionarBotao(trocarPersonagensButton);
     }
 
     #endregion

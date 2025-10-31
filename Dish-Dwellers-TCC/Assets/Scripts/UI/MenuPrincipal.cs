@@ -8,11 +8,9 @@ public class MenuPrincipal : MonoBehaviour {
 
     void Awake() {
         buildVersionTxt.text = "Build v" + Application.version;
-    }
-
-    void Start() {
         PrevencaoDeBugs();
     }
+
 
     public void PrevencaoDeBugs() {
         Time.timeScale = 1f;
