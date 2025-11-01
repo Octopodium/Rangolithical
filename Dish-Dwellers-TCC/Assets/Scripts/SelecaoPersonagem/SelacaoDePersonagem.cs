@@ -41,8 +41,12 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
     #region Base
 
     public IndicadorSeletor AdicionarSeletor(QualPersonagem personagem = QualPersonagem.Angler) {
+        Debug.Log("aaaa");
         GameObject obj = Instantiate(prefabIndicadorSeletor);
+        Debug.Log("1111");
         IndicadorSeletor indicador = obj.GetComponent<IndicadorSeletor>();
+
+        Debug.Log("bbbb");
 
         indicador.onSelecionou += () => Selecionar(indicador);
         indicador.onConfirmou += () => Confirmar(indicador);
@@ -53,25 +57,38 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         indicador.onDireita += () => ParaDireita(indicador);
         indicador.onCima += () => ParaCima(indicador);
         indicador.onBaixo += () => ParaBaixo(indicador);
+        Debug.Log("cccc");
 
 
         sincronizavel.AddSub(indicador.subSincronizavel);
+        Debug.Log("dddd");
 
 
         if (coresDisponiveis.Count == 0) coresDisponiveis = new List<Color>(cores); // Repete cores se todas forem utilizadas
 
         Color cor = coresDisponiveis.First();
         coresDisponiveis.RemoveAt(0);
+        Debug.Log("eeee");
 
         indicador.SetCor(cor);
         indicador.SetTexto("P"+ deviceIdCounter);
         deviceIdCounter++;
 
         indicadores.Add(indicador);
+        Debug.Log("fff");
 
-        Sincronizador.instance.TravarSincronizacao(() => {
-            indicador.Selecionar(personagem);
-        });
+        if (Sincronizador.instance != null) {
+            Sincronizador.instance.TravarSincronizacao(() => {
+                indicador.Selecionar(personagem);
+            });
+        } else {
+            Sincronizador.onInstanciaCriada += () => {
+               Sincronizador.instance.TravarSincronizacao(() => {
+                    indicador.Selecionar(personagem);
+                }); 
+            };
+        }
+        Debug.Log("gggg");
         
         return indicador;
     }
