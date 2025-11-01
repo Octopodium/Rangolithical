@@ -29,14 +29,10 @@ public class MaybeWobble : MonoBehaviour
         }
          for (int i = 0; i < textInfo.meshInfo.Length; ++i){
          
-             var meshInfo = textInfo.meshInfo[i];  
-             meshInfo.mesh.vertices = meshInfo.vertices;
+            var meshInfo = textInfo.meshInfo[i];  
+            meshInfo.mesh.vertices = meshInfo.vertices;
             textComponent.UpdateGeometry(meshInfo.mesh, i);
         
         }
-
-
-
     }
-
 }
