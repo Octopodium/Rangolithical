@@ -68,6 +68,12 @@ public class Sincronizador : NetworkBehaviour {
 
         onInstanciaCriada?.Invoke();
         onInstanciaCriada = null;
+
+        transform.SetParent(GameManager.instance.transform, false);
+    }
+
+    void OnDestroy() {
+        instance = null;
     }
 
 

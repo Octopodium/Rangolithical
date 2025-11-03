@@ -27,8 +27,6 @@ public class ConnectionUI : MonoBehaviour {
     public Button cancelarConexaoButton;
     public InputField ipField, epicField;
 
-    [HideInInspector] public LobbyPlayer p1, p2;
-
 
     [Header("UI")]
     public GameObject telaEntrar;
@@ -131,7 +129,9 @@ public class ConnectionUI : MonoBehaviour {
         telaCriar.SetActive(false);
 
         MostrarCarregamento("Criando lobby...", SairDoLobby);
+        Debug.Log("Conectou Hostear");
         conectorDeTransport.Hostear(status => EsconderCarregamento());
+        NetworkClient.OnConnectedEvent += EntrouNoLobby;
     }
 
     // Mostra modal para entrar em um lobby já criado
@@ -146,15 +146,20 @@ public class ConnectionUI : MonoBehaviour {
         telaEntrar.SetActive(false);
 
         MostrarCarregamento("Tentando conectar...", CancelarEntrada);
+
+        Debug.Log("Conectou Entrar");
         conectorDeTransport.ConectarCliente();
+        NetworkClient.OnConnectedEvent += EntrouNoLobby;
+        //NetworkServer.OnConnectedEvent += (_) => EntrouNoLobby();
     }
 
     // Chamado quando um cliente entra no lobby com sucesso (pelo LobbyPlayer)
     public void EntrouNoLobby() {
+        Debug.Log("eieieieie");
         EsconderCarregamento();
-
         EscolherEntrarLobbyUI.instance.Entrar();
     }
+
 
     public void CancelarEntrada() {
         EsconderCarregamento();

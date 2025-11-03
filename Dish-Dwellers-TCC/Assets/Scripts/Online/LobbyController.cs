@@ -1,10 +1,15 @@
 using UnityEngine;
+using Mirror;
+using System.Collections;
 
 public class LobbyController : MonoBehaviour {
+    public System.Action onLobbySetupFinished;
     void Start() {
-        LobbyPlayer[] players = FindObjectsByType<LobbyPlayer>(FindObjectsSortMode.None);
-        foreach (LobbyPlayer player in players) {
-            player.GerarPlayer();
+        if (!NetworkClient.ready) {
+            NetworkClient.Ready();
+            NetworkClient.AddPlayer();
         }
+
+        onLobbySetupFinished?.Invoke();
     }
 }

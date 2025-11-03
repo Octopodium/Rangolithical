@@ -259,12 +259,16 @@ public class CameraController : MonoBehaviour {
         List<Player> players = GameManager.instance.jogadores;
 
         if (modoDeJogoConfigurado == ModoDeJogo.MULTIPLAYER_ONLINE) {
-            Player jogador = players[0].isLocalPlayer ? players[0] : players[1];
-            Player outro_jogador = players[0].isLocalPlayer ? players[1] : players[0];
+            if (players.Count == 2) {
+                Player jogador = players[0].isLocalPlayer ? players[0] : players[1];
+                Player outro_jogador = players[0].isLocalPlayer ? players[1] : players[0];
 
-            ccameras[0].Follow = jogador.transform;
-            ccameras[1].Follow = outro_jogador.transform;
-
+                ccameras[0].Follow = jogador.transform;
+                ccameras[1].Follow = outro_jogador.transform;
+            } else if (players.Count == 1) {
+                ccameras[0].Follow = players[0].transform;
+                ccameras[1].Follow = players[0].transform;
+            }
             return;
         }
 

@@ -13,6 +13,11 @@ public class SplitFollowTarget : MonoBehaviour {
 
 
     private void Start() {
+        SetupJogadores();
+    }
+
+    void SetupJogadores() {
+        targetGroup.Clear();
         // esse é o jeito otimizado de atribuir um grupo, nesse caso especifico (eu acho né).
         foreach (var jogador in GameManager.instance.jogadores) {
             targetGroup.Add(jogador.transform);
@@ -33,12 +38,24 @@ public class SplitFollowTarget : MonoBehaviour {
 
     private Vector3 CalcularPosMedia() {
         Vector3 fPos;
-        Vector3 dist = CalcularDistancia();
+        Vector3 dist = Vector3.zero;
+        Transform p1, p2;
+
+        if (targetGroup.Count == 2) {
+            CalcularDistancia();
+            p1 = targetGroup[0];
+            p2 = targetGroup[1];
+        } else {
+            p1 = targetGroup.Count == 1 ? targetGroup[0] : transform;
+            p2 = p1;
+            SetupJogadores();
+        }
+
 
         //Encontra a posição media entre os dois transforms:
-        fPos.x = (targetGroup[0].position.x + targetGroup[1].position.x) * 0.5f;
-        fPos.y = (targetGroup[0].position.y + targetGroup[1].position.y) * 0.5f;
-        fPos.z = (targetGroup[0].position.z + targetGroup[1].position.z) * 0.5f;
+        fPos.x = (p1.position.x + p2.position.x) * 0.5f;
+        fPos.y = (p1.position.y + p2.position.y) * 0.5f;
+        fPos.z = (p1.position.z + p2.position.z) * 0.5f;
 
         // Aplica o peso à posição média encontrada, alterando a posição final da camera:
         if (pesoX != 0)

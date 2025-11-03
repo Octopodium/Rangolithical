@@ -351,7 +351,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     void AtualizarStatusConectado(bool oldValue, bool newValue) {
         if (isLocalPlayer) {
             if (!oldValue && newValue) {
-                GameManager.instance.ComecarOnline();
+                GameManager.instance.SetarOnline();
             } else {
                 GameManager.instance.VoltarParaMenu();
             }

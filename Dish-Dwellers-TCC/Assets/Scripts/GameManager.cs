@@ -496,7 +496,45 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void SetarOnline() {
+        if (!isOnline) return;
 
+        // Se o jogo estiver online, inicia a cena online
+        StartCoroutine(SetarOnlineAsync());
+    }
+
+    public IEnumerator SetarOnlineAsync() {
+        if (!isOnline) yield break;
+
+        foreach (Transform child in transform) {
+            if (child.GetComponent<Player>() == null) continue;
+            if (child.GetComponent<NetworkIdentity>() != null && child.GetComponent<NetworkIdentity>().enabled) continue;
+            Destroy(child.gameObject);
+        }
+        jogadores.Clear();
+
+        GetPlayers();
+
+        foreach (Player player in jogadores) {
+            if (player == null) continue;
+            if (player.transform.parent != transform)
+                player.transform.SetParent(transform, false);
+        }
+
+
+        sala sala = GameObject.FindFirstObjectByType<sala>();
+        sala.PosicionarJogador();
+
+        // OnPlayersInstanciados?.Invoke(jogadores[0], jogadores[1]);
+
+        UIManager uiManager = GetComponentInChildren<UIManager>(true);
+        if (uiManager != null) {
+            uiManager.gameObject.SetActive(true);
+        }
+    }
+
+
+    
     
 
     /// <summary>
