@@ -575,7 +575,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public float noChaoTempoMin = 0.25f;
     float noChaoTimer = 0f;
     bool naoCairCC = false;
-    [SerializeField] private VisualEffect dustVisualEffetct;
+    [SerializeField] private VisualEffect dustVisualEffect;
     
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoChao() {
@@ -615,11 +615,12 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             characterController.Move(movimentacaoEfetiva * Time.fixedDeltaTime);
             velocidadeRelativa = movimentacaoEfetiva.magnitude / GetVelocidade();
         }
-        dustVisualEffetct.SetFloat("Count", Mathf.Lerp(0, 1, velocidadeRelativa));
+        dustVisualEffect.SetFloat("Count", Mathf.Lerp(0, 1, velocidadeRelativa));
     }
 
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoAr() {
+        dustVisualEffect.SetFloat("Count", 0);
         UsarRB();
 
         if (!ehJogadorAtual || sendoCarregado || !podeMovimentar || movimentacao.magnitude == 0)  return;

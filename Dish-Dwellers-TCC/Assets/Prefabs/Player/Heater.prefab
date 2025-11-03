@@ -94,6 +94,10 @@ PrefabInstance:
       value: Heater
       objectReference: {fileID: 0}
     - target: {fileID: -6773236473951336124, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
+      propertyPath: identificador
+      value: $c680e8b05258413187344e37ee0155dc
+      objectReference: {fileID: 0}
+    - target: {fileID: -6773236473951336124, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
       propertyPath: idObjetoSincronizado
       value: Heater
       objectReference: {fileID: 0}
@@ -233,6 +237,10 @@ PrefabInstance:
       propertyPath: velocidadeRB
       value: 6.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8982251984172959260, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
+      propertyPath: dustVisualEffect
+      value: 
+      objectReference: {fileID: 2417707681455326417}
     - target: {fileID: 8982251984172959260, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
       propertyPath: dustVisualEffetct
       value: 
@@ -430,6 +438,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d7c2c587c74d7548887bb0b7941b32d, type: 3}
+--- !u!2083052967 &2417707681455326417 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 7227404470464115583, guid: 3d7c2c587c74d7548887bb0b7941b32d, type: 3}
+  m_PrefabInstance: {fileID: 5026450672744511406}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8934127244882650476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4485003748349514434, guid: 3d7c2c587c74d7548887bb0b7941b32d, type: 3}
