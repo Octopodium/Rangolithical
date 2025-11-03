@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 using System.Collections.Generic;
 using System.Collections;
 using Mirror;
@@ -574,6 +575,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public float noChaoTempoMin = 0.25f;
     float noChaoTimer = 0f;
     bool naoCairCC = false;
+    [SerializeField] private VisualEffect dustVisualEffetct;
     
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoChao() {
@@ -608,10 +610,12 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             movimentacaoEfetiva +=  Vector3.down * 9.81f; //Physics.gravity;
         }
             
-        
+        float velocidadeRelativa = 0.0f;
         if (movimentacaoEfetiva != Vector3.zero) {
             characterController.Move(movimentacaoEfetiva * Time.fixedDeltaTime);
+            velocidadeRelativa = movimentacaoEfetiva.magnitude / GetVelocidade();
         }
+        dustVisualEffetct.SetFloat("Count", Mathf.Lerp(0, 1, velocidadeRelativa));
     }
 
     // Chamado automaticamente pelo método Movimentacao
