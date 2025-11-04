@@ -37,21 +37,6 @@ MonoBehaviour:
     sceneName: 
     _loadScene: 0
     backgroundSprite: {fileID: 21300000, guid: 3036d55282b6a374aa7606fddc6fc306, type: 3}
-  - Guid: dialogue_angler1
-    nodeName: Text Node
-    dialogueText: "Relaxa, tudo isso vai acabar bem r\xE1pido, quando eu pegar a
-      Receita Lend\xE1ria sozinho. "
-    position: {x: 438, y: 350}
-    sceneName: 
-    _loadScene: 0
-    backgroundSprite: {fileID: 0}
-  - Guid: dialogue_angler2
-    nodeName: Text Node
-    dialogueText: "\xC9 o que vamos ver! S\xF3 tenta n\xE3o incendiar a Torre inteira."
-    position: {x: 949, y: 350}
-    sceneName: 
-    _loadScene: 0
-    backgroundSprite: {fileID: 0}
   - Guid: 39cfd21e-2d47-4ef6-962b-c977362e67d7
     nodeName: End
     dialogueText: Exit Node
@@ -59,11 +44,26 @@ MonoBehaviour:
     sceneName: 1-1
     _loadScene: 1
     backgroundSprite: {fileID: 0}
+  - Guid: dialogue_angler1
+    nodeName: Text Node
+    dialogueText: "Relaxa, tudo isso vai acabar bem r\xE1pido, quando eu pegar a
+      {Receita Lend\xE1ria} sozinho. "
+    position: {x: 457, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 0}
   - Guid: dialogue_heater2
     nodeName: Text Node
     dialogueText: "D\xFAvido que voc\xEA e seus peixes molengas consigam sequer enfrentar
       o primeiro desafio."
-    position: {x: 689, y: 350}
+    position: {x: 710, y: 350}
     sceneName: 
     _loadScene: 0
     backgroundSprite: {fileID: 21300000, guid: 6ac33e094c3657c489433d19a94d289c, type: 3}
+  - Guid: dialogue_angler2
+    nodeName: Text Node
+    dialogueText: "\xC9 o que vamos ver! S\xF3 tenta n\xE3o incendiar a Torre inteira."
+    position: {x: 967, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 0}
