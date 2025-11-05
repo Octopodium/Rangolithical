@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class BotaoSelecionavel : MonoBehaviour, IPointerEnterHandler {
+public class BotaoSelecionavel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     Button botao;
 
     void Awake() {
@@ -15,4 +15,9 @@ public class BotaoSelecionavel : MonoBehaviour, IPointerEnterHandler {
             botao.Select();
         }
     }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        if(botao.interactable) botao.OnDeselect(eventData);
+    }
+
 }
