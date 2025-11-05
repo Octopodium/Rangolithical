@@ -606,6 +606,7 @@ GameObject:
   - component: {fileID: 1209564995}
   - component: {fileID: 1209564994}
   - component: {fileID: 1209564993}
+  - component: {fileID: 1209564996}
   m_Layer: 5
   m_Name: Dialogo_Text
   m_TagString: Untagged
@@ -731,6 +732,18 @@ RectTransform:
   m_AnchoredPosition: {x: -15.925, y: 174.49915}
   m_SizeDelta: {x: 1651.139, y: 184.431}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1209564996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209564992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1d68215a540214d9dcc1e6534a8d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1321756100
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +791,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1209564993}
   background: {fileID: 630318117}
   textSpeed: 0.05
+  maybeWobble: {fileID: 1209564996}
 --- !u!4 &1321756103
 Transform:
   m_ObjectHideFlags: 0

@@ -24,6 +24,8 @@ public class DialogueSystem : MonoBehaviour
     private string fullText;
     private int counter = -1;
 
+    public MaybeWobble maybeWobble;
+
     private Dictionary<string, DialogueNodeData> nodeLookup;
 
     private void Awake(){
@@ -80,6 +82,7 @@ public class DialogueSystem : MonoBehaviour
 
         foreach(char letter in sentence.ToCharArray()){
             dialogueText.text += letter;
+            maybeWobble.StartCoroutine("AnimateWobbleChar", dialogueText);
             yield return new WaitForSeconds(textSpeed);
         }
         isTyping = false;
