@@ -17,16 +17,54 @@ public class ConectorOnlineIP : ConectorDeTransport {
         portInputField.text = telepathyTransport.port.ToString();
     }
 
+    System.Action<bool> hostAction = null;
+
     public override void Hostear(System.Action<bool> callback = null) {
         networkManager.StartHost();
-        callback?.Invoke(true);
+        hostAction = callback;
+
+        NetworkClient.OnConnectedEvent += HandleHostConnected;
+        NetworkClient.OnDisconnectedEvent += HandleHostNotConnected;
     }
 
+    void HandleHostConnected() {
+        NetworkClient.OnConnectedEvent -= HandleHostConnected;
+        NetworkClient.OnDisconnectedEvent -= HandleHostNotConnected;
+        hostAction?.Invoke(true);
+        hostAction = null;
+    }
+
+    void HandleHostNotConnected() {
+        NetworkClient.OnConnectedEvent -= HandleHostConnected;
+        NetworkClient.OnDisconnectedEvent -= HandleHostNotConnected;
+        hostAction?.Invoke(false);
+        hostAction = null;
+    }
+
+    System.Action<bool> clientAction = null;
     public override void ConectarCliente(System.Action<bool> callback = null) {
         networkManager.networkAddress = ipInputField.text;
         telepathyTransport.port = ushort.Parse(portInputField.text);
         networkManager.StartClient();
-        callback?.Invoke(true);
+
+        clientAction = callback;
+
+        NetworkClient.OnConnectedEvent += HandleClientConnected;
+        NetworkClient.OnDisconnectedEvent += HandleClientNotConnected;
+    }
+
+    void HandleClientConnected() {
+        NetworkClient.OnConnectedEvent -= HandleClientConnected;
+        NetworkClient.OnDisconnectedEvent -= HandleClientNotConnected;
+        clientAction?.Invoke(true);
+        clientAction = null;
+    }
+
+    void HandleClientNotConnected() {
+        NetworkClient.OnConnectedEvent -= HandleClientConnected;
+        NetworkClient.OnDisconnectedEvent -= HandleClientNotConnected;
+        clientAction?.Invoke(false);
+        clientAction = null;
     }
 
     public override void EncerrarHost() {

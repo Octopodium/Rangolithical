@@ -11,7 +11,6 @@ public enum TipoDeTransport { IP, Epic }
 public class ConnectionUI : MonoBehaviour {
     public static ConnectionUI instance;
 
-    public string menuInicialScene = "MenuInicial";
     public DishNetworkManager networkManager;
 
     public Transform canvasDaConexao;
@@ -62,13 +61,13 @@ public class ConnectionUI : MonoBehaviour {
     }
 
     void Setup() {
+        if (tipoDeTransport == TipoDeTransport.Epic)
+            BetterEOSLobby.InstantiateSDK(eossdkPrefab);
+
         if (NetworkManager.singleton == null) {
             GameObject managerInstancia = Instantiate(managerPrefab, Vector3.zero, Quaternion.identity);
             networkManager = managerInstancia.GetComponent<DishNetworkManager>();
         }
-
-        if (tipoDeTransport == TipoDeTransport.Epic)
-            BetterEOSLobby.InstantiateSDK(eossdkPrefab);
             
         conectorDeTransport.Setup();
     }
@@ -139,8 +138,15 @@ public class ConnectionUI : MonoBehaviour {
 
         MostrarCarregamento("Criando lobby...", SairDoLobby);
         Debug.Log("Conectou Hostear");
-        conectorDeTransport.Hostear(status => EsconderCarregamento());
-        NetworkClient.OnConnectedEvent += EntrouNoLobby;
+        conectorDeTransport.Hostear(HandleCriarLobby);
+    }
+
+    void HandleCriarLobby(bool entrou) {
+        if (entrou) {
+            EsconderCarregamento();
+            EscolherEntrarLobbyUI.instance.Hostear();
+        }
+        else SairDoLobby();
     }
 
     // Mostra modal para entrar em um lobby já criado
@@ -156,18 +162,18 @@ public class ConnectionUI : MonoBehaviour {
 
         MostrarCarregamento("Tentando conectar...", CancelarEntrada);
 
-        Debug.Log("Conectou Entrar");
-        conectorDeTransport.ConectarCliente();
-        NetworkClient.OnConnectedEvent += EntrouNoLobby;
+        conectorDeTransport.ConectarCliente(HandleEntrarNoLobby);
     }
 
-    // Chamado quando um cliente entra no lobby com sucesso (pelo LobbyPlayer)
-    public void EntrouNoLobby() {
-        Debug.Log("eieieieie");
-        EsconderCarregamento();
-        EscolherEntrarLobbyUI.instance.Entrar();
+    void HandleEntrarNoLobby(bool entrou) {
+        if (entrou) {
+            EsconderCarregamento();
+            string cenaAtual = (NetworkManager.singleton as DishNetworkManager)?.GetCenaAtual();
+            Debug.Log(cenaAtual);
+            EscolherEntrarLobbyUI.instance.Entrar(cenaAtual, false);
+        }
+        else CancelarEntrada();
     }
-
 
     public void CancelarEntrada() {
         EsconderCarregamento();
@@ -205,10 +211,8 @@ public class ConnectionUI : MonoBehaviour {
 
 
     public void SairDoLobby() {
+        EsconderCarregamento();
+        telaCriar.SetActive(true);
         conectorDeTransport.EncerrarHost();
-
-        Destroy(networkManager.gameObject);
-        if (GameManager.instance != null)  Destroy(GameManager.instance.gameObject);
-        SceneManager.LoadScene(menuInicialScene, LoadSceneMode.Single);
     }
 }

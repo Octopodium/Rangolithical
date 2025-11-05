@@ -34,6 +34,7 @@ public class BetterEOSLobby : MonoBehaviour {
     string idHost = "", idLobby = "";
     System.Action<LobbyDetails> encontrarLobbyCallback = null; // Uso interno apenas
 
+
     public interface ILobbyIDCreator {
         int maxTentativa {get;}
         string CreateID();
@@ -107,6 +108,12 @@ public class BetterEOSLobby : MonoBehaviour {
     public System.Action OnCriarLobbyFalhou, OnLobbyNaoEncontrado;
     bool estaNoLobby = false;
 
+    bool encerrandoHost = false, encerrandoCliente = false;
+
+    public string lobbyId {
+        get { return idLobby; }
+    }
+
 
     void Start() {
         networkManager = NetworkManager.singleton;
@@ -119,6 +126,7 @@ public class BetterEOSLobby : MonoBehaviour {
 
         // Quando um lobby é criado com sucesso, iniciar o host
         eOSLobby.CreateLobbySucceeded += (lobbyAttrs) => {
+            if (HandleEncerrandoHost()) return;
             Debug.Log("Lobby criado com sucesso: " + idLobby);
             estado = Estado.Nenhum;
             OnLobbyCriado?.Invoke(idLobby);
@@ -155,6 +163,8 @@ public class BetterEOSLobby : MonoBehaviour {
 
         // Ao entra em um lobby com sucesso, iniciar o cliente
         eOSLobby.JoinLobbySucceeded += (lobbyAttrs) => {
+            if (HandleEncerrandoCliente()) return;
+            
             estado = Estado.Nenhum;
             OnEntrouLobby?.Invoke();
             networkManager.networkAddress = idHost;
@@ -198,6 +208,7 @@ public class BetterEOSLobby : MonoBehaviour {
 
     Configuracao? configuracaoLobbyCache = null;
     public virtual void CriarHost(Configuracao? configuracao = null, int tentativas = 0) {
+        encerrandoHost = false;
         configuracaoLobbyCache = configuracao;
     
         if (!estaLogado) {
@@ -236,6 +247,7 @@ public class BetterEOSLobby : MonoBehaviour {
     }
 
     public virtual void ConectarCliente(string id, Configuracao? configuracao = null) {
+        encerrandoCliente = false;
         configuracaoLobbyCache = configuracao;
 
         if (!estaLogado) {
@@ -257,6 +269,8 @@ public class BetterEOSLobby : MonoBehaviour {
     /// Callback da pesquisa de um lobby para entrar, através do ID. (Apenas para uso interno)
     /// </summary>
     protected virtual void ConectarCliente_EncontrarLobby(LobbyDetails details) {
+        if (HandleEncerrandoCliente()) return;
+
         if (details != null) {
             string idVisual = GetHostIDFromInfo(details);
             OnLobbyEncontrado?.Invoke(idVisual);
@@ -271,8 +285,11 @@ public class BetterEOSLobby : MonoBehaviour {
     }
 
     public virtual void DesconectarHost() {
+        encerrandoHost = true;
+        eOSLobby?.LeaveLobby();
+
         if (estaNoLobby) {
-            eOSLobby.LeaveLobby();
+            //eOSLobby.LeaveLobby();
             estaNoLobby = false;
         }
 
@@ -295,6 +312,16 @@ public class BetterEOSLobby : MonoBehaviour {
         }
     }
 
+    bool HandleEncerrandoHost() {
+        if (encerrandoHost) {
+            eOSLobby?.LeaveLobby();
+            estado = Estado.Nenhum;
+            estaNoLobby = false;
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// Sai do lobby mas não desconecta o cliente.
     /// </summary>
@@ -306,6 +333,8 @@ public class BetterEOSLobby : MonoBehaviour {
     }
 
     public virtual void DesconectarCliente() {
+        encerrandoCliente = true;
+        
         if (estaNoLobby) {
             eOSLobby.LeaveLobby();
             estaNoLobby = false;
@@ -316,6 +345,16 @@ public class BetterEOSLobby : MonoBehaviour {
         } catch (System.Exception e) {
             Debug.LogError("Erro ao parar o cliente: " + e.Message);
         }
+    }
+
+    bool HandleEncerrandoCliente() {
+        if (encerrandoCliente) {
+            eOSLobby?.LeaveLobby();
+            estado = Estado.Nenhum;
+            estaNoLobby = false;
+            return true;
+        }
+        return false;
     }
 
 

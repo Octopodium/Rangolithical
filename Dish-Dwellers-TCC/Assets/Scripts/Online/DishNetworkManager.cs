@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class DishNetworkManager : NetworkManager {
     [Header("Dish Network Manager")]
@@ -76,25 +77,20 @@ public class DishNetworkManager : NetworkManager {
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-        /*
-        Debug.Log(conn.identity.name + " is server? " + conn.identity.isServer + "! oh ok... so, why?");
-        if (!conn.identity.isClientOnly && players != null && players.Length > 0) {
-            Debug.Log("Plural");
+        if (networkSceneName.StartsWith("lobby")) {
+            Player p = conn.identity.GetComponent<Player>();
+            if (p != null) p.conectado = false;
+        } else if (players != null && players.Length > 0) {
+            // Quando um player disconecta fora do lobby, encerra conexão (DO TO: Permitir player desconectar e conectar de volta in game)
             if (players[0] != null) players[0].conectado = false;
             if (players.Length > 1 && players[1] != null) players[1].conectado = false;
-        } else {
-            Player p = conn.identity.GetComponent<Player>();
-            Debug.Log("Individual");
-            if (p != null) p.conectado = false;
         }
-        */
-
-        Player p = conn.identity.GetComponent<Player>();
-        if (p != null) p.conectado = false;
 
         SairDoLobby();
 
         base.OnServerDisconnect(conn);
+
+        GameManager.instance?.SetarOnline();
     }
 
     public void SairDoLobby() {
@@ -108,10 +104,12 @@ public class DishNetworkManager : NetworkManager {
     public struct RequestPassaDeSalaMessage : NetworkMessage {
         public bool passarDeSala;
         public string salaAtual;
+        public string nomeDaCena;
 
-        public RequestPassaDeSalaMessage(bool passarDeSala = true, string salaAtual = "") {
+        public RequestPassaDeSalaMessage(bool passarDeSala = true, string salaAtual = "", string nomeCena = "") {
             this.passarDeSala = passarDeSala;
             this.salaAtual = salaAtual;
+            this.nomeDaCena = nomeCena;
         }
     }
 
@@ -131,8 +129,24 @@ public class DishNetworkManager : NetworkManager {
         if (players[0] == null || players[1] == null) return;
         if (msg.salaAtual == salaAtual) return; // Se chamou duas vezes para a mesma sala, não faz nada.
         salaAtual = msg.salaAtual;
+        networkSceneName = msg.nomeDaCena;
+
 
         NetworkServer.SendToAll(new AcaoPassaDeSalaMessage(msg.passarDeSala));
+    }
+
+    public override void OnServerChangeScene(string newSceneName) {
+        base.OnServerChangeScene(newSceneName);
+        networkSceneName = newSceneName;
+        Debug.Log("Updating " + networkSceneName);
+    }
+
+    public string GetCenaAtual() {
+        return networkSceneName;
+    }
+
+    public BetterEOSLobby GetLobby() {
+        return betterEOSLobby;
     }
 
     #endregion In Game

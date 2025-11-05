@@ -541,7 +541,7 @@ public class GameManager : MonoBehaviour {
     /// Envia uma mensagem para servidor pedindo para passar de sala.
     /// </summary>
     private void RequestPassaDeSalaOnline() {
-        NetworkClient.Send(new DishNetworkManager.RequestPassaDeSalaMessage(true, salaAtual?.GetNome()));
+        NetworkClient.Send(new DishNetworkManager.RequestPassaDeSalaMessage(true, salaAtual?.GetNome(), salaAtual?.NomeProximaSala()));
     }
 
     /// <summary>

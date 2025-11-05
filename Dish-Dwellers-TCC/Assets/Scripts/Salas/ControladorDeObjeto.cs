@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IRecebeTemplate {
@@ -67,7 +68,8 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
         GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
         if (sinc == null) sinc = GetComponent<Sincronizavel>();
-        Sincronizador.instance.DesregistrarSpawner(prefabToUse, sinc);
+        if (sinc != null)
+            Sincronizador.instance?.DesregistrarSpawner(prefabToUse, sinc);
     }
 
     public override void OnReset() {

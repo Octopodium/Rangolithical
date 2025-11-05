@@ -3688,25 +3688,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 903304559}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: HandleCancelarCarregamento
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1605213722}
-        m_TargetAssemblyTypeName: UINavigationManager, Assembly-CSharp
-        m_MethodName: TrocaFirstSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1101773082}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10670,7 +10658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b703ab474b622a04980dda030e361a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mostrarID: {fileID: 0}
   idInput: {fileID: 1453435071}
 --- !u!1 &898946729
 GameObject:
@@ -11928,7 +11915,7 @@ GameObject:
   - component: {fileID: 979939897}
   - component: {fileID: 979939896}
   m_Layer: 5
-  m_Name: new_game
+  m_Name: criar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12691,7 +12678,7 @@ GameObject:
   - component: {fileID: 1055212741}
   - component: {fileID: 1055212740}
   m_Layer: 5
-  m_Name: new_game
+  m_Name: cancelar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13199,7 +13186,7 @@ GameObject:
   - component: {fileID: 1082423438}
   - component: {fileID: 1082423437}
   m_Layer: 5
-  m_Name: new_game
+  m_Name: entrar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18160,10 +18147,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1262781538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 24}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: -5}
+  m_SizeDelta: {x: 0, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399454041
 MonoBehaviour:
@@ -19584,10 +19571,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 891024442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 24}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: -5}
+  m_SizeDelta: {x: 0, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1463940908
 MonoBehaviour:
@@ -22114,7 +22101,7 @@ GameObject:
   - component: {fileID: 1599896695}
   - component: {fileID: 1599896694}
   m_Layer: 5
-  m_Name: Play
+  m_Name: Cancelar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22258,9 +22245,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2696687327396257515}
-        m_TargetAssemblyTypeName: EscolherEntrarLobbyUI, Assembly-CSharp
-        m_MethodName: MostrarOpcoes
+      - m_Target: {fileID: 891332193}
+        m_TargetAssemblyTypeName: ConnectionUI, Assembly-CSharp
+        m_MethodName: HandleCancelarCarregamento
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22268,18 +22255,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 1-1
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1605213722}
-        m_TargetAssemblyTypeName: UINavigationManager, Assembly-CSharp
-        m_MethodName: TrocaFirstSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 148950874971790460}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1599896698
@@ -25022,7 +24997,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 325.1048, y: -88.8077}
-  m_SizeDelta: {x: 402.48, y: 69.6696}
+  m_SizeDelta: {x: 640, y: 69.6696}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1832555714
 MonoBehaviour:
@@ -27349,10 +27324,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1599896693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 24}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: -5}
+  m_SizeDelta: {x: 0, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2026206186
 MonoBehaviour:

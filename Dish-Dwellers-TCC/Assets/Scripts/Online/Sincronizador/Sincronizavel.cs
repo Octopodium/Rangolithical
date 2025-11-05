@@ -410,7 +410,7 @@ public class Sincronizavel : MonoBehaviour {
 
     private void DescadastrarMetodos() {
         foreach (var metodo in metodosSincronizados) {
-            Sincronizador.instance.DescadastrarMetodo(metodo.Value, GetID());
+            Sincronizador.instance?.DescadastrarMetodo(metodo.Value, GetID());
         }
 
         metodosSincronizados.Clear();

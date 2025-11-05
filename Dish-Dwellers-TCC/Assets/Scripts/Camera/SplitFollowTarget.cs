@@ -40,17 +40,32 @@ public class SplitFollowTarget : MonoBehaviour {
         Vector3 fPos;
         Vector3 dist = Vector3.zero;
         Transform p1, p2;
+        bool redefinido = false;
 
-        if (targetGroup.Count == 2) {
-            CalcularDistancia();
-            p1 = targetGroup[0];
-            p2 = targetGroup[1];
-        } else {
-            p1 = targetGroup.Count == 1 ? targetGroup[0] : transform;
-            p2 = p1;
-            SetupJogadores();
+        if (targetGroup.Count < 2 || targetGroup[0] == null || targetGroup[1] == null) {
+            if (targetGroup.Count == 2) {
+                if (targetGroup[0] != null) targetGroup[1] = targetGroup[0];
+                else if (targetGroup[1] != null) targetGroup[0] = targetGroup[1];
+                else targetGroup[0] = targetGroup[1] = transform;
+            } else {
+                if (targetGroup.Count == 0) {
+                    targetGroup.Add(transform);
+                    targetGroup.Add(transform);
+                } else {
+                    if (targetGroup[0] == null) targetGroup[0] = transform;
+                    targetGroup.Add(targetGroup[0]);
+                }
+            }
+
+            redefinido = true;
         }
 
+        CalcularDistancia();
+        p1 = targetGroup[0];
+        p2 = targetGroup[1];
+        
+        if (redefinido)
+            SetupJogadores();
 
         //Encontra a posição media entre os dois transforms:
         fPos.x = (p1.position.x + p2.position.x) * 0.5f;
