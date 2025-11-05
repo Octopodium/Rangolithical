@@ -25,6 +25,12 @@ public class MenuPrincipal : MonoBehaviour {
             Destroy(networkManager.gameObject);
             Debug.LogWarning("Instancia de NetworkManager encontrada no Menu Principal e destruída para evitar bugs. Isso não deveria acontecer.");
         }
+
+        if (Sincronizador.instance != null) {
+            Destroy(Sincronizador.instance.gameObject);
+        }
+
+        Sincronizador.onInstanciaCriada = null;
     }
 
     public void QuitJogo(){

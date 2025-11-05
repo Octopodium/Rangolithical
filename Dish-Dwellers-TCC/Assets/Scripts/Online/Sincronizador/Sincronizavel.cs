@@ -192,7 +192,7 @@ public class Sincronizavel : MonoBehaviour {
             return;
         }
 
-        if (Sincronizador.instance == null) Sincronizador.onInstanciaCriada += Setup;
+        if (Sincronizador.instance == null) ComSincronizador(Setup);
         else Setup();
     }
 
@@ -204,7 +204,7 @@ public class Sincronizavel : MonoBehaviour {
         identificador = networkIdentity.netId + "";
         naoUsarIDAuto = true;
 
-        if (Sincronizador.instance == null) Sincronizador.onInstanciaCriada += Setup;
+        if (Sincronizador.instance == null) ComSincronizador(Setup);
         else Setup();
     }
 
@@ -213,14 +213,17 @@ public class Sincronizavel : MonoBehaviour {
     }
 
     void Setup() {
-        if (cadastrarNoInicio && !cadastrouUmaVez) {
+        try { if (gameObject ==  null) return;}
+        catch{ return; }
+        
+        if (cadastrarNoInicio && !cadastrouUmaVez && !isDestroying) {
             CadastrarSincronizavel();
             CadastrarMetodos();
         }
     }
 
     public void LateSetup() {
-        if (jaCadastrado) return;
+        if (jaCadastrado || isDestroying) return;
 
         CadastrarSincronizavel();
         CadastrarMetodos();
@@ -368,6 +371,8 @@ public class Sincronizavel : MonoBehaviour {
 
     #region Metodos Sincronizados
     private void CadastrarMetodos() {
+        if (gameObject == null) return;
+
         SincronizaMetodo[] componentes = GetComponents<SincronizaMetodo>();
 
         metodosSincronizados.Clear();

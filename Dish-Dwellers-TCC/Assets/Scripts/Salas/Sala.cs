@@ -48,6 +48,27 @@ public class sala : MonoBehaviour{
         
     }
 
+    /// <summary>
+    /// Reinicia a sala mantendo a posição do jogador
+    /// </summary>
+    public void SoftReset() {
+        foreach( var player in GameManager.instance.jogadores){
+            if (player == null) continue;
+            player.gameObject.SetActive(true);
+            player.Resetar();
+        }
+
+        // Reativa todos os triggers da sala.
+        foreach(OnTriggerEvent trigger in triggers){
+            trigger.gameObject.SetActive(true);
+        }
+
+        onResetSala?.Invoke();
+        foreach(var data in resetaveis){ 
+            data.OnReset();
+        }
+    }
+
     // Separa o nome da cena para encontrar o numero da fase e da sala.
     private void GetNomeDaSala(){
 
@@ -89,11 +110,26 @@ public class sala : MonoBehaviour{
     /// <summary>
     /// Posiciona os jogadores nos spawnPoints da sala.
     /// </summary>
-    public void PosicionarJogador(){
+    public void PosicionarJogador(Player exceto = null){
         // Tenta colocar cada jogador encontrado em um spawn diferente da sala.
         List<Player> players = GameManager.instance.jogadores;
 
         for( int i = 0; i < players.Count; i++){
+            if (players[i] == exceto) continue;
+            players[i].Teletransportar(spawnPoints[i].position);
+            players[i].gameObject.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Posiciona os jogadores nos spawnPoints da sala.
+    /// </summary>
+    public void PosicionarApenasUmJogador(Player jogador){
+        // Tenta colocar cada jogador encontrado em um spawn diferente da sala.
+        List<Player> players = GameManager.instance.jogadores;
+
+        for( int i = 0; i < players.Count; i++){
+            if (players[i] != jogador) continue;
             players[i].Teletransportar(spawnPoints[i].position);
             players[i].gameObject.SetActive(true);
         }

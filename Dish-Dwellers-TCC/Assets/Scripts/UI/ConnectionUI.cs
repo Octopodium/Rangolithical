@@ -169,7 +169,7 @@ public class ConnectionUI : MonoBehaviour {
         if (entrou) {
             EsconderCarregamento();
             string cenaAtual = (NetworkManager.singleton as DishNetworkManager)?.GetCenaAtual();
-            Debug.Log(cenaAtual);
+            NetworkClient.Send(new DishNetworkManager.PreReadyMessage());
             EscolherEntrarLobbyUI.instance.Entrar(cenaAtual, false);
         }
         else CancelarEntrada();

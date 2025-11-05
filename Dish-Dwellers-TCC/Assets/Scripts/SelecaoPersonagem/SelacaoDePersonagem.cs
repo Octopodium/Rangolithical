@@ -41,12 +41,8 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
     #region Base
 
     public IndicadorSeletor AdicionarSeletor(QualPersonagem personagem = QualPersonagem.Angler) {
-        Debug.Log("aaaa");
         GameObject obj = Instantiate(prefabIndicadorSeletor);
-        Debug.Log("1111");
         IndicadorSeletor indicador = obj.GetComponent<IndicadorSeletor>();
-
-        Debug.Log("bbbb");
 
         indicador.onSelecionou += () => Selecionar(indicador);
         indicador.onConfirmou += () => Confirmar(indicador);
@@ -57,25 +53,20 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         indicador.onDireita += () => ParaDireita(indicador);
         indicador.onCima += () => ParaCima(indicador);
         indicador.onBaixo += () => ParaBaixo(indicador);
-        Debug.Log("cccc");
-
 
         sincronizavel.AddSub(indicador.subSincronizavel);
-        Debug.Log("dddd");
 
 
         if (coresDisponiveis.Count == 0) coresDisponiveis = new List<Color>(cores); // Repete cores se todas forem utilizadas
 
         Color cor = coresDisponiveis.First();
         coresDisponiveis.RemoveAt(0);
-        Debug.Log("eeee");
 
         indicador.SetCor(cor);
         indicador.SetTexto("P"+ deviceIdCounter);
         deviceIdCounter++;
 
         indicadores.Add(indicador);
-        Debug.Log("fff");
 
         if (Sincronizador.instance != null) {
             Sincronizador.instance.TravarSincronizacao(() => {
@@ -88,7 +79,6 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
                 }); 
             };
         }
-        Debug.Log("gggg");
         
         return indicador;
     }
@@ -303,6 +293,8 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         seletores.Clear();
         painelPrincipal.SetActive(false);
         Time.timeScale = 1.0f;
+
+        GameManager.instance?.OnAtualizarModoCamera.Invoke();
     }
 
     protected void OnCancelarLocal() {
@@ -316,6 +308,8 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         seletores.Clear();
         painelPrincipal.SetActive(false);
         Time.timeScale = 1.0f;
+
+        GameManager.instance?.OnAtualizarModoCamera.Invoke();
     }
 
 
@@ -399,6 +393,8 @@ public class SelacaoDePersonagem : MonoBehaviour, SincronizaMetodo {
         seletorMultiplayer.Clear();
         painelPrincipal.SetActive(false);
         Time.timeScale = 1.0f;
+
+        GameManager.instance?.OnAtualizarModoCamera.Invoke();
     }
 
     #endregion

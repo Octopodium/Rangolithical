@@ -18,10 +18,18 @@ public class SplitFollowTarget : MonoBehaviour {
 
     void SetupJogadores() {
         targetGroup.Clear();
+        bool achouNulo = false;
         // esse é o jeito otimizado de atribuir um grupo, nesse caso especifico (eu acho né).
         foreach (var jogador in GameManager.instance.jogadores) {
+            if (jogador == null) {
+                achouNulo = true;
+                continue;
+            }
+            
             targetGroup.Add(jogador.transform);
         }
+
+        if (achouNulo) GameManager.instance.GetPlayers();
     }
 
     private void LateUpdate() {

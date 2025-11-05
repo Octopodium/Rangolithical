@@ -19,6 +19,7 @@ public class DishNetworkManager : NetworkManager {
         base.Awake();
 
         NetworkServer.RegisterHandler<RequestPassaDeSalaMessage>(OnRequestedPassaDeSala);
+        NetworkServer.RegisterHandler<PreReadyMessage>(OnPreReadyMessage);
     }
 
     public override void Start() {
@@ -121,6 +122,9 @@ public class DishNetworkManager : NetworkManager {
         }
     }
 
+    public struct PreReadyMessage : NetworkMessage { }
+    public struct HadPreReadyMessage : NetworkMessage { }
+
     private string salaAtual = "";
 
     // Recebe a requisição de passar de sala e avisa todos os clientes para passar de sala
@@ -133,6 +137,11 @@ public class DishNetworkManager : NetworkManager {
 
 
         NetworkServer.SendToAll(new AcaoPassaDeSalaMessage(msg.passarDeSala));
+    }
+
+
+    void OnPreReadyMessage(NetworkConnectionToClient conn, PreReadyMessage msg) {
+        NetworkServer.SendToAll(new HadPreReadyMessage());
     }
 
     public override void OnServerChangeScene(string newSceneName) {

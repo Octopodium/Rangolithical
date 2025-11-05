@@ -68,8 +68,14 @@ public class CameraController : MonoBehaviour {
     [SerializeField] private float fadeDuracao = 1.5f;
     [SerializeField] private float displayDuracao = 2.0f;
 
+    bool onTrocarControleSubscription = false;
+    bool jaTentouFazerIntro = false;
+    bool introTerminou = false;
+
 
     private void Start(){
+        GameManager.instance.OnAtualizarModoCamera += FazerSetupInicial;
+
         if(GameManager.instance.carregando == true){
             GameManager.instance.OnTerminaDeCarregarASala += FazerSetupInicial;
             subscription = true;
@@ -79,11 +85,12 @@ public class CameraController : MonoBehaviour {
     }
     private void OnDestroy() {
         if(subscription) GameManager.instance.OnTerminaDeCarregarASala -= FazerSetupInicial;
+        GameManager.instance.OnAtualizarModoCamera -= FazerSetupInicial;
     }
 
     private void FazerSetupInicial() {
         DeterminaModoDeCamera();
-        if (introCamera != null)
+        if (introCamera != null && !jaTentouFazerIntro)
             FazerIntroducao();
         else {
             podeTrocarCamera = true;
@@ -104,23 +111,29 @@ public class CameraController : MonoBehaviour {
     private void DeterminaModoDeCamera() {
         if (!ativo) return;
 
+        if (onTrocarControleSubscription) {
+            GameManager.instance.OnTrocarControle -= TrocarCamera;
+            onTrocarControleSubscription = false;
+        }
+
         modoDeJogoConfigurado = GameManager.instance.modoDeJogo;
 
         switch (modoDeJogoConfigurado) {
             case ModoDeJogo.SINGLEPLAYER:
                 splitFollowTarget.gameObject.SetActive(false);
-                if (introCamera) {
+                if (introCamera && !introTerminou) {
                     onTerminarIntro.AddListener(() => {
                         GameManager.instance.OnTrocarControle += TrocarCamera;
+                        onTrocarControleSubscription = true;
                         TrocarCamera(GameManager.instance.playerAtual);
                     });
                 } else {
                     GameManager.instance.OnTrocarControle += TrocarCamera;
+                    onTrocarControleSubscription = true;
                 }
                 break;
 
             case ModoDeJogo.MULTIPLAYER_LOCAL:
-                
                 UsarCameraDividida();
                 break;
                 /*
@@ -138,6 +151,7 @@ public class CameraController : MonoBehaviour {
     }
 
     private void UsarCameraDividida() {
+        TrocarCamera1();
         splitFollowTarget.gameObject.SetActive(true);
         ccameras[0].Follow = splitFollowTarget.transform;
     }
@@ -188,6 +202,7 @@ public class CameraController : MonoBehaviour {
     }
 
     IEnumerator Introducao() {
+        jaTentouFazerIntro = true;
         SetTempoDeBlend(tempoDBlendIntro);
 
         introCamera.Priority = 2;
@@ -225,6 +240,7 @@ public class CameraController : MonoBehaviour {
 
         SetTempoDeBlend(tempoDBlendNormal);
 
+        introTerminou = true;
         podeTrocarCamera = true;
         onTerminarIntro?.Invoke();
         ConfigurarCameras();

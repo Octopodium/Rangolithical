@@ -66,13 +66,14 @@ public class Sincronizador : NetworkBehaviour {
             return;
         }
 
-        onInstanciaCriada?.Invoke();
+        System.Action acoes = onInstanciaCriada;
         onInstanciaCriada = null;
+
+        acoes?.Invoke();
     }
 
     public override void OnStartClient () {
         transform.SetParent(GameManager.instance.transform);
-
         onInstanciaCriada?.Invoke();
         onInstanciaCriada = null;
     }
@@ -80,6 +81,7 @@ public class Sincronizador : NetworkBehaviour {
 
     void OnDestroy() {
         instance = null;
+        onInstanciaCriada = null;
     }
 
 

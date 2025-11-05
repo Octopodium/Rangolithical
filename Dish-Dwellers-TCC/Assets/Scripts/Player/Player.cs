@@ -351,10 +351,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     [HideInInspector, SyncVar(hook = nameof(AtualizarStatusConectado))] public bool conectado = false;
     void AtualizarStatusConectado(bool oldValue, bool newValue) {
         if (!oldValue && newValue) {
-            GameManager.instance.SetarOnline();
-        } else if (isLocalPlayer) {
-            Debug.Log("Sair :(");
-            GameManager.instance.VoltarParaMenu();
+            GameManager.instance.SetarOnline(this);
+        } else {
+            if (isLocalPlayer) GameManager.instance.VoltarParaMenu();
+            else GameManager.instance.SoftResetSala();
         }
     }
 
