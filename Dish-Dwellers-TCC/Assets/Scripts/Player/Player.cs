@@ -458,6 +458,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         ferramenta.Cancelar();
     }
 
+    public void LevantarEscudo(bool value) {
+        animacaoJogador.AtivarEscudo(value);
+    }
+
     /// <summary>
     /// Mostra ou esconde o indicador de direção (seta)
     /// Se mostrar, o jogador não pode se mover.

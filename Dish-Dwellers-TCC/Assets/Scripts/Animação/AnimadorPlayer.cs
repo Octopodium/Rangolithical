@@ -13,6 +13,7 @@ public class AnimadorPlayer : MonoBehaviour
     public static readonly int Arremesso = Animator.StringToHash(nameof(Arremesso));
     // public static readonly int Morre = Animator.StringToHash(nameof(Morre));
     public static readonly int Dano = Animator.StringToHash(nameof(Dano));
+    public static readonly int Escudo = Animator.StringToHash(nameof(Escudo));
     private Quaternion deFrente = Quaternion.Euler(-15, 180, 0), deCostas = Quaternion.Euler(15, 0, 0);
     private float orientacao = 1;
 
@@ -114,6 +115,14 @@ public class AnimadorPlayer : MonoBehaviour
     /// </summary>
     public void TomarDano(){
         animator.SetTrigger(Dano);
+    }
+
+    #endregion
+
+    #region Heater
+
+    public void AtivarEscudo(bool value) {
+        animator.SetBool(Escudo, value);
     }
 
     #endregion
