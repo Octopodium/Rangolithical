@@ -514,7 +514,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             estaNoChao = /*!sendoPuxado &&*/ coyoteTimer > 0f;
         } else {
             coyoteTimer = 0;
-            estaNoChao = CheckEstaNoChao();
+            if(CheckEstaNoChao() != estaNoChao) {
+                hitFloorEffect.Play();
+                estaNoChao = CheckEstaNoChao();
+            }
         }
 
         if(!estaNoChao) MovimentacaoNoAr();
@@ -576,6 +579,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     float noChaoTimer = 0f;
     bool naoCairCC = false;
     [SerializeField] private VisualEffect dustVisualEffect;
+    [SerializeField] private VisualEffect hitFloorEffect;
     
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoChao() {
