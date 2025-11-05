@@ -97,17 +97,18 @@ public class AnimadorPlayer : MonoBehaviour
     /// Toca a animação de morte do personagem.
     /// </summary>
     public float Morte(fonteDeDano fonte){
-        // switch(fonte) {
-        //     case fonteDeDano.FOGO:
-        //         animator.SetTrigger(MorreFogo);
-        //     break;
-        //     case fonteDeDano.AFOGADO:
-        //     animator.SetTrigger(MorreAfoga);
-        //     break;
-        // }
-        // // animator.SetTrigger(Morre);
-        // return animator.GetCurrentAnimatorStateInfo(0).length;
-        return 0;
+        switch(fonte) {
+            case fonteDeDano.FOGO:
+                animator.SetTrigger(MorreFogo);
+            break;
+            case fonteDeDano.AFOGADO:
+            animator.SetTrigger(MorreAfoga);
+            break;
+        }
+        // animator.SetTrigger(Morre);
+        
+        return animator.GetCurrentAnimatorStateInfo(0).length + 0.5f;
+        //return 0;
     }
 
     /// <summary>

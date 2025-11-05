@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3874621055203282873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Torso_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1348463663447397940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Arm.A4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,8 +72,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1387929397011375003}
+  - component: {fileID: 8475164178205176494}
   - component: {fileID: 1275286229787166193}
-  m_Layer: 0
+  - component: {fileID: 4881864669664590672}
+  m_Layer: 6
   m_Name: Heater_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,6 +97,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1651008565222993672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8475164178205176494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756118584819848892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cd2eb91ad26ff4292da21d864a65dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  piscaMat: {fileID: 2100000, guid: 95a6166d86adc0a4cbe67d5b3debb7eb, type: 2}
+  piscadas: 11
 --- !u!137 &1275286229787166193
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -164,6 +180,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.006342762, y: 0.014530562, z: -0.0021324246}
     m_Extent: {x: 0.030137934, y: 0.041332547, z: 0.0023790975}
   m_DirtyAABB: 0
+--- !u!114 &4881864669664590672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756118584819848892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479802ae21cdc8e489cdf3958caaeb7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  render: {fileID: 0}
 --- !u!1 &954718026515557900
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6744307316370424861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Shield_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5105550576527709082}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_FeetA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1355566028261984223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Leg.A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 26532783117268464}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Arm.A2_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3924770325247540905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2081462574756495920}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HeaterArmature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2453418204140596450}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Arm.A4_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9198250795829184666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Arm.A2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1030186204850033056}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Leg.B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2981583455617336344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Head_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8403267596334780815}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Feet.B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +557,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1572611992105247876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Feet.B_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4714998662397800560}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Apron_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +619,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3712536132625379266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Arm.A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +651,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3845745978765572191}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_FeetA_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3087175900182448244}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Apron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9100505790555388737}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5140809448725672019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,7 +778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6520880591785742093}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Arm.A3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -781,7 +810,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6874605004200626162}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heater_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 939933573213825239, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
       propertyPath: identificador
-      value: $7984b4eb07e449d497d922eae980321f
+      value: $2ef07af06ab04358b32e44a683c2428b
       objectReference: {fileID: 0}
     - target: {fileID: 2016504525890579858, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
       propertyPath: m_Enabled
@@ -883,6 +912,10 @@ PrefabInstance:
     - target: {fileID: 6029386811319232399, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
       propertyPath: onTomarDano.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 8475164178205176494}
+    - target: {fileID: 6029386811319232399, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+      propertyPath: onTomarDano.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Piscar
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5530046192368660780, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
@@ -899,13 +932,34 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7966604594453917104, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
       insertIndex: 1
       addedObject: {fileID: 2081462574756495920}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7333197233537152778, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4235210069766844236}
   m_SourcePrefab: {fileID: 100100000, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
 --- !u!4 &1651008565222993672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7966604594453917104, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
   m_PrefabInstance: {fileID: 8675796698898219704}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2135373792045577650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7333197233537152778, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}
+  m_PrefabInstance: {fileID: 8675796698898219704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4235210069766844236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135373792045577650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15d82756532fda46b6a46cea1a0d702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: 0
 --- !u!2083052967 &6479540160906462825 stripped
 VisualEffect:
   m_CorrespondingSourceObject: {fileID: 2417707681455326417, guid: 643007ccf803bc243aed1896f9e8c6b2, type: 3}

@@ -28,6 +28,7 @@ Shader "Cutout/XRayVIsion"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile _SPIRTE_ONE _SPRITE_TWO _SPRITE_THREE _SPRITE_FOUR 
 
             #include "UnityCG.cginc"
 
@@ -35,6 +36,9 @@ Shader "Cutout/XRayVIsion"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float2 uv2 : TEXCOORD1;
+                float2 uv3 : TEXCOORD2;
+                float3 uv4 : TEXCOORD3;
             };
 
             struct v2f
@@ -50,7 +54,15 @@ Shader "Cutout/XRayVIsion"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                #if _SPIRTE_ONE
+                    o.uv = v.uv;
+                #elif _SPRITE_TWO
+                    o.uv = v.uv2;
+                #elif _SPRITE_THREE
+                    o.uv = v.uv3;
+                #elif _SPRITE_FOUR
+                    o.uv = v.uv4;
+                #endif
                 return o;
             }
 

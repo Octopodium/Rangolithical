@@ -35,14 +35,14 @@ public class RippleTransition : ITransicao {
         image.materialForRendering.SetFloat(strengthID, minStrength);
         yield return new WaitForSecondsRealtime(dellay);
         while(timer < duracaoFadeIn) {
-            timer += Time.fixedUnscaledDeltaTime;
+            timer += Time.unscaledDeltaTime;
             image.materialForRendering.SetFloat(strengthID, Mathf.Lerp(minStrength, maxStrength, timer / duracaoFadeIn));
             yield return null;
         }
         yield return new WaitForSecondsRealtime(duracao);
         timer = 0.0f;
         while(timer < duracaoFadeOut) {
-            timer += Time.fixedUnscaledDeltaTime;
+            timer += Time.unscaledDeltaTime;
             image.materialForRendering.SetFloat(alphaID, Mathf.Lerp(minAlpha, maxAlpha, timer / duracaoFadeOut));
             yield return null;
         }

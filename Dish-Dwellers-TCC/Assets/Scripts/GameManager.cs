@@ -309,6 +309,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator TocarTransicao(ITransicao transicao) {
         transicao.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(transicao.GetDuracao());
+        Debug.Log("Desmorreu");
         jogadorMorto = false;
     }
 

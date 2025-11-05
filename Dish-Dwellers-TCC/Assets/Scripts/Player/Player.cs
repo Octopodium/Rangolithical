@@ -290,6 +290,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     /// </summary>
     [Sincronizar]
     public void Morrer(AnimadorPlayer.fonteDeDano fonte) {
+        dustVisualEffect.SetFloat("Count", 0);
         gameObject.Sincronizar();
         StartCoroutine(TocarAnimacaoDeMorte(fonte));
         GameManager.instance.jogadorMorto = true;
@@ -298,7 +299,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     IEnumerator TocarAnimacaoDeMorte(AnimadorPlayer.fonteDeDano fonte) {
         float duracao = animacaoJogador.Morte(fonte);
-        yield return new WaitForSecondsRealtime(duracao);
+        yield return new WaitForSeconds(duracao);
         GameManager.instance.ResetSala(fonte);
     }
 

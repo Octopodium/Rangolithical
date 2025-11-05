@@ -4,18 +4,19 @@ using System.Collections;
 public class SpritePisca : MonoBehaviour {
     [SerializeField] private Material piscaMat;
     Material defaultMat;
-    Renderer renderer;
+    Renderer render;
 
     [Tooltip("Para resultados melhores, recomenda-se o uso de numeros impares")]
     public int piscadas;
 
 
     private void Awake() {
-        renderer = GetComponent<Renderer>();
-        defaultMat = renderer.material;
+        render = GetComponent<Renderer>();
+        defaultMat = render.material;
     }
 
     public void Piscar(float duracao) {
+        Debug.Log($"<color=green> piscou!");
         StartCoroutine(PiscaSprite(duracao));
     }
 
@@ -24,10 +25,10 @@ public class SpritePisca : MonoBehaviour {
 
         for (int i = 0; i < piscadas; i++) {
             if (i % 2 == 0) {
-                renderer.material = piscaMat;
+                render.material = piscaMat;
             }
             else {
-                renderer.material = defaultMat;
+                render.material = defaultMat;
             }
             float timer = step;
 
@@ -37,6 +38,6 @@ public class SpritePisca : MonoBehaviour {
             }
         }
 
-        renderer.material = defaultMat;
+        render.material = defaultMat;
     }
 }
