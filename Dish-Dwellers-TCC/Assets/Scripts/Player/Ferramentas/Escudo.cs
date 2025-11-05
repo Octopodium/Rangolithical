@@ -26,6 +26,7 @@ public class Escudo : MonoBehaviour, Ferramenta
 
         protecao.SetActive(true);
         jogador.escudoAtivo = true;
+        jogador.LevantarEscudo(true);
         jogador.MostrarDirecional(true);
         
         acionada = true;
@@ -37,6 +38,7 @@ public class Escudo : MonoBehaviour, Ferramenta
 
         protecao.SetActive(false);
         jogador.escudoAtivo = false;
+        jogador.LevantarEscudo(false);
         jogador.MostrarDirecional(false);
         
         acionada = false;

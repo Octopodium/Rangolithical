@@ -459,6 +459,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         ferramenta.Cancelar();
     }
 
+    public void LevantarEscudo(bool value) {
+        animacaoJogador.AtivarEscudo(value);
+    }
+
     /// <summary>
     /// Mostra ou esconde o indicador de direção (seta)
     /// Se mostrar, o jogador não pode se mover.
@@ -515,7 +519,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             estaNoChao = /*!sendoPuxado &&*/ coyoteTimer > 0f;
         } else {
             coyoteTimer = 0;
-            estaNoChao = CheckEstaNoChao();
+            if(CheckEstaNoChao() != estaNoChao) {
+                hitFloorEffect.Play();
+                estaNoChao = CheckEstaNoChao();
+            }
         }
 
         if(!estaNoChao) MovimentacaoNoAr();
@@ -577,6 +584,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     float noChaoTimer = 0f;
     bool naoCairCC = false;
     [SerializeField] private VisualEffect dustVisualEffect;
+    [SerializeField] private VisualEffect hitFloorEffect;
     
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoChao() {

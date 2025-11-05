@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ProjetilDoGancho : MonoBehaviour {
     Gancho gancho;
@@ -15,6 +16,7 @@ public class ProjetilDoGancho : MonoBehaviour {
     [Header("Lima Coisas")]
     private MaterialPropertyBlock materialPropertyBlock;
     private static int emissionColorID = Shader.PropertyToID("_EmissionColor");
+    public GameObject gancharFX;
 
     
     private void Awake() {
@@ -83,6 +85,9 @@ public class ProjetilDoGancho : MonoBehaviour {
             movendo = false;
             gancho.SetarGanchado(ganchavel);
             rb.isKinematic = true;
+            Vector3 effectPosition = new Vector3(collider.transform.position.x, transform.position.y, collider.transform.position.z);
+            GameObject visualEffect = Instantiate(gancharFX, effectPosition, Quaternion.identity);
+            Destroy(visualEffect, 0.5f);
         } else if (collider.tag == "Subida") {
             return;
         } else {
