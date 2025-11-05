@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 
 
     // Eventos
+    public Action OnAtualizarModoCamera;
     public Action<QualPlayer> OnTrocarControle; // Chamado no singleplayer, quando o jogador troca de controle, e no online para definir o jogador que está jogando
     public Action<Player,Player> OnPlayersInstanciados; // Chamado quando os jogadores são instanciados na cena
     public Action OnMudaDeSala;
@@ -91,6 +92,7 @@ public class GameManager : MonoBehaviour {
         } else {
             // No modo online, não se muda a sala diretamente, mas sim através de uma mensagem
             NetworkClient.RegisterHandler<DishNetworkManager.AcaoPassaDeSalaMessage>(OnRequestedPassaDeSalaOnline);
+            NetworkClient.RegisterHandler<DishNetworkManager.HadPreReadyMessage>(OnHadPreReady);
         }
     }
 
@@ -234,10 +236,12 @@ public class GameManager : MonoBehaviour {
 
     public void SetModoSingleplayer() {
         SetModoDeJogo(ModoDeJogo.SINGLEPLAYER);
+        OnAtualizarModoCamera.Invoke();
     }
 
     public void SetModoMultiplayerLocal() {
         SetModoDeJogo(ModoDeJogo.MULTIPLAYER_LOCAL);
+        OnAtualizarModoCamera.Invoke();
     }
 
     public void RedefinirControlesMultiplayerLocal() {
@@ -313,10 +317,22 @@ public class GameManager : MonoBehaviour {
         jogadorMorto = false;
     }
 
+    // Utilizado no Online
+    public void SoftResetSala(){
+        sala.SoftReset();
+    }
+
     // Metodo lento para encontrar os jogadores
-    private void GetPlayers(){
-        foreach( var data in GameObject.FindGameObjectsWithTag("Player")){
-            jogadores.Add(data.GetComponent<Player>());
+    public void GetPlayers(){
+        for (int i = jogadores.Count-1; i >= 0; i--) {
+            if (jogadores[i] == null) jogadores.RemoveAt(i);
+        }
+
+        // Não procura por tag pois não iria incluir jogadores inativos
+        foreach( var data in FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None)){
+            Player jogador = data.GetComponent<Player>();
+            if (jogador != null && !jogadores.Contains(jogador))
+                jogadores.Add(jogador);
         }
     }
 
@@ -469,7 +485,7 @@ public class GameManager : MonoBehaviour {
             if (child.GetComponent<Player>() == null) continue;
             Destroy(child.gameObject);
         }
-        jogadores.Clear();
+        
 
         GetPlayers();
 
@@ -497,14 +513,54 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void SetarOnline(Player quemChamou = null) {
+        if (!isOnline) return;
 
+        // Se o jogo estiver online, inicia a cena online
+        StartCoroutine(SetarOnlineAsync(quemChamou));
+    }
+
+    public IEnumerator SetarOnlineAsync(Player quemChamou = null) {
+        if (!isOnline) yield break;
+
+        foreach (Transform child in transform) {
+            if (child.GetComponent<Player>() == null) continue;
+            if (child.GetComponent<NetworkIdentity>() != null && child.GetComponent<NetworkIdentity>().enabled) continue;
+            Destroy(child.gameObject);
+        }
+
+        GetPlayers();
+
+        foreach (Player player in jogadores) {
+            if (player == null) continue;
+            if (player.transform.parent != transform)
+                player.transform.SetParent(transform, false);
+        }
+
+
+        sala sala = GameObject.FindFirstObjectByType<sala>();
+        if (quemChamou != null) sala.PosicionarApenasUmJogador(quemChamou);
+        else sala.PosicionarJogador(quemChamou);
+
+        sala.SoftReset();
+
+        // OnPlayersInstanciados?.Invoke(jogadores[0], jogadores[1]);
+
+        UIManager uiManager = GetComponentInChildren<UIManager>(true);
+        if (uiManager != null) {
+            uiManager.gameObject.SetActive(true);
+        }
+    }
+
+
+    
     
 
     /// <summary>
     /// Envia uma mensagem para servidor pedindo para passar de sala.
     /// </summary>
     private void RequestPassaDeSalaOnline() {
-        NetworkClient.Send(new DishNetworkManager.RequestPassaDeSalaMessage(true, salaAtual?.GetNome()));
+        NetworkClient.Send(new DishNetworkManager.RequestPassaDeSalaMessage(true, salaAtual?.GetNome(), salaAtual?.NomeProximaSala()));
     }
 
     /// <summary>
@@ -517,6 +573,16 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(PassaDeSalaOffline());
         }
     }
+
+    /// <summary>
+    /// Recebe mensagem que um cliente está quase dando Ready
+    /// </summary>
+    /// <param name="msg"></param>
+    private void OnHadPreReady(DishNetworkManager.HadPreReadyMessage msg) {
+        Debug.Log("Um pre-ready!");
+        sala.SoftReset();
+    }
+
 
     public void DestruirNetworkIdentityPassaCena() {
         if (!isOnline) return;
@@ -535,7 +601,7 @@ public class GameManager : MonoBehaviour {
             try {
                 networkManager.SairDoLobby();
                 networkManager.StopClient();
-                networkManager.StopServer();
+                if (isServer) networkManager.StopServer();
             } catch (Exception e) {
                 Debug.LogError($"Erro ao parar o NetworkManager: {e.Message}");
             }

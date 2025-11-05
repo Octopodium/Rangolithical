@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class ConectarComEpic : ConectorDeTransport {
-    public Text mostrarID;
     public InputField idInput;
 
     private BetterEOSLobby _beOSLobby;
@@ -19,12 +18,8 @@ public class ConectarComEpic : ConectorDeTransport {
 
     public override void Setup() {
         idInput.text = "";
-        mostrarID.text = "";
-        mostrarID.gameObject.SetActive(true);
 
-        beOSLobby.OnLobbyEncontrado += idLobby => mostrarID.text = "ID: " + idInput.text.Trim().ToUpper();
         beOSLobby.OnLobbyCriado += idLobby => { 
-            mostrarID.text = "ID: " + idLobby;
             callbackHostear?.Invoke(true);
             callbackHostear = null;
         };

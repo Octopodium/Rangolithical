@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IRecebeTemplate {
@@ -28,15 +29,17 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
     Sincronizavel sinc;
 
+    bool spawnando = false;
+
 
     private void Start() {
         if (template != null) template.SetActive(false);
 
         sinc = GetComponent<Sincronizavel>();
-        SetupSpawner();
+        sinc.ComSincronizador(SetupSpawner);
 
         if (spawnNoInicio)
-            Spawn();
+            sinc.ComSincronizador(Spawn);
     }
 
     bool spawnerSetted = false;
@@ -65,7 +68,8 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
 
         GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
         if (sinc == null) sinc = GetComponent<Sincronizavel>();
-        Sincronizador.instance.DesregistrarSpawner(prefabToUse, sinc);
+        if (sinc != null)
+            Sincronizador.instance?.DesregistrarSpawner(prefabToUse, sinc);
     }
 
     public override void OnReset() {
@@ -78,23 +82,31 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Sincronizar]
     public void Spawn() {
         if (objeto != null) return;
+        if (spawnando) return;
 
         gameObject.Sincronizar();
         
-        if (!GameManager.instance.isOnline) AposSpawn(Instantiate(prefab, transform.TransformPoint(respawnPos), transform.rotation));
+        if (!GameManager.instance.isOnline) {
+            spawnando = true;
+            AposSpawn(Instantiate(prefab, transform.TransformPoint(respawnPos), transform.rotation));
+        }
         else {
             SetupSpawner();
             GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
-            Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc);
+            if (Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc))
+                spawnando = true;
         }
     }
 
     void AposSpawn(GameObject objeto) {
+        if (objeto != null)
+            spawnando = false;
 
         if (objeto != null && objeto != this.objeto) {
             if (this.objeto != null) {
                 Destroy(this.objeto);
             }
+
 
             Destrutivel destrutivel = objeto.GetComponent<Destrutivel>();
             destrutivel?.OnDestruido.AddListener(Respawn);
@@ -116,10 +128,16 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Sincronizar]
     public void Respawn(){
         gameObject.Sincronizar();
-        objeto.transform.position = transform.TransformPoint(respawnPos);
+        
+        if (objeto != null) {
+            objeto.transform.position = transform.TransformPoint(respawnPos);
 
-        if(!objeto.activeInHierarchy)
-            objeto.SetActive(true);
+            if(!objeto.activeInHierarchy)
+                objeto.SetActive(true);
+        } else {
+            Spawn();
+        }
+        
     }
 
     /// <summary>
@@ -142,8 +160,10 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
             objeto = null;
         }
 
-        if (spawnNoInicio)
-            Spawn();
+        if (spawnNoInicio) {
+            if (sinc == null) sinc = GetComponent<Sincronizavel>();
+            sinc.ComSincronizador(Spawn);
+        }
     }
 
 }

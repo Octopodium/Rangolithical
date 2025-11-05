@@ -37,7 +37,7 @@ public class LimitadorDeQueda : MonoBehaviour
 
         Destrutivel destrutivel = other.GetComponent<Destrutivel>();
         if(destrutivel){
-            destrutivel.OnDestruido.Invoke();
+            destrutivel.Destroi();
         }
     }
 }

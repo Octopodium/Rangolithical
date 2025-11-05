@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 public class PartidaInfo {
     public static PartidaInfo instance;
@@ -60,16 +61,18 @@ public class EscolherEntrarLobbyUI : MonoBehaviour {
         //SceneManager.LoadScene(cenaPrimeiraFase, LoadSceneMode.Single);
     }
 
-    public void Hostear() {
+    public void Hostear(string cena = "") {
         PartidaInfo.instance = new PartidaInfo();
         PartidaInfo.instance.modo = PartidaInfo.Modo.Host;
-        SceneManager.LoadScene(cenaLobby, LoadSceneMode.Single);
+        DishNetworkManager manager = NetworkManager.singleton as DishNetworkManager;
+        manager.ServerChangeScene(cena == ""? cenaLobby : cena);
     }
 
-    public void Entrar() {
+    public void Entrar(string cena = "", bool entrarDeFato = true) {
         PartidaInfo.instance = new PartidaInfo();
         PartidaInfo.instance.modo = PartidaInfo.Modo.Entrar;
-        SceneManager.LoadScene(cenaLobby, LoadSceneMode.Single);
+        if (entrarDeFato)
+            SceneManager.LoadScene(cena == ""? cenaLobby : cena, LoadSceneMode.Single);
     }
 
     public void MostrarOpcoes() {

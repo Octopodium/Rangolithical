@@ -153,6 +153,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     void Start() {
         if (GameManager.instance.isOnline) {
             if (isLocalPlayer){
+                transform.SetParent(GameManager.instance.transform, true);
                 GameManager.instance.SetarPlayerAtualOnline(qualPlayer);
             }
 
@@ -260,7 +261,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     }
 
     void OnDestroy() {
-        if (GameManager.instance?.isOnline == true) {
+        if (GameManager.instance?.isOnline == true && isLocalPlayer) {
             GameManager.instance?.VoltarParaMenu();
         }
     }
@@ -291,7 +292,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     [Sincronizar]
     public void Morrer(AnimadorPlayer.fonteDeDano fonte) {
         dustVisualEffect.SetFloat("Count", 0);
-        gameObject.Sincronizar();
+        gameObject.Sincronizar(fonte);
         StartCoroutine(TocarAnimacaoDeMorte(fonte));
         GameManager.instance.jogadorMorto = true;
         Debug.Log("morreu");
@@ -350,18 +351,18 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     [HideInInspector, SyncVar(hook = nameof(AtualizarStatusConectado))] public bool conectado = false;
     void AtualizarStatusConectado(bool oldValue, bool newValue) {
-        if (isLocalPlayer) {
-            if (!oldValue && newValue) {
-                GameManager.instance.ComecarOnline();
-            } else {
-                GameManager.instance.VoltarParaMenu();
-            }
+        if (!oldValue && newValue) {
+            GameManager.instance.SetarOnline(this);
+        } else {
+            if (isLocalPlayer) GameManager.instance.VoltarParaMenu();
+            else GameManager.instance.SoftResetSala();
         }
     }
 
     public override void OnStopClient (){
         base.OnStopClient();
-        GameManager.instance?.VoltarParaMenu();
+        if (isLocalPlayer)
+            GameManager.instance?.VoltarParaMenu();
     }
 
     public void OnTrocouAutoridade() {

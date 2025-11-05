@@ -66,7 +66,21 @@ public class Sincronizador : NetworkBehaviour {
             return;
         }
 
+        System.Action acoes = onInstanciaCriada;
+        onInstanciaCriada = null;
+
+        acoes?.Invoke();
+    }
+
+    public override void OnStartClient () {
+        transform.SetParent(GameManager.instance.transform);
         onInstanciaCriada?.Invoke();
+        onInstanciaCriada = null;
+    }
+    
+
+    void OnDestroy() {
+        instance = null;
         onInstanciaCriada = null;
     }
 
@@ -179,6 +193,7 @@ public class Sincronizador : NetworkBehaviour {
 
     #endregion
 
+    #region Sincronizar Metodos
 
     public InformacoesMetodo CadastrarMetodo(MethodInfo metodo, Component componenteDoMetodo, string id = "") {
         InformacoesMetodo info = new InformacoesMetodo();
@@ -353,6 +368,7 @@ public class Sincronizador : NetworkBehaviour {
         //currentTriggerOnCallback.Remove(nomeMetodo);
     }
 
+    #endregion
 
     #region Set e Unset de Evento de Trigger
 
@@ -414,6 +430,11 @@ public class Sincronizador : NetworkBehaviour {
 
     Dictionary<uint, List<SpawnInfo>> spawnHandlers = new Dictionary<uint, List<SpawnInfo>>();
     SpawnInfo GetSpawnInfo(uint id, Sincronizavel sinc) {
+        if (!spawnHandlers.ContainsKey(id)) {
+            Debug.Log("Key " + id + " not found!");
+            return null;
+        }
+
         foreach (SpawnInfo info in spawnHandlers[id]) {
             if (info.id == sinc.identificador) {
                 return info;
@@ -463,34 +484,37 @@ public class Sincronizador : NetworkBehaviour {
                     spawners.RemoveAt(i);
             }
 
-            if (spawners.Count == 0) spawnHandlers.Remove(id);
+            if (spawners.Count == 0) {
+                spawnHandlers.Remove(id);
+            }
         }
     }
 
-    public void InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel, string spawn_id = "0") {
-        if (!GameManager.instance.isOnline) return;
+    public bool InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel, string spawn_id = "0") {
+        if (!GameManager.instance.isOnline) return false;
         
 
         NetworkIdentity netId = prefab.GetComponent<NetworkIdentity>();
         if (netId == null) {
             Debug.LogError("O prefab [" + prefab.name + "] não possui um NetworkIdentity. Não é possível instanciar objetos de rede sem este componente.");
-            return;
+            return false;
         }
 
         uint id = netId.assetId;
         SpawnInfo info = GetSpawnInfo(id, sincronizavel);
         if (info == null) {
             Debug.LogError("Tentativa de instanciar o prefab [" + prefab.name + "] utilizando o sincronizavel [" + sincronizavel.identificador + "] sem registrar. Por favor utilize RegistrarSpawner antes de tentar spawnar com este método.");
-            return;
+            return false;
         }
 
         info.AddId(spawn_id);
 
-        if (NetworkClient.localPlayer.isServer) {
+        if (isServer) {
             GameObject objeto = Instantiate(prefab, info.position, info.rotation);
             NetworkServer.Spawn(objeto);
         }
 
+        return true;
     }
 
 

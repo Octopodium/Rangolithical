@@ -8,11 +8,9 @@ public class MenuPrincipal : MonoBehaviour {
 
     void Awake() {
         buildVersionTxt.text = "Build v" + Application.version;
-    }
-
-    void Start() {
         PrevencaoDeBugs();
     }
+
 
     public void PrevencaoDeBugs() {
         Time.timeScale = 1f;
@@ -27,6 +25,12 @@ public class MenuPrincipal : MonoBehaviour {
             Destroy(networkManager.gameObject);
             Debug.LogWarning("Instancia de NetworkManager encontrada no Menu Principal e destruída para evitar bugs. Isso não deveria acontecer.");
         }
+
+        if (Sincronizador.instance != null) {
+            Destroy(Sincronizador.instance.gameObject);
+        }
+
+        Sincronizador.onInstanciaCriada = null;
     }
 
     public void QuitJogo(){
