@@ -36,16 +36,18 @@ public class ConnectionUI : MonoBehaviour {
     public Button voltarButton;
     
     ConectorDeTransport conectorDeTransport;
+    GameObject managerPrefab {
+        get {return tipoDeTransport == TipoDeTransport.IP ? ipPrefab : epicPrefab; }
+    }
+
 
     void Start() {
         instance = this;
 
-        GameObject prefab = null;
         switch (tipoDeTransport) {
             case TipoDeTransport.IP:
                 ipPanel.SetActive(true);
                 epicPanel.SetActive(false);
-                prefab = ipPrefab;
                 conectorDeTransport = GetComponent<ConectorOnlineIP>();
                 SelecionarBotao(ipButton);
                 break;
@@ -53,16 +55,21 @@ public class ConnectionUI : MonoBehaviour {
             case TipoDeTransport.Epic:
                 ipPanel.SetActive(false);
                 epicPanel.SetActive(true);
-                prefab = epicPrefab;
                 conectorDeTransport = GetComponent<ConectarComEpic>();
                 SelecionarBotao(epicButton);
-                BetterEOSLobby.InstantiateSDK(eossdkPrefab);
                 break;
         }
+    }
 
-        GameObject managerInstancia = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-        networkManager = managerInstancia.GetComponent<DishNetworkManager>();
+    void Setup() {
+        if (NetworkManager.singleton == null) {
+            GameObject managerInstancia = Instantiate(managerPrefab, Vector3.zero, Quaternion.identity);
+            networkManager = managerInstancia.GetComponent<DishNetworkManager>();
+        }
 
+        if (tipoDeTransport == TipoDeTransport.Epic)
+            BetterEOSLobby.InstantiateSDK(eossdkPrefab);
+            
         conectorDeTransport.Setup();
     }
 
@@ -128,6 +135,8 @@ public class ConnectionUI : MonoBehaviour {
     public void ComecarHostear() {
         telaCriar.SetActive(false);
 
+        Setup();
+
         MostrarCarregamento("Criando lobby...", SairDoLobby);
         Debug.Log("Conectou Hostear");
         conectorDeTransport.Hostear(status => EsconderCarregamento());
@@ -137,20 +146,19 @@ public class ConnectionUI : MonoBehaviour {
     // Mostra modal para entrar em um lobby já criado
     public void PrepararPraEntrarLobby() {
         telaEntrar.SetActive(true);
-        
-        conectorDeTransport.Setup();
     }
 
     // Chamado quando um cliente tenta entrar em um lobby já criado
     public void EntrarNoLobby() {
         telaEntrar.SetActive(false);
 
+        Setup();
+
         MostrarCarregamento("Tentando conectar...", CancelarEntrada);
 
         Debug.Log("Conectou Entrar");
         conectorDeTransport.ConectarCliente();
         NetworkClient.OnConnectedEvent += EntrouNoLobby;
-        //NetworkServer.OnConnectedEvent += (_) => EntrouNoLobby();
     }
 
     // Chamado quando um cliente entra no lobby com sucesso (pelo LobbyPlayer)

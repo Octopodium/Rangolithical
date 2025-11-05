@@ -60,7 +60,7 @@ public class DishNetworkManager : NetworkManager {
         player.name = $"[connId={conn.connectionId}]";
         NetworkServer.AddPlayerForConnection(conn, player);
 
-        // p.conectado = true;
+        p.conectado = true;
     }
 
     GameObject GetStartPosition(bool isPlayerOne) {
@@ -76,10 +76,21 @@ public class DishNetworkManager : NetworkManager {
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-        if (players != null && players.Length > 0) {
+        /*
+        Debug.Log(conn.identity.name + " is server? " + conn.identity.isServer + "! oh ok... so, why?");
+        if (!conn.identity.isClientOnly && players != null && players.Length > 0) {
+            Debug.Log("Plural");
             if (players[0] != null) players[0].conectado = false;
             if (players.Length > 1 && players[1] != null) players[1].conectado = false;
+        } else {
+            Player p = conn.identity.GetComponent<Player>();
+            Debug.Log("Individual");
+            if (p != null) p.conectado = false;
         }
+        */
+
+        Player p = conn.identity.GetComponent<Player>();
+        if (p != null) p.conectado = false;
 
         SairDoLobby();
 

@@ -15,7 +15,6 @@ public class SincronizadorSpawner : MonoBehaviour {
         if (Sincronizador.instance != null) return;
 
         if (GameManager.instance.isOnline) {
-            Debug.Log("Sendo instanciado no online com o cliente estando " + NetworkClient.ready);
             GameObject objeto = Instantiate(sincronizadorOnline);
             NetworkServer.Spawn(objeto);
         } else {

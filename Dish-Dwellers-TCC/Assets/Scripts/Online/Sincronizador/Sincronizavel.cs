@@ -181,6 +181,7 @@ public class Sincronizavel : MonoBehaviour {
     private List<(Component, MethodInfo)> metodos = new List<(Component, MethodInfo)>();
     [HideInInspector] public NetworkIdentity networkIdentity = null;
 
+
     void Awake() {
         posInicial = transform.position;
         rotInicial = transform.rotation;
@@ -233,6 +234,15 @@ public class Sincronizavel : MonoBehaviour {
 
         DescadastrarSincronizavel();
         DescadastrarMetodos();
+    }
+
+    
+    public void ComSincronizador(Action runComSinc) {
+        if (Sincronizador.instance == null) {
+            Sincronizador.onInstanciaCriada += runComSinc;
+        } else {
+            runComSinc.Invoke();
+        }
     }
 
 

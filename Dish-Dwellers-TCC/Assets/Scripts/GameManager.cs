@@ -572,7 +572,7 @@ public class GameManager : MonoBehaviour {
             try {
                 networkManager.SairDoLobby();
                 networkManager.StopClient();
-                networkManager.StopServer();
+                if (isServer) networkManager.StopServer();
             } catch (Exception e) {
                 Debug.LogError($"Erro ao parar o NetworkManager: {e.Message}");
             }

@@ -261,7 +261,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     }
 
     void OnDestroy() {
-        if (GameManager.instance?.isOnline == true) {
+        if (GameManager.instance?.isOnline == true && isLocalPlayer) {
             GameManager.instance?.VoltarParaMenu();
         }
     }
@@ -291,7 +291,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     /// </summary>
     [Sincronizar]
     public void Morrer(AnimadorPlayer.fonteDeDano fonte) {
-        gameObject.Sincronizar();
+        gameObject.Sincronizar(fonte);
         StartCoroutine(TocarAnimacaoDeMorte(fonte));
         GameManager.instance.jogadorMorto = true;
         Debug.Log("morreu");
@@ -350,18 +350,18 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     [HideInInspector, SyncVar(hook = nameof(AtualizarStatusConectado))] public bool conectado = false;
     void AtualizarStatusConectado(bool oldValue, bool newValue) {
-        if (isLocalPlayer) {
-            if (!oldValue && newValue) {
-                GameManager.instance.SetarOnline();
-            } else {
-                GameManager.instance.VoltarParaMenu();
-            }
+        if (!oldValue && newValue) {
+            GameManager.instance.SetarOnline();
+        } else if (isLocalPlayer) {
+            Debug.Log("Sair :(");
+            GameManager.instance.VoltarParaMenu();
         }
     }
 
     public override void OnStopClient (){
         base.OnStopClient();
-        GameManager.instance?.VoltarParaMenu();
+        if (isLocalPlayer)
+            GameManager.instance?.VoltarParaMenu();
     }
 
     public void OnTrocouAutoridade() {
