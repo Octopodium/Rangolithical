@@ -7,6 +7,7 @@ public class ProgressManager : MonoBehaviour {
     private string path = "/SaveFiles";
     [SerializeField] private GameObject iconeSalvando;
     public static ProgressManager Instance;
+    public Progress loadedProgress;
 
 
     private void Awake() {
@@ -29,10 +30,18 @@ public class ProgressManager : MonoBehaviour {
                 ultimoNivelAlcancado = 1,
                 ultimaSalaAlcancada = 1,
             };
+            Debug.Log("Salvando progresso pela primeira vez.");
+            //SalvarProgresso(progress);
+        }
+        else {
+            Debug.Log("Ja existe um saveFile.");
+            loadedProgress = CarregarProgresso();
+            Debug.Log($"Sala : {loadedProgress.ultimaSalaAlcancada} \nFase : {loadedProgress.ultimoNivelAlcancado}");
         }
     }
 
     public async void SalvarProgresso(Progress progresso) {
+        Debug.Log("Iniciando salvamento...");
         iconeSalvando.SetActive(true);
         string json = JsonUtility.ToJson(progresso);
         await File.WriteAllTextAsync(path, json);

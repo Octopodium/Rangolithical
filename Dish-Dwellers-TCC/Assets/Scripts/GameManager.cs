@@ -378,7 +378,7 @@ public class GameManager : MonoBehaviour {
         this.sala = sala;
 
         // Determina se deve salvar o progresso :
-        //SalvarProgresso();
+        SalvarProgresso();
         
         cenaAtualNome = SceneManager.GetActiveScene().name;
 
