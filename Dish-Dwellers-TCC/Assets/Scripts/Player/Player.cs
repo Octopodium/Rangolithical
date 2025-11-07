@@ -72,6 +72,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     [Header("Config de Mira")] [Space(10)]
     public float velocidadeGanchadoMult = 0.75f;
+    public bool atirandoGancho = false;
     public bool estaMirando = false;
     private Vector2 inputMira;
     public float deadzoneMira = 0.1f; // Zona morta para evitar mira acidental
@@ -464,6 +465,20 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         animacaoJogador.AtivarEscudo(value);
     }
 
+    public void AtirarGancho() {
+        StartCoroutine(AtirandoGancho());
+    }
+
+    IEnumerator AtirandoGancho() {
+        atirandoGancho = true;
+        float timer = animacaoJogador.AtirarGancho();
+        while(timer > 0) {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+        atirandoGancho = false;
+    }
+
     /// <summary>
     /// Mostra ou esconde o indicador de direção (seta)
     /// Se mostrar, o jogador não pode se mover.
@@ -590,6 +605,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     // Chamado automaticamente pelo método Movimentacao
     void MovimentacaoNoChao() {
         UsarCC();
+        if(atirandoGancho) {
+            dustVisualEffect.SetFloat("Count", 0);
+            return;
+        }
 
         Vector3 movimentacaoEfetiva = Vector3.zero; 
 

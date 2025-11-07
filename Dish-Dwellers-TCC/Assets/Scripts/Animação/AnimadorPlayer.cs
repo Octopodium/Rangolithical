@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class AnimadorPlayer : MonoBehaviour
 {
     private Animator animator;
+    private AnimatorOverrideController animatorOverrideController;
 
     #region Parâmetros do animator
     public static readonly int Anda = Animator.StringToHash(nameof(Anda));
@@ -14,6 +15,7 @@ public class AnimadorPlayer : MonoBehaviour
     // public static readonly int Morre = Animator.StringToHash(nameof(Morre));
     public static readonly int Dano = Animator.StringToHash(nameof(Dano));
     public static readonly int Escudo = Animator.StringToHash(nameof(Escudo));
+    public static readonly int JogarGancho = Animator.StringToHash(nameof(JogarGancho));
     private Quaternion deFrente = Quaternion.Euler(-15, 180, 0), deCostas = Quaternion.Euler(15, 0, 0);
     private float orientacao = 1;
 
@@ -32,6 +34,7 @@ public class AnimadorPlayer : MonoBehaviour
 
     private void Start(){
         animator = GetComponent<Animator>();
+        animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
     }
 
     #region Métodos de animação
@@ -122,8 +125,13 @@ public class AnimadorPlayer : MonoBehaviour
 
     #region Heater
 
-    public void AtivarEscudo(bool value) {
-        animator.SetBool(Escudo, value);
+    public void AtivarEscudo(bool value) => animator.SetBool(Escudo, value);
+
+    public float AtirarGancho() {
+        animator.SetTrigger(JogarGancho);
+        Debug.Log(animatorOverrideController != null);
+        Debug.Log($"Estado : {animatorOverrideController["JogarGancho"].length}");
+        return animatorOverrideController["JogarGancho"].length;
     }
 
     #endregion

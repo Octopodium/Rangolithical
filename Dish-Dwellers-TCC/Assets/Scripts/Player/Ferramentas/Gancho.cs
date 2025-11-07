@@ -102,6 +102,7 @@ public class Gancho : MonoBehaviour, Ferramenta {
     /// Atira o gancho na direção que o jogador está olhando
     /// </summary>
     public void AtirarGancho() {
+        jogador.AtirarGancho();
         gancho = Instantiate(ganchoPrefab, ganchoSpawn.position, Quaternion.identity);
         ProjetilDoGancho projetil = gancho.GetComponent<ProjetilDoGancho>();
         Vector3 direcao = jogador.direcao.normalized;
