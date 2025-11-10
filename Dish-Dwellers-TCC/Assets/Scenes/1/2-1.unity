@@ -10638,7 +10638,7 @@ GameObject:
   - component: {fileID: 891913863}
   - component: {fileID: 891913868}
   - component: {fileID: 891913869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlataformaLevitante
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13931,14 +13931,6 @@ PrefabInstance:
       propertyPath: onPuxado.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 891913863}
-    - target: {fileID: 1644975620766454415, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
-      propertyPath: onPuxado.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MoveToTarget
-      objectReference: {fileID: 0}
-    - target: {fileID: 1644975620766454415, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
-      propertyPath: onPuxado.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ChaoQueMexe, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 4968411245112133226, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.48
@@ -13991,7 +13983,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4968411245112133226, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 27039625}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
@@ -21949,8 +21941,8 @@ Transform:
   m_GameObject: {fileID: 1984386090}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.630001, y: -1.9517002, z: -27.760023}
-  m_LocalScale: {x: 11, y: 4.9033, z: 21.860613}
+  m_LocalPosition: {x: -6.63, y: -1.9517002, z: -27.7184}
+  m_LocalScale: {x: 11, y: 4.9033, z: 21.777544}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1846203522}
@@ -22466,7 +22458,7 @@ GameObject:
   - component: {fileID: 2030268945}
   - component: {fileID: 2030268944}
   - component: {fileID: 2030268943}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlataformaLevitante (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23840,7 +23832,7 @@ GameObject:
   - component: {fileID: 3994623664591469183}
   - component: {fileID: 7081080588870487033}
   - component: {fileID: 4379444249267087114}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -23,8 +23,11 @@ public class AnimadorPlayer : MonoBehaviour
 
     public enum fonteDeDano {FOGO, AFOGADO, PORRADA};
     public static readonly int MorreFogo = Animator.StringToHash(nameof(MorreFogo));
+    [SerializeField] private AnimationClip morreFogo;
     public static readonly int MorreAfoga = Animator.StringToHash(nameof(MorreAfoga));
+    [SerializeField] private AnimationClip morreAfoga;
     public static readonly int MorrePorrada = Animator.StringToHash(nameof(MorrePorrada));
+    [SerializeField] private AnimationClip morrePorrada;
     
     #endregion
     
@@ -103,15 +106,17 @@ public class AnimadorPlayer : MonoBehaviour
         switch(fonte) {
             case fonteDeDano.FOGO:
                 animator.SetTrigger(MorreFogo);
-            break;
+                return morreFogo.length;
+            
             case fonteDeDano.AFOGADO:
-            animator.SetTrigger(MorreAfoga);
-            break;
+                animator.SetTrigger(MorreAfoga);
+                return morreAfoga.length;
+            case fonteDeDano.PORRADA:
+                animator.SetTrigger(MorrePorrada);
+                return morrePorrada.length;
         }
-        // animator.SetTrigger(Morre);
-        
-        return animator.GetCurrentAnimatorStateInfo(0).length + 0.5f;
-        //return 0;
+        Debug.Log($"<color=yellow>Fonte de morte não implementada!<color>");   
+        return 1;
     }
 
     /// <summary>
@@ -129,9 +134,7 @@ public class AnimadorPlayer : MonoBehaviour
 
     public float AtirarGancho() {
         animator.SetTrigger(JogarGancho);
-        Debug.Log(animatorOverrideController != null);
-        Debug.Log($"Estado : {animatorOverrideController["JogarGancho"].length}");
-        return animatorOverrideController["JogarGancho"].length;
+        return animatorOverrideController["Angler_Hook"].length;
     }
 
     #endregion
