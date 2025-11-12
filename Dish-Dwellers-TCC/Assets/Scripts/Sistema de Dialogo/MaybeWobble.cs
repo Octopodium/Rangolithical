@@ -22,8 +22,8 @@ public class MaybeWobble : MonoBehaviour
             mesh = textMesh.mesh;
             vertices = mesh.vertices;
 
-            if(textMesh.textInfo.characterCount > 0){ //consertar, a primeira letra fica brava...
-                TMP_CharacterInfo c = textMesh.textInfo.characterInfo[textMesh.textInfo.characterCount - 1]; //pega o ultimo caracter digitado
+            if(textMesh.textInfo.characterCount > -1){ //consertar, a primeira letra fica brava...
+                TMP_CharacterInfo c = textMesh.textInfo.characterInfo[textMesh.textInfo.characterCount - 1];
                 int index = c.vertexIndex;
 
                 Vector3 offset = Wobble(wobbleTime);
