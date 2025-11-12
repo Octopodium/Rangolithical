@@ -8,10 +8,13 @@ public class Porta : IResetavel, InteracaoCondicional {
     [SerializeField] private Animator animator;
     [SerializeField] private float delayParaAtivarOPortal = 1.0f;
     private bool destrancada;
+    private AudioSource audioSource;
     public bool trancada => !destrancada;
     public UnityEvent OnDestrancaPorta;
 
-
+    private void Awake() {
+        audioSource = GetComponent<AudioSource>();        
+    }
 
     private void Start() {
         portal.SetActive(false);
@@ -72,6 +75,7 @@ public class Porta : IResetavel, InteracaoCondicional {
     IEnumerator AbrirPorta() {
         animator.SetBool("Aberta", true);
         float timer = delayParaAtivarOPortal;
+        audioSource.Play();
 
         while (timer > 0) {
             timer -= Time.fixedDeltaTime;
