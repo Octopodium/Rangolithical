@@ -215,6 +215,8 @@ public class Sincronizavel : MonoBehaviour {
     void Setup() {
         try { if (gameObject ==  null) return;}
         catch{ return; }
+
+        if (GameManager.instance != null && !GameManager.instance.isOnline) return;
         
         if (cadastrarNoInicio && !cadastrouUmaVez && !isDestroying) {
             CadastrarSincronizavel();
