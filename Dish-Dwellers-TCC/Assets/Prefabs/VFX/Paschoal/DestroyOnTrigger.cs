@@ -3,6 +3,6 @@ using UnityEngine;
 public class DestroyOnTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) {
-        Destroy(gameObject);
+        if (other.CompareTag("Player")) Destroy(gameObject);
     }
 }
