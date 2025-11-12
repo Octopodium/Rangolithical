@@ -23,12 +23,20 @@ public class Gancho : MonoBehaviour, Ferramenta {
     public float forcaDePuxada = 1f;
     public float alturaDePuxada = 6.5f;
 
+    [Header("Sfx")]
+    private AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
+
     GameObject gancho;
     Ganchavel ganchado;
     Player jogador;
 
     public bool acionada { get; protected set; } = false;
     bool acabouDePuxar = false;
+
+    void Awake() {
+        audioSource = GetComponentInChildren<AudioSource>();
+    }
 
     void FixedUpdate() {
         if (acionada && ganchado == null && gancho == null) {
@@ -114,6 +122,8 @@ public class Gancho : MonoBehaviour, Ferramenta {
         }
 
         projetil.Inicializar(this, direcao, velocidadeGancho);
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
     }
 
     /// <summary>
@@ -194,6 +204,9 @@ public class Gancho : MonoBehaviour, Ferramenta {
                 Vector3 puxada = (direcao * distancia * forcaDePuxada) + arremeco;
 
                 rb.AddForce(puxada * rb.mass, ForceMode.Impulse);
+                
+                audioSource.clip = audioClips[1];
+                audioSource.Play();
             }
 
             ganchado.HandleDesganchado();
