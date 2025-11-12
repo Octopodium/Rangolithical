@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour {
     [SerializeField] private GameObject splashDeFogo; // Particula que é instanciada quando a bola explode.
     [SerializeField] private GameObject trail;
     [SerializeField] private VisualEffect trailFx;
+    [SerializeField] private GameObject decalQueimado;
     public GameObject owner;
     private Vector3 direction;
     
@@ -39,6 +40,13 @@ public class Projectile : MonoBehaviour {
         GameObject splash = Instantiate(splashDeFogo, transform.position, transform.rotation);
         Destroy(splash, 2.0f);
 
+    }
+
+    private void DeixarMarcaDeQueimado(ContactPoint contactPoint) {
+        GameObject decal = Instantiate(decalQueimado);
+        decal.transform.position = contactPoint.point;
+        Debug.Log(contactPoint.normal);
+        decal.transform.forward = contactPoint.normal;
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -95,11 +103,13 @@ public class Projectile : MonoBehaviour {
         }
         
         else if (other.transform.CompareTag("Chao") || other.transform.CompareTag("Parede")) {
+            DeixarMarcaDeQueimado(other.GetContact(0));
             Destroy(gameObject);
         }
 
         //previsão pra caso houver colisão com outros obstáculos
         else {
+            DeixarMarcaDeQueimado(other.GetContact(0));
             Destroy(gameObject);
         }
     }
