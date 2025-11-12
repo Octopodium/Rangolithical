@@ -7,6 +7,12 @@ public class AnimadorPlayer : MonoBehaviour
     private Animator animator;
     private AnimatorOverrideController animatorOverrideController;
 
+    #region Coisas de Áudio...
+    private AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;  
+
+    #endregion 
+
     #region Parâmetros do animator
     public static readonly int Anda = Animator.StringToHash(nameof(Anda));
     public static readonly int Caindo = Animator.StringToHash(nameof(Caindo));
@@ -30,14 +36,15 @@ public class AnimadorPlayer : MonoBehaviour
     [SerializeField] private AnimationClip morrePorrada;
     
     #endregion
-    
-
+     
 
     #endregion
 
     private void Start(){
         animator = GetComponent<Animator>();
+        audioSource = GetComponentInChildren<AudioSource>();
         animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+
     }
 
     #region Métodos de animação
@@ -138,5 +145,15 @@ public class AnimadorPlayer : MonoBehaviour
     }
 
     #endregion
+
+    public void AfogaSfx() {
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
+    }
+
+    public void QueimaSfx() {
+        audioSource.clip = audioClips[1];
+        audioSource.Play();
+    }
 
 }
