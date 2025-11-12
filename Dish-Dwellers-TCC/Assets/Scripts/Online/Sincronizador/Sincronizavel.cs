@@ -241,7 +241,7 @@ public class Sincronizavel : MonoBehaviour {
 
     
     public void ComSincronizador(Action runComSinc) {
-        if (Sincronizador.instance == null) {
+        if (Sincronizador.instance == null && GameManager.instance.isOnline) {
             Sincronizador.onInstanciaCriada += runComSinc;
         } else {
             runComSinc.Invoke();
