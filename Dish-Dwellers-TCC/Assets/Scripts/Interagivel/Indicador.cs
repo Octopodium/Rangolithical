@@ -9,6 +9,9 @@ public class Indicador : MonoBehaviour {
     public class ImagensDeIndicador {
         public Sprite padraoTeclado;
         public Sprite padraoControle;
+        public Sprite cancelarTeclado;
+        public Sprite cancelarControle;
+
         public Sprite trancado;
         public Sprite forca;
     }
@@ -26,6 +29,8 @@ public class Indicador : MonoBehaviour {
 
     public float offsetQuandoDois = 0.1f;
 
+    public bool mostrando { get { return gameObject.activeSelf; }}
+
     void Awake() {
         /*parentConstraint = GetComponent<ParentConstraint>();
         if (parentConstraint == null) parentConstraint = gameObject.AddComponent<ParentConstraint>();*/
@@ -42,6 +47,8 @@ public class Indicador : MonoBehaviour {
                 return imagens.forca;
             case MotivoNaoInteracao.Trancado:
                 return imagens.trancado;
+            case MotivoNaoInteracao.Cancelar:
+                return jogador.controleAtual is Gamepad ? imagens.cancelarControle : imagens.cancelarTeclado;
         }
 
         return imagens.padraoTeclado;
@@ -55,7 +62,7 @@ public class Indicador : MonoBehaviour {
         this.motivo = motivo;
 
         sourceId = parentConstraint.AddSource(new ConstraintSource() {
-            sourceTransform = interagivel.transform,
+            sourceTransform = interagivel.indicadorTransform,
             weight = 1f
         });
 
@@ -65,6 +72,16 @@ public class Indicador : MonoBehaviour {
         gameObject.SetActive(true);
 
         RefreshDisplay();
+    }
+
+    public void Refresh() {
+        if (mostrando) {
+            InteragivelBase interagivel = this.interagivel;
+            MotivoNaoInteracao motivo = this.motivo;
+
+            Esconder(interagivel);
+            Mostrar(interagivel, motivo);
+        }
     }
 
     void HandleDeviceChange(InputDevice d) {
@@ -77,7 +94,7 @@ public class Indicador : MonoBehaviour {
             return;
         }
 
-        Vector3 dir = interagivel.transform.InverseTransformDirection(Vector3.right);
+        Vector3 dir = interagivel.indicadorTransform.InverseTransformDirection(Vector3.right);
         Indicador outro = interagivel.ProximoIndicador(this);
         Vector3 offset = interagivel.offsetIndicador;
         Vector3 offsetExtra = dir * GetOffsetBaseOnPlayers(jogador, outro.jogador);
@@ -88,7 +105,7 @@ public class Indicador : MonoBehaviour {
         imagemIndicador.sprite = GetSprite();
     }
 
-    float GetOffsetBaseOnPlayers(Player meu, Player seu) {
+    public float GetOffsetBaseOnPlayers(Player meu, Player seu) {
         return meu.transform.position.x < seu.transform.position.x ? -offsetQuandoDois : offsetQuandoDois;
     }
 

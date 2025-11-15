@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,13 @@ public class Portal : IResetavel, SincronizaMetodo {
 
     List<Player> playersNoPortal = new List<Player>();
     [SerializeField] private Transform spawnDeSaida;
+    Interagivel interagivel;
+
+    public IndicadorFalso indicadorSaida;
+
+    void Awake() {
+        interagivel = GetComponentInParent<Interagivel>();
+    }
 
     void Start() {
         Sincronizavel sin = GetComponent<Sincronizavel>();
@@ -41,6 +49,9 @@ public class Portal : IResetavel, SincronizaMetodo {
         
         playerObj.gameObject.SetActive(false);
         playersNoPortal.Add(player);
+
+        player.indicador.Mostrar(interagivel, MotivoNaoInteracao.Cancelar);
+        indicadorSaida.Copiar(player.indicador);
         
         // Caso os dois players tenham entrado na porta, passa de sala.
         PassarDeSala();
@@ -66,9 +77,13 @@ public class Portal : IResetavel, SincronizaMetodo {
 
             Player player = playersNoPortal[0];
 
+            player.indicador.Esconder(interagivel);
+            indicadorSaida.Esconder();
+
             player.transform.position = spawnDeSaida.position + Vector3.up * 0.5f;    
             player.gameObject.SetActive(true);
             playersNoPortal.Remove(player);
+            
 
             if (player.playerInput != null)
                 player.playerInput.currentActionMap["Cancelar"].performed -= SairDoPortal;
@@ -83,5 +98,9 @@ public class Portal : IResetavel, SincronizaMetodo {
             
         GameManager.instance.ForcarCenaAguardando();
         SceneManager.LoadScene(cenaDoFim, LoadSceneMode.Single);
+    }
+
+    public bool PlayerEstaDentro(Player p) {
+        return playersNoPortal.Contains(p);
     }
 }

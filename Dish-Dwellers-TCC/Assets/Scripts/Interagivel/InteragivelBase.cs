@@ -6,6 +6,11 @@ public abstract class InteragivelBase : MonoBehaviour {
     [HideInInspector] public HashSet<Indicador> indicadores = new HashSet<Indicador>();
     //GameObject indicador;
     public Vector3 offsetIndicador = Vector3.up;
+    
+    [Tooltip("Sobreescrever o transform base onde o indicador será parenteado em sua exibição")]
+    public Transform overrideIndicadorTransform;
+
+    public Transform indicadorTransform { get { return overrideIndicadorTransform == null ? transform : overrideIndicadorTransform; }}
 
 
     
@@ -17,6 +22,18 @@ public abstract class InteragivelBase : MonoBehaviour {
     protected virtual void Start() { }
 
     protected virtual void OnDestroy() { }
+
+    public virtual void MudarIndicadorTransform(Transform overrideTransform, Player jogadorDoIndicador = null) {
+        Transform oldTrans = overrideIndicadorTransform;
+        overrideIndicadorTransform = overrideTransform;
+
+        if (oldTrans != overrideTransform && indicadores.Count > 0) {
+            foreach (var indicador in indicadores) {
+                if (jogadorDoIndicador == null || indicador.jogador == jogadorDoIndicador)
+                    indicador.Refresh();
+            }
+        }
+    }
 
 
 

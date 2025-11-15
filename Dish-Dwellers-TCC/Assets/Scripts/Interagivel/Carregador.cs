@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class Carregador: MonoBehaviour, SincronizaMetodo {
+    public bool podeCarregar = true;
     public Peso aguentaCarregar = Peso.Leve;
     
     public Transform carregarTransform;
@@ -91,7 +92,7 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
     /// </summary>
     /// <param name="carregavel">Objeto a ser carregado</param>
     public bool Carregar(Carregavel carregavel) {
-        if (carregado != null || carregavel == null || carregavel == ultimoCarregado) return false;
+        if (carregado != null || carregavel == null || carregavel == ultimoCarregado || !podeCarregar) return false;
 
         // Checa se o carregavel é um carregador e está carregando este objeto, se sim, não permite que este objeto o carregue (não faz sentido e quebra o jogo)
         Carregador carregavelEhCarregador = carregavel.GetComponent<Carregador>();

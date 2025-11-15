@@ -4,7 +4,7 @@ public interface Interacao {
     public abstract void Interagir(Player jogador);
 }
 
-public enum MotivoNaoInteracao { Nenhum, Fraco, Trancado }
+public enum MotivoNaoInteracao { Nenhum, Fraco, Trancado, Cancelar }
 
 public interface InteracaoCondicional : Interacao {
     /// <summary>

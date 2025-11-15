@@ -5,6 +5,7 @@ using System.Collections;
 public class Porta : IResetavel, InteracaoCondicional {
     [Tooltip("Colisor que transporta o jogador quando destrancada")]
     [SerializeField] private GameObject portal;
+    private Portal portalScript;
     [SerializeField] private Animator animator;
     [SerializeField] private float delayParaAtivarOPortal = 1.0f;
     private bool destrancada;
@@ -14,6 +15,7 @@ public class Porta : IResetavel, InteracaoCondicional {
 
     private void Awake() {
         audioSource = GetComponentInChildren<AudioSource>();
+        portalScript = portal.GetComponent<Portal>();
     }
     
     private void Start() {
@@ -47,11 +49,12 @@ public class Porta : IResetavel, InteracaoCondicional {
     }
 
     public bool PodeInteragir(Player jogador) {
-        return trancada || jogador.carregando == null || jogador.carregando.CompareTag("Chave");
+        return trancada && (jogador.carregando == null || jogador.carregando.CompareTag("Chave")) || (destrancada && portalScript.PlayerEstaDentro(jogador));
     }
 
     public MotivoNaoInteracao NaoPodeInteragirPois(Player jogador) {
-        if (jogador.carregando == null || !jogador.carregando.CompareTag("Chave")) return MotivoNaoInteracao.Trancado;
+        if (trancada && (jogador.carregando == null || !jogador.carregando.CompareTag("Chave"))) return MotivoNaoInteracao.Trancado;
+        if (destrancada && portalScript.PlayerEstaDentro(jogador)) return MotivoNaoInteracao.Cancelar;
         return MotivoNaoInteracao.Nenhum;
     }
 

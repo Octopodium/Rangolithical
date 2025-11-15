@@ -5,20 +5,27 @@ using UnityEngine.Animations;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 
-public class Barco : IResetavel, Interacao, IRecebeTemplate
+public class Barco : IResetavel, InteracaoCondicional, IRecebeTemplate
 {
-    public Transform pos1, pos2, outPos, inicialPos;
+    public Transform pos1, pos2, inicialPos;
+    public Pier pier;
     public Vector3 pontoPuxada;
     public bool sendoPuxado = false;
     public float distanciaMinimaParada = 3f;
     public float forcaPuxada = 10000f;
     private Rigidbody rb;
     public ParentConstraint parentConstraint;
-    public bool noPier = false;
     public int playerNoBarco = 0;
     public Player angler, heater;
+    Interagivel interagivel;
+
+    public bool noPier { get{ return pier != null; } }
+
 
     public void Awake(){
+        interagivel = GetComponent<Interagivel>();
+        if (noPier) interagivel.overrideIndicadorTransform = pier.indicadorSaidaPos;
+
         rb = GetComponent<Rigidbody>();
         rb.mass = 1f;
         rb.linearDamping = 1f;
@@ -30,8 +37,9 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
         Barco barcoTemplate = template.GetComponent<Barco>();
         if (barcoTemplate == null) return;
 
-        outPos = barcoTemplate.outPos;
+        pier = barcoTemplate.pier;
         inicialPos = barcoTemplate.inicialPos;
+        if (noPier) interagivel.overrideIndicadorTransform = pier.indicadorSaidaPos;
     }
 
     public void Interagir(Player jogador)
@@ -54,6 +62,8 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
                 heater = jogador;
             }
 
+            interagivel.MudarIndicadorTransform(pier?.indicadorSaidaPos, jogador);
+
             parentConstraint.AddSource(posSource);
             parentConstraint.constraintActive = true;
             playerNoBarco++;
@@ -63,6 +73,16 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
         }
     }
 
+    public bool PodeInteragir(Player jogador) {
+        if (jogador.embarcado) interagivel.MudarIndicadorTransform(pier?.indicadorSaidaPos, jogador);
+        else interagivel.MudarIndicadorTransform(null, jogador);
+
+        return noPier;
+    }
+
+    public MotivoNaoInteracao NaoPodeInteragirPois(Player jogador) {
+        return MotivoNaoInteracao.Nenhum;
+    }
 
     public void IniciarPuxada(Vector3 pontoGancho){
         if(angler == null) return;
@@ -97,8 +117,9 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
                 constraint.RemoveSource(0);
                 constraint.constraintActive = false;
             }
-            
-            jogador.Teletransportar(outPos.position + new Vector3((Random.Range(1f,3f)), 0, 0));
+
+            interagivel.MudarIndicadorTransform(null, jogador);
+            jogador.Teletransportar(pier.outPos.position + new Vector3((Random.Range(1f,3f)), 0, 0));
 
             if(jogador.personagem == QualPersonagem.Angler){
                 angler = null;
@@ -110,12 +131,8 @@ public class Barco : IResetavel, Interacao, IRecebeTemplate
         }
     }
 
-    public void NoPier(bool status){
-        noPier = status;
-    }
-
-    public void SwitchOutPos(Transform outPosition){
-        outPos = outPosition;
+    public void SetPier(Pier pier){
+        this.pier = pier;
     }
 
     public void AplicarForcaVapor(Vector3 direcaoEmpurrada){

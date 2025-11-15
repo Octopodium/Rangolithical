@@ -331,6 +331,8 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             col.excludeLayers |= (1 << LayerMask.NameToLayer("Gancho"));
             characterController.excludeLayers |= (1 << LayerMask.NameToLayer("Gancho"));
             if(ganchavel != null) ganchavel.enabled = false;
+            if (carregando != null) carregador.Soltar();
+            carregador.podeCarregar = false;
             
             velocidade = 0f;
             velocidadeRB = 0f;
@@ -339,6 +341,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             col.excludeLayers &= ~(1 << LayerMask.NameToLayer("Gancho"));
             characterController.excludeLayers &= ~(1 << LayerMask.NameToLayer("Gancho"));
             if(ganchavel != null) ganchavel.enabled = true;
+            carregador.podeCarregar = true;
             
             velocidade = 12f;
             velocidadeRB = 6.5f;
@@ -875,7 +878,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
             if (collider == null) continue; // Ignora objetos removidos
 
             InteragivelBase interagivelAtual = PegaInteragivelDoCache(collider);
-            if (interagivelAtual == null || !interagivelAtual.PodeInteragir(this) || !interagivelAtual.enabled) continue; // Ignora objetos removidos ou sem o componente Interagivel
+            if (interagivelAtual == null || !interagivelAtual.PodeInteragir(this) || !interagivelAtual.enabled || !PodeInteragir(interagivelAtual, collider)) continue; // Ignora objetos removidos ou sem o componente Interagivel
 
             float distancia = Vector3.Distance(transform.position, collider.transform.position);
             if (distancia < menorDistancia) {
@@ -909,6 +912,12 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
         return true;
     }
+
+
+    public virtual bool PodeInteragir(InteragivelBase interagivel, Collider collider) {
+        return !embarcado || !interagivel.gameObject.CompareTag("Player");
+    }
+
 
     /// <summary>
     /// Interage com o objeto mais próximo (definido em "ultimoInteragivel")

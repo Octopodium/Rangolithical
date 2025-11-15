@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ca15d64d508bc4e886b7b3226db2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  podeCarregar: 1
   aguentaCarregar: 0
   carregarTransform: {fileID: 2295745798381188354}
   forcaArremesso: 5
@@ -477,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetIndicador: {x: 0, y: 2.65, z: 0}
+  overrideIndicadorTransform: {fileID: 0}
   ultimoPonto: {fileID: 0}
   podeInteragirDiretamente: 1
 --- !u!114 &7184748271679852735
@@ -3639,6 +3641,14 @@ PrefabInstance:
       propertyPath: imagens.padraoControle
       value: 
       objectReference: {fileID: 21300000, guid: 3838519f87ab0744786f11a1125d8239, type: 3}
+    - target: {fileID: 8942401961451137109, guid: c0bbace7bfeeef84883f72b9b3761e13, type: 3}
+      propertyPath: imagens.cancelarTeclado
+      value: 
+      objectReference: {fileID: 21300000, guid: 87bc32e6c7e62ef47995aa58965a506e, type: 3}
+    - target: {fileID: 8942401961451137109, guid: c0bbace7bfeeef84883f72b9b3761e13, type: 3}
+      propertyPath: imagens.cancelarControle
+      value: 
+      objectReference: {fileID: 21300000, guid: 99a9f3832765fb545a23a3ee3ef0a60e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

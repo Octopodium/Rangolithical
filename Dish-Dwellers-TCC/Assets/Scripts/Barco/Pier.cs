@@ -4,6 +4,7 @@ using UnityEngine;
 public class Pier : MonoBehaviour {
     public OnTrigger onTrigger;
     public Transform outPos;
+    public Transform indicadorSaidaPos;
 
     void Start() {
         onTrigger.onTriggerEnterAction += BarcoEnter;
@@ -14,13 +15,13 @@ public class Pier : MonoBehaviour {
         Barco barco = barcoCol.gameObject.GetComponent<Barco>();
         if (barco == null) return;
 
-        barco.NoPier(true);
-        barco.SwitchOutPos(outPos);
+        barco.SetPier(this);
     }
 
     void BarcoExit(Collider barcoCol) {
         Barco barco = barcoCol.gameObject.GetComponent<Barco>();
         if (barco == null) return;
-        barco.NoPier(false);
+        if (barco.pier == this)
+            barco.SetPier(null);
     }
 }
