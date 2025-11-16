@@ -114,7 +114,6 @@ public class AnimadorPlayer : MonoBehaviour
             case fonteDeDano.FOGO:
                 animator.SetTrigger(MorreFogo);
                 return morreFogo.length;
-            
             case fonteDeDano.AFOGADO:
                 animator.SetTrigger(MorreAfoga);
                 return morreAfoga.length;

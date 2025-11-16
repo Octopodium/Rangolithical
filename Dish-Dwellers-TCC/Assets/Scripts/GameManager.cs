@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private TelaDeLoading telaDeLoading;
     public Action OnTerminaDeCarregarASala;
     public bool carregando;
-    [SerializeField] private ITransicao telaDeTransicaoFogo, telaDeTransicaoAgua;
+    [SerializeField] private ITransicao telaDeTransicaoFogo, telaDeTransicaoAgua, telaDeTransicaoPorrada;
 
 
     
@@ -304,6 +304,9 @@ public class GameManager : MonoBehaviour {
             break;
             case AnimadorPlayer.fonteDeDano.AFOGADO:
                 transicao = telaDeTransicaoAgua;
+            break;
+            case AnimadorPlayer.fonteDeDano.PORRADA:
+                transicao = telaDeTransicaoPorrada;
             break;
         }
         StartCoroutine(TocarTransicao(transicao));
