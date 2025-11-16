@@ -23,6 +23,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Space(15)]
     [Header("Configurações")]
     [Space(10)]
+    [SerializeField] private bool habilitado = true;
     [SerializeField] private bool spawnNoInicio = false;
     [Tooltip("Caso o objeto prefab seja 'IRecebeTemplate', ele recebera o objeto 'template' como parâmetro de 'RecebeTemplate'. Util para replicar valores base nos objetos recém instanciados.")]
     public GameObject template;
@@ -81,6 +82,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     /// </summary>
     [Sincronizar]
     public void Spawn() {
+        if(!habilitado) return;
         if (objeto != null) return;
         if (spawnando) return;
 
