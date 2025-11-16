@@ -125,9 +125,9 @@ public class Perseguidor : Inimigo
             navAgent.updateRotation = false;
             animator.Persegue(true);
 
-            Vector3 dirOlhar = transform.position - target.position;
-            animator.Olhar(dirOlhar);
+            Vector3 dirOlhar = target.position - transform.position; 
             dirOlhar.y = 0;
+            animator.Olhar(dirOlhar);
         }
     }
 
@@ -140,6 +140,9 @@ public class Perseguidor : Inimigo
             IndexPosicaoAtual = (IndexPosicaoAtual + 1) % waypoints.Length;
             navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
             animator.Persegue(false);
+
+            Vector3 dir = transform.position - waypoints[IndexPosicaoAtual].position;
+            animator.Olhar(dir);  
         }
     }
     #endregion
