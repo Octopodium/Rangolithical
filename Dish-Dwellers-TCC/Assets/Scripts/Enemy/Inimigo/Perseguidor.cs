@@ -125,7 +125,7 @@ public class Perseguidor : Inimigo
             navAgent.updateRotation = false;
             animator.Persegue(true);
 
-            Vector3 dirOlhar = target.position - transform.position; 
+            Vector3 dirOlhar = transform.position - target.position; 
             dirOlhar.y = 0;
             animator.Olhar(dirOlhar);
         }
@@ -165,21 +165,20 @@ public class Perseguidor : Inimigo
         dashDirection.y = 0f;
 
         float t = 0f;
-        bool deuDano = false;
 
         while (t < duracaoDoDash)
         {
             transform.position += dashDirection * velocidadeDeDash * Time.deltaTime;
 
-            if (!deuDano && target != null)
-            {
-                float dist = Vector3.Distance(transform.position, target.position);
-                if (dist <= distanciaParaDano)
-                {
-                    target.GetComponent<Player>()?.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
-                    deuDano = true;
-                }
-            }
+            // if (!deuDano && target != null)
+            // {
+            //     float dist = Vector3.Distance(transform.position, target.position);
+            //     if (dist <= distanciaParaDano)
+            //     {
+            //         target.GetComponent<Player>()?.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+            //         deuDano = true;
+            //     }
+            // }
 
             t += Time.deltaTime;
             yield return null;
@@ -206,11 +205,15 @@ public class Perseguidor : Inimigo
     #region Escudo & Stun
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Escudo") && !caido)
-        {
+        if (other.CompareTag("Escudo") && !caido) {
             AudioManager.PlaySounds(TiposDeSons.ENEMYHITSHIELD);
             Vector3 direcaoImpacto = (transform.position - other.transform.position).normalized;
             CaidoPorEscudo(direcaoImpacto);
+        }
+        
+        if(other.CompareTag("Player") && !caido) {
+            Debug.Log("Entrou no hit player");
+            other.GetComponent<Player>()?.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
         }
     }
 
