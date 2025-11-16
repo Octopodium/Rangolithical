@@ -2135,6 +2135,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3535487778454691108, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
   m_PrefabInstance: {fileID: 1528235912}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &286674875 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6875876601736233797, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+  m_PrefabInstance: {fileID: 1010973050407774235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &288669880 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7121116227590984361, guid: 497b2389792b87542889ec240ed7141c, type: 3}
@@ -8475,6 +8480,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2863256397673802589, guid: 1030ba4d942fb7d489da14e37831d74c, type: 3}
   m_PrefabInstance: {fileID: 1135562611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1168820809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8500934544026539694, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+  m_PrefabInstance: {fileID: 1010973050407774235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1190569370
 PrefabInstance:
@@ -16722,6 +16732,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1644877024850514100, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644877024850514100, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644877024850514100, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644877024850514100, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1957181158042786450, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: m_Name
       value: manete
@@ -16818,6 +16844,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4404272062933700519, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: scaleFactor.x
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404272062933700519, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: scaleFactor.y
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404272062933700519, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: scaleFactor.z
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404272062933700519, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: defaultFactor.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404272062933700519, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: defaultFactor.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404272062933700519, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: defaultFactor.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5156834546358024415, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: m_Name
       value: continuar
@@ -16876,12 +16926,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7361727113653866240, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: telasInternasPause.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7361727113653866240, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: 'telasInternasPause.Array.data[2]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1168820809}
+    - target: {fileID: 7361727113653866240, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'telasInternasPause.Array.data[3]'
+      value: 
+      objectReference: {fileID: 286674875}
     - target: {fileID: 7852735405102723607, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

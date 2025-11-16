@@ -27,23 +27,11 @@ MonoBehaviour:
     targetNodeGuid: dialogue_angler2
   - baseNodeGuid: dialogue_angler2
     portName: output
+    targetNodeGuid: e8e683b3-27b7-42ae-b67f-ce70822330ad
+  - baseNodeGuid: fc273cd1-2721-479f-8b5f-df4b2ffecd0a
+    portName: output
     targetNodeGuid: 39cfd21e-2d47-4ef6-962b-c977362e67d7
   DialogueNodeData:
-  - Guid: dialogue_heater1
-    nodeName: Text Node
-    dialogueText: "N\xE3o acredito que vou ter que entrar nessa Torre com voc\xEA...
-      o Mestre deve estar de brincadeira."
-    position: {x: 209, y: 350}
-    sceneName: 
-    _loadScene: 0
-    backgroundSprite: {fileID: 21300000, guid: 3036d55282b6a374aa7606fddc6fc306, type: 3}
-  - Guid: 39cfd21e-2d47-4ef6-962b-c977362e67d7
-    nodeName: End
-    dialogueText: Exit Node
-    position: {x: 1199, y: 221}
-    sceneName: 1-1
-    _loadScene: 1
-    backgroundSprite: {fileID: 0}
   - Guid: dialogue_angler1
     nodeName: Text Node
     dialogueText: "Relaxa, tudo isso vai acabar bem r\xE1pido, quando eu pegar a
@@ -51,7 +39,7 @@ MonoBehaviour:
     position: {x: 457, y: 350}
     sceneName: 
     _loadScene: 0
-    backgroundSprite: {fileID: 0}
+    backgroundSprite: {fileID: 21300000, guid: 4c122f3b7c7d42648b90015b1dc96b54, type: 3}
   - Guid: dialogue_heater2
     nodeName: Text Node
     dialogueText: "D\xFAvido que voc\xEA e seus peixes molengas consigam sequer enfrentar
@@ -59,11 +47,40 @@ MonoBehaviour:
     position: {x: 710, y: 350}
     sceneName: 
     _loadScene: 0
-    backgroundSprite: {fileID: 21300000, guid: 6ac33e094c3657c489433d19a94d289c, type: 3}
+    backgroundSprite: {fileID: 21300000, guid: 406a4fdbeef428b4b821e88b362a9348, type: 3}
   - Guid: dialogue_angler2
     nodeName: Text Node
     dialogueText: "\xC9 o que vamos ver! S\xF3 tenta n\xE3o incendiar a Torre inteira."
     position: {x: 967, y: 350}
     sceneName: 
     _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: 5ae0f014e3a7b7c429095f2c07df1f96, type: 3}
+  - Guid: dialogue_heater1
+    nodeName: Text Node
+    dialogueText: "N\xE3o acredito que vou ter que entrar nessa Torre com voc\xEA...
+      o Mestre deve estar de brincadeira."
+    position: {x: 209, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: 76204d7d69315484ea17365b3857574a, type: 3}
+  - Guid: e8e683b3-27b7-42ae-b67f-ce70822330ad
+    nodeName: Text Node
+    dialogueText: OMG ITS THE NEW HISTORY
+    position: {x: 1220, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: d5cc897287a34344f933be741c2c5487, type: 3}
+  - Guid: fc273cd1-2721-479f-8b5f-df4b2ffecd0a
+    nodeName: Text Node
+    dialogueText: New conversation
+    position: {x: 1475, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: fc9890295daa81f4988c46891114d9c8, type: 3}
+  - Guid: 39cfd21e-2d47-4ef6-962b-c977362e67d7
+    nodeName: End
+    dialogueText: Exit Node
+    position: {x: 1746, y: 350}
+    sceneName: 1-1
+    _loadScene: 1
     backgroundSprite: {fileID: 0}
