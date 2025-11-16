@@ -5,10 +5,10 @@ public class Bomba : MonoBehaviour{
     [SerializeField] private GameObject explosaoPrefab;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Renderer bombaRenderer;
-    [SerializeField] private Color corPiscante = Color.red;
+    [SerializeField, ColorUsage(true, true)] private Color corPiscante = Color.red;
     private Color corNormal = Color.white;
     private MaterialPropertyBlock mpb;
-    private static int baseColorID = Shader.PropertyToID("_BaseColor");
+    private static int baseColorID = Shader.PropertyToID("_Color");
     [SerializeField] private float tempoParaExplodir = 5.0f;
     private int numeroDePiscadas = 2;
     private float timer;
@@ -37,11 +37,9 @@ public class Bomba : MonoBehaviour{
     private void FixedUpdate(){
         timer -= Time.fixedDeltaTime;
         if(timer <= 0.0f){
-            // bombaRenderer.gameObject.SetActive(false);
-            // GetComponent<Collider>().enabled = false;
             Instantiate(explosaoPrefab, transform.position, explosaoPrefab.transform.rotation);
-            // Destroy(gameObject);
             OnExplode?.Invoke();
+            this.enabled = false;
         }
     }
 

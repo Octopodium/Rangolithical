@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Perseguidor : Inimigo
+public class Perseguidor : Inimigo, IRecebeTemplate 
 {
     private enum State { Patrol, Chase, Attack, Stunned }
     private State currentState = State.Patrol;
@@ -41,6 +41,7 @@ public class Perseguidor : Inimigo
     private Collider collider;
     private bool podePerseguir = true;
 
+
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -51,14 +52,22 @@ public class Perseguidor : Inimigo
 
         if (interagivel) interagivel.enabled = false;
 
-        if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
-        {
-            navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
-        }
+        // if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
+        // {
+        //     navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
+        // }
+    }
+    
+    private void OnEnable() {
+        animator.Desvirar();
     }
 
     private void Start()
     {
+        if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
+        {
+            navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
+        }
         target = EncontrarPlayerMaisProximo();
         if (target != null)
         {
@@ -67,6 +76,7 @@ public class Perseguidor : Inimigo
             currentState = State.Chase;
         }
     }
+
 
     private void FixedUpdate()
     {
@@ -112,6 +122,13 @@ public class Perseguidor : Inimigo
                 //lógica do CaidoPorEscudo
                 break;
         }
+    }
+
+    public void RecebeTemplate(GameObject template) {
+        Perseguidor perseguidorTemplate = template.GetComponent<Perseguidor>();
+        campoDeVisao = perseguidorTemplate.campoDeVisao;
+        zonaDeAtaque = perseguidorTemplate.zonaDeAtaque;
+        waypoints = perseguidorTemplate.waypoints;
     }
 
     #region Patrol & Chase
