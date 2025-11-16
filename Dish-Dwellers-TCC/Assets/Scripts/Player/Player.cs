@@ -273,6 +273,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     /// </summary>
     /// <param name="valor">Valor a ser adicionado ou subtraído da vida do jogador</param>
     public void MudarVida(int valor, AnimadorPlayer.fonteDeDano motivo) {
+        if(GameManager.instance.jogadorMorto) return;
         if (valor < 0) {
             motivoDeDano = nameof(motivo);
             if (playerVidas + valor <= 0) {

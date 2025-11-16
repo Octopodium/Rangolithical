@@ -32,6 +32,10 @@ public class Bomba : MonoBehaviour{
         bombaRenderer.SetPropertyBlock(mpb);
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        Perseguidor perseguidor = GetComponent<Perseguidor>();
+        if(perseguidor != null){
+            perseguidor.enabled = true;
+        }
     }
 
     private void FixedUpdate(){
