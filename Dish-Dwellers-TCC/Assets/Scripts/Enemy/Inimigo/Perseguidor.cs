@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -52,14 +53,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
 
         if (interagivel) interagivel.enabled = false;
 
-        // if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
-        // {
-        //     navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
-        // }
     }
     
     private void OnEnable() {
-        animator.Desvirar();
+        ResetarParaEstadoInicial();
     }
 
     private void Start()
@@ -88,6 +85,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate
                 Recuperar();
                 return;
             }
+
         }
 
         tempoDeAtaqueRestante -= Time.deltaTime;
@@ -140,8 +138,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         {
             navAgent.SetDestination(target.position);
             navAgent.updateRotation = false;
+            try{
             animator.Persegue(true);
-
+            }catch{}
+                
             Vector3 dirOlhar = transform.position - target.position; 
             dirOlhar.y = 0;
             animator.Olhar(dirOlhar);
@@ -186,16 +186,6 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         while (t < duracaoDoDash)
         {
             transform.position += dashDirection * velocidadeDeDash * Time.deltaTime;
-
-            // if (!deuDano && target != null)
-            // {
-            //     float dist = Vector3.Distance(transform.position, target.position);
-            //     if (dist <= distanciaParaDano)
-            //     {
-            //         target.GetComponent<Player>()?.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
-            //         deuDano = true;
-            //     }
-            // }
 
             t += Time.deltaTime;
             yield return null;
@@ -254,7 +244,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         StartCoroutine(AplicarKnockback(direcaoImpacto));
     }
 
+    private bool agarrado = false;
+
     public void SendoAgarrado() {
+            agarrado = true;
             navAgent.enabled = false;
             Perseguidor perseguidor = GetComponent<Perseguidor>();
             perseguidor.enabled = false;
@@ -342,6 +335,60 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         return Vector3.Distance(transform.position, jogador.position) <= zonaDeAtaque;
     }
     #endregion
+
+    public void ResetarParaEstadoInicial()
+    {
+        //Para todas as corrotinas
+        StopAllCoroutines();
+
+        //Reset de variáveis de estado
+        caido = false;
+        currentState = State.Patrol;
+        podePerseguir = true;
+        temAlvoFixo = false;
+        agarrado = false; 
+        tempoCaidoRestante = 0f;
+        tempoDeAtaqueRestante = 0f;
+        tempoRestanteDeFoco = 0f;
+
+        //Reset de componentes
+        if (navAgent != null)
+        {
+            navAgent.enabled = true;
+            if (navAgent.isOnNavMesh)
+            {
+                navAgent.isStopped = false;
+                navAgent.updateRotation = true;
+            }
+        }
+
+        if (collider != null)
+        {
+            collider.isTrigger = true;
+        }
+
+        if (interagivel != null)
+        {
+            interagivel.enabled = false;
+        }
+
+        //Reset animacao
+        if (animator != null)
+        {
+            animator.Desvirar();
+            animator.Persegue(false);
+            animator.Ataca(false);
+        }
+
+        // Reset de patrulha
+        IndexPosicaoAtual = 0;
+        if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
+        {
+            navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
+        }
+
+        Debug.Log("Perseguidor resetado para estado inicial!");
+    }
 
     private void OnDrawGizmos()
     {

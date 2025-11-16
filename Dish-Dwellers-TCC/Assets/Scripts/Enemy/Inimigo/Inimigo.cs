@@ -28,6 +28,7 @@ public abstract class Inimigo : MonoBehaviour
     [Space(10)]
     public Transform target;
     public LayerMask playerLayer;
+    public Player player;
     
     protected CharacterController cc;
 

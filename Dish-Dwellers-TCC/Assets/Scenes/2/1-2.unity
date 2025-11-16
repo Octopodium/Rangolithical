@@ -1373,11 +1373,31 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: dano
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: campoDeVisao
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: zonaDeAtaque
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: tempoDeAtaque
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: knockbackForce
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: cooldownAposDash
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: tempoIdleAposDash
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
@@ -6137,6 +6157,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: listaDeSons.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 84d0009503b0f804781f44b8b17d5e6c, type: 3}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d454730cf7b2fca4fb9b6b701570c9f6, type: 3}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 629647899f79b4b41af60a26d1445a45, type: 3}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 5857725675ceea0429676ecad80dbf63, type: 3}
+    - target: {fileID: 8365833458729604323, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
+      propertyPath: 'listaDeSons.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2560eab7d0fdd3e4a94984abd3ff4068, type: 3}
     - target: {fileID: 8836528273584566191, guid: cc9c62b6ac48180459e01f94c907e5cb, type: 3}
       propertyPath: m_Name
       value: voltar

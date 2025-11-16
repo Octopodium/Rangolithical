@@ -34,7 +34,7 @@ public class AnimatorPerseguidor : MonoBehaviour {
 
     // public void Patrulha(bool val) {
     //     animator.SetBool(patrulha, val);
-    // }a
+    // }
 
     public void Olhar(Vector3 dirAlvo) {
         Vector3 escalaX = transform.localScale;

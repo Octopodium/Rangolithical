@@ -120,6 +120,10 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
                     recebeTemplate.RecebeTemplate(template);
                 }
             }
+            // Perseguidor perseguidor = objeto.GetComponent<Perseguidor>();
+            // if (perseguidor != null) {
+            //     perseguidor.ResetarParaEstadoInicial();
+            // }
         }
     }
 
@@ -133,6 +137,11 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
         
         if (objeto != null) {
             objeto.transform.position = transform.TransformPoint(respawnPos);
+
+            // Perseguidor perseguidor = objeto.GetComponent<Perseguidor>();
+            // if (perseguidor != null) {
+            //     perseguidor.ResetarParaEstadoInicial();
+            // }
 
             if(!objeto.activeInHierarchy)
                 objeto.SetActive(true);
