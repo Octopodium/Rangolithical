@@ -15,72 +15,92 @@ MonoBehaviour:
   NodeLinks:
   - baseNodeGuid: add156c5-2c34-4b74-8270-8320aad27ca1
     portName: Next
-    targetNodeGuid: dialogue_heater1
-  - baseNodeGuid: dialogue_heater1
+    targetNodeGuid: dialogue1
+  - baseNodeGuid: dialogue1
     portName: output
-    targetNodeGuid: dialogue_angler1
-  - baseNodeGuid: dialogue_angler1
+    targetNodeGuid: dialogue2
+  - baseNodeGuid: dialogue2
     portName: output
-    targetNodeGuid: dialogue_heater2
-  - baseNodeGuid: dialogue_heater2
+    targetNodeGuid: dialogue3
+  - baseNodeGuid: dialogue3
     portName: output
-    targetNodeGuid: dialogue_angler2
-  - baseNodeGuid: dialogue_angler2
+    targetNodeGuid: dialogue4
+  - baseNodeGuid: dialogue4
     portName: output
     targetNodeGuid: e8e683b3-27b7-42ae-b67f-ce70822330ad
+  - baseNodeGuid: e8e683b3-27b7-42ae-b67f-ce70822330ad
+    portName: output
+    targetNodeGuid: fc273cd1-2721-479f-8b5f-df4b2ffecd0a
   - baseNodeGuid: fc273cd1-2721-479f-8b5f-df4b2ffecd0a
+    portName: output
+    targetNodeGuid: 3aa84b67-b9db-46f0-84ff-05a048f16aca
+  - baseNodeGuid: 3aa84b67-b9db-46f0-84ff-05a048f16aca
+    portName: output
+    targetNodeGuid: 463367fc-916d-4085-acf9-8a6c8a355a5e
+  - baseNodeGuid: 463367fc-916d-4085-acf9-8a6c8a355a5e
     portName: output
     targetNodeGuid: 39cfd21e-2d47-4ef6-962b-c977362e67d7
   DialogueNodeData:
-  - Guid: dialogue_angler1
+  - Guid: dialogue1
     nodeName: Text Node
-    dialogueText: "Relaxa, tudo isso vai acabar bem r\xE1pido, quando eu pegar a
-      {Receita Lend\xE1ria} sozinho. "
-    position: {x: 457, y: 350}
-    sceneName: 
-    _loadScene: 0
-    backgroundSprite: {fileID: 21300000, guid: 4c122f3b7c7d42648b90015b1dc96b54, type: 3}
-  - Guid: dialogue_heater2
-    nodeName: Text Node
-    dialogueText: "D\xFAvido que voc\xEA e seus peixes molengas consigam sequer enfrentar
-      o primeiro desafio."
-    position: {x: 710, y: 350}
-    sceneName: 
-    _loadScene: 0
-    backgroundSprite: {fileID: 21300000, guid: 406a4fdbeef428b4b821e88b362a9348, type: 3}
-  - Guid: dialogue_angler2
-    nodeName: Text Node
-    dialogueText: "\xC9 o que vamos ver! S\xF3 tenta n\xE3o incendiar a Torre inteira."
-    position: {x: 967, y: 350}
-    sceneName: 
-    _loadScene: 0
-    backgroundSprite: {fileID: 21300000, guid: 5ae0f014e3a7b7c429095f2c07df1f96, type: 3}
-  - Guid: dialogue_heater1
-    nodeName: Text Node
-    dialogueText: "N\xE3o acredito que vou ter que entrar nessa Torre com voc\xEA...
-      o Mestre deve estar de brincadeira."
+    dialogueText: 1
     position: {x: 209, y: 350}
     sceneName: 
     _loadScene: 0
     backgroundSprite: {fileID: 21300000, guid: 76204d7d69315484ea17365b3857574a, type: 3}
-  - Guid: e8e683b3-27b7-42ae-b67f-ce70822330ad
+  - Guid: dialogue2
     nodeName: Text Node
-    dialogueText: OMG ITS THE NEW HISTORY
+    dialogueText: 2
+    position: {x: 457, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: 4c122f3b7c7d42648b90015b1dc96b54, type: 3}
+  - Guid: dialogue3
+    nodeName: Text Node
+    dialogueText: 3
+    position: {x: 710, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 0}
+  - Guid: dialogue4
+    nodeName: Text Node
+    dialogueText: 4
+    position: {x: 961, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 0}
+  - Guid: dialogue5
+    nodeName: Text Node
+    dialogueText: 5
     position: {x: 1220, y: 350}
     sceneName: 
     _loadScene: 0
-    backgroundSprite: {fileID: 21300000, guid: d5cc897287a34344f933be741c2c5487, type: 3}
-  - Guid: fc273cd1-2721-479f-8b5f-df4b2ffecd0a
+    backgroundSprite: {fileID: 21300000, guid: 406a4fdbeef428b4b821e88b362a9348, type: 3}
+  - Guid: dialogue6
     nodeName: Text Node
-    dialogueText: New conversation
+    dialogueText: 6
     position: {x: 1475, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: 5ae0f014e3a7b7c429095f2c07df1f96, type: 3}
+  - Guid: dialogue7
+    nodeName: Text Node
+    dialogueText: 7
+    position: {x: 1731, y: 350}
+    sceneName: 
+    _loadScene: 0
+    backgroundSprite: {fileID: 21300000, guid: d5cc897287a34344f933be741c2c5487, type: 3}
+  - Guid: dialogue8
+    nodeName: Text Node
+    dialogueText: 8
+    position: {x: 2013, y: 350}
     sceneName: 
     _loadScene: 0
     backgroundSprite: {fileID: 21300000, guid: fc9890295daa81f4988c46891114d9c8, type: 3}
   - Guid: 39cfd21e-2d47-4ef6-962b-c977362e67d7
     nodeName: End
     dialogueText: Exit Node
-    position: {x: 1746, y: 350}
+    position: {x: 2296, y: 350}
     sceneName: 1-1
     _loadScene: 1
     backgroundSprite: {fileID: 0}
