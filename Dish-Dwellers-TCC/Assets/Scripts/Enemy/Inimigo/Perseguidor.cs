@@ -38,6 +38,7 @@ public class Perseguidor : Inimigo
     private Interagivel interagivel;
     private Carregavel carregavel;
     private NavMeshAgent navAgent;
+    private Collider collider;
     private bool podePerseguir = true;
 
     private void Awake()
@@ -46,6 +47,8 @@ public class Perseguidor : Inimigo
         animator = GetComponentInChildren<AnimatorPerseguidor>();
         interagivel = GetComponentInChildren<Interagivel>();
         carregavel = GetComponentInChildren<Carregavel>();
+        collider = GetComponentInChildren<BoxCollider>();
+
         if (interagivel) interagivel.enabled = false;
 
         if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
@@ -232,6 +235,7 @@ public class Perseguidor : Inimigo
             navAgent.enabled = false;
             Perseguidor perseguidor = GetComponent<Perseguidor>();
             perseguidor.enabled = false;
+            collider.isTrigger = false;
     }
 
     public void Recuperar() {
