@@ -63,6 +63,7 @@ public class Portal : IResetavel, SincronizaMetodo {
         foreach(Player player in playersNoPortal){
             player.indicador.Esconder(interagivel);
         }
+        indicadorSaida.Esconder();
         if (finalDaDemo) VaiParaOFim();
         else GameManager.instance.PassaDeSala();
     }
