@@ -60,6 +60,9 @@ public class Portal : IResetavel, SincronizaMetodo {
     public void PassarDeSala() {
         if (playersNoPortal.Count < 2) return;
         Debug.Log("To passando de sala ein");
+        foreach(Player player in playersNoPortal){
+            player.indicador.Esconder(interagivel);
+        }
         if (finalDaDemo) VaiParaOFim();
         else GameManager.instance.PassaDeSala();
     }

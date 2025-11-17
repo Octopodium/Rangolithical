@@ -70,7 +70,7 @@ public class IndicadorFalso : MonoBehaviour {
     }
 
     void OnDestroy() {
-        if (jogador != null)
-            jogador.OnDeviceChange -= HandleDeviceChange;
+        if (singleplayerSwitchSetted) GameManager.instance.OnTrocarControle -= HandleSingleplayerSwitch;
+        if (jogador != null) jogador.OnDeviceChange -= HandleDeviceChange;
     }
 }
