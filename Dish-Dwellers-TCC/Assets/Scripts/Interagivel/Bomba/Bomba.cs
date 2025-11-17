@@ -43,6 +43,8 @@ public class Bomba : MonoBehaviour{
         if(timer <= 0.0f){
             Instantiate(explosaoPrefab, transform.position, explosaoPrefab.transform.rotation);
             OnExplode?.Invoke();
+            AudioSource audioSource = GetComponentInChildren<AudioSource>();
+            audioSource.Play();
             this.enabled = false;
         }
     }
