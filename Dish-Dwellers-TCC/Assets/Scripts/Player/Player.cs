@@ -81,7 +81,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public float forcaKnockback = 5f;
     public float duracaoKnockback = 0.3f;
     public float componenteVerticalKnockback = 0.2f;
-    private bool estaSofrendoKnockback = false;
+    public bool estaSofrendoKnockback = false;
 
     public System.Action<bool> onEmoteWheel;
 

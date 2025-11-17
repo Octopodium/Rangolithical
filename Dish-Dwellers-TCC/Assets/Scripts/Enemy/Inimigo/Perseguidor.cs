@@ -22,6 +22,11 @@ public class Perseguidor : Inimigo, IRecebeTemplate
     [SerializeField] private float knockbackForce = 5f;
     [SerializeField] private float knockbackDuration = 0.3f;
 
+    [Header("Knockback no Player")] [Space(10)]
+    [SerializeField] private float cooldownAposAtaque = 1.5f;
+    private bool emCooldown = false;
+    private float tempoCooldownRestante = 0f;
+
     [Header("Ataque (Dash)")] [Space(10)]
     [SerializeField] private float tempoDeAtaque = 3f; 
     private float tempoDeAtaqueRestante;
@@ -79,6 +84,8 @@ public class Perseguidor : Inimigo, IRecebeTemplate
 
     private void FixedUpdate()
     {
+        if (agarrado) return;
+        
         if (caido && !carregavel.sendoCarregado)
         {
             tempoCaidoRestante -= Time.deltaTime;
@@ -87,40 +94,43 @@ public class Perseguidor : Inimigo, IRecebeTemplate
                 Recuperar();
                 return;
             }
-
         }
+
+        AtualizarCooldown();
 
         tempoDeAtaqueRestante -= Time.deltaTime;
 
         base.ChecagemDeZonas();
         AtualizarAlvo();
 
-        //Mudando esse cara pra state machine
-        switch (currentState) {
-            case State.Patrol:
-                Patrulhar();
-                if (_playerNoCampoDeVisao && target != null && podePerseguir) {
-                    currentState = State.Chase;
-                }
-                break;
+        if (!emCooldown)
+        {
+            switch (currentState) {
+                case State.Patrol:
+                    Patrulhar();
+                    if (_playerNoCampoDeVisao && target != null && podePerseguir) {
+                        currentState = State.Chase;
+                    }
+                    break;
 
-            case State.Chase:
-                Perseguir();
-                if (_playerNaZonaDeAtaque && tempoDeAtaqueRestante <= 0f && target != null) {
-                    StartCoroutine(DashAttack());
-                }
-                if (!_playerNoCampoDeVisao && target == null) {
-                    currentState = State.Patrol;
-                }
-                break;
+                case State.Chase:
+                    Perseguir();
+                    if (_playerNaZonaDeAtaque && tempoDeAtaqueRestante <= 0f && target != null) {
+                        StartCoroutine(DashAttack());
+                    }
+                    if (!_playerNoCampoDeVisao && target == null) {
+                        currentState = State.Patrol;
+                    }
+                    break;
 
-            case State.Attack:
-                //feito na coroutine
-                break;
+                case State.Attack:
+                    //feito na coroutine
+                    break;
 
-            case State.Stunned:
-                //lógica do CaidoPorEscudo
-                break;
+                case State.Stunned:
+                    //lógica do CaidoPorEscudo
+                    break;
+            }
         }
     }
 
@@ -221,8 +231,15 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         }
         
         if(other.CompareTag("Player") && !caido) {
-            Debug.Log("Entrou no hit player");
-            other.GetComponent<Player>()?.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+
+            Player player = other.GetComponent<Player>();
+            if (player != null) {
+                player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+                player.AplicarKnockback(transform);
+                AudioManager.PlaySounds(TiposDeSons.KNOCKBACK);
+
+                IniciarCooldownAtaque();
+            }
         }
     }
 
@@ -332,6 +349,53 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         }
     }
 
+    private void IniciarCooldownAtaque()
+    {
+        emCooldown = true;
+        tempoCooldownRestante = cooldownAposAtaque;
+        currentState = State.Stunned; 
+        
+        if (navAgent != null && navAgent.isOnNavMesh)
+        {
+            navAgent.isStopped = true;
+        }
+    }
+
+    private void AtualizarCooldown()
+    {
+        if (emCooldown)
+        {
+            tempoCooldownRestante -= Time.deltaTime;
+            
+            if (tempoCooldownRestante <= 0f)
+            {
+                FinalizarCooldown();
+            }
+        }
+    }
+
+    private void FinalizarCooldown()
+    {
+        emCooldown = false;
+        tempoCooldownRestante = 0f;
+        
+        // Volta para o estado apropriado
+        if (navAgent != null && navAgent.isOnNavMesh)
+        {
+            navAgent.isStopped = false;
+        }
+        
+        if (target != null && _playerNoCampoDeVisao)
+        {
+            currentState = State.Chase;
+        }
+        else
+        {
+            currentState = State.Patrol;
+        }
+        
+    }
+
     private bool PlayerNaZona(Transform jogador)
     {
         return Vector3.Distance(transform.position, jogador.position) <= zonaDeAtaque;
@@ -382,7 +446,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate
             animator.Ataca(false);
         }
 
-        // Reset de patrulha
+        //Reset de patrulha
         IndexPosicaoAtual = 0;
         if (waypoints.Length > 0 && navAgent != null && navAgent.isOnNavMesh)
         {
@@ -390,6 +454,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         }
 
         Debug.Log("Perseguidor resetado para estado inicial!");
+
+        //Reset do cooldown
+        emCooldown = false;
+        tempoCooldownRestante = 0f;
     }
 
     private void OnDrawGizmos()
