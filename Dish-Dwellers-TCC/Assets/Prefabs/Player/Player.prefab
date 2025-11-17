@@ -370,9 +370,10 @@ MonoBehaviour:
   atirandoGancho: 0
   estaMirando: 0
   deadzoneMira: 0.1
-  forcaKnockback: 10
+  forcaKnockback: 15
   duracaoKnockback: 0.3
   componenteVerticalKnockback: 0.2
+  estaSofrendoKnockback: 0
   carregador: {fileID: 0}
   estaNoChao: 1
   onTomarDano:
@@ -626,7 +627,7 @@ MonoBehaviour:
   posInicial: {x: 0, y: 0, z: 0}
   rotInicial: {x: 0, y: 0, z: 0, w: 0}
   networkIdentity: {fileID: 0}
-  identificador: $1378a528f7b24b33b782287e05d27e7d
+  identificador: $ed55394d16164d21bc89bf1375d96200
 --- !u!114 &1290607209154408467
 MonoBehaviour:
   m_ObjectHideFlags: 0

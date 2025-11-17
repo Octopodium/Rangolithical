@@ -1247,6 +1247,7 @@ PrefabInstance:
       propertyPath: onDesganchado.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 3099359807600636609, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -1267,6 +1268,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stashed changes
     - target: {fileID: 4968411245112133226, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.62
@@ -1344,10 +1347,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2356019683105184347, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 2741958774313156531, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: OnDestruido.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1445,6 +1444,14 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: cooldownAposAtaque
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: knockbackPlayerForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325115763719662212, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
       value: 
       objectReference: {fileID: 1642309573}
@@ -1452,6 +1459,14 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[1]'
       value: 
       objectReference: {fileID: 112062414}
+    - target: {fileID: 8630964470272004635, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9914449
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630964470272004635, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.13052616
+      objectReference: {fileID: 0}
     - target: {fileID: 8630964470272004635, guid: da2bce59b82c9a141be4fbab7e12bd33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 15
@@ -2869,6 +2884,10 @@ PrefabInstance:
     - target: {fileID: 6998159026776474893, guid: 6703e18ad6bec2a48bb1076764258273, type: 3}
       propertyPath: m_Name
       value: ResetavelEplodivel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998159026776474893, guid: 6703e18ad6bec2a48bb1076764258273, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7064871014546265346, guid: 6703e18ad6bec2a48bb1076764258273, type: 3}
       propertyPath: m_LocalScale.x
