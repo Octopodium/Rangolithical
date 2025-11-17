@@ -1249,15 +1249,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3099359807600636609, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099359807600636609, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3099359807600636609, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099359807600636609, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3099359807600636609, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968411245112133226, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1302,6 +1310,26 @@ PrefabInstance:
     - target: {fileID: 6049007536617274792, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
       propertyPath: identificador
       value: $36fa771db27e44b6879c03b9069bac46
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190834734486871809, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190834734486871809, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190834734486871809, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Rotation
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190834734486871809, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190834734486871809, guid: 8ccbbab91176bb0469aa40c8ede84aa5, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
