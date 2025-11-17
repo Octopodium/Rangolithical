@@ -155,4 +155,10 @@ public class AnimadorPlayer : MonoBehaviour
         audioSource.Play();
     }
 
+    public void ResetAnimador() {
+        animator.Play("Parado", -1, 0);
+        AtivarEscudo(false);
+        animator.SetBool(Anda, false);
+    }
+
 }

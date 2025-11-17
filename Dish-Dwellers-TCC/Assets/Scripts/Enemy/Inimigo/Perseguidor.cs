@@ -41,6 +41,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate
     private NavMeshAgent navAgent;
     private Collider collider;
     private bool podePerseguir = true;
+    private bool inicializado = false;
 
 
     private void Awake()
@@ -56,7 +57,8 @@ public class Perseguidor : Inimigo, IRecebeTemplate
     }
     
     private void OnEnable() {
-        ResetarParaEstadoInicial();
+        if(inicializado) ResetarParaEstadoInicial();
+        inicializado = true;
     }
 
     private void Start()

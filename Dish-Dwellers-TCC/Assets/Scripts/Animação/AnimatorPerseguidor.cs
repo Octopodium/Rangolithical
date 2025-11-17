@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimatorPerseguidor : MonoBehaviour {
-    private Animator animator;
+    [SerializeField] private Animator animator;
     [SerializeField] private Transform meshPerseguidor;
 
     #region Parâmetros do animator

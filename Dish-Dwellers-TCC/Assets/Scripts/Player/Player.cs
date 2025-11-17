@@ -303,6 +303,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     IEnumerator TocarAnimacaoDeMorte(AnimadorPlayer.fonteDeDano fonte) {
         float duracao = animacaoJogador.Morte(fonte);
         yield return new WaitForSeconds(duracao);
+        animacaoJogador.ResetAnimador();
         GameManager.instance.ResetSala(fonte);
     }
 

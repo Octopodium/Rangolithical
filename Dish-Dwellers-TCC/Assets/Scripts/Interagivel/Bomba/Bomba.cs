@@ -6,7 +6,7 @@ public class Bomba : MonoBehaviour{
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Renderer bombaRenderer;
     [SerializeField, ColorUsage(true, true)] private Color corPiscante = Color.red;
-    private Color corNormal = Color.white;
+    [SerializeField, ColorUsage(true, true)] private Color corNormal = Color.white;
     private MaterialPropertyBlock mpb;
     private static int baseColorID = Shader.PropertyToID("_Color");
     [SerializeField] private float tempoParaExplodir = 5.0f;

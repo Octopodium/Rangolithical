@@ -120,10 +120,6 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
                     recebeTemplate.RecebeTemplate(template);
                 }
             }
-            // Perseguidor perseguidor = objeto.GetComponent<Perseguidor>();
-            // if (perseguidor != null) {
-            //     perseguidor.ResetarParaEstadoInicial();
-            // }
         }
     }
 

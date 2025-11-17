@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2175951de0a579e48858c0cb00c89e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 5667432093182280071}
   meshPerseguidor: {fileID: 8630964470272004635}
 --- !u!114 &562282552600167175
 MonoBehaviour:
@@ -202,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393979805360876963}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: -0.000000014901161, y: -0.000000059604645, z: 7.1054274e-15}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
@@ -756,6 +757,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   bombaRenderer: {fileID: 3664483380418688707}
   corPiscante: {r: 1.4980392, g: 0, b: 0, a: 1}
+  corNormal: {r: 1, g: 1, b: 1, a: 1}
   tempoParaExplodir: 4
   OnExplode:
     m_PersistentCalls:
@@ -1262,7 +1264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7254861241693223733}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
