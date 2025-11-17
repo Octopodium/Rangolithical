@@ -45,7 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5e1b87c562eb242ba43a54ced4e701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listaDeSons:
+  - {fileID: 8300000, guid: 84d0009503b0f804781f44b8b17d5e6c, type: 3}
+  - {fileID: 8300000, guid: d454730cf7b2fca4fb9b6b701570c9f6, type: 3}
+  - {fileID: 8300000, guid: 629647899f79b4b41af60a26d1445a45, type: 3}
+  - {fileID: 8300000, guid: 5857725675ceea0429676ecad80dbf63, type: 3}
+  - {fileID: 8300000, guid: 2560eab7d0fdd3e4a94984abd3ff4068, type: 3}
   musicaAtual: {fileID: 1980536189546186514}
+  currentMasterVolume: 0
+  masterVolumeSlider: {fileID: 0}
 --- !u!82 &1980536189546186514
 AudioSource:
   m_ObjectHideFlags: 0
@@ -59,7 +67,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: e5a25f237d0957b43bd325d3358892af, type: 3}
   m_Resource: {fileID: 8300000, guid: e5a25f237d0957b43bd325d3358892af, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 1
   Mute: 0
