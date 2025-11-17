@@ -13,6 +13,8 @@ public class DishNetworkManager : NetworkManager {
 
     public enum Personagem { Indefinido, Heater, Angler }
 
+    public System.Action OnServerStarted, OnHostStarted;
+
     BetterEOSLobby betterEOSLobby;
 
     public override void Awake() {
@@ -29,6 +31,9 @@ public class DishNetworkManager : NetworkManager {
         if (betterEOSLobby != null)
             betterEOSLobby.transform.SetParent(transform);
     }
+
+    public override void OnStartServer() => OnServerStarted?.Invoke();
+    public override void OnStartHost() => OnHostStarted?.Invoke();
 
 
     public override void OnClientConnect() { }
