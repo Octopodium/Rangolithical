@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public interface IRecebeTemplate {
@@ -23,6 +23,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     [Space(15)]
     [Header("Configurações")]
     [Space(10)]
+    [SerializeField] private float dellay = 0.0f;
     [SerializeField] private bool habilitado = true;
     [SerializeField] private bool spawnNoInicio = false;
     [Tooltip("Caso o objeto prefab seja 'IRecebeTemplate', ele recebera o objeto 'template' como parâmetro de 'RecebeTemplate'. Util para replicar valores base nos objetos recém instanciados.")]
@@ -82,9 +83,30 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     /// </summary>
     [Sincronizar]
     public void Spawn() {
-        if(!habilitado) return;
-        if (objeto != null) return;
-        if (spawnando) return;
+        // if(!habilitado) return;
+        // if (objeto != null) return;
+        // if (spawnando) return;
+
+        // gameObject.Sincronizar();
+        
+        // if (!GameManager.instance.isOnline) {
+        //     spawnando = true;
+        //     AposSpawn(Instantiate(prefab, transform.TransformPoint(respawnPos), transform.rotation));
+        // }
+        // else {
+        //     SetupSpawner();
+        //     GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
+        //     if (Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc))
+        //         spawnando = true;
+        // }
+        StartCoroutine(SpawnCoroutine());
+    }
+
+    IEnumerator SpawnCoroutine(){
+        yield return new WaitForSecondsRealtime(dellay);
+        if(!habilitado) yield break;
+        if (objeto != null) yield break;
+        if (spawnando) yield break;
 
         gameObject.Sincronizar();
         
@@ -129,6 +151,27 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
     /// </summary>
     [Sincronizar]
     public void Respawn(){
+        // gameObject.Sincronizar();
+        
+        // if (objeto != null) {
+        //     objeto.transform.position = transform.TransformPoint(respawnPos);
+
+        //     // Perseguidor perseguidor = objeto.GetComponent<Perseguidor>();
+        //     // if (perseguidor != null) {
+        //     //     perseguidor.ResetarParaEstadoInicial();
+        //     // }
+
+        //     if(!objeto.activeInHierarchy)
+        //         objeto.SetActive(true);
+        // } else {
+        //     Spawn();
+        // }
+        
+        StartCoroutine(RespawnCoroutine());
+    }
+
+    IEnumerator RespawnCoroutine() {
+        yield return new WaitForSecondsRealtime(dellay);
         gameObject.Sincronizar();
         
         if (objeto != null) {
