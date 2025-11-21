@@ -8,8 +8,12 @@ public class ConectorOnlineIP : ConectorDeTransport {
 
 
     public InputField ipInputField, portInputField;
+    bool setedUp = false;
 
     public override void Setup() {
+        if (setedUp) return;
+        setedUp = true;
+
         networkManager = NetworkManager.singleton;
         telepathyTransport = (TelepathyTransport)networkManager.transport;
 

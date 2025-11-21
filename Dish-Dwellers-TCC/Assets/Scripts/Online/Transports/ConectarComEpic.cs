@@ -20,9 +20,12 @@ public class ConectarComEpic : ConectorDeTransport {
     bool serverIniciado = false;
     bool deuErro = false;
 
+    bool setedUp = false;
+
 
     public override void Setup() {
-        idInput.text = "";
+        if (setedUp) return;
+        setedUp = true;
 
         lobbyCriado = false;
         serverIniciado = false;
@@ -76,7 +79,7 @@ public class ConectarComEpic : ConectorDeTransport {
             callbackHostear = null;
         }
     }
-
+    
     public override void ConectarCliente(System.Action<bool> callback = null) {
         callbackConectarCliente = callback;
 
