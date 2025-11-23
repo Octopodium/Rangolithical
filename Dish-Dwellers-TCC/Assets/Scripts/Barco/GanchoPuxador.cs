@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class GanchoPuxador : MonoBehaviour
+public class GanchoPuxador : IResetavel
 {
     Player angler;
     public Ganchavel ganchavel;
@@ -61,5 +61,11 @@ public class GanchoPuxador : MonoBehaviour
         }
 
         meshBoia.transform.position = targetPos;
+    }
+
+    public override void OnReset(){
+        Debug.Log("ta resertando");
+        UnsinkBoia();
+        //meshBoia.transform.position = startPosition;
     }
 }

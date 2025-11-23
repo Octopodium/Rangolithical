@@ -16,4 +16,12 @@ public class UICard : MonoBehaviour
     public void Initialize(CardSO card){
         this.card = card;
     }
+
+    public void ConstruirMiniCard(){
+
+    }
+
+    public void ConstruirFullCard(){
+        
+    }
 }

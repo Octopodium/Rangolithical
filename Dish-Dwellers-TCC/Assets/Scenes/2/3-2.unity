@@ -7551,6 +7551,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8562877554256715439, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
   m_PrefabInstance: {fileID: 1346615556}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &942314274 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2931971534357381048, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
+  m_PrefabInstance: {fileID: 1346615556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a43e778010da1a45bf180a5622b9e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &942471118
 GameObject:
   m_ObjectHideFlags: 0
@@ -10674,6 +10685,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1437ab95c2ffa654f87f520c721668bb, type: 3}
   m_PrefabInstance: {fileID: 814001431}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1283384183 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2931971534357381048, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
+  m_PrefabInstance: {fileID: 1211728902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a43e778010da1a45bf180a5622b9e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1297718389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10774,6 +10796,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 808198940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1304922823 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2931971534357381048, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
+  m_PrefabInstance: {fileID: 120136284}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a43e778010da1a45bf180a5622b9e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1307286751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13373,6 +13406,7 @@ MonoBehaviour:
   respawnPos: {x: -37.456165, y: 0, z: -5.108364}
   triggerSpawnChave: {fileID: 0}
   objeto: {fileID: 0}
+  dellay: 0
   habilitado: 1
   spawnNoInicio: 1
   template: {fileID: 375824771}
@@ -15021,6 +15055,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1976085956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1999930358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2931971534357381048, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
+  m_PrefabInstance: {fileID: 1501227798}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a43e778010da1a45bf180a5622b9e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2013251779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8468162805243610116, guid: 540582cee55c1d348b3a7621d857cc69, type: 3}
@@ -15372,6 +15417,17 @@ PrefabInstance:
       addedObject: {fileID: 1116280594}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 257adff52cf5926439b4e640a024edd5, type: 3}
+--- !u!114 &2044121355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2931971534357381048, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
+  m_PrefabInstance: {fileID: 967156915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a43e778010da1a45bf180a5622b9e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2047096092
 GameObject:
   m_ObjectHideFlags: 0
@@ -16500,6 +16556,11 @@ MonoBehaviour:
   - {fileID: 38049388}
   - {fileID: 5720224907555876093}
   - {fileID: 1692890035}
+  - {fileID: 1304922823}
+  - {fileID: 942314274}
+  - {fileID: 1999930358}
+  - {fileID: 2044121355}
+  - {fileID: 1283384183}
   onResetSala:
     m_PersistentCalls:
       m_Calls: []
@@ -17329,6 +17390,7 @@ MonoBehaviour:
   respawnPos: {x: 0, y: 0, z: 0}
   triggerSpawnChave: {fileID: 0}
   objeto: {fileID: 0}
+  dellay: 0
   habilitado: 1
   spawnNoInicio: 1
   template: {fileID: 2485528062240518641}
