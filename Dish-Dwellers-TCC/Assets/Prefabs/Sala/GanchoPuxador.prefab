@@ -224,10 +224,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onGanchado:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 102638348876435791}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hooked
+          m_BoolArgument: 0
+        m_CallState: 2
   onDesganchado:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 102638348876435791}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: ResetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hooked
+          m_BoolArgument: 0
+        m_CallState: 2
   onPuxado:
     m_PersistentCalls:
       m_Calls:
@@ -241,6 +265,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 102638348876435791}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: ResetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hooked
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2931971534357381048
@@ -279,7 +315,7 @@ MonoBehaviour:
   posInicial: {x: 0, y: 0, z: 0}
   rotInicial: {x: 0, y: 0, z: 0, w: 0}
   networkIdentity: {fileID: 0}
-  identificador: $a0bccbcd8733444a9403dc41287c34c4
+  identificador: $84444f3b74214d8bb27a55df53a017db
 --- !u!136 &7494056500875168737
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -463,6 +499,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4dfb49a2aad65542bb826885c03a566, type: 3}
+--- !u!95 &102638348876435791 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8254598322953168917, guid: a4dfb49a2aad65542bb826885c03a566, type: 3}
+  m_PrefabInstance: {fileID: 8350408700291479898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &257477058281513435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8102013651023222913, guid: a4dfb49a2aad65542bb826885c03a566, type: 3}
