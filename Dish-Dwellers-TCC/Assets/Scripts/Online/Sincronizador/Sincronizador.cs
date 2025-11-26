@@ -398,14 +398,12 @@ public class Sincronizador : NetworkBehaviour {
     public class SpawnInfo {
         public string id;
         public Vector3 position;
-        public Quaternion rotation;
         public Action<GameObject> callback;
         public List<string> ids;
 
-        public SpawnInfo(string id, Vector3 position, Quaternion rotation, System.Action<GameObject> callback) {
+        public SpawnInfo(string id, Vector3 position, System.Action<GameObject> callback) {
             this.id = id;
             this.position = position;
-            this.rotation = rotation;
             this.callback = callback;
             this.ids = new List<string>();
         }
@@ -444,8 +442,9 @@ public class Sincronizador : NetworkBehaviour {
         return null;
     }
 
-    public void RegistrarSpawner(GameObject prefab, Vector3 position, Quaternion rotation, Sincronizavel sincronizavel, System.Action<GameObject> callback) {
-        SpawnInfo info = new SpawnInfo(sincronizavel.identificador, position, rotation, callback);
+    public void RegistrarSpawner(GameObject prefab, Vector3 position, Sincronizavel sincronizavel, System.Action<GameObject> callback) {
+        SpawnInfo info = new SpawnInfo(sincronizavel.identificador, position, callback);
+        Debug.Log("Registrando spawner " + sincronizavel.identificador + " - " + prefab.name);
 
         NetworkIdentity netId = prefab.GetComponent<NetworkIdentity>();
         if (netId == null) {
@@ -490,7 +489,7 @@ public class Sincronizador : NetworkBehaviour {
         }
     }
 
-    public bool InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel, string spawn_id = "0") {
+    public bool InstanciarNetworkObject(GameObject prefab, Sincronizavel sincronizavel, Quaternion rotation = default, string spawn_id = "0") {
         if (!GameManager.instance.isOnline) return false;
         
 
@@ -510,7 +509,7 @@ public class Sincronizador : NetworkBehaviour {
         info.AddId(spawn_id);
 
         if (isServer) {
-            GameObject objeto = Instantiate(prefab, info.position, info.rotation);
+            GameObject objeto = Instantiate(prefab, info.position, rotation);
             NetworkServer.Spawn(objeto);
         }
 
@@ -565,27 +564,8 @@ public class Sincronizador : NetworkBehaviour {
 
         if (possiveis_pos.Count == 1) return possiveis_pos[0];
 
-        // Se mais de um possivel, decide por angulo
-
-        List<SpawnInfo> possiveis_ang = new List<SpawnInfo>();
-        float minAngle = float.MaxValue;
-
-        foreach (SpawnInfo s_info in possiveis_pos) {
-            float angle = Quaternion.Angle(s_info.rotation, sinc.rotInicial);
-
-            if (angle <= minAngle) {
-                if (angle < minAngle) {
-                    minAngle = angle;
-                    possiveis_ang.Clear();
-                }
-                possiveis_ang.Add(s_info);
-            }
-        }
-
-        if (possiveis_ang.Count == 1) return possiveis_ang[0];
-
-        // Se ainda sim, for o mesmo angulo, ainda não há criterio de desempate. Pega o primeiro :/
-        return possiveis_ang[0];
+        // Se ainda sim, ainda não há criterio de desempate. Pega o primeiro :/
+        return possiveis_pos[0];
     }
 
     public bool IsSpawning(uint assetId) {

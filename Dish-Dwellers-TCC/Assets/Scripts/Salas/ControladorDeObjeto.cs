@@ -53,7 +53,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
         GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
         if (sinc == null) sinc = GetComponent<Sincronizavel>();
 
-        Sincronizador.instance.RegistrarSpawner(prefabToUse, transform.TransformPoint(respawnPos), transform.rotation, sinc, AposSpawn);
+        Sincronizador.instance.RegistrarSpawner(prefabToUse, transform.TransformPoint(respawnPos), sinc, AposSpawn);
     }
 
     void OnDestroy() {
@@ -117,7 +117,7 @@ public class ControladorDeObjeto : IResetavel, SincronizaMetodo {
         else {
             SetupSpawner();
             GameObject prefabToUse = prefabOnline != null ? prefabOnline : prefab;
-            if (Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc))
+            if (Sincronizador.instance.InstanciarNetworkObject(prefabToUse, sinc, transform.rotation))
                 spawnando = true;
         }
     }

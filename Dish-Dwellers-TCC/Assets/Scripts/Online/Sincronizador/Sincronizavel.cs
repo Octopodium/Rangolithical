@@ -175,7 +175,6 @@ public class Sincronizavel : MonoBehaviour {
     public bool isSingleton = false;
 
     [HideInInspector] public Vector3 posInicial;
-    [HideInInspector] public Quaternion rotInicial;
 
 
     private List<(Component, MethodInfo)> metodos = new List<(Component, MethodInfo)>();
@@ -184,7 +183,6 @@ public class Sincronizavel : MonoBehaviour {
 
     void Awake() {
         posInicial = transform.position;
-        rotInicial = transform.rotation;
 
         networkIdentity = GetComponent<NetworkIdentity>();
         if (networkIdentity != null) {
@@ -212,6 +210,8 @@ public class Sincronizavel : MonoBehaviour {
         PreDestroy();
     }
 
+    bool rolouSetup = false;
+    System.Action posSetupActions;
     void Setup() {
         try { if (gameObject ==  null) return;}
         catch{ return; }
@@ -222,6 +222,10 @@ public class Sincronizavel : MonoBehaviour {
             CadastrarSincronizavel();
             CadastrarMetodos();
         }
+
+        rolouSetup = true;
+        posSetupActions?.Invoke();
+        posSetupActions = null;
     }
 
     public void LateSetup() {
@@ -229,6 +233,15 @@ public class Sincronizavel : MonoBehaviour {
 
         CadastrarSincronizavel();
         CadastrarMetodos();
+
+        rolouSetup = true;
+        posSetupActions?.Invoke();
+        posSetupActions = null;
+    }
+
+    public void AposSetup(System.Action posSetupCallback) {
+        if (rolouSetup || !GameManager.instance.isOnline) posSetupCallback?.Invoke();
+        else posSetupActions += posSetupCallback;
     }
 
     public bool isDestroying { get;  protected set; } = false;
@@ -248,6 +261,33 @@ public class Sincronizavel : MonoBehaviour {
         } else {
             runComSinc.Invoke();
         }
+    }
+
+    Dictionary<GameObject, (System.Action<GameObject>, Vector3)> _offlineSpawnCallbackHandler = new Dictionary<GameObject, (System.Action<GameObject>, Vector3)>();
+
+    bool _spawnerSetted = false;
+    public void HandleRegistarSpawner(GameObject prefab, Vector3 pos, System.Action<GameObject> callback) {
+        if (_spawnerSetted) return;
+        _spawnerSetted = true;
+
+        if (!GameManager.instance.isOnline) {
+            _offlineSpawnCallbackHandler[prefab] = (callback, pos);
+            return;
+        }
+
+        Sincronizador.instance.RegistrarSpawner(prefab, pos, this, callback);
+    }
+
+    public bool Spawnar(GameObject prefab, Quaternion rotation = default) {
+        if (!GameManager.instance.isOnline) {
+            if (!_offlineSpawnCallbackHandler.ContainsKey(prefab)) return false; 
+            (System.Action<GameObject> callback, Vector3 pos) = _offlineSpawnCallbackHandler[prefab];
+            callback?.Invoke(Instantiate(prefab, pos, rotation));
+            return true;
+        }
+        else if (Sincronizador.instance.InstanciarNetworkObject(prefab, this, rotation))
+            return true;
+        return false;
     }
 
 
