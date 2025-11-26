@@ -23,6 +23,7 @@ public class ParedeDeVinhas : IResetavel {
     public override void OnReset() {
         StopAllCoroutines();
         mpb.SetFloat(radiusID, 0.0f);
+        mpb.SetVector(pointOfContactID, Vector3.negativeInfinity);
         foreach(Renderer render in renderers) {
             render.SetPropertyBlock(mpb);
         }
