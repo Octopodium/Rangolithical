@@ -257,8 +257,11 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         DesenharTrajetoria();
     }
 
-    private void OnTriggerEnter(Collider other){
-        
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if(hit.collider.CompareTag("Queimavel")){
+            MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+            AplicarKnockback(hit.transform);
+        }
     }
 
     void OnDestroy() {

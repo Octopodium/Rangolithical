@@ -20,6 +20,21 @@ public class ParedeDeVinhas : IResetavel {
         col = GetComponent<Collider>();
     }
 
+    private void OnCollisionEnter(Collision other) {
+        if(other.transform.CompareTag("Player")) {
+            Player player = other.transform.GetComponent<Player>();
+            player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+            player.AplicarKnockback(transform);
+        }
+    }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        Debug.Log("CharacterController Collision detected!");
+        Player player = hit.controller.GetComponent<Player>();
+        player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+        player.AplicarKnockback(transform);
+    }
+
     public override void OnReset() {
         StopAllCoroutines();
         mpb.SetFloat(radiusID, 0.0f);
