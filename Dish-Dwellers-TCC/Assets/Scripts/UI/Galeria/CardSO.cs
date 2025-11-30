@@ -7,7 +7,8 @@ public class CardSO : ScriptableObject
     public string cardName;
     [TextArea(10,10)]
     public string description;
-    public Sprite cardImage;
+    public Sprite cardPreview;
+    public Sprite cardFull;
 
     public IngredienteData[] requisitos;
     public int id;
