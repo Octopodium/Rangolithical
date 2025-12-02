@@ -63,6 +63,7 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void HandleAnimation(float duration, Vector3 endScale){
         if (buttonText != null){
+            StopAllCoroutines();
             StartCoroutine(ScaleText(duration, endScale));
         }
     }
