@@ -2658,10 +2658,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1673420316}
     m_Modifications:
-    - target: {fileID: 1691297001708779596, guid: 25eb6c771b0d0c14a916b0577d851a69, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 04aae1a99b96eb647a42a324e2c60844, type: 2}
     - target: {fileID: 2888904972344646435, guid: 25eb6c771b0d0c14a916b0577d851a69, type: 3}
       propertyPath: m_Name
       value: Pumpkin_Plant (3)
@@ -6944,6 +6940,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8372441806519367719, guid: 97408cfa321766f4d9a7368f0ca8ac23, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fe0f8b83a30d5964ea80de58c2f470d8, type: 2}
     - target: {fileID: 9079250774515205698, guid: 97408cfa321766f4d9a7368f0ca8ac23, type: 3}
       propertyPath: m_Name
       value: Leaf_01 (5)
@@ -7842,6 +7842,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2199459949242555303, guid: a7b1fb73374d5554998d744e2e06ad4c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fe0f8b83a30d5964ea80de58c2f470d8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8329,7 +8333,8 @@ PrefabInstance:
     - {fileID: 5786580189332840596, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
     - {fileID: 307270819419284196, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
     - {fileID: 1663819671767324554, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5953933198379523406, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
@@ -8896,7 +8901,7 @@ PrefabInstance:
     - target: {fileID: 4561686123338410303, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4171b09c39cce2d459f7bc72df9c43c0, type: 2}
+      objectReference: {fileID: 2100000, guid: 2ffdadd1446151a46845eb164b007ced, type: 2}
     - target: {fileID: 7168708020836191115, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -8908,6 +8913,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7601882995694711436, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
+    - {fileID: 6404464711520753900, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
+    - {fileID: 347685452146113112, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8fe582479e2a6346be88df0e4bc6b76, type: 3}
@@ -17198,10 +17205,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1046914069}
     m_Modifications:
-    - target: {fileID: 970838933603593107, guid: 13c2e44b0e47b0940897433edf46ead1, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 04aae1a99b96eb647a42a324e2c60844, type: 2}
     - target: {fileID: 3829621801194786965, guid: 13c2e44b0e47b0940897433edf46ead1, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -17903,6 +17906,14 @@ PrefabInstance:
     - target: {fileID: 3796837056122130446, guid: 6995c8a2fbec4f8468b23d8a1abd52a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444072711209279830, guid: 6995c8a2fbec4f8468b23d8a1abd52a9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444072711209279830, guid: 6995c8a2fbec4f8468b23d8a1abd52a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

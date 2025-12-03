@@ -64,8 +64,6 @@ public class GanchoPuxador : IResetavel
     }
 
     public override void OnReset(){
-        Debug.Log("ta resertando");
         UnsinkBoia();
-        //meshBoia.transform.position = startPosition;
     }
 }

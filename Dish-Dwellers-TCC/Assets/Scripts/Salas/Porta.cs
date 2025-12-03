@@ -8,6 +8,7 @@ public class Porta : IResetavel, InteracaoCondicional {
     private Portal portalScript;
     [SerializeField] private Animator animator;
     [SerializeField] private float delayParaAtivarOPortal = 1.0f;
+    [SerializeField] private GameObject cadeado;
     private bool destrancada;
     public bool trancada => !destrancada;
     private AudioSource audioSource;
@@ -32,6 +33,7 @@ public class Porta : IResetavel, InteracaoCondicional {
     public override void OnReset() {
         Trancar();
         portal.GetComponent<Portal>().OnReset();
+        cadeado.SetActive(true);
     }
 
     public void Interagir(Player jogador) {

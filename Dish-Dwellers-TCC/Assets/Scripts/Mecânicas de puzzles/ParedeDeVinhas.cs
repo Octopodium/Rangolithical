@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Collider))]
 public class ParedeDeVinhas : IResetavel {
@@ -7,6 +8,11 @@ public class ParedeDeVinhas : IResetavel {
     private Renderer[] renderers;
     private Collider col;
     private MaterialPropertyBlock mpb;
+    [Header("Configurações da animação de queimar:")]
+    [SerializeField] private float velocidadeDeQueima = 1.0f;
+    [SerializeField] private float raioMaximo = 10.0f;
+    private readonly int pointOfContactID = Shader.PropertyToID("_PointOfContact");
+    private readonly int radiusID = Shader.PropertyToID("_Radius");
 
     private void Awake() {
         mpb = new MaterialPropertyBlock();
@@ -14,27 +20,42 @@ public class ParedeDeVinhas : IResetavel {
         col = GetComponent<Collider>();
     }
 
-    public override void OnReset() {
-        AtivarVinhas(true);
-    }
-
-    private void AtivarVinhas(bool ativa) {
-        foreach (Renderer render in renderers) {
-            render.gameObject.SetActive(ativa);
+    private void OnCollisionEnter(Collision other) {
+        if(other.transform.CompareTag("Player")) {
+            Player player = other.transform.GetComponent<Player>();
+            player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+            player.AplicarKnockback(transform);
         }
-
-        col.enabled = ativa;
-        
-        SetarCor(integridade);
+    }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        Debug.Log("CharacterController Collision detected!");
+        Player player = hit.controller.GetComponent<Player>();
+        player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+        player.AplicarKnockback(transform);
     }
 
-    public void ReduzirIntegridade() {
+    public override void OnReset() {
+        StopAllCoroutines();
+        mpb.SetFloat(radiusID, 0.0f);
+        mpb.SetVector(pointOfContactID, Vector3.negativeInfinity);
+        foreach(Renderer render in renderers) {
+            render.SetPropertyBlock(mpb);
+        }
+        col.enabled = true;
+    }
+
+    public void ReduzirIntegridade(Vector3 pontoDeContato) {
         if (--integridade <= 0) {
-            AtivarVinhas(false);
+            //AtivarVinhas(false);
+            mpb.SetVector(pointOfContactID, pontoDeContato);
+            foreach(Renderer render in renderers) {
+                render.SetPropertyBlock(mpb);
+            }
+            StartCoroutine(QueimarVinhas());
             AudioManager.PlaySounds(TiposDeSons.VINESBURNING);
             return;
         }
-        SetarCor(integridade);
     }
 
     private void SetarCor(int integridade) {
@@ -44,6 +65,19 @@ public class ParedeDeVinhas : IResetavel {
 
         foreach (Renderer render in renderers) {
             render.SetPropertyBlock(mpb);
+        }
+    }
+
+    IEnumerator QueimarVinhas() {
+        col.enabled = false;
+        float raio = 0.0f;
+        while(raio < raioMaximo) {
+            raio += Time.fixedDeltaTime * velocidadeDeQueima;
+            mpb.SetFloat(radiusID, raio);
+            foreach(Renderer render in renderers) {
+                render.SetPropertyBlock(mpb);
+            }
+            yield return new WaitForFixedUpdate();
         }
     }
 

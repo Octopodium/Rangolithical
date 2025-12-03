@@ -16,8 +16,8 @@ public class ColecionavelInstance : MonoBehaviour {
     }
 
     public void RefreshVisual() {
-        if (ColecionavelController.instance.Tem(colecionavel)) sRenderer.color = Color.white;
-        else sRenderer.color = new Color(1,1,1,0.5f);
+        if (!ColecionavelController.instance.Tem(colecionavel)) sRenderer.color = Color.white;
+        else sRenderer.color = new Color(1,1,1,0.15f);
     }
 
     public void Coletar() {

@@ -96,7 +96,7 @@ public class Projectile : MonoBehaviour, SincronizaMetodo {
         }
 
         else if (other.transform.CompareTag("Queimavel")) {
-            other.transform.GetComponent<ParedeDeVinhas>().ReduzirIntegridade();
+            other.transform.GetComponent<ParedeDeVinhas>().ReduzirIntegridade(transform.position);
             Destroy(gameObject);
         }
 
