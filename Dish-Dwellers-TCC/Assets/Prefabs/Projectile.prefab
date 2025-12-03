@@ -257,6 +257,9 @@ GameObject:
   - component: {fileID: 6687881381931159988}
   - component: {fileID: 7939435200670852806}
   - component: {fileID: 3245280646858724759}
+  - component: {fileID: 8975020835188274178}
+  - component: {fileID: 8618069955365218132}
+  - component: {fileID: 8377750992506150739}
   m_Layer: 20
   m_Name: Projectile
   m_TagString: Projetil
@@ -406,3 +409,72 @@ MonoBehaviour:
   knockBackSom: {fileID: 8300000, guid: 5857725675ceea0429676ecad80dbf63, type: 3}
   vinhaQueimandoSom: {fileID: 8300000, guid: d454730cf7b2fca4fb9b6b701570c9f6, type: 3}
   refletirNormal: 1
+--- !u!114 &8975020835188274178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089034994045674464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3320272413
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &8618069955365218132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089034994045674464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f63ea2e505fd484193fb31c5c55ca73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0.033333335
+  baselineRate: 1
+  unreliableRedundancy: 0
+  baselineIsDelta: 1
+  debugLog: 0
+  useFixedUpdate: 0
+  target: {fileID: 2338126837566681912}
+  bufferSizeLimit: 64
+  sendRate: 30
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  debugDraw: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &8377750992506150739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089034994045674464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe0644f5332e474ca26b8e5a890d138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugLogMetodosCadastrados: 0
+  cadastrarNoInicio: 1
+  naoUsarIDAuto: 0
+  isSingleton: 0
+  posInicial: {x: 0, y: 0, z: 0}
+  networkIdentity: {fileID: 0}
+  identificador: $d2353f31175a4b529f3be8f3720c6358

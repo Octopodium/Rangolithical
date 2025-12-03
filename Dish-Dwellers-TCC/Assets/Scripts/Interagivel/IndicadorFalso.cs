@@ -62,6 +62,7 @@ public class IndicadorFalso : MonoBehaviour {
     }
 
     void HandleDeviceChange(InputDevice d) {
+        if (this == null) return;
         RefreshDisplay();
     }
 

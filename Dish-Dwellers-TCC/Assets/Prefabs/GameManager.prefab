@@ -289,7 +289,6 @@ MonoBehaviour:
   naoUsarIDAuto: 0
   isSingleton: 1
   posInicial: {x: 0, y: 0, z: 0}
-  rotInicial: {x: 0, y: 0, z: 0, w: 0}
   networkIdentity: {fileID: 0}
   identificador: $7ceb5c2d3f35472e81945756240ad15b
 --- !u!1 &788614496426872773
@@ -2341,7 +2340,7 @@ MonoBehaviour:
   indicadorAtual: {fileID: 0}
   layerChao:
     serializedVersion: 2
-    m_Bits: 1425
+    m_Bits: 16778641
   jogadorMorto: 0
   primeiraFaseSceneName: 1-1
   menuPrincipalSceneName: MainMenu
@@ -3451,7 +3450,6 @@ MonoBehaviour:
   naoUsarIDAuto: 0
   isSingleton: 1
   posInicial: {x: 0, y: 0, z: 0}
-  rotInicial: {x: 0, y: 0, z: 0, w: 0}
   networkIdentity: {fileID: 0}
   identificador: $5d3a27cec83a4b3b84ebd8070c599c3f
 --- !u!1 &8894527930331064998
@@ -4278,10 +4276,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4877541325903268814}
     - target: {fileID: 8284170005527715383, guid: 76039a181a7c5814ab06532b0ed26156, type: 3}
-      propertyPath: primeiroSelecionadoPause
-      value: 
-      objectReference: {fileID: 1754742883799826486}
-    - target: {fileID: 8284170005527715383, guid: 76039a181a7c5814ab06532b0ed26156, type: 3}
       propertyPath: telasInternasPause.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -4670,11 +4664,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ca4867eb96f3d94a99fd89a28c0aea4, type: 3}
---- !u!1 &1754742883799826486 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7487070323539201517, guid: 0ca4867eb96f3d94a99fd89a28c0aea4, type: 3}
-  m_PrefabInstance: {fileID: 9204640282570968539}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3625818310424185038 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5614877246835918101, guid: 0ca4867eb96f3d94a99fd89a28c0aea4, type: 3}

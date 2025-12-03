@@ -3,7 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Perseguidor : Inimigo, IRecebeTemplate 
+[RequireComponent(typeof(Sincronizavel))]
+public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
 {
     private enum State { Patrol, Chase, Attack, Stunned }
     private State currentState = State.Patrol;
@@ -116,7 +117,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate
                 case State.Chase:
                     Perseguir();
                     if (_playerNaZonaDeAtaque && tempoDeAtaqueRestante <= 0f && target != null) {
-                        StartCoroutine(DashAttack());
+                        Attack();
                     }
                     if (!_playerNoCampoDeVisao && target == null) {
                         currentState = State.Patrol;
@@ -142,12 +143,14 @@ public class Perseguidor : Inimigo, IRecebeTemplate
     }
 
     #region Patrol & Chase
+    [Sincronizar]
     public void Perseguir()
     {
         if (!podePerseguir || navAgent == null || !navAgent.isOnNavMesh) return;
 
         if (_playerNoCampoDeVisao && target != null)
         {
+            gameObject.Sincronizar();
             navAgent.SetDestination(target.position);
             navAgent.updateRotation = false;
             try{
@@ -160,12 +163,14 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         }
     }
 
+    [Sincronizar]
     public void Patrulhar()
     {
         if (navAgent == null || waypoints.Length == 0) return;
 
         if (!navAgent.pathPending && navAgent.remainingDistance < 1f)
         {
+            gameObject.Sincronizar();
             IndexPosicaoAtual = (IndexPosicaoAtual + 1) % waypoints.Length;
             navAgent.SetDestination(waypoints[IndexPosicaoAtual].position);
             animator.Persegue(false);
@@ -177,6 +182,14 @@ public class Perseguidor : Inimigo, IRecebeTemplate
     #endregion
 
     #region Ataca com Dash
+
+    [Sincronizar]
+    public void Attack() {
+        gameObject.Sincronizar();
+        StartCoroutine(DashAttack());
+    }
+
+
     private IEnumerator DashAttack()
     {
         currentState = State.Attack;
@@ -234,7 +247,9 @@ public class Perseguidor : Inimigo, IRecebeTemplate
 
             Player player = other.GetComponent<Player>();
             if (player != null) {
-                player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+                if (!GameManager.instance.isOnline || player.ehJogadorAtual)
+                    player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
+                
                 player.AplicarKnockback(transform);
                 AudioManager.PlaySounds(TiposDeSons.KNOCKBACK);
 
@@ -273,8 +288,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
             collider.isTrigger = false;
     }
 
+    [Sincronizar]
     public void Recuperar() {
         if (!carregavel.sendoCarregado) {
+            gameObject.Sincronizar();
             caido = false;
             podePerseguir = true;
 
@@ -349,8 +366,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         }
     }
 
-    private void IniciarCooldownAtaque()
+    [Sincronizar]
+    public void IniciarCooldownAtaque()
     {
+        gameObject.Sincronizar();
         emCooldown = true;
         tempoCooldownRestante = cooldownAposAtaque;
         currentState = State.Stunned; 
@@ -374,8 +393,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
         }
     }
 
-    private void FinalizarCooldown()
+    [Sincronizar]
+    public void FinalizarCooldown()
     {
+        gameObject.Sincronizar();
         emCooldown = false;
         tempoCooldownRestante = 0f;
         
@@ -402,8 +423,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate
     }
     #endregion
 
+    [Sincronizar]
     public void ResetarParaEstadoInicial()
     {
+        gameObject.Sincronizar();
         //Para todas as corrotinas
         StopAllCoroutines();
 
