@@ -571,6 +571,7 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (GameManager.instance.isPaused) {
             input = Vector2.zero;
         }
+        Debug.Log(input);
 
         float x = input.x;
         float z = input.y;
@@ -619,7 +620,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         }
 
         Vector3 movimentacaoEfetiva = Vector3.zero; 
-
         if (ehJogadorAtual && !sendoCarregado && podeMovimentar && movimentacao.magnitude > 0) {
             Vector3 mov = movimentacao * GetVelocidade();
             movGradual += Time.deltaTime;
