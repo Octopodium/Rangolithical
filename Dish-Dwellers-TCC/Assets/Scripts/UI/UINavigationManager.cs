@@ -10,9 +10,12 @@ public class UINavigationManager : MonoBehaviour
         if (eventSystem == null) {
             eventSystem = FindFirstObjectByType<EventSystem>();
         }
+
+        TrocaFirstSelected(currentFirstSelected);
     }
 
     public void TrocaFirstSelected(GameObject firstSelected) {
         eventSystem.SetSelectedGameObject(firstSelected);
+        currentFirstSelected = firstSelected;
     }
 }
