@@ -2,7 +2,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Projectile : MonoBehaviour {
+[RequireComponent(typeof(Sincronizavel))]
+public class Projectile : MonoBehaviour, SincronizaMetodo {
     [SerializeField] private float projectileSpeed = 7f;
     [SerializeField] private float lifeTime = 4.0f;
     [SerializeField] private float currentLifeTime;
@@ -49,7 +50,26 @@ public class Projectile : MonoBehaviour {
         decal.transform.forward = contactPoint.normal;
     }
 
+    [Sincronizar]
+    public void Refletir(Vector3 pos, Quaternion rot) {
+        gameObject.Sincronizar(pos, rot);
+
+        //CODIGO DO PEDRO DE LIMA:
+
+        //Reseta o lifetime:
+        currentLifeTime = lifeTime;
+
+        transform.SetPositionAndRotation(pos, rot);
+        direction = transform.forward;
+
+        //FIM DO CÓDIGO DO PEDRO DE LIMA
+
+        AudioManager.PlaySounds(TiposDeSons.SHIELDHIT);
+        isReflected = true;
+    }
+
     private void OnCollisionEnter(Collision other) {
+        Debug.Log("Colidiu com: " + other.gameObject.tag);
 
         if (other.gameObject.CompareTag("Escudo") && !isReflected) {
 
@@ -57,19 +77,7 @@ public class Projectile : MonoBehaviour {
 
             Escudo escudo = other.transform.GetComponentInParent<Escudo>();
 
-            //CODIGO DO PEDRO DE LIMA:
-
-            //Reseta o lifetime:
-            currentLifeTime = lifeTime;
-
-            transform.SetPositionAndRotation(escudo.pontoDeReflexao.position, escudo.pontoDeReflexao.rotation);
-            direction = transform.forward;
-
-            //FIM DO CÓDIGO DO PEDRO DE LIMA
-
-            AudioManager.PlaySounds(TiposDeSons.SHIELDHIT);
-            
-            isReflected = true;
+            Refletir(escudo.pontoDeReflexao.position, escudo.pontoDeReflexao.rotation);
         }
 
         else if (isReflected && other.gameObject == owner) {

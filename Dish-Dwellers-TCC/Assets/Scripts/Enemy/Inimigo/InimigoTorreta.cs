@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class InimigoTorreta : Inimigo
+[RequireComponent(typeof(Sincronizavel))]
+public class InimigoTorreta : Inimigo, SincronizaMetodo
 {
     #region Declarações de variáveis
 
@@ -30,10 +31,14 @@ public class InimigoTorreta : Inimigo
     [Tooltip("Tempo que demora para cospir a bola de fogo depois de iniciar a animação")]
     [SerializeField] private float delayDoTiro;
 
+    Sincronizavel sincronizavel;
+
     #endregion
 
     private void Awake() {
         animator = GetComponentInChildren<AnimatorTorreta>();
+        sincronizavel = GetComponent<Sincronizavel>();
+        sincronizavel.AposSetup(() => sincronizavel.HandleRegistarSpawner(projectile, fireAction.transform.position, AposSpawnTiro));
     }
 
     private void Start()
@@ -98,10 +103,19 @@ public class InimigoTorreta : Inimigo
         yield return new WaitForSeconds(tempoParaCospir);
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        GameObject newProjectile = Instantiate(projectile, fireAction.transform.position, targetRotation);
-        newProjectile.transform.LookAt(target);
-        newProjectile.GetComponent<Projectile>().owner = this.gameObject;
-        base.Atacar();
+        sincronizavel.AposSetup(() => {
+            sincronizavel.HandleRegistarSpawner(projectile, fireAction.transform.position, AposSpawnTiro);
+            sincronizavel.Spawnar(projectile, targetRotation);
+            base.Atacar();
+        });
+    }
+
+
+    void AposSpawnTiro(GameObject tiro) {
+        if (tiro != null) {
+            tiro.transform.LookAt(target);
+            tiro.GetComponent<Projectile>().owner = this.gameObject;
+        }
     }
 
      /// <summary>
@@ -170,7 +184,10 @@ public class InimigoTorreta : Inimigo
     /// Chamada do animator da torreta que coloca o inimigo no estado de stun
     /// assim que ele for atingido por um projetil refletido.
     /// </summary>
+    [Sincronizar]
     public void GetStunned() {
+        gameObject.Sincronizar();
+        Debug.Log("STUNA!!!");
         isStunned = true;
         stunTimer = stunDuration;
         animator.Atordoado(true);
