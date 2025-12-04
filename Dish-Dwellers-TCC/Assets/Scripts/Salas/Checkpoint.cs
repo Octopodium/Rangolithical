@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Checkpoint : MonoBehaviour {
@@ -9,9 +10,17 @@ public class Checkpoint : MonoBehaviour {
     private Vector3 realCheckpointSize;
     bool habilitado = false;
 
+    [Header("Configurações Visuais : ")]
+    [SerializeField] private Renderer[] renderers;
+    [SerializeField, ColorUsage(true, true)] private Color[] coresPorQuantidadeDePlayers = new Color[3];
+    private MaterialPropertyBlock materialPropertyBlock;
+    [SerializeField] private GameObject particulas;
+    [SerializeField] private VisualEffect explosao;
+
 
     private void Start() {
         Setup();
+        materialPropertyBlock = new MaterialPropertyBlock();
     }
 
     private void OnValidate() {
@@ -33,12 +42,17 @@ public class Checkpoint : MonoBehaviour {
         if(habilitado) return;
         if (other.CompareTag("Player")) {
             Physics.OverlapBoxNonAlloc(transform.position + col.center, realCheckpointSize / 2, playerColliders, transform.rotation, layerMask.value);
-            for(int i = 0 ; i < 2; i++) {
-                if (playerColliders[i] == null) return;
-                Debug.Log(playerColliders[i].gameObject.name);
-            }
-            HabilitarCheckPoint();
+            int playerAmount = 0;
+            foreach( Collider collider in playerColliders)
+                if(collider != null) playerAmount++;
+            MudarCor(playerAmount);
+            if(playerAmount == 2) HabilitarCheckPoint();
         }
+    }
+    private void OnTriggerExit(Collider other) {
+        if(habilitado) return;
+        if(other.CompareTag("Player"))
+            MudarCor(0);
     }
 
     private void OnDrawGizmosSelected() {
@@ -48,10 +62,18 @@ public class Checkpoint : MonoBehaviour {
     }
 
     private void HabilitarCheckPoint(){
-        Debug.Log("Checkpoint habilitado");
+        explosao.Play();
+        particulas.SetActive(true);
         sala sala = GameManager.instance.salaAtual;
         sala.spawnPoints = spawnPoints;
 
         habilitado = true;
+    }
+
+    private void MudarCor(int quantidadeDePlayers){
+        materialPropertyBlock.SetColor("_EmissionColor", coresPorQuantidadeDePlayers[quantidadeDePlayers]);
+        foreach( Renderer render in renderers){
+            render.SetPropertyBlock(materialPropertyBlock);
+        }
     }
 }

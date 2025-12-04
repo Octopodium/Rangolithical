@@ -259,7 +259,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
         if(hit.collider.CompareTag("Queimavel")){
-            MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
             AplicarKnockback(hit.transform);
         }
     }
@@ -573,7 +572,6 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
         if (GameManager.instance.isPaused) {
             input = Vector2.zero;
         }
-        Debug.Log(input);
 
         float x = input.x;
         float z = input.y;
