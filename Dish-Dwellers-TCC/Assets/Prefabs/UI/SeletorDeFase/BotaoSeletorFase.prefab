@@ -161,8 +161,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   underline: {fileID: 0}
-  scaleFactor: {x: 1.1, y: 1.1, z: 1.1}
-  defaultFactor: {x: 1, y: 1, z: 1}
+  buttonScaleFactor: {x: 1.1, y: 1.1, z: 1.1}
+  buttonDefaultFactor: {x: 1, y: 1, z: 1}
+  objectToScale: {fileID: 0}
+  objectInitialFactor: {x: 0, y: 0, z: 0}
+  objectScaleDuration: 0.2
 --- !u!114 &1709508088006102448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,9 @@ MonoBehaviour:
   nomeSalaTxt: {fileID: 5007849658323471666}
   colecionaveisHolder: {fileID: 5997002334135758334}
   colecionavelPrefab: {fileID: 7309528126860045925, guid: 9dbf660d3d0d3c04ba4dcc110cebba29, type: 3}
+  opacidadeQuandoAtivo: 1
+  opacidadeQuandoInativo: 0.5
+  salaLiberada: 1
 --- !u!1 &3847330053119385011
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70.41, y: -50}
+  m_AnchoredPosition: {x: 70.41, y: -0}
   m_SizeDelta: {x: 140.82, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4033202627179222079

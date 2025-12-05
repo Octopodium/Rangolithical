@@ -7,13 +7,22 @@ public class BotaoSelecionarFase : MonoBehaviour {
     public TMP_Text nomeSalaTxt;
     public GameObject colecionaveisHolder;
     public GameObject colecionavelPrefab;
+    public float opacidadeQuandoAtivo;
+    public float opacidadeQuandoInativo;
+    public bool salaLiberada = true;
 
     void Start() {
         Setup(sala);
+        SetSalaLiberada(salaLiberada);
     }
 
     public void Setup(SalaInfo sala) {
         this.sala = sala;
+        UpdateVisual();
+    }
+
+    public void SetSalaLiberada(bool liberada) {
+        salaLiberada = liberada;
         UpdateVisual();
     }
 
@@ -23,6 +32,10 @@ public class BotaoSelecionarFase : MonoBehaviour {
         } else {
             nomeSalaTxt.text = "";
         }
+        
+        Color cor = nomeSalaTxt.color;
+        cor.a = salaLiberada ? opacidadeQuandoAtivo : opacidadeQuandoInativo;
+        nomeSalaTxt.color = cor;
 
         UpdateColecionaveis();
     }
