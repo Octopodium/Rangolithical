@@ -22,7 +22,7 @@ public class MaybeWobble : MonoBehaviour
             mesh = textMesh.mesh;
             vertices = mesh.vertices;
 
-            if(textMesh.textInfo.characterCount > -1){ //consertar, a primeira letra fica brava...
+            if(textMesh.textInfo.characterCount > 0){
                 TMP_CharacterInfo c = textMesh.textInfo.characterInfo[textMesh.textInfo.characterCount - 1];
                 int index = c.vertexIndex;
 

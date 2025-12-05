@@ -55,12 +55,12 @@ public class DialogueSystem : MonoBehaviour
     }
 
     private void DisplayNextSentence(){
-        if(currentNode.backgroundSprite != null){
-            background.sprite = currentNode.backgroundSprite;
-        }
-
         if(isTyping){
             CompleteSentence();
+            return;
+        }
+        if(currentNode.backgroundSprite != null){
+            background.sprite = currentNode.backgroundSprite;
         }
 
         var localizedString = new LocalizedString(){
@@ -79,10 +79,15 @@ public class DialogueSystem : MonoBehaviour
     IEnumerator TypeSentence(string sentence){
         isTyping = true;
         dialogueText.text = "";
+        int index = 0;
 
         foreach(char letter in sentence.ToCharArray()){
             dialogueText.text += letter;
-            maybeWobble.StartCoroutine("AnimateWobbleChar", dialogueText);
+            if(index > 0){
+                yield return null;
+                maybeWobble.StartCoroutine("AnimateWobbleChar", dialogueText);
+            }
+            index++;
             yield return new WaitForSeconds(textSpeed);
         }
         isTyping = false;

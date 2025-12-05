@@ -33,7 +33,7 @@ public class UICard : MonoBehaviour
         
         if (comprarFullBtn != null){
             comprarFullBtn.onClick.RemoveAllListeners();
-            //comprarFullBtn.onClick.AddListener(Comprar);
+            comprarFullBtn.onClick.AddListener(Comprar);
         }
     }
 
@@ -60,7 +60,7 @@ public class UICard : MonoBehaviour
         for (int i = 0; i < requisitos.Length; i++){
             if (i < card.requisitos.Length){
                 requisitos[i].SetActive(true);
-                // configurar requisistos mini
+                //nao temos mais que um requisito ainda, mas quando tiver vai ter que checar pra mudar o numero
             }else{
                 requisitos[i].SetActive(false);
             }
@@ -73,9 +73,16 @@ public class UICard : MonoBehaviour
         for (int i = 0; i < requisitosFull.Length; i++){
             if (i < card.requisitos.Length){
                 requisitosFull[i].SetActive(true);
-                // configurar requisistos full
             }else{
                 requisitosFull[i].SetActive(false);
+            }
+        }
+    }
+
+    public void Comprar(){
+        foreach(IngredienteData ing in card.requisitos){
+            if(ColecionavelController.instance.TemDisponivel(ing)){
+                Debug.Log("tentando comprar");
             }
         }
     }
