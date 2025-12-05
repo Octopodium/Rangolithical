@@ -17,7 +17,9 @@ public class BotaoSelecionavel : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        if(botao.interactable) botao.OnDeselect(eventData);
+        if(botao.interactable){
+            botao.OnDeselect(eventData);
+        }
     }
 
 }
