@@ -9,6 +9,7 @@ public class CardSO : ScriptableObject
     public string description;
     public Sprite cardPreview;
     public Sprite cardFull;
+    public bool comprado = false;
 
     public IngredienteData[] requisitos;
     public int id;

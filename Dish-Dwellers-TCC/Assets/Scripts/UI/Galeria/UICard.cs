@@ -15,6 +15,7 @@ public class UICard : MonoBehaviour
     public TMP_Text nomeFull;
     public TMP_Text descriptionFull;
     public Image cardImageFull;
+    public GameObject cadeadoFull;
     public GameObject requisitosFullPos;
     public Button fecharBtn;
     public Button comprarFullBtn;
@@ -38,6 +39,10 @@ public class UICard : MonoBehaviour
     public void ConstruirMiniCard(){
         if (card == null) return;
         if (cardImage != null) cardImage.sprite = card.cardPreview;
+        if(card.comprado){
+            cadeado.SetActive(false);
+            return;
+        }
         ConfigurarRequisitosMini();
     }
 
@@ -47,7 +52,10 @@ public class UICard : MonoBehaviour
         if (nomeFull != null) nomeFull.text = card.cardName;
         if (descriptionFull != null) descriptionFull.text = card.description;
         if (cardImageFull != null) cardImageFull.sprite = card.cardFull;
-
+        if(card.comprado){
+            SetarComprado();
+            return;
+        }
         ConfigurarRequisitosFull();
     }
 
@@ -86,10 +94,26 @@ public class UICard : MonoBehaviour
     }
 
     public void Comprar(){
+        bool podeComprar = true;
         foreach(IngredienteData ing in card.requisitos){
-            if(ColecionavelController.instance.TemDisponivel(ing)){
-                Debug.Log("tentando comprar");
+            bool hasIngrediente = ColecionavelController.instance.TemDisponivel(ing);
+            if(!hasIngrediente){
+                podeComprar = false;
             }
         }
+
+        if(podeComprar){
+            card.comprado = true;
+            SetarComprado();
+            Debug.Log("pode comprar");
+        }else{
+            Debug.Log("naopode");
+        }
+    }
+
+    public void SetarComprado(){
+        cadeadoFull.SetActive(false);
+        cardImageFull.transform.localScale += new Vector3(0.3f, 0.3f, 0.3f); 
+        comprarFullBtn.gameObject.SetActive(false);
     }
 }
