@@ -6,22 +6,20 @@ public class UICard : MonoBehaviour
 {
     [Header("UI Items - Mini Card")]
     public Button comprar;
-    public TMP_Text nome;
-    public TMP_Text description;
     public Image cardImage;
     public GameObject cadeado;
-    public GameObject[] requisitos;
+    public GameObject requisitosPos;
+    public GameObject requisitoPrefab;
 
     [Header("UI Items - Full Card")]
     public TMP_Text nomeFull;
     public TMP_Text descriptionFull;
     public Image cardImageFull;
-    public GameObject[] requisitosFull;
+    public GameObject requisitosFullPos;
     public Button fecharBtn;
     public Button comprarFullBtn;
 
     public CardSO card;
-    public bool isFullCard = false;
 
     public void Initialize(CardSO card){
         this.card = card;
@@ -40,7 +38,6 @@ public class UICard : MonoBehaviour
     public void ConstruirMiniCard(){
         if (card == null) return;
         if (cardImage != null) cardImage.sprite = card.cardPreview;
-
         ConfigurarRequisitosMini();
     }
 
@@ -55,26 +52,35 @@ public class UICard : MonoBehaviour
     }
 
     private void ConfigurarRequisitosMini(){
-        if (requisitos == null || card.requisitos == null) return;
+        if (requisitosPos == null || card.requisitos == null || requisitoPrefab == null) return;
 
-        for (int i = 0; i < requisitos.Length; i++){
-            if (i < card.requisitos.Length){
-                requisitos[i].SetActive(true);
-                //nao temos mais que um requisito ainda, mas quando tiver vai ter que checar pra mudar o numero
-            }else{
-                requisitos[i].SetActive(false);
+        foreach (Transform child in requisitosPos.transform){
+            Destroy(child.gameObject);
+        }
+
+        foreach (IngredienteData ingrediente in card.requisitos){
+            GameObject requisitoUI = Instantiate(requisitoPrefab, requisitosPos.transform);
+            
+            Image img = requisitoUI.GetComponentInChildren<Image>();
+            if (img != null && ingrediente.sprite != null){
+                img.sprite = ingrediente.sprite;
             }
         }
     }
 
     private void ConfigurarRequisitosFull(){
-        if (requisitosFull == null || card.requisitos == null) return;
+        //if (requisitosFullPos == null || card.requisitos == null || requisitoPrefab == null) return;
 
-        for (int i = 0; i < requisitosFull.Length; i++){
-            if (i < card.requisitos.Length){
-                requisitosFull[i].SetActive(true);
-            }else{
-                requisitosFull[i].SetActive(false);
+        foreach (Transform child in requisitosFullPos.transform){
+            Destroy(child.gameObject);
+        }
+
+        foreach (IngredienteData ingrediente in card.requisitos){
+            GameObject requisitoUI = Instantiate(requisitoPrefab, requisitosFullPos.transform);
+            
+            Image img = requisitoUI.GetComponentInChildren<Image>();
+            if (img != null && ingrediente.sprite != null){
+                img.sprite = ingrediente.sprite;
             }
         }
     }
