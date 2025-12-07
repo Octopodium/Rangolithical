@@ -226,6 +226,42 @@ public class ColecionavelController : MonoBehaviour {
         }
     }
 
+
+    public int GetQuantidadeExistente(IngredienteData ingrediente) {
+        int i = 0;
+
+        foreach (ColecionavelData coletado in colecionaveis.Values) {
+            if (coletado.ingrediente == ingrediente)
+                i++;
+        }
+
+        return i;
+    }
+
+    public int GetQuantidadePossuida(IngredienteData ingrediente) {
+        int i = 0;
+
+        foreach (string id in save.coletaveis.Keys) {
+            ColecionavelData coletado = colecionaveis[id];
+            if (coletado.ingrediente == ingrediente)
+                i++;
+        }
+
+        return i;
+    }
+
+    public int GetQuantidadePossuidaDisponivel(IngredienteData ingrediente) {
+        int i = 0;
+
+        foreach (string id in save.coletaveis.Keys) {
+            ColecionavelData coletado = colecionaveis[id];
+            if (coletado.ingrediente == ingrediente && !save.coletaveis[id].utilizado)
+                i++;
+        }
+
+        return i;
+    }
+
     #endregion
 
 
