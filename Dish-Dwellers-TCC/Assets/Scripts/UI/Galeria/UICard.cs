@@ -36,8 +36,7 @@ public class UICard : MonoBehaviour
             comprarFullBtn.onClick.RemoveAllListeners();
             comprarFullBtn.onClick.AddListener(Comprar);
         }
-
-        
+        comprar = GetComponentInParent<Button>();
     }
 
     public void ConstruirMiniCard(){
