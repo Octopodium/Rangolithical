@@ -2631,15 +2631,15 @@ MonoBehaviour:
   - {fileID: 1086707053}
   triggers: []
   resetaveis:
-  - {fileID: 1430295570}
-  - {fileID: 1524151336}
-  - {fileID: 1184929945}
-  - {fileID: 1772732149}
-  - {fileID: 976592526}
-  - {fileID: 602577699}
-  - {fileID: 1235698865}
   - {fileID: 39235823}
+  - {fileID: 1430295570}
+  - {fileID: 1772732149}
+  - {fileID: 1235698865}
+  - {fileID: 602577699}
+  - {fileID: 976592526}
   - {fileID: 41757605}
+  - {fileID: 1184929945}
+  - {fileID: 1524151336}
   onResetSala:
     m_PersistentCalls:
       m_Calls: []
@@ -6252,6 +6252,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663564955}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1686455781
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.06181
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.567
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.228
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999939
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0034947318
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284219062873451537, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909177446091455796, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
+      propertyPath: m_Name
+      value: DecalBuracoNaParede
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 214703ee45f25954fbdb4972be029c45, type: 3}
 --- !u!1 &1735619760
 GameObject:
   m_ObjectHideFlags: 0
@@ -7335,8 +7392,8 @@ Transform:
   m_GameObject: {fileID: 1961010714}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.9271, y: 0, z: -8.4141}
-  m_LocalScale: {x: 7.8714633, y: 5, z: 3.8567305}
+  m_LocalPosition: {x: -7.0139, y: -0, z: -8.4141}
+  m_LocalScale: {x: 7.697504, y: 5, z: 3.8567305}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 827659062}
@@ -9072,3 +9129,4 @@ SceneRoots:
   - {fileID: 1735619761}
   - {fileID: 1546032246}
   - {fileID: 66403149}
+  - {fileID: 1686455781}

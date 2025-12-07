@@ -9427,8 +9427,8 @@ Transform:
   m_GameObject: {fileID: 495844693}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -15.326}
-  m_LocalScale: {x: 19.500551, y: 1, z: 97.07201}
+  m_LocalPosition: {x: -8.4942, y: -2, z: -15.4385}
+  m_LocalScale: {x: 36.48943, y: 1, z: 97.30104}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 388236782}
@@ -20831,6 +20831,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200194342}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1203392948
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3049885100539031397, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_Name
+      value: Checkpoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545089672100453238, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 339eeb8105afe7f4b81ac2c4d7829db4, type: 3}
 --- !u!4 &1210521040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8562877554256715439, guid: 3829f1e25f3222d4e9eadc18e1a130e2, type: 3}
@@ -22887,7 +22944,7 @@ Transform:
   m_GameObject: {fileID: 1501177058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.785145, y: 4.125784, z: 9.425808}
+  m_LocalPosition: {x: -14.785137, y: 4.125784, z: 9.425689}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22906,7 +22963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 101.929726, y: 25.820366, z: 41.352177}
+  size: {x: 101.92974, y: 25.820366, z: 41.352417}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -22920,7 +22977,7 @@ MonoBehaviour:
     e00: 1
     e01: 0
     e02: 0
-    e03: 14.785141
+    e03: 14.785137
     e10: 0
     e11: 1
     e12: 0
@@ -22928,12 +22985,12 @@ MonoBehaviour:
     e20: 0
     e21: 0
     e22: 1
-    e23: -9.425808
+    e23: -9.425689
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: -1018611348
+  cachedHashCode: -394286077
   fillEmptySpaces: 0
   version: 2
   globalVolume: 0
@@ -27954,29 +28011,29 @@ MonoBehaviour:
   - {fileID: 732851737}
   triggers: []
   resetaveis:
-  - {fileID: 856145722}
-  - {fileID: 2085407933}
-  - {fileID: 1999930358}
-  - {fileID: 38049388}
-  - {fileID: 1445025022}
-  - {fileID: 1493666527}
-  - {fileID: 2091994856}
-  - {fileID: 1692890035}
-  - {fileID: 752675690}
-  - {fileID: 244263609}
-  - {fileID: 1733778871}
-  - {fileID: 1304922823}
-  - {fileID: 1121359512}
   - {fileID: 2044121355}
+  - {fileID: 2085407933}
   - {fileID: 640793915}
-  - {fileID: 763973381}
-  - {fileID: 755013521}
-  - {fileID: 1794647525}
-  - {fileID: 942314274}
-  - {fileID: 149679672}
   - {fileID: 5720224907555876093}
-  - {fileID: 425685462}
+  - {fileID: 755013521}
+  - {fileID: 1493666527}
+  - {fileID: 1999930358}
+  - {fileID: 1121359512}
+  - {fileID: 763973381}
+  - {fileID: 1733778871}
+  - {fileID: 856145722}
+  - {fileID: 1692890035}
+  - {fileID: 149679672}
+  - {fileID: 1794647525}
+  - {fileID: 2091994856}
+  - {fileID: 1445025022}
   - {fileID: 1297718390}
+  - {fileID: 942314274}
+  - {fileID: 1304922823}
+  - {fileID: 38049388}
+  - {fileID: 244263609}
+  - {fileID: 752675690}
+  - {fileID: 425685462}
   onResetSala:
     m_PersistentCalls:
       m_Calls: []
@@ -28948,3 +29005,4 @@ SceneRoots:
   - {fileID: 1794647524}
   - {fileID: 1474902144}
   - {fileID: 1140334548}
+  - {fileID: 1203392948}
