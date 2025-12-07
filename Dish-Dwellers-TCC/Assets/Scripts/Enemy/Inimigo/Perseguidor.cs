@@ -29,7 +29,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
     private float tempoCooldownRestante = 0f;
 
     [Header("Ataque (Dash)")] [Space(10)]
-    [SerializeField] private float tempoDeAtaque = 3f; 
+    [SerializeField] private float tempoDeAtaque = 3f;
     private float tempoDeAtaqueRestante;
     [SerializeField] private float velocidadeDeDash = 10f;
     [SerializeField] private float duracaoDoDash = 0.35f;
@@ -45,9 +45,10 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
     private Interagivel interagivel;
     private Carregavel carregavel;
     private NavMeshAgent navAgent;
+    private Rigidbody rbPerseguidor;
     private Collider collider;
+    public Collider  colliderColisao;
     private bool podePerseguir = true;
-    private bool inicializado = false;
 
 
     private void Awake()
@@ -57,14 +58,16 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         interagivel = GetComponentInChildren<Interagivel>();
         carregavel = GetComponentInChildren<Carregavel>();
         collider = GetComponentInChildren<BoxCollider>();
+        rbPerseguidor = GetComponentInChildren<Rigidbody>();
+        colliderColisao.enabled = false;
 
         if (interagivel) interagivel.enabled = false;
 
     }
-    
+
     private void OnEnable() {
-        if(inicializado) ResetarParaEstadoInicial();
-        inicializado = true;
+        ResetarParaEstadoInicial();
+        Debug.Log("Resetou Mesmo");
     }
 
     private void Start()
@@ -86,7 +89,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
     private void FixedUpdate()
     {
         if (agarrado) return;
-        
+
         if (caido && !carregavel.sendoCarregado)
         {
             tempoCaidoRestante -= Time.deltaTime;
@@ -156,8 +159,8 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
             try{
             animator.Persegue(true);
             }catch{}
-                
-            Vector3 dirOlhar = transform.position - target.position; 
+
+            Vector3 dirOlhar = transform.position - target.position;
             dirOlhar.y = 0;
             animator.Olhar(dirOlhar);
         }
@@ -176,7 +179,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
             animator.Persegue(false);
 
             Vector3 dir = transform.position - waypoints[IndexPosicaoAtual].position;
-            animator.Olhar(dir);  
+            animator.Olhar(dir);
         }
     }
     #endregion
@@ -188,7 +191,6 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         gameObject.Sincronizar();
         StartCoroutine(DashAttack());
     }
-
 
     private IEnumerator DashAttack()
     {
@@ -242,14 +244,14 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
             Vector3 direcaoImpacto = (transform.position - other.transform.position).normalized;
             CaidoPorEscudo(direcaoImpacto);
         }
-        
+
         if(other.CompareTag("Player") && !caido) {
 
             Player player = other.GetComponent<Player>();
             if (player != null) {
                 if (!GameManager.instance.isOnline || player.ehJogadorAtual)
                     player.MudarVida(-1, AnimadorPlayer.fonteDeDano.PORRADA);
-                
+
                 player.AplicarKnockback(transform);
                 AudioManager.PlaySounds(TiposDeSons.KNOCKBACK);
 
@@ -261,6 +263,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
     public void CaidoPorEscudo(Vector3 direcaoImpacto)
     {
         interagivel.enabled = true;
+        colliderColisao. enabled = true;
 
         caido = true;
         tempoCaidoRestante = tempoCaido;
@@ -302,14 +305,15 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
 
             animator.Desvirar();
             interagivel.enabled = false;
+            colliderColisao.enabled = false;
 
             currentState = (target != null) ? State.Chase : State.Patrol;
         }
     }
-    
+
     private IEnumerator AplicarKnockback(Vector3 direcao)
     {
-        direcao.y = 0f; 
+        direcao.y = 0f;
         direcao.Normalize();
 
         float t = 0f;
@@ -320,7 +324,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
             t += Time.deltaTime;
             yield return null;
         }
-    } 
+    }
     #endregion
 
     #region Localização de Target
@@ -372,8 +376,8 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         gameObject.Sincronizar();
         emCooldown = true;
         tempoCooldownRestante = cooldownAposAtaque;
-        currentState = State.Stunned; 
-        
+        currentState = State.Stunned;
+
         if (navAgent != null && navAgent.isOnNavMesh)
         {
             navAgent.isStopped = true;
@@ -385,7 +389,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         if (emCooldown)
         {
             tempoCooldownRestante -= Time.deltaTime;
-            
+
             if (tempoCooldownRestante <= 0f)
             {
                 FinalizarCooldown();
@@ -399,13 +403,13 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         gameObject.Sincronizar();
         emCooldown = false;
         tempoCooldownRestante = 0f;
-        
+
         // Volta para o estado apropriado
         if (navAgent != null && navAgent.isOnNavMesh)
         {
             navAgent.isStopped = false;
         }
-        
+
         if (target != null && _playerNoCampoDeVisao)
         {
             currentState = State.Chase;
@@ -414,7 +418,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         {
             currentState = State.Patrol;
         }
-        
+
     }
 
     private bool PlayerNaZona(Transform jogador)
@@ -435,7 +439,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         currentState = State.Patrol;
         podePerseguir = true;
         temAlvoFixo = false;
-        agarrado = false; 
+        agarrado = false;
         tempoCaidoRestante = 0f;
         tempoDeAtaqueRestante = 0f;
         tempoRestanteDeFoco = 0f;
@@ -455,6 +459,14 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         {
             collider.isTrigger = true;
         }
+
+        colliderColisao.enabled = false;  
+
+        if(rbPerseguidor != null) 
+        {
+            rbPerseguidor.isKinematic = true;
+        }  
+
 
         if (interagivel != null)
         {

@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 6142156664892508480}
   - component: {fileID: 7557282809593227315}
   - component: {fileID: 2041872837577411520}
+  - component: {fileID: 6047172395312399799}
   m_Layer: 7
   m_Name: pepperbell charger
   m_TagString: Untagged
@@ -278,6 +279,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: 0
+--- !u!65 &6047172395312399799
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649345343156157899}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3679671, y: 0.97804415, z: 0.46117187}
+  m_Center: {x: 0.18398356, y: 0.47552392, z: 0.017736915}
 --- !u!1 &2397025392327932273
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +784,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   animator: {fileID: 7557282809593227315}
+  colliderColisao: {fileID: 6047172395312399799}
 --- !u!114 &8347853932214272342
 MonoBehaviour:
   m_ObjectHideFlags: 0
