@@ -318,6 +318,10 @@ public class Player : NetworkBehaviour, SincronizaMetodo, IGanchavelAntesPuxar {
     public void Resetar() {
         playerVidas = 3;
 
+        if (!rb.isKinematic) {
+            rb.linearVelocity = Vector3.zero;
+        }
+
         if (sendoCarregado) carregavel.carregador.Soltar(); // Se o jogador está sendo carregado, se solta
         if (carregando != null) carregador.Soltar(); // Se o jogador está carregando algo, se solta
         if (ferramenta != null) ferramenta.Cancelar(); // Se o jogador está acionando uma ferramenta, cancela a ação
