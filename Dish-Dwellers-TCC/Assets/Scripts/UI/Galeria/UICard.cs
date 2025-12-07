@@ -103,23 +103,30 @@ public class UICard : MonoBehaviour
         bool podeComprar = true;
         foreach(IngredienteData ing in card.requisitos){
             bool hasIngrediente = ColecionavelController.instance.TemDisponivel(ing);
+            Debug.Log(hasIngrediente);
             if(!hasIngrediente){
-                podeComprar = false; //trocar pelo amor de deus
+                podeComprar = false;
+                break;
             }
         }
 
         if(podeComprar){
             card.comprado = true;
             SetarComprado();
-            Debug.Log("pode comprar");
-        }else{
-            Debug.Log("naopode");
+            foreach(IngredienteData ing in card.requisitos) {
+                ColecionavelData colecionavel = ColecionavelController.instance.PegarUtilizavel(ing);
+                Debug.Log(colecionavel);
+                if(colecionavel != null){
+                    ColecionavelController.instance.Utilizar(colecionavel);
+                }
+            }
         }
     }
 
     public void SetarComprado(){
         cadeadoFull.SetActive(false);
         polaroid.SetActive(false);
+        requisitosFullPos.SetActive(false);
         //cardImageFull.transform.localScale += new Vector3(0.3f, 0.3f, 0.3f); 
         //cardImageFullSize.sizeDelta = new Vector2(cardImageFull.sprite.texture.width, cardImageFull.sprite.texture.height)/5;
         StartCoroutine("ScaleIn");
@@ -128,6 +135,8 @@ public class UICard : MonoBehaviour
 
     public void ConfiguracoesNormais(){
         cadeadoFull.SetActive(true);
+        polaroid.SetActive(true);
+        requisitosFullPos.SetActive(true);
         comprarFullBtn.gameObject.SetActive(true);
         cardImageFullSize.sizeDelta = new Vector2(180f, 180f);
     }
@@ -137,7 +146,7 @@ public class UICard : MonoBehaviour
         Vector2 initialSize = cardImageFullSize.sizeDelta;
         Vector2 finalSize = new Vector2(cardImageFull.sprite.texture.width, cardImageFull.sprite.texture.height)/5;
         while (cardImageFullSize.sizeDelta != finalSize){
-            float animDurantion = tempo / 0.5f;
+            float animDurantion = tempo / 0.3f;
             cardImageFullSize.sizeDelta = Vector2.Lerp(initialSize, finalSize, animDurantion);
             tempo += Time.unscaledDeltaTime;
             yield return null;

@@ -190,7 +190,7 @@ public class ColecionavelController : MonoBehaviour {
 
     public bool TemDisponivel(IngredienteData ingrediente) {
         foreach (ColecionavelData coletado in GetColetados()) {
-            if (coletado.ingrediente == ingrediente) return true;
+            if (coletado.ingrediente == ingrediente && !save.coletaveis[coletado.id].utilizado) return true;
         }
 
         return false;
