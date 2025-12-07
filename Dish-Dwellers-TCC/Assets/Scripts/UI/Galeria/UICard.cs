@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 
 public class UICard : MonoBehaviour
@@ -15,8 +16,10 @@ public class UICard : MonoBehaviour
     public TMP_Text nomeFull;
     public TMP_Text descriptionFull;
     public Image cardImageFull;
+    public RectTransform cardImageFullSize;
     public GameObject cadeadoFull;
     public GameObject requisitosFullPos;
+    public GameObject polaroid;
     public Button fecharBtn;
     public Button comprarFullBtn;
 
@@ -24,7 +27,6 @@ public class UICard : MonoBehaviour
 
     public void Initialize(CardSO card){
         this.card = card;
-        
         if (fecharBtn != null){
             fecharBtn.onClick.RemoveAllListeners();
             fecharBtn.onClick.AddListener(() => FindObjectOfType<Galeria>().FecharFullCard());
@@ -34,6 +36,8 @@ public class UICard : MonoBehaviour
             comprarFullBtn.onClick.RemoveAllListeners();
             comprarFullBtn.onClick.AddListener(Comprar);
         }
+
+        
     }
 
     public void ConstruirMiniCard(){
@@ -43,6 +47,7 @@ public class UICard : MonoBehaviour
             cadeado.SetActive(false);
             return;
         }
+        //ConfiguracoesNormais();
         ConfigurarRequisitosMini();
     }
 
@@ -56,6 +61,7 @@ public class UICard : MonoBehaviour
             SetarComprado();
             return;
         }
+        ConfiguracoesNormais();
         ConfigurarRequisitosFull();
     }
 
@@ -98,7 +104,7 @@ public class UICard : MonoBehaviour
         foreach(IngredienteData ing in card.requisitos){
             bool hasIngrediente = ColecionavelController.instance.TemDisponivel(ing);
             if(!hasIngrediente){
-                podeComprar = false;
+                podeComprar = false; //trocar pelo amor de deus
             }
         }
 
@@ -113,7 +119,29 @@ public class UICard : MonoBehaviour
 
     public void SetarComprado(){
         cadeadoFull.SetActive(false);
-        cardImageFull.transform.localScale += new Vector3(0.3f, 0.3f, 0.3f); 
+        polaroid.SetActive(false);
+        //cardImageFull.transform.localScale += new Vector3(0.3f, 0.3f, 0.3f); 
+        //cardImageFullSize.sizeDelta = new Vector2(cardImageFull.sprite.texture.width, cardImageFull.sprite.texture.height)/5;
+        StartCoroutine("ScaleIn");
         comprarFullBtn.gameObject.SetActive(false);
+    }
+
+    public void ConfiguracoesNormais(){
+        cadeadoFull.SetActive(true);
+        comprarFullBtn.gameObject.SetActive(true);
+        cardImageFullSize.sizeDelta = new Vector2(180f, 180f);
+    }
+
+    IEnumerator ScaleIn(){
+        float tempo = 0f;
+        Vector2 initialSize = cardImageFullSize.sizeDelta;
+        Vector2 finalSize = new Vector2(cardImageFull.sprite.texture.width, cardImageFull.sprite.texture.height)/5;
+        while (cardImageFullSize.sizeDelta != finalSize){
+            float animDurantion = tempo / 0.5f;
+            cardImageFullSize.sizeDelta = Vector2.Lerp(initialSize, finalSize, animDurantion);
+            tempo += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        cardImageFullSize.sizeDelta = finalSize;
     }
 }
