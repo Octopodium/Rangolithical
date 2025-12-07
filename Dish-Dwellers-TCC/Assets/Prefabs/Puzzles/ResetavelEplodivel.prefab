@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1516783981357003438}
   - component: {fileID: 9026458942153077682}
   - component: {fileID: 1929061657959148207}
+  - component: {fileID: 573113115427146752}
   m_Layer: 8
   m_Name: "Ch\xE3oExplodivel"
   m_TagString: Quebravel
@@ -189,6 +190,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &573113115427146752
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878567775411244389}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.9870001, y: 0.98800004, z: 1.7520001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.009000001, y: 0.989, z: 0.261}
+  m_TimeToStationary: 0.5
 --- !u!1 &6998159026776474893
 GameObject:
   m_ObjectHideFlags: 0
