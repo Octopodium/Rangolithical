@@ -159,6 +159,11 @@ public class AnimadorPlayer : MonoBehaviour
         audioSource.Play();
     }
 
+    public void CaindoSfxFinn() {
+        audioSource.clip = audioClips[2];
+        audioSource.Play();
+    }
+
     public void PassosSfx() {
         int random = Random.Range(0, audioPassos.Length);
         var audioPassosClip = audioPassos[random];

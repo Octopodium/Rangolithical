@@ -132,7 +132,9 @@ MonoBehaviour:
   cadastrarNoInicio: 1
   naoUsarIDAuto: 0
   isSingleton: 0
-  identificador: 
+  posInicial: {x: 0, y: 0, z: 0}
+  networkIdentity: {fileID: 0}
+  identificador: $2f6568f84d304553a0f689693ee743be
 --- !u!1 &5422297607839480513
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +262,7 @@ AudioSource:
   m_GameObject: {fileID: 7892950907697601454}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3888157759673288669, guid: c0a4c2e4f998b4d488946cafef7b2d7b, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
