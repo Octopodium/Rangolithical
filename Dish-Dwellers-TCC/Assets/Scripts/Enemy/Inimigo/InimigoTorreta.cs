@@ -31,12 +31,18 @@ public class InimigoTorreta : Inimigo, SincronizaMetodo
     [Tooltip("Tempo que demora para cospir a bola de fogo depois de iniciar a animação")]
     [SerializeField] private float delayDoTiro;
 
+    AudioSource audioSource;
+
+    [Header("AudioClips da Torreta")]
+    [SerializeField] AudioClip[] audioClips;
+
     Sincronizavel sincronizavel;
 
     #endregion
 
     private void Awake() {
         animator = GetComponentInChildren<AnimatorTorreta>();
+        audioSource = GetComponentInChildren<AudioSource>();
         sincronizavel = GetComponent<Sincronizavel>();
         sincronizavel.AposSetup(() => sincronizavel.HandleRegistarSpawner(projectile, fireAction.transform.position, AposSpawnTiro));
     }
@@ -98,8 +104,10 @@ public class InimigoTorreta : Inimigo, SincronizaMetodo
     IEnumerator Cospir(float tempoParaCospir) {
         nextFire = Time.time + fireRate;
         animator.Cospe();
+        audioSource.clip = audioClips[Random.Range(0, 3)];
+        audioSource.Play();
 
-        // Sincroniza a animação e a criação do projetil
+        //Sincroniza a animação e a criação do projetil
         yield return new WaitForSeconds(tempoParaCospir);
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
