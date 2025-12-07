@@ -24,6 +24,7 @@ public class UICard : MonoBehaviour
     public Button comprarFullBtn;
 
     public CardSO card;
+    public IndicadorQuantidade indicadorQuantidade;
 
     public void Initialize(CardSO card){
         this.card = card;
@@ -37,6 +38,7 @@ public class UICard : MonoBehaviour
             comprarFullBtn.onClick.AddListener(Comprar);
         }
         comprar = GetComponentInParent<Button>();
+        indicadorQuantidade = FindObjectOfType<IndicadorQuantidade>();
     }
 
     public void ConstruirMiniCard(){
@@ -130,6 +132,7 @@ public class UICard : MonoBehaviour
         //cardImageFullSize.sizeDelta = new Vector2(cardImageFull.sprite.texture.width, cardImageFull.sprite.texture.height)/5;
         StartCoroutine("ScaleIn");
         comprarFullBtn.gameObject.SetActive(false);
+        indicadorQuantidade.UpdateQuantidade();
     }
 
     public void ConfiguracoesNormais(){

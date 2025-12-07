@@ -70,12 +70,14 @@ public class AutoLocalizer : MonoBehaviour
         return null;
     }
 
-    public void SetLanguage(int index){
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
-        if(index == 1){
+    public void SetLanguage(){
+        //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        if(dropdown.value == 1){
             PlayerPrefs.SetString("language", "portugues");
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
         }else{
             PlayerPrefs.SetString("language", "ingles");
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
         }
         PlayerPrefs.Save();
     }
@@ -83,12 +85,12 @@ public class AutoLocalizer : MonoBehaviour
     public void LoadLanguage(){
         string language = PlayerPrefs.GetString("language");
         if(language == "portugues"){
-            SetLanguage(1);
+            SetLanguage();
             if(dropdown != null){
                 dropdown.value = 1;
             }
         }else{
-            SetLanguage(0);
+            SetLanguage();
             if(dropdown != null){
                 dropdown.value = 0;
             }

@@ -1352,7 +1352,7 @@ GameObject:
   - component: {fileID: 94913889}
   - component: {fileID: 94913888}
   m_Layer: 5
-  m_Name: Music
+  m_Name: Sfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2293,7 +2293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -213, y: 82.72699}
+  m_AnchoredPosition: {x: -275, y: 82.72699}
   m_SizeDelta: {x: 178.14502, y: 36.567993}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &141770737
@@ -5205,6 +5205,7 @@ MonoBehaviour:
   fecharBtn: {fileID: 1256113101}
   comprarFullBtn: {fileID: 424087185}
   card: {fileID: 0}
+  indicadorQuantidade: {fileID: 0}
 --- !u!1 &369753073
 GameObject:
   m_ObjectHideFlags: 0
@@ -7135,7 +7136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &516335585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8132,7 +8133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Master volume
+  m_text: Music
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7dd4740d217769c4c9712c9422e416bc, type: 2}
   m_sharedMaterial: {fileID: 1447449065710477759, guid: 7dd4740d217769c4c9712c9422e416bc, type: 2}
@@ -18647,10 +18648,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 569814549}
         m_TargetAssemblyTypeName: AutoLocalizer, Assembly-CSharp
         m_MethodName: SetLanguage
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -34023,7 +34024,7 @@ GameObject:
   - component: {fileID: 2083301083}
   - component: {fileID: 2083301082}
   m_Layer: 5
-  m_Name: volume
+  m_Name: sfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35600,7 +35601,7 @@ PrefabInstance:
     - target: {fileID: 8070767003223448316, guid: faa081ca8c0751f449e8a0383bc079c8, type: 3}
       propertyPath: dropdown
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1196546521}
     - target: {fileID: 8070767003223448316, guid: faa081ca8c0751f449e8a0383bc079c8, type: 3}
       propertyPath: _prefixes.Array.size
       value: 3
