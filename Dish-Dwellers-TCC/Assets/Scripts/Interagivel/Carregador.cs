@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Carregador: MonoBehaviour, SincronizaMetodo {
+public class Carregador: MonoBehaviour, SincronizaMetodo, Pesavel {
     public bool podeCarregar = true;
     public Peso aguentaCarregar = Peso.Leve;
     
@@ -22,7 +22,6 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
     float timerLimparUltimoCarregado = 0;
 
     Rigidbody rb;
-    float pesoInicial = 1;
 
     public bool estaCarregando => carregado != null;
 
@@ -30,8 +29,6 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
-        if (rb != null)
-            pesoInicial = rb.mass;
     }
 
     void FixedUpdate() {
@@ -43,6 +40,10 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
         }
 
         ProcuraCarregavelNaArea();
+    }
+
+    public float GetPeso() {
+        return rb.mass + (estaCarregando ? carregado.GetPeso(): 0f);
     }
 
     /// <summary>
@@ -113,10 +114,8 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
         if (cargaRigidbody != null) {
             carregadoRigidbody = cargaRigidbody;
             carregavel.HandleSendoCarregado();
-            rb.mass = pesoInicial + carregadoRigidbody.mass;
         } else {
             carregadoRigidbody = null;
-            rb.mass = pesoInicial;
         }
 
         OnCarregar?.Invoke(carregado);
@@ -148,8 +147,6 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
             Vector3 arremeco = direcao;
             arremeco.y = alturaArremesso;
             cargaRigidbody.AddForce(arremeco * forcaArremesso * cargaRigidbody.mass, ForceMode.Impulse);
-
-            rb.mass = pesoInicial;
         }
 
         carregado = null;

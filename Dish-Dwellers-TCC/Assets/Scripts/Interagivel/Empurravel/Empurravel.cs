@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Interagivel))]
-public class Empurravel : MonoBehaviour, InteracaoCondicional, IRecebeTemplate {
+public class Empurravel : MonoBehaviour, InteracaoCondicional, IRecebeTemplate, Pesavel {
     [System.Serializable]
     public class DirecaoEmpurrar {
         public bool cima = true;
@@ -39,6 +39,10 @@ public class Empurravel : MonoBehaviour, InteracaoCondicional, IRecebeTemplate {
         interagivel = GetComponent<Interagivel>();
 
         Setup();
+    }
+
+    public float GetPeso() {
+        return rb != null ? rb.mass : 2f;
     }
 
     public void RecebeTemplate(GameObject template) {

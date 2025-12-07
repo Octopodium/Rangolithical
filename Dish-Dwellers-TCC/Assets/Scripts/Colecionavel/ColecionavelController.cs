@@ -198,6 +198,8 @@ public class ColecionavelController : MonoBehaviour {
 
     public ColecionavelData PegarUtilizavel(IngredienteData ingrediente) {
         foreach (string id in save.coletaveis.Keys) {
+            if (!colecionaveis.ContainsKey(id)) continue;
+            
             ColecionavelData coletado = colecionaveis[id];
             if (coletado.ingrediente == ingrediente && !save.coletaveis[id].utilizado) return coletado;
         }
@@ -212,6 +214,8 @@ public class ColecionavelController : MonoBehaviour {
 
     public IEnumerable<ColecionavelData> GetColetados() {
         foreach (string id in save.coletaveis.Keys) {
+            if (!colecionaveis.ContainsKey(id)) continue;
+
             ColecionavelData coletado = colecionaveis[id];
             if (save.coletaveis[id].pego)
                 yield return coletado;
@@ -220,6 +224,8 @@ public class ColecionavelController : MonoBehaviour {
 
     public IEnumerable<ColecionavelData> GetUtilizados() {
         foreach (string id in save.coletaveis.Keys) {
+            if (!colecionaveis.ContainsKey(id)) continue;
+
             ColecionavelData coletado = colecionaveis[id];
             if (save.coletaveis[id].utilizado)
                 yield return coletado;
@@ -242,6 +248,8 @@ public class ColecionavelController : MonoBehaviour {
         int i = 0;
 
         foreach (string id in save.coletaveis.Keys) {
+            if (!colecionaveis.ContainsKey(id)) continue;
+
             ColecionavelData coletado = colecionaveis[id];
             if (coletado.ingrediente == ingrediente)
                 i++;
@@ -254,6 +262,8 @@ public class ColecionavelController : MonoBehaviour {
         int i = 0;
 
         foreach (string id in save.coletaveis.Keys) {
+            if (!colecionaveis.ContainsKey(id)) continue;
+
             ColecionavelData coletado = colecionaveis[id];
             if (coletado.ingrediente == ingrediente && !save.coletaveis[id].utilizado)
                 i++;

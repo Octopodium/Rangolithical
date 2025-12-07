@@ -129,9 +129,13 @@ public class PressurePlate : IResetavel, SincronizaMetodo
         int num = Physics.OverlapBoxNonAlloc(transform.position + offset * transform.localScale.y/2, boxHalfExtents, emCimaDaPlaca);
 
         for(int i = 0; i < num ; i++){
-            Rigidbody rb = emCimaDaPlaca[i].GetComponent<Rigidbody>(); 
+            Rigidbody rb = emCimaDaPlaca[i].GetComponent<Rigidbody>();
+            Pesavel pesavel = emCimaDaPlaca[i].GetComponent<Pesavel>();
 
-            if(rb != null){
+            if (pesavel != null) {
+                peso += pesavel.GetPeso();
+            }
+            else if(rb != null){
                 peso += rb.mass;
             }
         }

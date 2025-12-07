@@ -5,7 +5,7 @@ using UnityEngine.Animations;
 public enum Peso { Leve=0, Pesado=1 }
 
 [RequireComponent(typeof(Rigidbody))]
-public class Carregavel : MonoBehaviour, InteracaoCondicional {
+public class Carregavel : MonoBehaviour, InteracaoCondicional, Pesavel {
     public Peso peso = Peso.Leve;
 
     public UnityEvent onCarregado, onSolto;
@@ -18,9 +18,12 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     public Carregador carregador { get; private set; } // O carregador que está carregando o objeto, se houver
     [HideInInspector] public Grudavel grudavel;
 
+    Carregador ehUmCarregador; // componente carregador proprio, se houver
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        ehUmCarregador = GetComponent<Carregador>();
 
         grudavel = gameObject.GetComponent<Grudavel>();
         if (grudavel == null) grudavel = gameObject.AddComponent<Grudavel>();
@@ -28,6 +31,12 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
 
     void OnDisable() {
         carregador?.Soltar();
+    }
+
+
+    public float GetPeso() {
+        if (ehUmCarregador != null) return ehUmCarregador.GetPeso();
+        return rb != null ? rb.mass : (peso == Peso.Leve ? 1f : 2f);
     }
 
     /// <summary>
