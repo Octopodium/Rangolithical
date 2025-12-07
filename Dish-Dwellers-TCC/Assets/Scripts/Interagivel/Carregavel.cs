@@ -18,6 +18,8 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
     public Carregador carregador { get; private set; } // O carregador que está carregando o objeto, se houver
     [HideInInspector] public Grudavel grudavel;
 
+    bool eraKinematic = false;
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
@@ -106,6 +108,8 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
             rb.angularVelocity = Vector3.zero;
         }
 
+        eraKinematic = rb.isKinematic;
+
         rb.isKinematic = true;
         tinhaGravidade = rb.useGravity;
         rb.useGravity = false; // Desabilita a gravidade enquanto o objeto estiver sendo carregado
@@ -119,7 +123,7 @@ public class Carregavel : MonoBehaviour, InteracaoCondicional {
         OnSolto?.Invoke(carregador);
 
         _sendoCarregado = false;
-        rb.isKinematic = false;
+        rb.isKinematic = eraKinematic;
         rb.useGravity = tinhaGravidade; // Restaura a gravidade
         this.carregador = null;
     }
