@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class MaybeWobble : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class MaybeWobble : MonoBehaviour
 
     void FixedUpdate(){
         if (isWobbling){
+
             textMesh.ForceMeshUpdate();
             mesh = textMesh.mesh;
             vertices = mesh.vertices;
@@ -25,6 +27,7 @@ public class MaybeWobble : MonoBehaviour
             if(textMesh.textInfo.characterCount > 0){
                 TMP_CharacterInfo c = textMesh.textInfo.characterInfo[textMesh.textInfo.characterCount - 1];
                 int index = c.vertexIndex;
+                if(index == 0) return;
 
                 Vector3 offset = Wobble(wobbleTime);
                 vertices[index] += offset;
