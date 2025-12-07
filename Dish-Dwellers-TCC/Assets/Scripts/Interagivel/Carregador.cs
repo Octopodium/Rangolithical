@@ -64,7 +64,7 @@ public class Carregador: MonoBehaviour, SincronizaMetodo {
             float distancia = Vector3.Distance(carregarTransform.position, collider.transform.position);
             if (distancia < menorDistancia) {
                 Carregavel carregavel = collider.GetComponent<Carregavel>();
-                if (carregavel != null && carregavel.PodeInteragir(this) && carregavel != ultimoCarregado) {
+                if (carregavel != null && carregavel.enabled && carregavel.PodeInteragir(this) && carregavel != ultimoCarregado) {
                     if (!carregavel.EstaAcimaDe(transform.position)) continue;
                     menorDistancia = distancia;
                     carregavelProximo = carregavel;

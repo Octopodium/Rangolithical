@@ -62,6 +62,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         colliderColisao.enabled = false;
 
         if (interagivel) interagivel.enabled = false;
+        if (carregavel) carregavel.enabled = false;
 
     }
 
@@ -263,7 +264,8 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
     public void CaidoPorEscudo(Vector3 direcaoImpacto)
     {
         interagivel.enabled = true;
-        colliderColisao. enabled = true;
+        carregavel.enabled = true;
+        colliderColisao.enabled = true;
 
         caido = true;
         tempoCaidoRestante = tempoCaido;
@@ -305,6 +307,7 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
 
             animator.Desvirar();
             interagivel.enabled = false;
+            carregavel.enabled = false;
             colliderColisao.enabled = false;
 
             currentState = (target != null) ? State.Chase : State.Patrol;
@@ -471,6 +474,11 @@ public class Perseguidor : Inimigo, IRecebeTemplate, SincronizaMetodo
         if (interagivel != null)
         {
             interagivel.enabled = false;
+        }
+
+        if (carregavel != null)
+        {
+            carregavel.enabled = false;
         }
 
         //Reset animacao
