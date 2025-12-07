@@ -26,10 +26,11 @@ public class LancaChamas : MonoBehaviour
     }
 
     private void CastColisao(Vector3 origem, Vector3 direcao, float distancia, int index){
+        if(index>0) Debug.Log("Refletiu");
         if(index > 1) return;
         rays[index] = new Ray(origem , direcao);
 
-        if(Physics.SphereCast(origem, 0.5f, direcao, out hitInfo, distancia,  layers)){
+        if(Physics.SphereCast(origem, 0.35f, direcao, out hitInfo, distancia,  layers)){
             if(hitInfo.transform.CompareTag("Player")){
                 hitInfo.transform.GetComponent<Player>().MudarVida(-999, AnimadorPlayer.fonteDeDano.FOGO);
             }
