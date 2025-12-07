@@ -9,6 +9,8 @@ public class ProgressManager : MonoBehaviour {
     public static ProgressManager Instance;
     public Progress loadedProgress;
 
+    public System.Action OnProgressChange;
+
 
     private void Awake() {
         if(Instance == null){
@@ -25,18 +27,20 @@ public class ProgressManager : MonoBehaviour {
     private void Start(){
         Debug.Log(path);
         if(!File.Exists(path)){
-            File.Create(path);
-            Progress progress = new Progress{
+            //File.Create(path);
+            loadedProgress = new Progress{
                 ultimoNivelAlcancado = 1,
                 ultimaSalaAlcancada = 1,
             };
             Debug.Log("Salvando progresso pela primeira vez.");
             //SalvarProgresso(progress);
+            OnProgressChange?.Invoke();
         }
         else {
             Debug.Log("Ja existe um saveFile.");
             loadedProgress = CarregarProgresso();
             Debug.Log($"Sala : {loadedProgress.ultimaSalaAlcancada} \nFase : {loadedProgress.ultimoNivelAlcancado}");
+            OnProgressChange?.Invoke();
         }
     }
 
@@ -47,12 +51,20 @@ public class ProgressManager : MonoBehaviour {
         await File.WriteAllTextAsync(path, json);
         iconeSalvando.SetActive(false);
         Debug.Log($"Progresso salvo : \n nivel : {progresso.ultimoNivelAlcancado}\n sala : {progresso.ultimaSalaAlcancada}");
+        OnProgressChange?.Invoke();
     }
 
     public Progress CarregarProgresso() {
+        if(!File.Exists(path)) return null;
+        
         string json = File.ReadAllText(path);
         Progress progress = JsonUtility.FromJson<Progress>(json);
         return progress;
+    }
+
+    public bool SalaJaVisitada(SalaInfo sala) {
+        if (sala.numeroDaRegiao < loadedProgress.ultimoNivelAlcancado) return true;
+        return sala.numeroDaRegiao == loadedProgress.ultimoNivelAlcancado && sala.numeroDaSala <= loadedProgress.ultimaSalaAlcancada;
     }
 
 }

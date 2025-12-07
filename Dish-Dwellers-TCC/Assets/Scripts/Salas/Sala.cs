@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class sala : MonoBehaviour{
     
+    public SalaInfo info;
+    
     [Space(10)][Header("<color=yellow>Referências manuais: </color>")][Space(10)]
     public Transform[] spawnPoints = new Transform[2];
     public List<OnTriggerEvent> triggers = new List<OnTriggerEvent>();
@@ -16,6 +18,7 @@ public class sala : MonoBehaviour{
     [SerializeField] string nomeOverrideDaProximaSala;
 
     [HideInInspector] public int nSala, nFase;
+
 
     private void Start() {
 

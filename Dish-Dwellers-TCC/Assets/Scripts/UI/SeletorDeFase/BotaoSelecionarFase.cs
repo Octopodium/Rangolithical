@@ -5,6 +5,7 @@ using TMPro;
 public class BotaoSelecionarFase : MonoBehaviour {
     public SalaInfo sala;
     public TMP_Text nomeSalaTxt;
+    public Button botao;
     public GameObject colecionaveisHolder;
     public GameObject colecionavelPrefab;
     public float opacidadeQuandoAtivo;
@@ -13,12 +14,24 @@ public class BotaoSelecionarFase : MonoBehaviour {
 
     void Start() {
         Setup(sala);
-        SetSalaLiberada(salaLiberada);
+
+        ChecarProgresso();
+        ProgressManager.Instance.OnProgressChange += ChecarProgresso;
+
+        UpdateVisual();
+    }
+
+    void OnDestroy() {
+        ProgressManager.Instance.OnProgressChange -= ChecarProgresso;
     }
 
     public void Setup(SalaInfo sala) {
         this.sala = sala;
         UpdateVisual();
+    }
+
+    void ChecarProgresso() {
+        SetSalaLiberada(ProgressManager.Instance.SalaJaVisitada(sala));
     }
 
     public void SetSalaLiberada(bool liberada) {
@@ -36,13 +49,15 @@ public class BotaoSelecionarFase : MonoBehaviour {
         Color cor = nomeSalaTxt.color;
         cor.a = salaLiberada ? opacidadeQuandoAtivo : opacidadeQuandoInativo;
         nomeSalaTxt.color = cor;
+        botao.interactable = salaLiberada;
+
 
         UpdateColecionaveis();
     }
 
     void UpdateColecionaveis() {
         foreach (Transform child in colecionaveisHolder.transform) {
-            Destroy(child);
+            Destroy(child.gameObject);
         }
 
         if (sala == null) {
@@ -50,7 +65,6 @@ public class BotaoSelecionarFase : MonoBehaviour {
         }
 
         foreach (ColecionavelData col in sala.colecionaveis) {
-
             GameObject colInstance = Instantiate(colecionavelPrefab);
 
             ColecionavelNoSeletor colNoS = colInstance.GetComponent<ColecionavelNoSeletor>();

@@ -21721,6 +21721,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3883021597971217, guid: 1c84ebf70b77114469afc4be6aca63e1, type: 3}
+      propertyPath: colecionavel
+      value: 
+      objectReference: {fileID: 11400000, guid: 578d3fa1c1cdd694ca11a20feb302b60, type: 2}
     - target: {fileID: 3807890409277095608, guid: 1c84ebf70b77114469afc4be6aca63e1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.91
@@ -22883,7 +22887,7 @@ Transform:
   m_GameObject: {fileID: 1501177058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.785137, y: 4.125784, z: 9.425808}
+  m_LocalPosition: {x: -14.785145, y: 4.125783, z: 9.425808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22902,7 +22906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 101.92974, y: 25.820366, z: 41.352177}
+  size: {x: 101.929726, y: 25.820364, z: 41.352177}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -27944,6 +27948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2654a7541c6ac4cb11d340c2b91dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info: {fileID: 11400000, guid: fee08145f1549e94b81953fadb887d9c, type: 2}
   spawnPoints:
   - {fileID: 2022384937}
   - {fileID: 732851737}

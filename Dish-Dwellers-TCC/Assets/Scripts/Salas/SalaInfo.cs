@@ -9,4 +9,7 @@ public class SalaInfo : ScriptableObject {
     public Sprite desenhoDaSala;
     public ColecionavelData[] colecionaveis;
     public RegiaoInfo regiao;
+    public int numeroDaSala;
+
+    public int numeroDaRegiao { get{ return regiao.numeroDaRegiao; }}
 }

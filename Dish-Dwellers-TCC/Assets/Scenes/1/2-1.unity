@@ -16183,6 +16183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2654a7541c6ac4cb11d340c2b91dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info: {fileID: 11400000, guid: 30a31ae4e9acf924b93ec766ee753553, type: 2}
   spawnPoints:
   - {fileID: 999645399}
   - {fileID: 831223619}
@@ -28005,6 +28006,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3883021597971217, guid: 1c84ebf70b77114469afc4be6aca63e1, type: 3}
+      propertyPath: colecionavel
+      value: 
+      objectReference: {fileID: 11400000, guid: a8d73f50224bba54291e8994cf4c27ea, type: 2}
     - target: {fileID: 3807890409277095608, guid: 1c84ebf70b77114469afc4be6aca63e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.18
