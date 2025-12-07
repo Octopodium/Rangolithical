@@ -9,7 +9,11 @@ public class AnimadorPlayer : MonoBehaviour
 
     #region Coisas de Áudio...
     private AudioSource audioSource;
-    [SerializeField] AudioClip[] audioClips;  
+    [SerializeField] AudioClip[] audioClips;   
+
+    [Space(10)]
+    [Header("AudioClips Footsteps SFX")]
+    [SerializeField] AudioClip[] audioPassos;
 
     #endregion 
 
@@ -153,6 +157,12 @@ public class AnimadorPlayer : MonoBehaviour
     public void QueimaSfx() {
         audioSource.clip = audioClips[1];
         audioSource.Play();
+    }
+
+    public void PassosSfx() {
+        int random = Random.Range(0, audioPassos.Length);
+        var audioPassosClip = audioPassos[random];
+        audioSource.PlayOneShot(audioPassosClip);
     }
 
     public void ResetAnimador() {
