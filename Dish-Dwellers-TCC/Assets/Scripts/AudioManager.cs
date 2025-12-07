@@ -25,16 +25,20 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        // DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = defaultMasterVolume;
-        LoadVolume();
     }
 
     void Start(){
-        masterVolumeSlider = (SliderController)FindObjectOfType(typeof(SliderController), true);
-        masterVolumeSlider.sliderObject.onValueChanged.AddListener(MudaVolume); 
+        LoadVolumeSafe();
+
+        masterVolumeSlider = FindObjectOfType<SliderController>(true);
+
+        if (masterVolumeSlider != null) {
+            masterVolumeSlider.sliderObject.onValueChanged.AddListener(MudaVolume);
+        }
     }
 
     /// <summary>
@@ -61,9 +65,13 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetFloat(key, value);
         PlayerPrefs.Save();
     }
-    public void LoadVolume(){
-        currentMasterVolume = PlayerPrefs.GetFloat(masterVolumeKey);
+    private void LoadVolumeSafe()
+    {
+        currentMasterVolume = PlayerPrefs.GetFloat(masterVolumeKey, defaultMasterVolume);
         MudaVolume(currentMasterVolume);
-        masterVolumeSlider.MudarValueSlider(currentMasterVolume);
+
+        if(masterVolumeSlider != null) {
+            masterVolumeSlider.MudarValueSlider(currentMasterVolume);
+        }
     }
 }
