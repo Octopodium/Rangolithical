@@ -6,6 +6,7 @@ public class AnimadorPlayer : MonoBehaviour
 {
     private Animator animator;
     private AnimatorOverrideController animatorOverrideController;
+    [SerializeField] private GameObject chama;
 
     #region Coisas de Áudio...
     private AudioSource audioSource;
@@ -87,6 +88,9 @@ public class AnimadorPlayer : MonoBehaviour
         // Coloca a animação de andar no animator.
         animator.SetBool(Anda, velocidade.sqrMagnitude > 0);
     }
+
+    public void LigarChama() => chama.SetActive(true);
+    public void DesligarChama() => chama.SetActive(false);
 
     /// <summary>
     /// Atribui a animação de andar correta ao jogador, baseada no Vetor de velocidade.

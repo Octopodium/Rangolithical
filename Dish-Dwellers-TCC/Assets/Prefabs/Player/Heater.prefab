@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6773236473951336124, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
       propertyPath: identificador
-      value: $e4a377b3a3594e6bb79d9e8f2c1e9c4c
+      value: $f2845b2a51b24413bcbc05a512047273
       objectReference: {fileID: 0}
     - target: {fileID: -6773236473951336124, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
       propertyPath: idObjetoSincronizado
@@ -508,6 +508,11 @@ GameObject:
 --- !u!4 &8366252797977505099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6562051820744068312, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
+  m_PrefabInstance: {fileID: 3390068998467412371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8411007399577850189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6607369306247524574, guid: 2395aaa16ceb2334aa61f683e605a068, type: 3}
   m_PrefabInstance: {fileID: 3390068998467412371}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5026450672744511406
@@ -1116,6 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee40e2f6e95668a478feab02c6ce07da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chama: {fileID: 8411007399577850189}
   audioClips:
   - {fileID: 8300000, guid: d662b31952a0c8f4181f652bd0fac2d1, type: 3}
   - {fileID: 8300000, guid: bc7eb2dae82f23d44a3fb9e3134d4498, type: 3}

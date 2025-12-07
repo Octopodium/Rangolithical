@@ -7,8 +7,6 @@ public class AnimatorPerseguidor : MonoBehaviour {
     #region Parâmetros do animator
 
     public static readonly int persegue = Animator.StringToHash("Persegue");
-    public static readonly int deCabecaPraBaixo = Animator.StringToHash("DeCabecaPraBaixo");
-    public static readonly int atacar = Animator.StringToHash("Ataca");
 
     //public static readonly int patrulha = Animator.StringToHash("Patrulha");
 
@@ -27,7 +25,6 @@ public class AnimatorPerseguidor : MonoBehaviour {
     }
 
     public void Ataca(bool val) {
-        animator.SetBool(atacar, val);
         Persegue(false);
     }
 
