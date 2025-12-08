@@ -292,6 +292,20 @@ public class GameManager : MonoBehaviour {
         OnMudaDeSala?.Invoke();
     }
 
+    public void PassaDeSalaImediato(string nomeDaSala) {
+        StartCoroutine(PassaDeSalaDireto(nomeDaSala));
+    }
+
+    IEnumerator PassaDeSalaDireto(string nomeDaSala) {
+        carregando = true;
+        telaDeLoading.AtivarTelaDeCarregamento(true);
+        yield return new WaitForSeconds(telaDeLoading.GetTempoDeTransicao());
+        cenaAtualNome = nomeDaSala;
+
+        SceneManager.LoadScene(nomeDaSala, LoadSceneMode.Additive);
+        OnMudaDeSala?.Invoke();
+    }
+
     /// <summary>
     /// Reinicia a sala para as condições iniciais.
     /// </summary>
@@ -440,6 +454,7 @@ public class GameManager : MonoBehaviour {
         yield return new WaitUntil(() => cenaProx == null|| cenaProx.isDone);
 
     }
+
 
     IEnumerator UnloadSala(Scene scene){
         unloading = SceneManager.UnloadSceneAsync(scene);

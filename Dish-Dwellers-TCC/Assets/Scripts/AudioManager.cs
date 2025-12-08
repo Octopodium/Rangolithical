@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = defaultMasterVolume;
