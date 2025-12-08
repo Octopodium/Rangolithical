@@ -4003,6 +4003,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6391750633892144782}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2560069839367621699
 GameObject:
   m_ObjectHideFlags: 0
@@ -4840,6 +4852,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8562994971750753966}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2873087688672212902
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,6 +5444,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6857846103275121174}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2379073594466877016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5433,8 +5469,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   underline: {fileID: 0}
-  buttonScaleFactor: {x: 1.1, y: 1.1, z: 1.1}
-  buttonDefaultFactor: {x: 1, y: 1, z: 1}
+  buttonScaleFactor: {x: 2.5, y: 2.5, z: 2.5}
+  buttonDefaultFactor: {x: 2.2, y: 2.2, z: 2.2}
   objectToScale: {fileID: 0}
   objectInitialFactor: {x: 0, y: 0, z: 0}
   objectScaleDuration: 0.2
@@ -6287,7 +6323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 276.6942, y: -37.367096}
+  m_AnchoredPosition: {x: 276.69415, y: -37.367096}
   m_SizeDelta: {x: 53.0819, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4474074523493849380
@@ -6443,6 +6479,7 @@ MonoBehaviour:
     - config
     - continuar
     - controles
+    - ajustar_jogadores
   - prefix: tutorial_
     textosAfetados:
     - move
@@ -6450,7 +6487,7 @@ MonoBehaviour:
     - troca
     - act
     - aim
-  dropdown: {fileID: 0}
+  dropdown: {fileID: 4305943079753377088}
 --- !u!1 &3572949840334527148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7240,7 +7277,7 @@ GameObject:
   - component: {fileID: 5083893303338466267}
   - component: {fileID: 6585296420228165119}
   m_Layer: 5
-  m_Name: AjusteMultiplayerText
+  m_Name: ajustar_jogadores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8230,7 +8267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: -1
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 48990228160860246}
@@ -8610,8 +8647,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 364, y: -17}
-  m_SizeDelta: {x: 420.858, y: 461.952}
+  m_AnchoredPosition: {x: 364, y: -15.353}
+  m_SizeDelta: {x: 420.858, y: 409.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &685708938620720795
 CanvasRenderer:
@@ -11958,7 +11995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125.07654, y: -37.367096}
+  m_AnchoredPosition: {x: 125.0766, y: -37.367096}
   m_SizeDelta: {x: 50.1532, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2888421607183745681

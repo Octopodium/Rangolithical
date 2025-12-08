@@ -133,6 +133,7 @@ public class UICard : MonoBehaviour
         StartCoroutine("ScaleIn");
         comprarFullBtn.gameObject.SetActive(false);
         indicadorQuantidade.UpdateQuantidade();
+        fecharBtn.Select();
     }
 
     public void ConfiguracoesNormais(){
