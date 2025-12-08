@@ -820,6 +820,10 @@ PrefabInstance:
       value: Grudavel
       objectReference: {fileID: 0}
     - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+      propertyPath: decal
+      value: 
+      objectReference: {fileID: 252862805}
+    - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
       propertyPath: posF.x
       value: -8.410002
       objectReference: {fileID: 0}
@@ -842,6 +846,26 @@ PrefabInstance:
     - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
       propertyPath: posO.z
       value: -5.7299995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+      propertyPath: corAtivada.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+      propertyPath: corAtivada.b
+      value: 1.0875531
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+      propertyPath: corAtivada.g
+      value: 1.1199454
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+      propertyPath: corDesativada.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928965220052009691, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
+      propertyPath: corDesativada.r
+      value: 1.8778619
       objectReference: {fileID: 0}
     - target: {fileID: 5348204916435351959, guid: 976f3f5af92e95644b1dfc1cea4328e0, type: 3}
       propertyPath: m_LocalScale.x
@@ -2685,7 +2709,7 @@ PrefabInstance:
       objectReference: {fileID: 252862805}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: decalsLinkados.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: 'decalsLinkados.Array.data[0]'
@@ -5250,7 +5274,7 @@ PrefabInstance:
       objectReference: {fileID: 252862805}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: decalsLinkados.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2652810447332975667, guid: 0dceb1236f1e91f459f6eec8708b54b8, type: 3}
       propertyPath: 'decalsLinkados.Array.data[0]'
@@ -9725,7 +9749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.6984253
+      value: 7.698427
       objectReference: {fileID: 0}
     - target: {fileID: 2083375835966827813, guid: 14337f48f56117f4591b6f33c3a829a5, type: 3}
       propertyPath: m_LocalRotation.w

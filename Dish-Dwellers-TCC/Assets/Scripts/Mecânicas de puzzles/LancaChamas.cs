@@ -26,7 +26,6 @@ public class LancaChamas : MonoBehaviour
     }
 
     private void CastColisao(Vector3 origem, Vector3 direcao, float distancia, int index){
-        if(index>0) Debug.Log("Refletiu");
         if(index > 1) return;
         rays[index] = new Ray(origem , direcao);
 

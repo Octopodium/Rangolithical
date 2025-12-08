@@ -8118,6 +8118,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5495382886329868030, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
+      propertyPath: cadeado
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5738875683432274772, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.36
@@ -8178,23 +8182,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5495382886329868030, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
+    - {fileID: 5786580189332840596, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5953933198379523406, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
---- !u!114 &940859130 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5495382886329868030, guid: 951caea02fc83a443ab847eb9e185548, type: 3}
-  m_PrefabInstance: {fileID: 940859129}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f72cf4349dc0446a7d6d4e79ac085f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &947437100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10124,15 +10119,14 @@ MonoBehaviour:
   - {fileID: 831223619}
   triggers: []
   resetaveis:
-  - {fileID: 1618034007}
-  - {fileID: 1886499698}
-  - {fileID: 1419634669}
-  - {fileID: 940859130}
-  - {fileID: 1663034736}
-  - {fileID: 1413164984}
   - {fileID: 2023178727}
+  - {fileID: 1618034007}
   - {fileID: 2039652475}
   - {fileID: 1701110595}
+  - {fileID: 1413164984}
+  - {fileID: 1886499698}
+  - {fileID: 1663034736}
+  - {fileID: 1419634669}
   onResetSala:
     m_PersistentCalls:
       m_Calls: []
