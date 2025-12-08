@@ -1289,6 +1289,33 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DevTools7"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd5a23f0-c979-4b1e-be90-79d134558314"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DevTools8"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa2e932b-bce1-4f0b-9e57-443fcb1b1b1b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DevTools9"",
+                    ""type"": ""Button"",
+                    ""id"": ""3daeedde-90b1-42ee-b83e-084fb3ef5ba6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1388,6 +1415,39 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DevTools6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cf405e0-a81e-4279-b984-95be490a7548"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DevTools7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""845940ed-679a-49d3-b83b-06f49135c81e"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DevTools8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54e80904-74f3-434b-8e1c-afc924fe6f2d"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DevTools9"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1493,6 +1553,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         m_Geral_DevTools4 = m_Geral.FindAction("DevTools4", throwIfNotFound: true);
         m_Geral_DevTools5 = m_Geral.FindAction("DevTools5", throwIfNotFound: true);
         m_Geral_DevTools6 = m_Geral.FindAction("DevTools6", throwIfNotFound: true);
+        m_Geral_DevTools7 = m_Geral.FindAction("DevTools7", throwIfNotFound: true);
+        m_Geral_DevTools8 = m_Geral.FindAction("DevTools8", throwIfNotFound: true);
+        m_Geral_DevTools9 = m_Geral.FindAction("DevTools9", throwIfNotFound: true);
     }
 
     ~@Actions()
@@ -1995,6 +2058,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Geral_DevTools4;
     private readonly InputAction m_Geral_DevTools5;
     private readonly InputAction m_Geral_DevTools6;
+    private readonly InputAction m_Geral_DevTools7;
+    private readonly InputAction m_Geral_DevTools8;
+    private readonly InputAction m_Geral_DevTools9;
     /// <summary>
     /// Provides access to input actions defined in input action map "Geral".
     /// </summary>
@@ -2038,6 +2104,18 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Geral/DevTools6".
         /// </summary>
         public InputAction @DevTools6 => m_Wrapper.m_Geral_DevTools6;
+        /// <summary>
+        /// Provides access to the underlying input action "Geral/DevTools7".
+        /// </summary>
+        public InputAction @DevTools7 => m_Wrapper.m_Geral_DevTools7;
+        /// <summary>
+        /// Provides access to the underlying input action "Geral/DevTools8".
+        /// </summary>
+        public InputAction @DevTools8 => m_Wrapper.m_Geral_DevTools8;
+        /// <summary>
+        /// Provides access to the underlying input action "Geral/DevTools9".
+        /// </summary>
+        public InputAction @DevTools9 => m_Wrapper.m_Geral_DevTools9;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2088,6 +2166,15 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @DevTools6.started += instance.OnDevTools6;
             @DevTools6.performed += instance.OnDevTools6;
             @DevTools6.canceled += instance.OnDevTools6;
+            @DevTools7.started += instance.OnDevTools7;
+            @DevTools7.performed += instance.OnDevTools7;
+            @DevTools7.canceled += instance.OnDevTools7;
+            @DevTools8.started += instance.OnDevTools8;
+            @DevTools8.performed += instance.OnDevTools8;
+            @DevTools8.canceled += instance.OnDevTools8;
+            @DevTools9.started += instance.OnDevTools9;
+            @DevTools9.performed += instance.OnDevTools9;
+            @DevTools9.canceled += instance.OnDevTools9;
         }
 
         /// <summary>
@@ -2123,6 +2210,15 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @DevTools6.started -= instance.OnDevTools6;
             @DevTools6.performed -= instance.OnDevTools6;
             @DevTools6.canceled -= instance.OnDevTools6;
+            @DevTools7.started -= instance.OnDevTools7;
+            @DevTools7.performed -= instance.OnDevTools7;
+            @DevTools7.canceled -= instance.OnDevTools7;
+            @DevTools8.started -= instance.OnDevTools8;
+            @DevTools8.performed -= instance.OnDevTools8;
+            @DevTools8.canceled -= instance.OnDevTools8;
+            @DevTools9.started -= instance.OnDevTools9;
+            @DevTools9.performed -= instance.OnDevTools9;
+            @DevTools9.canceled -= instance.OnDevTools9;
         }
 
         /// <summary>
@@ -2454,5 +2550,26 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDevTools6(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DevTools7" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDevTools7(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DevTools8" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDevTools8(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DevTools9" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDevTools9(InputAction.CallbackContext context);
     }
 }

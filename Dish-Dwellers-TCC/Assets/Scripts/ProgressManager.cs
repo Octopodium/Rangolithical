@@ -67,6 +67,25 @@ public class ProgressManager : MonoBehaviour {
         return sala.numeroDaRegiao == loadedProgress.ultimoNivelAlcancado && sala.numeroDaSala <= loadedProgress.ultimaSalaAlcancada;
     }
 
+
+    public void LiberarTodas() {
+        loadedProgress = new Progress{
+            ultimoNivelAlcancado = 5,
+            ultimaSalaAlcancada = 5,
+        };
+
+        SalvarProgresso(loadedProgress);
+    }
+
+    public void Zerar() {
+        loadedProgress = new Progress{
+            ultimoNivelAlcancado = 1,
+            ultimaSalaAlcancada = 1,
+        };
+
+        SalvarProgresso(loadedProgress);
+    }
+
 }
 
 [Serializable]

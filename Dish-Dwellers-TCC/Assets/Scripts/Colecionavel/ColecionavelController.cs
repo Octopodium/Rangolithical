@@ -40,6 +40,11 @@ public struct ColetavelSave {
         this.receitas = receitas;
     }
 
+    public void Zerar() {
+        coletaveis.Clear();
+        receitas.Clear();
+    }
+
     public ColetavelSaveInFile SaveInFile() {
         return new ColetavelSaveInFile(coletaveis.Values.ToArray(), receitas.Values.ToArray());
     }
@@ -376,5 +381,17 @@ public class ColecionavelController : MonoBehaviour {
 
         callback?.Invoke(save);
         onCarregado?.Invoke(save);
+    }
+
+
+    public void CarregarTodos() {
+        foreach(var colecionavel in colecionaveis.Values) {
+            if (!Tem(colecionavel)) Coletar(colecionavel);
+        }
+    }
+
+    public void Zerar() {
+        save.Zerar();
+        Salvar();
     }
 }

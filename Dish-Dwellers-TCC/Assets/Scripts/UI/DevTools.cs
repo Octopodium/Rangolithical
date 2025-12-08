@@ -32,6 +32,9 @@ public class DevTools : MonoBehaviour {
         GameManager.instance.input.Geral.DevTools4.performed += ctx => { if (isInDevTools) ToggleEstadoPorta(); };
         GameManager.instance.input.Geral.DevTools5.performed += ctx => { if (isInDevTools) TeleportaAnglerParaHeater(); };
         GameManager.instance.input.Geral.DevTools6.performed += ctx => { if (isInDevTools) TeleportaHeaterParaAngler(); };
+        GameManager.instance.input.Geral.DevTools7.performed += ctx => { if (isInDevTools) LiberarColecionaveis(); };
+        GameManager.instance.input.Geral.DevTools8.performed += ctx => { if (isInDevTools) LiberarSalas(); };
+        GameManager.instance.input.Geral.DevTools9.performed += ctx => { if (isInDevTools) Zerar(); };
     }
 
     // Shift + 1 - Trocar de cena
@@ -143,6 +146,24 @@ public class DevTools : MonoBehaviour {
         }
 
         Teleportransporta(heater, angler);
+    }
+
+
+    // Shift + 7 - Liberar todos colecionaveis
+    public void LiberarColecionaveis() {
+        ColecionavelController.instance.CarregarTodos();
+    }
+
+
+    // Shift + 8 - Liberar todas salas
+    public void LiberarSalas() {
+        ProgressManager.Instance.LiberarTodas();
+    }
+
+    // Shift + 9 - Liberar todas salas
+    public void Zerar() {
+        ProgressManager.Instance?.Zerar();
+        ColecionavelController.instance?.Zerar();
     }
 
 
