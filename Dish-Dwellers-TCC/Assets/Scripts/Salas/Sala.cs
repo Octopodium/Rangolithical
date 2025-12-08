@@ -15,7 +15,7 @@ public class sala : MonoBehaviour{
     public string nomeDaSala;
     public string nomeDoStage;
     [SerializeField] bool overrideProximaSala;
-    [SerializeField] string nomeOverrideDaProximaSala;
+    public string nomeOverrideDaProximaSala;
 
     [HideInInspector] public int nSala, nFase;
 

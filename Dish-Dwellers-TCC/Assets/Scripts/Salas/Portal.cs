@@ -13,8 +13,11 @@ public class Portal : IResetavel, SincronizaMetodo {
     List<Player> playersNoPortal = new List<Player>();
     [SerializeField] private Transform spawnDeSaida;
     Interagivel interagivel;
-
+    
     public IndicadorFalso indicadorSaida;
+
+    public bool semPreload = false;
+    public string salaEscolhidaSemPre = "";
 
     void Awake() {
         interagivel = GetComponentInParent<Interagivel>();
@@ -65,7 +68,8 @@ public class Portal : IResetavel, SincronizaMetodo {
         }
         indicadorSaida.Esconder();
         if (finalDaDemo) VaiParaOFim();
-        else GameManager.instance.PassaDeSala();
+        else if (!semPreload) GameManager.instance.PassaDeSala();
+        else GameManager.instance.IrParaSalaSemPreload(salaEscolhidaSemPre);
     }
 
 

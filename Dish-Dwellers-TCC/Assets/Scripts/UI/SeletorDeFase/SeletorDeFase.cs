@@ -9,6 +9,10 @@ public class SeletorDeFase : MonoBehaviour {
 
     public UnityEvent OnFechado;
 
+    public void Mostrar() {
+        gameObject.SetActive(true);
+    }
+
     public void SalaSelecionada(SalaInfo sala) {
         salaSelecionada?.Invoke(sala);
         if (irParaCena) IrParaSala(sala.caminhoParaSala);
