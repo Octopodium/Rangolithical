@@ -18,13 +18,16 @@ public class BotaoSelecionarFase : MonoBehaviour {
         Setup(sala);
 
         ChecarProgresso();
-        ProgressManager.Instance.OnProgressChange += ChecarProgresso;
+
+        if ( ProgressManager.Instance != null)
+            ProgressManager.Instance.OnProgressChange += ChecarProgresso;
 
         UpdateVisual();
     }
 
     void OnDestroy() {
-        ProgressManager.Instance.OnProgressChange -= ChecarProgresso;
+        if ( ProgressManager.Instance != null)
+            ProgressManager.Instance.OnProgressChange -= ChecarProgresso;
     }
 
     public void Setup(SalaInfo sala) {

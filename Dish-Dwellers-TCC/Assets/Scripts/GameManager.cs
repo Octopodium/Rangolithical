@@ -288,8 +288,10 @@ public class GameManager : MonoBehaviour {
 
         if (!isOnline || isServer) AnalyticsManager.instance?.FinalizarSala();
 
-        if (passarDeCenaSemPre)
-            EfetivamentePassarSemPreload();
+        if (passarDeCenaSemPre){
+            PassaDeSalaImediato(cenaSemPreload);
+            yield break;
+        }
 
         this.cenaAtualNome = sala.NomeProximaSala();
 
@@ -427,10 +429,6 @@ public class GameManager : MonoBehaviour {
 
         if (isOnline) RequestPassaDeSalaOnline();
         else StartCoroutine(PassaDeSalaOffline());
-    }
-
-    public void EfetivamentePassarSemPreload(){
-        SceneManager.LoadScene(cenaSemPreload);
     }
 
     private void SalvarProgresso(){

@@ -23,6 +23,7 @@ public class EscolherSalaNoLobby : MonoBehaviour, InteracaoCondicional, Sincroni
     }
 
     void HandleSalaSecionada(SalaInfo sala) {
+        seletor.gameObject.SetActive(false);
         SelecionarSala(sala.caminhoParaSala, sala.nomeDaSala);
     }
 
