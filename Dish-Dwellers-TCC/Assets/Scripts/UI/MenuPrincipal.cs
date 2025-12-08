@@ -4,11 +4,16 @@ using Mirror;
 
 public class MenuPrincipal : MonoBehaviour {
     public TMPro.TMP_Text buildVersionTxt;
+    public Button start;
 
 
     void Awake() {
         buildVersionTxt.text = "Build v" + Application.version;
         PrevencaoDeBugs();
+    }
+
+    void Start(){
+        start.Select();
     }
 
 
