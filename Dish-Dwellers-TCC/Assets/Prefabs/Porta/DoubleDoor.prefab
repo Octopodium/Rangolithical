@@ -354,7 +354,7 @@ AudioSource:
   m_GameObject: {fileID: 5266469779556692219}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 3888157759673288669, guid: c0a4c2e4f998b4d488946cafef7b2d7b, type: 2}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: c0a4c2e4f998b4d488946cafef7b2d7b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8b074887f8d68c44d9c8aa0e90152f56, type: 3}
   m_Resource: {fileID: 8300000, guid: 8b074887f8d68c44d9c8aa0e90152f56, type: 3}
   m_PlayOnAwake: 0
@@ -667,6 +667,8 @@ MonoBehaviour:
   canvasFinalDaDemo: {fileID: 0}
   spawnDeSaida: {fileID: 7726063650291813255}
   indicadorSaida: {fileID: 3041058422915517305}
+  semPreload: 0
+  salaEscolhidaSemPre: 
   cenaDoFim: Fim
 --- !u!114 &7176484666348276313
 MonoBehaviour:
