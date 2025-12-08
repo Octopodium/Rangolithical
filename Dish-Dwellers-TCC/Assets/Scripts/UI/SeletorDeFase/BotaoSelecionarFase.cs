@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class BotaoSelecionarFase : MonoBehaviour {
     public SalaInfo sala;
@@ -42,9 +44,19 @@ public class BotaoSelecionarFase : MonoBehaviour {
     void UpdateVisual() {
         if (sala != null) {
             nomeSalaTxt.text = sala.nomeNoSeletor;
+            var localizedString = new LocalizedString(){
+                TableReference = "LocalizationTable",
+                TableEntryReference = sala.nomeNoSeletor
+            };
+            localizedString.StringChanged += (translatedText) => //evento do localization
+            {
+                nomeSalaTxt.text = translatedText;
+            };
         } else {
             nomeSalaTxt.text = "";
         }
+
+
         
         Color cor = nomeSalaTxt.color;
         cor.a = salaLiberada ? opacidadeQuandoAtivo : opacidadeQuandoInativo;
