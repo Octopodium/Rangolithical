@@ -249,7 +249,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void RedefinirControlesMultiplayerOnline() {
-        selecaoDePersonagem.ComecarSelecaoOnline();
+        if (jogadores.Count > 1)
+            selecaoDePersonagem.ComecarSelecaoOnline();
     }
 
     #endregion
@@ -266,10 +267,13 @@ public class GameManager : MonoBehaviour {
     public Action OnTerminaDeCarregarASala;
     public bool carregando;
     [SerializeField] private ITransicao telaDeTransicaoFogo, telaDeTransicaoAgua, telaDeTransicaoPorrada;
+    bool passarDeCenaSemPre = false;
+    string cenaSemPreload = "";
 
 
     
     public void PassaDeSala() {
+        passarDeCenaSemPre = false;
         if (isOnline) RequestPassaDeSalaOnline();
         else StartCoroutine(PassaDeSalaOffline());
     }
@@ -283,6 +287,9 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Acabou a transição");
 
         if (!isOnline || isServer) AnalyticsManager.instance?.FinalizarSala();
+
+        if (passarDeCenaSemPre)
+            EfetivamentePassarSemPreload();
 
         this.cenaAtualNome = sala.NomeProximaSala();
 
@@ -398,6 +405,18 @@ public class GameManager : MonoBehaviour {
         }
         StartCoroutine(PreloadProximaSala(proximaSala));
 
+    }
+
+    public void IrParaSalaSemPreload(string nomeSala){
+        passarDeCenaSemPre = true;
+        cenaSemPreload = nomeSala;
+
+        if (isOnline) RequestPassaDeSalaOnline();
+        else StartCoroutine(PassaDeSalaOffline());
+    }
+
+    public void EfetivamentePassarSemPreload(){
+        SceneManager.LoadScene(cenaSemPreload);
     }
 
     private void SalvarProgresso(){
