@@ -14,7 +14,8 @@ public class GanchoPuxador : IResetavel
 
     bool hasGameManagerCallback = false;
     public void Start(){
-        startPosition = meshBoia.transform.position;
+        startPosition = transform.position;
+        UnsinkBoia();
 
         if (GameManager.instance.jogadores.Count == 0) {
             GameManager.instance.OnPlayersInstanciados += SetupAngler;

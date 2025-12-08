@@ -2085,6 +2085,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  decal: {fileID: 0}
+  corAtivada: {r: 0, g: 0, b: 0, a: 0}
+  corDesativada: {r: 0, g: 0, b: 0, a: 0}
   posO: {x: 0.9400011, y: 4, z: 11.8}
   posF: {x: 0.9400011, y: 4, z: 6.890001}
   onAtivado:
@@ -3986,7 +3989,7 @@ MonoBehaviour:
       m_Calls: []
   nomeDaSala: Template
   nomeDoStage: Template
-  overrideProximaSala: 1
+  overrideProximaSala: 0
   nomeOverrideDaProximaSala: Fim
   nSala: 0
   nFase: 0
