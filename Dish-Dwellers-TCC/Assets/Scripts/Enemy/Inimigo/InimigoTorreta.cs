@@ -122,7 +122,9 @@ public class InimigoTorreta : Inimigo, SincronizaMetodo
     void AposSpawnTiro(GameObject tiro) {
         if (tiro != null) {
             tiro.transform.LookAt(target);
-            tiro.GetComponent<Projectile>().owner = this.gameObject;
+            Projectile proj = tiro.GetComponent<Projectile>();
+            proj.owner = this.gameObject;
+            proj.SetDir(proj.transform.forward);
         }
     }
 

@@ -28,6 +28,10 @@ public class Projectile : MonoBehaviour, SincronizaMetodo {
         currentLifeTime = lifeTime;
     }
 
+    public void SetDir(Vector3 dir) {
+        direction = dir;
+    }
+
     void FixedUpdate() {
         transform.Translate(direction * projectileSpeed * Time.deltaTime, Space.World);
 
