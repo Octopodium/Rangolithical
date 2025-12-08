@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class PauseUI : MonoBehaviour {
     public GameObject[] telasInternasPause;
@@ -71,8 +72,8 @@ public class PauseUI : MonoBehaviour {
                 } else {
                     singleplayerButton.gameObject.SetActive(false);
                     multiplayerButton.gameObject.SetActive(false);
-                    ajustarMultiplayerButton.gameObject.SetActive(true);
-                    navigation.selectOnDown = ajustarMultiplayerButton;
+                    ajustarMultiplayerButton.gameObject.SetActive(false);
+                    navigation.selectOnDown = null;
 
                     Navigation multNav = ajustarMultiplayerButton.navigation;
                     multNav.selectOnLeft = null;
