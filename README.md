@@ -1,4 +1,4 @@
-<p align="center"><img width=100% src="Resources/menuImage.png"></p>
+<p align="center"><img width=100% src="Resources/topPic.png"></p>
 
 ![version](https://img.shields.io/badge/Unity_Version-6%206000.0.38f1-blue)
 
