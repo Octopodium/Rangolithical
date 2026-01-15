@@ -2,7 +2,7 @@
 
 ![version](https://img.shields.io/badge/Unity_Version-6%206000.0.39f1-blue)
 
-# Rangolitico
+# Rangolithical
 
 ## About
 
