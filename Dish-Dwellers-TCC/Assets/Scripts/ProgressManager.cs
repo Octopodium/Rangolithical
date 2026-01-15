@@ -45,7 +45,8 @@ public class ProgressManager : MonoBehaviour {
     }
 
     public async void SalvarProgresso(Progress progresso) {
-        Debug.Log("Iniciando salvamento...");
+        loadedProgress = progresso;
+        Debug.Log($"Iniciando salvamento...\n nivel : {progresso.ultimoNivelAlcancado}\n sala : {progresso.ultimaSalaAlcancada}");
         iconeSalvando.SetActive(true);
         string json = JsonUtility.ToJson(progresso);
         await File.WriteAllTextAsync(path, json);

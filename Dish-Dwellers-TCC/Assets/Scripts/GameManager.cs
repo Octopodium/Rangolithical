@@ -400,6 +400,11 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(UnloadSala(this.sala.gameObject.scene));
         }
 
+        // Evita de tentar carregar uma sala quando está voltando para o menu principal:
+        if (voltandoParaMenu) return;
+
+        Debug.Log("Setou a sala: " + sala.nSala);
+
         // Determina a sala informada como a sala atual :
         this.sala = sala;
 
@@ -409,11 +414,7 @@ public class GameManager : MonoBehaviour {
         cenaAtualNome = SceneManager.GetActiveScene().name;
 
         if (!isOnline || isServer) AnalyticsManager.instance?.ComecarSala(cenaAtualNome);
-
-
-        // Evita de tentar carregar uma sala quando está voltando para o menu principal:
-        if (voltandoParaMenu) return;
-
+        
         // Inicia o precarregamento da próxima sala :
         string proximaSala = sala.NomeProximaSala();
         if (proximaSala == string.Empty) {
@@ -436,6 +437,12 @@ public class GameManager : MonoBehaviour {
             Debug.Log($"<color=yellow> ProgressManager não pôde ser encontrado, portanto, progresso pode não ser salvo.</color>");
             return;
         }
+
+        if(sala == null || sala.nFase <= 0 || sala.nSala <= 0){
+            Debug.Log($"<color=yellow> Valor da sala invalido, portanto, progresso pode não ser salvo.</color>");
+            return;
+        }
+
         Progress progresso = ProgressManager.Instance.CarregarProgresso();
         if(progresso != null){
             if(progresso.ultimoNivelAlcancado > sala.nFase) return;
@@ -656,6 +663,7 @@ public class GameManager : MonoBehaviour {
 
     public void VoltarParaMenu() {
         if (voltandoParaMenu) return;
+        voltandoParaMenu = true;
 
         Time.timeScale = 1;
 
@@ -671,7 +679,6 @@ public class GameManager : MonoBehaviour {
         ForcarCenaAguardando();
 
         StartCoroutine(VoltarParaMenuAsync());
-        voltandoParaMenu = true;
     }
 
     IEnumerator VoltarParaMenuAsync() {
